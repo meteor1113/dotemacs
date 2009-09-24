@@ -1,0 +1,6 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : #ifndef ... #define ... #endif
+# --
+#ifndef $1
+#define ${1:SYMBOL} ${value}
+#endif

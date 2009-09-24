@@ -1,0 +1,8 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : Responses to Selector
+# --
+// Send $2 to $1, if $1 supports it
+if ([${1:self} respondsToSelector:@selector(${2:someSelector:})])
+{
+    [$1 $2];
+}

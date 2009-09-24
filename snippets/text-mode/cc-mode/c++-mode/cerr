@@ -1,0 +1,4 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : std::cerr << ... << std::endl;
+# --
+std::cerr << $1 << std::endl;$0

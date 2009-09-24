@@ -1,0 +1,7 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : NSAutoreleasePool
+# --
+NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+$0
+[pool release];
+pool = nil;

@@ -1,0 +1,14 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : String
+# --
+- (NSString*)${1:thing}
+{
+    return $1;
+}
+
+
+- (void)set${1:$(capitalize text)}:(NSString*)aValue
+{
+    [$1 release];
+    $1 = [aValue copy];
+}

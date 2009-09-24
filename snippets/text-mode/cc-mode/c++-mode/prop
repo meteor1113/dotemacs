@@ -1,0 +1,5 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : getter && setter(.h)
+# --
+${1:int} Get${2:Value}() const;
+void Set$2(const $1& value);

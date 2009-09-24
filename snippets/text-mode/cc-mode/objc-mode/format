@@ -1,0 +1,4 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : NSString With Format
+# --
+[NSString stringWithFormat:@"$1", $2]$0

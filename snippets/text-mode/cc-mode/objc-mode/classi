@@ -1,0 +1,11 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : Class Interface
+# --
+@interface ${1:Name} : ${NSObject}
+{$0
+}
+
+- (id)init;
+- (void)dealloc;
+
+@end

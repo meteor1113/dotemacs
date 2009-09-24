@@ -1,0 +1,6 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : Lock Focus
+# --
+[self lockFocus];
+$0
+[self unlockFocus];

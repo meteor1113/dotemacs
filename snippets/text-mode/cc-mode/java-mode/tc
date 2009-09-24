@@ -1,0 +1,6 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : test case
+# --
+public class ${1:Name} extends ${2:TestCase} {
+    $0
+}

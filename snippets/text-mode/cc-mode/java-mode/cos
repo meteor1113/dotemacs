@@ -1,0 +1,4 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : costant string
+# --
+static public final String ${1:var} = "$2";$0

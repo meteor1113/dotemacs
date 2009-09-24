@@ -1,0 +1,4 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : fprintf ...
+# --
+fprintf(stderr, "${1:%s}\n", $2);$0

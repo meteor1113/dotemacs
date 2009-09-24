@@ -1,0 +1,13 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : read file into vector<string>
+# --
+std::vector<char> ${1:v};
+std::ifstream f(${"filename"});
+if (f)
+{
+    std::string line;
+    while (std::getline(f, line))
+    {
+        $1.push_back(line);
+    }
+}

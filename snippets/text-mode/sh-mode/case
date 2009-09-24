@@ -1,0 +1,7 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : case ... esac
+# --
+case ${word} in
+    ${pattern})
+        $0;;
+esac

@@ -1,0 +1,6 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : interface
+# --
+interface ${1:`(file-name-sans-extension (buffer-name))`} extends ${2:Parent} {
+    $0$>
+}$>

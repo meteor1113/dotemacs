@@ -1,0 +1,11 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : Category
+# --
+@interface ${1:NSObject} (${2:Category})
+$0
+@end
+
+
+@implementation $1 ($2)
+
+@end

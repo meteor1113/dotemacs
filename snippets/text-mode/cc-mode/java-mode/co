@@ -1,0 +1,4 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : constant
+# --
+static public final ${1:String} ${2:var} = $3;$0

@@ -1,0 +1,13 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : Primitive Type
+# --
+- (${1:int})${2:thing}
+{
+    return $2;
+}
+
+
+- (void)set${2:$(capitalize text)}:($1)aValue
+{
+    $2 = aValue;
+}

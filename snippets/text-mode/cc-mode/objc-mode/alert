@@ -1,0 +1,15 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : NSRunAlertPanel
+# --
+int choice = NSRunAlertPanel(@"${Something important!}",
+                             @"${do you want to continue?}",
+                             @"${Continue}",
+                             @"${Cancel}",
+                             nil);
+if (choice == NSAlertDefaultReturn) // "Continue"
+{
+    $0;
+}
+else if (choice == NSAlertAlternateReturn) // "Cancel"
+{
+}

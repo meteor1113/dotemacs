@@ -1,0 +1,11 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : Method: init
+# --
+- (id)init
+{
+    self = [super init];
+    if (self != nil)
+    {$0
+    }
+    return self;
+}

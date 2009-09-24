@@ -1,0 +1,6 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : else if
+# --
+else if ($1) {
+    $0$>
+}$>

@@ -1,0 +1,5 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : [... release];
+# --
+[${1:obj} release];
+$1 = nil;

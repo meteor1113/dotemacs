@@ -1,0 +1,14 @@
+#-*- mode: Fundamental; -*-
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : getter && setter(.cpp)
+# --
+${1:int} ${2:ClassName}::Get${3:Value}() const
+{
+    return m$3;
+}
+
+
+void $2::Set$3(const $1& value)
+{
+    m$3 = value;
+}

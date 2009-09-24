@@ -1,0 +1,31 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : Class
+# --
+@interface ${1:Name} : ${NSObject}
+{$0
+}
+
+- (id)init;
+- (void)dealloc;
+
+@end
+
+
+@implementation $1
+
+- (id)init
+{
+    self = [super init];
+    if (self != nil)
+    {
+    }
+    return self;
+}
+
+
+- (void)dealloc
+{
+    [super dealloc];
+}
+
+@end

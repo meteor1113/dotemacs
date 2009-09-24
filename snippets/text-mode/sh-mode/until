@@ -1,0 +1,6 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : until ... done
+# --
+until [[ ${condition} ]]; do
+    ${#statements}
+done

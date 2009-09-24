@@ -1,0 +1,5 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : copyright notice
+#condition: 'force-in-comment
+# --
+Copyright (C) `(format-time-string "%Y")` ${`user-full-name`}. All Rights Reserved.

@@ -1,0 +1,313 @@
+2009-09-23  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-mac.el: Remove.
+
+	* lisp/pysmell.el: Remove.
+
+	* lisp/company/company-ropemacs.el (company-ropemacs): Change (company-pysmell--grab-symbol) to (company-ropemacs--grab-symbol).
+
+2009-09-17  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (org-mode-hook): Add (setq comment-start nil) for org-mode.
+
+2009-09-15  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Set key for comment-or-uncomment-region.
+
+2009-09-04  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: use yasnippet in org-mode for yasnippet-0.6.1b.(from joaotavora)
+
+2009-09-01  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (nxml-mode-hook): Make nxml-mode can show <> in show-paren-mode.
+
+2009-08-28  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Add nxml setting.
+
+2009-08-26  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Add (setq cua-keep-region-after-copy t).
+	: Add (display-time-mode t).
+
+2009-08-24  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (perl-mode-hook): Setup for perl-mode and cperl-mode.
+
+	* lisp/auto-complete/auto-complete.el: Upgrade to 0.3.0 alpha.
+
+	* init-misc.el: Using auto-complete for cpp/css/elisp.
+
+2009-08-21  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (cperl-mode-hook): For perl.
+
+2009-08-18  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Close (require 'gtags) and (require 'htmlize).
+
+2009-08-17  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (org-log-done): Close (global-hl-line-mode t).
+	Close (global-highlight-changes-mode t).
+
+2009-08-14  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-cedet.el (semanticdb-default-save-directory): Change from "~/.emacs.d" to"~/.semanticdb".
+
+	* init-basic.el: Add (global-highlight-changes-mode t).
+	(show-trailing-whitespace): (setq-default show-trailing-whitespace t).
+	(org-mode-hook): Add (auto-fill-mode t) for org-mode.
+	(bookmark-save-flag): Add (setq bookmark-save-flag 1).
+
+	* init-misc.el (c-mode-common-hook): Add (doxymacs-font-lock).
+
+2009-08-12  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (saveplace): Add (require 'saveplace). because only (setq-default save-place t) can't work.
+
+2009-08-09  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-ropemacs.el: Rename to init-rope.el
+
+2009-08-08  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el: Split to init-basic.el, init-cedet.el, init-misc.el, init-mac.el, init-winnt.el
+	* py-init.el: Change file name to init-ropemacs.el
+	* jde-init.el: Change file name init-jde.el
+
+2009-08-07  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el (c-mode-common-hook): Remove (setq tab-width 4).
+	(progmode-common-function): Change name to program-common-function.
+
+2009-07-30  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el: Add ffap setting.
+	: Add win32 sepcial setting.
+	: (from cedet::eieio)Add (enable-visual-studio-bookmarks), can use bookmark like visual studio.
+	: Open (which-function-mode t).
+	(progmode-common-function): Open (hs-minor-mode t).
+
+2009-07-28  Meteor Liu  <meteor1113@gmail.com>
+
+	* snippets/text-mode/org-mode/*: add some org-mode snippets.(from git://github.com/RickMoynihan/yasnippet-org-mode)
+
+	* emacs-init.el (org-mode-hook): for org-mode use yasnippet.
+
+2009-07-27  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el: add file lisp/htmlize.el.(for org-mode html export syntax highlighting)
+	(org-mode-hook): for org-mode, open imenu.
+
+2009-04-27  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el: remove elisp-symbols ac-sources for auto-complete.
+
+	* add snippets/text-mode/python-mode/comm.
+	delete snippets/text-mode/cc-mode/comm.1.
+	modify snippets/text-mode/cc-mode/comm.
+
+	* emacs-init.el: use global-company-mode instead of hook.
+
+2009-04-17  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el: Add (global-reveal-mode t).
+
+2009-04-16  Meteor Liu  <meteor1113@gmail.com>
+
+	* Add company-mode 0.3.1.
+
+2009-03-30  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el: Open (semantic-load-enable-semantic-debugging-helpers).
+	: Close (global-hl-line-mode t).
+
+2009-03-26  Meteor Liu  <meteor1113@gmail.com>
+
+	* Add prj.el.
+
+	* jde-init.el: Remove (require 'jmaker).
+	(jde-enable-abbrev-mode): Add (setq jde-enable-abbrev-mode t).
+
+2009-03-25  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el (t): Open (global-hl-line-mode t).
+
+2009-03-19  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el (gtags): Add gtags.
+
+2009-03-11  Meteor Liu  <meteor1113@gmail.com>
+
+	* Add snippets/text-mode/cc-mode/c++-mode/prop.
+	Add snippets/text-mode/cc-mode/c++-mode/prop.impl.
+
+2009-03-06  Meteor Liu  <meteor1113@gmail.com>
+
+	* Add snippets/text-mode/cc-mode/comm.
+	* Add snippets/text-mode/cc-mode/comm.1.
+
+2009-03-05  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el: Remove company-mode.
+	: add ac-source-symbols for elisp mode.
+	* Upgrade auto-complete from 0.1.0 to 0.2.0.
+
+2009-03-04  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el (auto-mode-alist): open .h and .c in c++-mode.
+	* Add file lisp/color-theme.el.
+
+2009-03-03  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el: set key for semantic-ia-fast-jump and semantic-ia-fast-jump.
+	* dotemacssample: add file dotemacssample.
+
+2009-02-20  Meteor Liu  <meteor1113@gmail.com>
+
+	* Add snippets/text-mode/copyright.
+	Add snippets/text-mode/isod.
+	Add snippets/text-mode/user.
+
+2009-02-19  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs-init.el: Remove (require 'muse-mode), (require 'muse-html).
+
+2009-02-18  Meteor Liu  <meteor1113@gmail.com>
+
+	* Add snippets/text-mode/cc-mode/java-mode/file.
+	Add snippets/text-mode/cc-mode/java-mode/err.
+	Add snippets/text-mode/cc-mode/java-mode/imp.
+	Modify snippets/text-mode/cc-mode/java-mode/cl.
+	Modify snippets/text-mode/cc-mode/java-mode/in.
+	Modify snippets/text-mode/cc-mode/java-mode/im.
+	Add snippets/text-mode/cc-mode/as.
+
+	* Add snippets/text-mode/python-mode/imp.
+	Add snippets/text-mode/cc-mode/m.
+	Add snippets/text-mode/cc-mode/c++-mode/po.
+	Add snippets/text-mode/cc-mode/c++-mode/pu.
+	Add snippets/text-mode/cc-mode/c++-mode/pr.
+
+2009-02-17  Meteor Liu  <meteor1113@gmail.com>
+
+	* Move all third party .el to lisp dir.
+
+	* Add jde-init.el.
+	Add py-init.el.
+	* init.el (progmode-common-function): comment (hs-minor-mode t).
+
+2009-02-16  Meteor Liu  <meteor1113@gmail.com>
+
+	* Add jmaker.el and decompile.el for java.
+
+2009-02-13  Meteor Liu  <meteor1113@gmail.com>
+
+	* snippets/text-mode/cc-mode/java-mode/*: Add some java snippets.
+	* snippets/text-mode/cc-mode/case: Add case snippets for cc-mode.
+	* init.el (java-mode-hook): for java, use "java" style.
+
+2009-02-11  Meteor Liu  <meteor1113@gmail.com>
+
+	* snippets/text-mode/sh-mode/*: Add some sh-mode snippets.
+
+2009-02-10  Meteor Liu  <meteor1113@gmail.com>
+
+	* snippets/text-mode/python-mode/* : Add some python snippets.
+
+	* init.el (org-log-done): Add (setq org-log-done 'time), for org-mode.
+	(c-mode-common-hook): Add (setq tab-width 4) for cc-mode.
+
+2009-02-05  Meteor Liu  <meteor1113@gmail.com>
+
+	* snippets/* : Add some customize snippets for YASnippet.
+	* init.el: Load customize snippets for YASnippet.
+
+2009-02-04  Meteor Liu  <meteor1113@gmail.com>
+
+	* init.el: Remove blank-mode, use whitespace-mode instead.
+
+2009-02-01  Meteor Liu  <meteor1113@gmail.com>
+
+	* init.el: Add desktop-mode and icomplete-mode.
+
+2009-01-24  Meteor Liu  <meteor1113@gmail.com>
+
+	* init.el: Remove hippie-expand.
+
+2009-01-23  Meteor Liu  <meteor1113@gmail.com>
+
+	* init.el: Modify progmodes setting.
+	Add auto-complete.el.
+
+2009-01-19  Meteor Liu  <meteor1113@gmail.com>
+
+	* Add smart-compile.el.
+
+2009-01-12  Meteor Liu  <meteor1113@gmail.com>
+
+	* init.el: Add hippie-expand and company-mode.
+
+2008-12-16  Meteor Liu  <meteor1113@gmail.com>
+
+	* init.el (my-c-mode-common-hook): Remove "(yas/minor-mode-on)" from my-c-mode-common-hook. because if byte-compiled cedet on windows, yas/minor-mode can't auto turn on. if don't byte-compile, it can auto turn on. so we don't byte-compile cedet and remove this.
+
+2008-12-15  Meteor Liu  <meteor1113@gmail.com>
+
+	* init.el (my-c-mode-common-hook): Add "(yas/minor-mode-on)" to my-c-mode-common-hook. because yas/minor-mode isn't auto turn on.
+	Add "(set-scroll-bar-mode 'right)".
+
+2008-12-09  Meteor Liu  <meteor1113@gmail.com>
+
+	* init.el: Remove (load "color-theme").
+
+2008-12-08  Meteor Liu  <meteor1113@gmail.com>
+
+	* init.el: Remove session.el.
+	Add recentf, savehist, saveplace.
+	Add doxymacs directory to load-path.
+	Move doxymeacs.el and xml-parse.el to doxymacs directory.
+
+	* Add wubi directory.
+
+2008-11-28  Meteor Liu  <meteor1113@gmail.com>
+
+	* init.el: Add (show-paren-mode t).
+
+2008-11-21  Meteor Liu  <meteor1113@gmail.com>
+
+	* init.el: Change name dotemacs to init.el. Add (column-number-mode t).
+	* dotemacs: Change name loadall.el to dotemacs.
+
+	* Add session.el, tabbar.el, doxymacs.el, xml-parse.el(doxymacs depend it).
+
+2008-11-20  Meteor Liu  <meteor1113@gmail.com>
+
+	* loadall.el: Add "(require 'yasnippet-bundle)".
+
+2008-11-18  Meteor Liu  <meteor1113@gmail.com>
+
+	* yasnippet-bundle.el: Add yasnippet-bundle.el.
+
+2008-11-04  Meteor Liu  <meteor1113@gmail.com>
+
+	* loadall.el: Modify copyright.
+
+2008-11-03  Meteor Liu  <meteor1113@gmail.com>
+
+	* loadall.el: Change fileformat from dos to unix.
+
+2008-10-31  Meteor Liu  <meteor1113@gmail.com>
+
+	* loadall.el: Change filename emacs.el => loadall.el.
+	* emacs.el: Open semanticdb-default-save-directory.
+
+2008-10-29  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs.el: Comment (ecb-activate).
+
+2008-10-21  Meteor Liu  <meteor1113@gmail.com>
+
+	* emacs.el: Add user-full-name && user-mail-address.

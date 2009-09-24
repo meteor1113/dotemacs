@@ -1,0 +1,9 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : NSArray Loop
+# --
+unsigned int ${1:object}Count = [${2:array} count];
+for (unsigned int index = 0; index < $1Count; index++)
+{
+    ${id} $1 = [$2 objectAtIndex:index];
+    $0
+}

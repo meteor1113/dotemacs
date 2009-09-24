@@ -1,0 +1,8 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : Method
+# --
+- (${1:id})${2:method}:(${3:id})${4:arg}
+{
+    $0
+    return nil;
+}

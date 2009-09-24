@@ -1,0 +1,7 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : while (...) { ... }
+# --
+while (${1:condition})
+{
+    $0
+}

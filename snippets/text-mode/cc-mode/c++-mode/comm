@@ -1,0 +1,5 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : // comment
+#condition: 'force-in-comment
+# --
+// ${1:`user-full-name`} `(format-time-string "%Y-%m-%d")`

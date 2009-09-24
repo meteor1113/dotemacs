@@ -1,0 +1,6 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : for ... done
+# --
+for (( i = 0; i < ${10}; i++ )); do
+    ${#statements}
+done

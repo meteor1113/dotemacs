@@ -1,0 +1,9 @@
+#contributor : Meteor Liu <meteor1113@gmail.com>
+#name : Sub-Method (Call Super)
+# --
+- (${1:id})${2:method}:(${3:id})${4:arg}
+{
+    $1 res = [super $2:$4];
+    $0
+    return res;
+}
