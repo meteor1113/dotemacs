@@ -10,18 +10,17 @@
 
 
 ;;; windows-nt setting
-(let ((include-dir
+(let ((include-dirs
        '("C:/MinGW/include"
          "C:/MinGW/include/c++/3.4.5"
          "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include")))
-  (setq ffap-c-path (append ffap-c-path include-dir))
+  (setq ffap-c-path (append ffap-c-path include-dirs))
   (if (fboundp 'semantic-add-system-include)
-      (dolist (dir include-dir)
-        (semantic-add-system-include dir 'c++-mode))))
-
-;; hack server-start on windows
-;; (and (= emacs-major-version 23)
-;;      (defun server-ensure-safe-dir (dir) "Noop" t))
+      (mapc (lambda (dir)
+              (semantic-add-system-include dir 'c++-mode)
+              (when (require 'semantic-c nil t)
+                (semantic-add-system-include dir 'c-mode)))
+            include-dirs)))
 
 
 (provide 'init-winnt)

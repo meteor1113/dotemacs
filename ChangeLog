@@ -1,8 +1,23 @@
+2009-09-25  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-rope.el (ropemacs-enable-autoimport): Delete.
+
+	* init-misc.el (python-mode-hook): Merge init-rope.el to init-misc.el.
+
+	* init-winnt.el (include-dirs): Add system include dirs for c-mode.
+
+	* init-misc.el: Now can compatible with yasnippet.el.
+	(require): Add some auto-complete initialize.
+	(require): Let c-mode use auto-complete-cpp.
+
+	* init-site.el (require): Rename init-cedet.el to init-site.el.
+	(require): Merge init-jde.el to init-site.el.
+
 2009-09-23  Meteor Liu  <meteor1113@gmail.com>
 
-	* init-mac.el: Remove.
+	* init-mac.el: Delete.
 
-	* lisp/pysmell.el: Remove.
+	* lisp/pysmell.el: Delete.
 
 	* lisp/company/company-ropemacs.el (company-ropemacs): Change (company-pysmell--grab-symbol) to (company-ropemacs--grab-symbol).
 

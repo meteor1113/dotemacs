@@ -40,8 +40,11 @@
 
 
 ;;; jde setting
-(when (require 'jde nil t)
-  (setq jde-enable-abbrev-mode t))
+(add-hook 'java-mode-hook
+          '(lambda ()
+             (when (and (not (featurep 'jde))
+                        (require 'jde nil t))
+               (setq jde-enable-abbrev-mode t))))
 
 
 (provide 'init-site)
