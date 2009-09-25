@@ -39,4 +39,9 @@
   (setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1))
 
 
-(provide 'init-cedet)
+;;; jde setting
+(when (require 'jde nil t)
+  (setq jde-enable-abbrev-mode t))
+
+
+(provide 'init-site)

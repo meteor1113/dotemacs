@@ -47,6 +47,7 @@
 (require 'auto-complete)
 (global-auto-complete-mode t)
 (add-to-list 'ac-modes 'objc-mode)
+(add-to-list 'ac-modes 'jde-mode)
 (require 'auto-complete-cpp)
 (ac-c++-init)
 (require 'auto-complete-css)
