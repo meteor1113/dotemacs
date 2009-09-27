@@ -48,9 +48,13 @@
          (snippets-dir (expand-file-name "snippets" dir)))
     (when (file-exists-p snippets-dir)
       (yas/load-directory snippets-dir)))
-  (add-hook 'org-mode-hook
-            #'(lambda ()
-                (local-set-key [tab] 'yas/expand))))
+  (when (require 'org nil t)
+    (add-hook 'org-mode-hook
+              (let ((original-command (lookup-key org-mode-map [tab])))
+                `(lambda ()
+                   (setq yas/fallback-behavior
+                         '(apply ,original-command))
+                   (local-set-key [tab] 'yas/expand))))))
 
 ;; auto-complete setting
 (when (require 'auto-complete nil t)
