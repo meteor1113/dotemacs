@@ -72,8 +72,10 @@
 (add-hook 'objc-mode-hook (lambda () (c-set-style "stroustrup")))
 
 (add-hook 'emacs-lisp-mode-hook 'program-common-function)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 
 (add-hook 'python-mode-hook 'program-common-function)
+(add-hook 'python-mode-hook 'turn-on-eldoc-mode)
 
 (add-hook 'perl-mode-hook 'program-common-function)
 (add-to-list 'auto-mode-alist

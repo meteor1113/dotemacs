@@ -1,3 +1,7 @@
+2009-10-27  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Turn on eldoc-mode for emacs-lisp-mode and python-mode.
+
 2009-09-25  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-rope.el (ropemacs-enable-autoimport): Delete.
