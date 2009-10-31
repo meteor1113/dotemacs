@@ -9,6 +9,16 @@
 ;; @date 2008-08-08
 
 
+;;; load-path setting
+(let ((dir "~/.emacs.d"))
+  (when (file-exists-p dir)
+    (progn (add-to-list 'load-path dir)
+           (let ((old-dir default-directory))
+             (cd dir)
+             (normal-top-level-add-subdirs-to-load-path)
+             (cd old-dir)))))
+
+
 ;;; cedet setting
 (when (require 'cedet nil t)
   ;; (semantic-load-enable-minimum-features)
