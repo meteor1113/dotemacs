@@ -1,3 +1,7 @@
+2009-11-05  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Change default ac-sources.
+
 2009-10-31  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el: Add .emacs.d and it's subdirs to load-path.

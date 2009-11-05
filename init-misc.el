@@ -58,6 +58,10 @@
 
 ;; auto-complete setting
 (when (require 'auto-complete nil t)
+  (setq-default ac-sources '(ac-source-words-in-all-buffer
+                             ;; ac-source-words-in-buffer
+                             ac-source-filename
+                             ac-source-files-in-current-dir))
   (global-auto-complete-mode t)
   (add-to-list 'ac-modes 'objc-mode)
   (add-to-list 'ac-modes 'jde-mode))
