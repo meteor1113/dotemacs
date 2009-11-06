@@ -36,10 +36,11 @@
   ;; (global-set-key [(control tab)] 'senator-completion-menu-popup)
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol)
   (global-set-key [(control tab)] 'semantic-ia-complete-symbol-menu)
-  (global-set-key [f11] 'eassist-switch-h-cpp)
-  (global-set-key [C-f11] 'eassist-switch-h-cpp)
   (global-set-key [f12] 'semantic-ia-fast-jump)
-  (global-set-key [C-f12] 'semantic-ia-fast-jump))
+  (global-set-key [C-f12] 'semantic-ia-fast-jump)
+  (when (require 'eassist nil t)
+    (global-set-key [f11] 'eassist-switch-h-cpp)
+    (global-set-key [C-f11] 'eassist-switch-h-cpp)))
 
 
 ;;; ecb setting
