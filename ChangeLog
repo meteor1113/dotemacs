@@ -1,3 +1,7 @@
+2009-11-08  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add eim setting.
+
 2009-11-06  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el (require): Add (require 'eassist nil t).

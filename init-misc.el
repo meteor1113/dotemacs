@@ -107,5 +107,18 @@
                  (add-to-list 'company-backends 'company-ropemacs)))
             'append))
 
+;; eim setting
+(when (require 'eim nil t)
+;  (setq eim-use-tooltip nil)
+  (register-input-method
+   "eim-wb" "euc-cn" 'eim-use-package
+   "eim-wb" "eim-wb" "wb.txt")
+  (register-input-method
+   "eim-py" "euc-cn" 'eim-use-package
+   "eim-py" "eim-py" "py.txt")
+  (setq default-input-method "eim-wb"))
+(when (require 'eim-extra nil t)
+  (global-set-key ";" 'eim-insert-ascii))
+
 
 (provide 'init-misc)
