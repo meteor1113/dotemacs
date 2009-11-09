@@ -29,7 +29,7 @@
   (semantic-load-enable-semantic-debugging-helpers)
   (enable-visual-studio-bookmarks)
 
-  (setq semanticdb-default-save-directory (expand-file-name "~/.semanticdb"))
+  ;; (setq semanticdb-default-save-directory (expand-file-name "~/.semanticdb"))
   ;; (setq semanticdb-project-roots (list (expand-file-name "/")))
 
   ;; (global-set-key [(control tab)] 'senator-complete-symbol)
