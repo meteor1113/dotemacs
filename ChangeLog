@@ -1,3 +1,7 @@
+2009-11-10  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Remove eldoc-mode for python.
+
 2009-11-09  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el: Remove semanticdb-default-save-directory setting.
