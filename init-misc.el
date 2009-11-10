@@ -22,11 +22,9 @@
 
 
 ;;; misc setting
-;; (require 'gtags nil t)
 ;; (require 'htmlize nil t)
-;; (require 'smart-compile nil t)
+(autoload 'smart-compile "smart-compile" nil t)
 (require 'unicad nil t)
-(require 'xcscope nil t)
 
 ;; tabbar setting
 (when (require 'tabbar nil t)
@@ -80,32 +78,12 @@
 ;;               (lambda ()
 ;;                 (add-to-list 'ac-sources 'ac-source-semantic)))))
 
-;; ropemacs setting
-(add-hook 'python-mode-hook
-          '(lambda ()
-             (when (and (not (fboundp 'ropemacs-mode))
-                        (require 'pymacs nil t)
-                        (pymacs-load "ropemacs" "rope-" t))
-               (setq ropemacs-enable-autoimport t)
-               (ropemacs-mode t))))
-
 ;; company setting
-(setq company-backends
-      '(company-elisp company-nxml company-css
-                      company-eclim company-semantic company-xcode
-                      (company-gtags company-etags company-dabbrev-code
-                                     company-keywords)
-                      company-oddmuse company-files company-dabbrev))
 (when (require 'company nil t)
   (global-company-mode t)
   (setq company-idle-delay nil)
   (define-key company-mode-map (kbd "M-n") 'company-select-next)
-  (define-key company-mode-map (kbd "M-p") 'company-select-previous)
-  (add-hook 'python-mode-hook
-            '(lambda ()
-               (when (fboundp 'rope-completions)
-                 (add-to-list 'company-backends 'company-ropemacs)))
-            'append))
+  (define-key company-mode-map (kbd "M-p") 'company-select-previous))
 
 ;; eim setting
 (when (require 'eim nil t)

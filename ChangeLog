@@ -1,5 +1,20 @@
 2009-11-10  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-site.el (require): Add cscope setting.
+
+	* lisp/decompile.el: Removed.
+
+	* lisp/gtags.el: Removed.
+
+	* lisp/pymacs.el: Removed.
+
+	* lisp/xcscope.el: Removed.
+
+	* init-misc.el: Remove ropemacs setting.
+	Remove gtags.
+	Remove cscope setting.
+	Modify rope setting.
+
 	* init-basic.el: Remove eldoc-mode for python.
 
 2009-11-09  Meteor Liu  <meteor1113@gmail.com>

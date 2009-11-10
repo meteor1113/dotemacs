@@ -50,6 +50,10 @@
   (setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1))
 
 
+;;; cscope setting
+(require 'xcscope nil t)
+
+
 ;;; jde setting
 (add-hook 'java-mode-hook
           '(lambda ()
