@@ -26,18 +26,21 @@
 (autoload 'smart-compile "smart-compile" nil t)
 (require 'unicad nil t)
 
-;; tabbar setting
+
+;;; tabbar setting
 (when (require 'tabbar nil t)
   (tabbar-mode t))
 
-;; doxymacs setting
+
+;;; doxymacs setting
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (when (require 'doxymacs nil t)
                (doxymacs-mode t)
                (doxymacs-font-lock))))
 
-;; yasnippet setting
+
+;;; yasnippet setting
 (when (or (require 'yasnippet-bundle nil t)
           (require 'yasnippet nil t))
   (unless (featurep 'yasnippet-bundle)
@@ -54,7 +57,8 @@
                          '(apply ,original-command))
                    (local-set-key [tab] 'yas/expand))))))
 
-;; auto-complete setting
+
+;;; auto-complete setting
 (when (require 'auto-complete nil t)
   (setq-default ac-sources '(ac-source-words-in-all-buffer
                              ;; ac-source-words-in-buffer
@@ -78,14 +82,16 @@
 ;;               (lambda ()
 ;;                 (add-to-list 'ac-sources 'ac-source-semantic)))))
 
-;; company setting
+
+;;; company setting
 (when (require 'company nil t)
   (global-company-mode t)
   (setq company-idle-delay nil)
   (define-key company-mode-map (kbd "M-n") 'company-select-next)
   (define-key company-mode-map (kbd "M-p") 'company-select-previous))
 
-;; eim setting
+
+;;; eim setting
 (when (require 'eim nil t)
 ;  (setq eim-use-tooltip nil)
   (register-input-method
