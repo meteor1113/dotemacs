@@ -38,9 +38,25 @@
   (global-set-key [(control tab)] 'semantic-ia-complete-symbol-menu)
   (global-set-key [f12] 'semantic-ia-fast-jump)
   (global-set-key [C-f12] 'semantic-ia-fast-jump)
+
   (when (require 'eassist nil t)
     (global-set-key [f11] 'eassist-switch-h-cpp)
-    (global-set-key [C-f11] 'eassist-switch-h-cpp)))
+    (global-set-key [C-f11] 'eassist-switch-h-cpp))
+
+  (require 'semantic-c nil t)
+  (let ((include-dirs
+         '("../" "../include/" "../common/"
+           "../../" "../../include" "../../common"))
+        (windows-nt-include-dirs
+         '("C:/MinGW/include"
+           "C:/MinGW/include/c++/3.4.5"
+           "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include")))
+    (when (eq system-type 'windows-nt)
+      (setq include-dirs (append include-dirs windows-nt-include-dirs)))
+    (mapc (lambda (dir)
+	    (semantic-add-system-include dir 'c++-mode)
+            (semantic-add-system-include dir 'c-mode))
+          include-dirs)))
 
 
 ;;; ecb setting

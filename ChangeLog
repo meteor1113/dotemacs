@@ -1,3 +1,15 @@
+2009-11-18  Meteor Liu  <meteor1113@gmail.com>
+
+	* .emacs: Added.
+
+	* init-site.el: Move some setting from init-winnt.el to here.
+	Add some dirs to semantic-system-include.
+
+	* init-basic.el: Move some setting from init-winnt.el to here.
+	Add some dirs to ffap-c-path.
+
+	* init-winnt.el: Delete.(Merge to init-basic.el and init-site.el)
+
 2009-11-11  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Modify some comment.

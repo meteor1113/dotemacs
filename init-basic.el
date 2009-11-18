@@ -22,7 +22,6 @@
 (column-number-mode t)
 (display-time-mode t)
 (show-paren-mode t)
-(ffap-bindings)
 (global-auto-revert-mode t)
 (which-function-mode t)
 (setq bookmark-save-flag 1)
@@ -34,6 +33,18 @@
 (savehist-mode t)
 (recentf-mode t)
 (desktop-save-mode t)
+
+(ffap-bindings)
+(when (boundp 'ffap-c-path)
+  (let ((include-dirs '("../" "../include/" "../common/"
+                        "../../" "../../include" "../../common")))
+    (setq ffap-c-path (append ffap-c-path include-dirs)))
+  (when (eq system-type 'windows-nt)
+    (let ((include-dirs
+	   '("C:/MinGW/include"
+	     "C:/MinGW/include/c++/3.4.5"
+	     "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include")))
+    (setq ffap-c-path (append ffap-c-path include-dirs)))))
 
 (setq org-log-done 'time)
 (add-hook 'org-mode-hook
