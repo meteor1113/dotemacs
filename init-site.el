@@ -47,12 +47,12 @@
   (let ((include-dirs
          '("../" "../include/" "../common/"
            "../../" "../../include" "../../common"))
-        (windows-nt-include-dirs
+        (win32-include-dirs
          '("C:/MinGW/include"
            "C:/MinGW/include/c++/3.4.5"
            "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include")))
     (when (eq system-type 'windows-nt)
-      (setq include-dirs (append include-dirs windows-nt-include-dirs)))
+      (setq include-dirs (append include-dirs win32-include-dirs)))
     (mapc (lambda (dir)
 	    (semantic-add-system-include dir 'c++-mode)
             (semantic-add-system-include dir 'c-mode))

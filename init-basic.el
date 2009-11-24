@@ -40,11 +40,11 @@
                         "../../" "../../include" "../../common")))
     (setq ffap-c-path (append ffap-c-path include-dirs)))
   (when (eq system-type 'windows-nt)
-    (let ((include-dirs
+    (let ((win32-include-dirs
 	   '("C:/MinGW/include"
 	     "C:/MinGW/include/c++/3.4.5"
 	     "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include")))
-    (setq ffap-c-path (append ffap-c-path include-dirs)))))
+    (setq ffap-c-path (append ffap-c-path win32-include-dirs)))))
 
 (setq org-log-done 'time)
 (add-hook 'org-mode-hook
