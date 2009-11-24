@@ -13,6 +13,14 @@
 (setq user-full-name "Meteor Liu")
 (setq user-mail-address "meteor1113@gmail.com")
 
+(defconst user-include-dirs
+  (list "../" "../include/" "../common/"
+        "../../" "../../include" "../../common"))
+(defconst win32-include-dirs
+  (list "C:/MinGW/include"
+        "C:/MinGW/include/c++/3.4.5"
+        "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
+
 (tool-bar-mode t)
 (set-scroll-bar-mode 'right)
 (cua-mode t)
@@ -36,15 +44,9 @@
 
 (ffap-bindings)
 (when (boundp 'ffap-c-path)
-  (let ((include-dirs '("../" "../include/" "../common/"
-                        "../../" "../../include" "../../common")))
-    (setq ffap-c-path (append ffap-c-path include-dirs)))
+  (setq ffap-c-path (append ffap-c-path user-include-dirs))
   (when (eq system-type 'windows-nt)
-    (let ((win32-include-dirs
-	   '("C:/MinGW/include"
-	     "C:/MinGW/include/c++/3.4.5"
-	     "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include")))
-    (setq ffap-c-path (append ffap-c-path win32-include-dirs)))))
+    (setq ffap-c-path (append ffap-c-path win32-include-dirs))))
 
 (setq org-log-done 'time)
 (add-hook 'org-mode-hook
