@@ -35,7 +35,7 @@
 (setq bookmark-save-flag 1)
 (setq-default show-trailing-whitespace t)
 ;; (global-highlight-changes-mode t)
-(global-hl-line-mode t)
+;; (global-hl-line-mode t)
 (global-cwarn-mode 1)
 (require 'saveplace)
 (setq-default save-place t)

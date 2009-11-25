@@ -1,7 +1,13 @@
 2009-11-25  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Close global-hl-line-mode.
+
+	* init-misc.el (highlight-symbol): Add highlight-symbol setting.
+
+	* lisp/highlight-symbol.el: Add.
+
 	* init-basic.el: Add (global-cwarn-mode 1).
-	: Open (global-hl-line-mode t).
+	: Open global-hl-line-mode.
 
 2009-11-18  Meteor Liu  <meteor1113@gmail.com>
 

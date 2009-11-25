@@ -27,6 +27,15 @@
 (require 'unicad nil t)
 
 
+;;; highlight-symbol setting
+(require 'highlight-symbol nil t)
+(global-set-key [(control f3)] 'highlight-symbol-at-point)
+(global-set-key [f3] 'highlight-symbol-next)
+(global-set-key [(shift f3)] 'highlight-symbol-prev)
+(global-set-key [(meta f3)] 'highlight-symbol-prev)
+(global-set-key [(control meta f3)] 'highlight-symbol-query-replace)
+
+
 ;;; tabbar setting
 (when (require 'tabbar nil t)
   (tabbar-mode t))
