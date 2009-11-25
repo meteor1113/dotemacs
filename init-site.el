@@ -43,16 +43,17 @@
     (global-set-key [f11] 'eassist-switch-h-cpp)
     (global-set-key [C-f11] 'eassist-switch-h-cpp))
 
+  (defconst cedet-user-include-dirs
+    (list "../" "../include/" "../common/"
+          "../../" "../../include" "../../common"))
+  (defconst cedet-win32-include-dirs
+    (list "C:/MinGW/include"
+          "C:/MinGW/include/c++/3.4.5"
+          "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
   (require 'semantic-c nil t)
-  (let ((include-dirs
-         '("../" "../include/" "../common/"
-           "../../" "../../include" "../../common"))
-        (win32-include-dirs
-         '("C:/MinGW/include"
-           "C:/MinGW/include/c++/3.4.5"
-           "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include")))
+  (let ((include-dirs cedet-user-include-dirs))
     (when (eq system-type 'windows-nt)
-      (setq include-dirs (append include-dirs win32-include-dirs)))
+      (setq include-dirs (append include-dirs cedet-win32-include-dirs)))
     (mapc (lambda (dir)
 	    (semantic-add-system-include dir 'c++-mode)
             (semantic-add-system-include dir 'c-mode))
