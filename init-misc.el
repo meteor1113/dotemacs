@@ -35,6 +35,12 @@
 (global-set-key [(meta f3)] 'highlight-symbol-query-replace)
 
 
+;;; recent-jump setting
+(require 'recent-jump nil t)
+(global-set-key (kbd "<M-left>") 'recent-jump-jump-backward)
+(global-set-key (kbd "<M-right>") 'recent-jump-jump-forward)
+
+
 ;;; tabbar setting
 (when (require 'tabbar nil t)
   (tabbar-mode t))

@@ -1,3 +1,7 @@
+2009-11-26  Meteor Liu  <meteor1113@gmail.com>
+
+	* lisp/recent-jump.el: Add.
+
 2009-11-25  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Close global-hl-line-mode.
