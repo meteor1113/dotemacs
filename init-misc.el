@@ -53,6 +53,13 @@
   (tabbar-mode t))
 
 
+;;; ifdef setting
+(add-hook 'c-mode-common-hook
+          '(lambda ()
+             (require 'ifdef nil t)
+             (global-set-key [?\C-c ?\C-i] 'mark-ifdef)))
+
+
 ;;; doxymacs setting
 (add-hook 'c-mode-common-hook
           '(lambda ()

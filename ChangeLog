@@ -1,6 +1,7 @@
 2009-11-27  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add ascii.el.
+	Add ifdef.el.
 
 2009-11-26  Meteor Liu  <meteor1113@gmail.com>
 
