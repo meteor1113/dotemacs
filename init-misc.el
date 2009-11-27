@@ -27,6 +27,13 @@
 (require 'unicad nil t)
 
 
+;;; ascii setting
+(autoload 'ascii-on        "ascii" "Turn on ASCII code display."   t)
+(autoload 'ascii-off       "ascii" "Turn off ASCII code display."  t)
+(autoload 'ascii-display   "ascii" "Toggle ASCII code display."    t)
+(autoload 'ascii-customize "ascii" "Customize ASCII code display." t)
+
+
 ;;; highlight-symbol setting
 (require 'highlight-symbol nil t)
 (global-set-key [(control f3)] 'highlight-symbol-at-point)
