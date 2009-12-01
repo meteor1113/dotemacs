@@ -68,6 +68,8 @@
 
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
+(global-set-key [f5] 'gdb)
+(global-set-key [f7] 'compile)
 ;; (global-set-key [(control tab)] 'next-buffer)
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
 

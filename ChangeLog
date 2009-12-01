@@ -1,7 +1,9 @@
 2009-12-01  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: (setq mouse-drag-copy-region nil).
-	([f4]): Set global key f4 && S-f4 to 'next-error && 'previous-error.
+	([f4]): Bind f4 && S-f4 to 'next-error && 'previous-error.
+	([f5]): Bind f5 to 'gdb.
+	([f7]): Bind f7 to 'compile.
 
 2009-11-27  Meteor Liu  <meteor1113@gmail.com>
 
