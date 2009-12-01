@@ -1,3 +1,7 @@
+2009-12-01  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: (setq mouse-drag-copy-region nil).
+
 2009-11-27  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add ascii.el.

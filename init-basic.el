@@ -34,6 +34,7 @@
 (which-function-mode t)
 (setq bookmark-save-flag 1)
 (setq-default show-trailing-whitespace t)
+(setq mouse-drag-copy-region nil)
 ;; (global-highlight-changes-mode t)
 ;; (global-hl-line-mode t)
 (global-cwarn-mode 1)
