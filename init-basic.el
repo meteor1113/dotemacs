@@ -68,7 +68,10 @@
 
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
+(global-set-key [C-f4] 'kill-this-buffer)
 (global-set-key [f5] 'gdb)
+(global-set-key [f6] '(lambda () (interactive) (occur "TODO")))
+(global-set-key [C-f6] '(lambda () (interactive) (grep "grep -irn 'TODO' .")))
 (global-set-key [f7] 'compile)
 ;; (global-set-key [(control tab)] 'next-buffer)
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
