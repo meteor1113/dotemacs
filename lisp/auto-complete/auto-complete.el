@@ -1,6 +1,6 @@
 ;;; auto-complete.el --- Auto completion
 
-;; Copyright (C) 2008, 2009  MATSUYAMA Tomohiro
+;; Copyright (C) 2008, 2009  Tomohiro Matsuyama
 
 ;; Author: MATSUYAMA Tomohiro <t.matsuyama.pub@gmail.com>
 ;; Keywords: convenience
@@ -128,6 +128,13 @@
 
 ;;; History:
 ;;
+;; 2009-10-01
+;;      * fixed column position (patched from Kang Jianbin)
+;;
+;; 2009-09-07
+;;      * narrowing bug fixd (thanks Yuto Hayamizu <y.hayamizu@gmail.com> for holding tokyo-emacs#2)
+;;      * fixed not to use line-number-at-pos
+;;
 ;; 2009-06-21
 ;;      * fixed ac-source-words-in-all-buffer didn't collect all words in current buffer
 ;;      * added inline completion feature
@@ -231,6 +238,7 @@
 
 ;;; TODO:
 ;;
+;; - complete ignore list
 ;; - etags, ctags
 ;; - emacswiki
 ;; - test facility
@@ -240,7 +248,6 @@
 ;; - dictionary
 ;; - documentation
 ;; - performance issue (cache issue)
-;; - fix narrowing bug (reported by Yuto Hayamizu <y.hayamizu@gmail.com>)
 ;; - scroll bar (visual)
 ;; - show description
 ;; - semantic
@@ -249,10 +256,16 @@
 ;; - refactoring (especially menu)
 ;; - linum.el bug (reported by Andy Stewart)
 ;; - flymake bug (reported by TiagoCamargo)
+;; - asynchronous processing
+;; - sub pattern match
+;; - kanji henkan support
 
 ;;; Code:
 
 
+
+(eval-when-compile
+  (require 'cl))
 
 (defgroup auto-complete nil
   "Auto completion"
@@ -419,6 +432,9 @@ to be shown.")
 (defvar ac-saved-local-map nil
   "Old keymap before `auto-complete' activated.")
 
+(defvar ac-newline-added nil
+  "Non-nil means newline at EOB is added.")
+  
 
 
 ;;;; Auto completion
@@ -457,10 +473,11 @@ to be shown.")
                  (>= current-visual-column menu-width))
             (setq menu-column (- menu-column menu-width))))
       ;; Make a room to show menu at the end of buffer
-      (forward-line 1)
-      (if (eq line (line-number-at-pos))
-          (newline)
-        (forward-line -1))
+      (save-excursion
+        (goto-char (point-max))
+        (when (not (bolp))
+          (setq ac-newline-added t)
+          (newline)))
       (setq ac-menu (ac-menu-create line menu-column menu-width height ac-menu-direction)))))
 
 (defun ac-cleanup ()
@@ -478,6 +495,11 @@ to be shown.")
   (setq ac-candidates nil)
   (setq ac-selection 0)
   (setq ac-selection-scroll-top 0)
+  (when ac-newline-added
+    (setq ac-newline-added nil)
+    (save-excursion
+      (goto-char (point-max))
+      (delete-backward-char 1)))
   (funcall ac-cleanup-function))
 
 (defun ac-activate-mode-map ()
@@ -583,11 +605,11 @@ that have been made before in this function."
       (when (equal old-prefix string)
         (ac-next)
         (setq string (ac-get-selected-candidate)))
-      (ac-expand-string string repeated)))
-  ;; Do reposition if menu at long line
-  (when (ac-menu-at-wrapped-line)
-    (ac-setup (ac-menu-width ac-menu))
-    (ac-redraw-candidates)))
+      (ac-expand-string string repeated))
+    ;; Do reposition if menu at long line
+    (when (ac-menu-at-wrapped-line)
+      (ac-setup (ac-menu-width ac-menu))
+      (ac-redraw-candidates))))
 
 (defun ac-expand-common ()
   "Try expansion common part."
@@ -642,8 +664,8 @@ that have been made before in this function."
      (nthcdr ac-menu-scroll ac-candidates))
     ;; If only one candidate is remaining,
     ;; make the candidate menu disappeared.
-    (if (eq (- (length ac-candidates) ac-menu-scroll) 1)
-        (ac-menu-hide-line ac-menu ac-menu-offset))
+    ;(if (eq (- (length ac-candidates) ac-menu-scroll) 1)
+    ;    (ac-menu-hide-line ac-menu ac-menu-offset))
     ;; Ensure lines visible
     (if (and (> ac-menu-direction 0)
              (> i (-
@@ -754,14 +776,15 @@ that have been made before in this function."
 
 (defun ac-adaptive-candidate-filter (candidates)
   "Filter candidates according to length and history (not yet)."
-  (if (> (length candidates) 1)
-      (let ((length (length ac-prefix)))
-        (delq nil
-              (mapcar (lambda (candidate)
-                        (if (> (- (length candidate) length) 2)
-                            candidate))
-                      candidates)))
-    candidates))
+  ;(if (> (length candidates) 1)
+  ;    (let ((length (length ac-prefix)))
+  ;      (delq nil
+  ;            (mapcar (lambda (candidate)
+  ;                      (if (> (- (length candidate) length) 2)
+  ;                          candidate))
+  ;                    candidates)))
+  ;  candidates)
+  candidates)
 
 (defun ac-trigger-command-p ()
   "Return non-nil if `this-command' is a trigger command."
@@ -774,14 +797,19 @@ that have been made before in this function."
 
 (defun ac-current-physical-column ()
   "Current physical column. (not logical column)"
-  (- (current-column) (save-excursion (vertical-motion 0) (current-column))))
+  (car (posn-col-row (posn-at-point))))
 
 (defun ac-menu-at-wrapped-line ()
   "Return non-nil if current line is long and wrapped to next visual line."
-  (eq (line-number-at-pos)
+  (eq (line-beginning-position)
       (save-excursion
         (vertical-motion 1)
-        (line-number-at-pos))))
+        (line-beginning-position))))
+
+(defun ac-goto-line (line)
+  "Goto `LINE' regarding of narrowing."
+  (goto-char (point-min))
+  (forward-line (1- line)))
 
 (defun ac-handle-pre-command ()
   (condition-case var
@@ -896,7 +924,6 @@ use SOURCES as `ac-sources'.")
 
 (defun ac-sources-init ()
   "Implementation for `ac-init-function' by sources."
-  (or ac-current-sources (setq ac-current-sources ac-sources))
   (dolist (source ac-current-sources)
     (let ((init-function (ac-get-source-property 'init source)))
       (if init-function
@@ -911,7 +938,7 @@ use SOURCES as `ac-sources'.")
   "Implemention for `ac-prefix-function' by sources."
   (let (point)
     (dolist (pair ac-omni-completion-sources)
-      (when (looking-back (car pair))
+      (when (looking-back (car pair) nil t)
         (setq ac-current-sources (cdr pair))
         (setq ac-sources-omni-completion t)
         (setq ac-completing t)
@@ -1044,7 +1071,9 @@ use SOURCES as `ac-sources'.")
 (defvar ac-source-abbrev
   `((candidates
      . (lambda ()
-         (all-completions ac-prefix local-abbrev-table)))
+         (append
+          (all-completions ac-prefix global-abbrev-table)
+          (all-completions ac-prefix local-abbrev-table))))
     (action
      . expand-abbrev))
   "Source for abbrev.")
@@ -1254,7 +1283,7 @@ This is useful if you just want to define a dictionary/keywords source."
           (window (selected-window))
           menu-visual-column
           current-visual-column)
-      (goto-line line)
+      (ac-goto-line line)
       (move-to-column column)
       (setq menu-visual-column (ac-current-physical-column))
       (dotimes (i height)

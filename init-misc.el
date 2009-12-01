@@ -93,27 +93,33 @@
 
 ;;; auto-complete setting
 (when (require 'auto-complete nil t)
-  (setq-default ac-sources '(ac-source-words-in-all-buffer
-                             ;; ac-source-words-in-buffer
+  (setq-default ac-sources '(ac-source-abbrev
+                             ac-source-words-in-buffer
+                             ac-source-words-in-all-buffer
+                             ac-source-files-in-current-dir
                              ac-source-filename
-                             ac-source-files-in-current-dir))
+                             ac-source-imenu))
   (global-auto-complete-mode t)
   (add-to-list 'ac-modes 'objc-mode)
   (add-to-list 'ac-modes 'jde-mode))
-(when (require 'auto-complete-cpp nil t)
-  (ac-c++-init)
-  (add-hook 'c-mode-hook 'ac-c++-setup))
-;; (when (require 'auto-complete-css nil t)
-;;   (ac-css-init))
-;; (when (require 'auto-complete-emacs-lisp nil t)
-;;   (ac-emacs-lisp-init))
-;; (when (require 'auto-complete-python nil t)
-;;   (ac-ropemacs-init))
-;; (when (require 'auto-complete-semantic nil t)
-;;   (dolist (hook '(c-mode-hook c++-mode-hook jde-mode-hook java-mode-hook))
-;;     (add-hook hook
-;;               (lambda ()
-;;                 (add-to-list 'ac-sources 'ac-source-semantic)))))
+(when (require 'auto-complete-config nil t)
+  (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources))
+  ;; (add-hook 'emacs-lisp-mode-hook
+  ;;           (lambda ()
+  ;;             (when (require 'find-func nil t)
+  ;;               (ac-emacs-lisp-features-setup))
+  ;;             (push 'ac-source-symbols ac-sources)
+  ;;             (push 'ac-source-yasnippet ac-sources)))
+  (ac-c++-keywords-initialize)
+  ;; (ac-css-keywords-initialize)
+  ;; (ac-ropemacs-initialize)
+  ;; (dolist (hook '(c-mode-hook c++-mode-hook jde-mode-hook java-mode-hook))
+  ;;   (add-hook hook
+  ;;             '(lambda ()
+  ;;                (setq ac-omni-completion-sources
+  ;;                      (list (cons "." '(ac-source-semantic))
+  ;;                            (cons "->" '(ac-source-semantic)))))))
+  )
 
 
 ;;; company setting
