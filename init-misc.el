@@ -36,17 +36,21 @@
 
 
 ;;; highlight-symbol setting
-(require 'highlight-symbol nil t)
-(global-set-key [(control f3)] 'highlight-symbol-at-point)
-(global-set-key [f3] 'highlight-symbol-next)
-(global-set-key [(shift f3)] 'highlight-symbol-prev)
-(global-set-key [(meta f3)] 'highlight-symbol-query-replace)
+(when (require 'highlight-symbol nil t)
+  (setq highlight-symbol-idle-delay 0.2)
+  (define-global-minor-mode global-highlight-symbol-mode highlight-symbol-mode
+    (lambda () (highlight-symbol-mode 1)))
+  (global-highlight-symbol-mode t)
+  (global-set-key [(control f3)] 'highlight-symbol-at-point)
+  (global-set-key [f3] 'highlight-symbol-next)
+  (global-set-key [(shift f3)] 'highlight-symbol-prev)
+  (global-set-key [(meta f3)] 'highlight-symbol-query-replace))
 
 
 ;;; recent-jump setting
-(require 'recent-jump nil t)
-(global-set-key (kbd "<M-left>") 'recent-jump-jump-backward)
-(global-set-key (kbd "<M-right>") 'recent-jump-jump-forward)
+(when (require 'recent-jump nil t)
+  (global-set-key (kbd "<M-left>") 'recent-jump-jump-backward)
+  (global-set-key (kbd "<M-right>") 'recent-jump-jump-forward))
 
 
 ;;; tabbar setting

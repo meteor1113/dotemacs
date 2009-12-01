@@ -1,5 +1,7 @@
 2009-12-01  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Add global-highlight-symbol-mode.
+
 	* init-basic.el ([C-f4]): Bind C-f4 to 'kill-this-buffer.
 	([f6]): Bind f6 to '(occur "TODO").
 	([C-f6]): Bind C-f6 to '(brep "grep -irn 'TODO' .").
