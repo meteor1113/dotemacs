@@ -2,6 +2,7 @@
 
 	* init-misc.el: Add global-highlight-symbol-mode.
 	: Update auto-complete to 0.3.0beta.
+	: (setq ac-trigger-commands '(self-insert-command c-electric-lt-gt)).
 
 	* init-basic.el ([C-f4]): Bind C-f4 to 'kill-this-buffer.
 	([f6]): Bind f6 to '(occur "TODO").

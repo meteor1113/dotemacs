@@ -28,11 +28,22 @@
 (require 'unicad nil t)
 
 
+;;; tabbar setting
+(when (require 'tabbar nil t)
+  (tabbar-mode t))
+
+
 ;;; ascii setting
 (autoload 'ascii-on        "ascii" "Turn on ASCII code display."   t)
 (autoload 'ascii-off       "ascii" "Turn off ASCII code display."  t)
 (autoload 'ascii-display   "ascii" "Toggle ASCII code display."    t)
 (autoload 'ascii-customize "ascii" "Customize ASCII code display." t)
+
+
+;;; recent-jump setting
+(when (require 'recent-jump nil t)
+  (global-set-key (kbd "<M-left>") 'recent-jump-jump-backward)
+  (global-set-key (kbd "<M-right>") 'recent-jump-jump-forward))
 
 
 ;;; highlight-symbol setting
@@ -45,17 +56,6 @@
   (global-set-key [f3] 'highlight-symbol-next)
   (global-set-key [(shift f3)] 'highlight-symbol-prev)
   (global-set-key [(meta f3)] 'highlight-symbol-query-replace))
-
-
-;;; recent-jump setting
-(when (require 'recent-jump nil t)
-  (global-set-key (kbd "<M-left>") 'recent-jump-jump-backward)
-  (global-set-key (kbd "<M-right>") 'recent-jump-jump-forward))
-
-
-;;; tabbar setting
-(when (require 'tabbar nil t)
-  (tabbar-mode t))
 
 
 ;;; ifdef setting
@@ -99,6 +99,7 @@
                              ac-source-files-in-current-dir
                              ac-source-filename
                              ac-source-imenu))
+  (setq ac-trigger-commands '(self-insert-command c-electric-lt-gt))
   (global-auto-complete-mode t)
   (add-to-list 'ac-modes 'objc-mode)
   (add-to-list 'ac-modes 'jde-mode))
@@ -111,14 +112,14 @@
   ;;             (push 'ac-source-symbols ac-sources)
   ;;             (push 'ac-source-yasnippet ac-sources)))
   (ac-c++-keywords-initialize)
-  ;; (ac-css-keywords-initialize)
-  ;; (ac-ropemacs-initialize)
-  ;; (dolist (hook '(c-mode-hook c++-mode-hook jde-mode-hook java-mode-hook))
-  ;;   (add-hook hook
-  ;;             '(lambda ()
-  ;;                (setq ac-omni-completion-sources
-  ;;                      (list (cons "." '(ac-source-semantic))
-  ;;                            (cons "->" '(ac-source-semantic)))))))
+  (ac-css-keywords-initialize)
+  (ac-ropemacs-initialize)
+  (dolist (hook '(c-mode-hook c++-mode-hook jde-mode-hook java-mode-hook))
+    (add-hook hook
+              '(lambda ()
+                 (setq ac-omni-completion-sources
+                       (list (cons "." '(ac-source-semantic))
+                             (cons "->" '(ac-source-semantic)))))))
   )
 
 
