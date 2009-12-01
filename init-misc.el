@@ -99,7 +99,6 @@
                              ac-source-files-in-current-dir
                              ac-source-filename
                              ac-source-imenu))
-  (setq ac-trigger-commands '(self-insert-command c-electric-lt-gt))
   (global-auto-complete-mode t)
   (add-to-list 'ac-modes 'objc-mode)
   (add-to-list 'ac-modes 'jde-mode))
@@ -111,15 +110,16 @@
   ;;               (ac-emacs-lisp-features-setup))
   ;;             (push 'ac-source-symbols ac-sources)
   ;;             (push 'ac-source-yasnippet ac-sources)))
+  ;; (ac-css-keywords-initialize)
+  ;; (ac-ropemacs-initialize)
   (ac-c++-keywords-initialize)
-  (ac-css-keywords-initialize)
-  (ac-ropemacs-initialize)
-  (dolist (hook '(c-mode-hook c++-mode-hook jde-mode-hook java-mode-hook))
-    (add-hook hook
-              '(lambda ()
-                 (setq ac-omni-completion-sources
-                       (list (cons "." '(ac-source-semantic))
-                             (cons "->" '(ac-source-semantic)))))))
+  ;; (setq ac-trigger-commands '(self-insert-command c-electric-lt-gt))
+  ;; (dolist (hook '(c-mode-hook c++-mode-hook jde-mode-hook java-mode-hook))
+  ;;   (add-hook hook
+  ;;             '(lambda ()
+  ;;                (setq ac-omni-completion-sources
+  ;;                      (list (cons "." '(ac-source-semantic))
+  ;;                            (cons "->" '(ac-source-semantic)))))))
   )
 
 
