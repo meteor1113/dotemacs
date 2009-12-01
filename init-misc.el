@@ -24,6 +24,7 @@
 ;;; misc setting
 ;; (require 'htmlize nil t)
 (autoload 'smart-compile "smart-compile" nil t)
+(global-set-key [C-f7] 'smart-compile)
 (require 'unicad nil t)
 
 
