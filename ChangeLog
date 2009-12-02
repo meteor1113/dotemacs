@@ -1,3 +1,7 @@
+2009-12-02  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Open ac-source-emacs-lisp-features.
+
 2009-12-01  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add global-highlight-symbol-mode.

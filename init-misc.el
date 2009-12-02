@@ -48,10 +48,10 @@
 
 ;;; highlight-symbol setting
 (when (require 'highlight-symbol nil t)
-  (setq highlight-symbol-idle-delay 0.2)
-  (define-global-minor-mode global-highlight-symbol-mode highlight-symbol-mode
-    (lambda () (highlight-symbol-mode 1)))
+  (define-global-minor-mode global-highlight-symbol-mode
+    highlight-symbol-mode (lambda () (highlight-symbol-mode 1)))
   (global-highlight-symbol-mode t)
+  (setq highlight-symbol-idle-delay 0.2)
   (global-set-key [(control f3)] 'highlight-symbol-at-point)
   (global-set-key [f3] 'highlight-symbol-next)
   (global-set-key [(shift f3)] 'highlight-symbol-prev)
@@ -104,12 +104,14 @@
   (add-to-list 'ac-modes 'jde-mode))
 (when (require 'auto-complete-config nil t)
   (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources))
-  ;; (add-hook 'emacs-lisp-mode-hook
-  ;;           (lambda ()
-  ;;             (when (require 'find-func nil t)
-  ;;               (ac-emacs-lisp-features-setup))
-  ;;             (push 'ac-source-symbols ac-sources)
-  ;;             (push 'ac-source-yasnippet ac-sources)))
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (setq ac-omni-completion-sources
+                    '(("\\<require\s+'" ac-source-emacs-lisp-features)
+                      ("\\<load\s+\"" ac-source-emacs-lisp-features)))
+              ;; (push 'ac-source-emacs-lisp-features ac-sources)
+              ;; (push 'ac-source-symbols ac-sources)
+              (setq ac-sources (append '(ac-source-yasnippet) ac-sources))))
   ;; (ac-css-keywords-initialize)
   ;; (ac-ropemacs-initialize)
   (ac-c++-keywords-initialize)
