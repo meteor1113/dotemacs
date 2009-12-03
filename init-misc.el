@@ -75,7 +75,8 @@
 ;;; doc-mode/doxymacs-mode setting
 (add-hook 'c-mode-common-hook
           '(lambda ()
-             (if (require 'doc-mode nil t)
+             (if (and (require 'semantic nil t)
+                      (require 'doc-mode nil t))
                  (doc-mode t)
                (when (require 'doxymacs nil t)
                  (doxymacs-mode t)
