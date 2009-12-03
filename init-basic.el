@@ -116,7 +116,7 @@
 (define-key gud-mode-map [C-f5] 'gud-run)
 (global-set-key [f5] 'gud-cont)
 (global-set-key [C-f5] 'gdb)
-(global-set-key [f7] 'compile)
+(global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (global-set-key [f8] 'gud-print)
 (global-set-key [C-f8] 'gud-pstar)
 (global-set-key [f9] 'gud-break)
