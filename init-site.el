@@ -40,8 +40,7 @@
   (global-set-key [C-f12] 'semantic-ia-fast-jump)
 
   (when (require 'eassist nil t)
-    (global-set-key [f11] 'eassist-switch-h-cpp)
-    (global-set-key [C-f11] 'eassist-switch-h-cpp))
+    (global-set-key [S-f12] 'eassist-switch-h-cpp))
 
   (defconst cedet-user-include-dirs
     (list "../" "../include/" "../common/"

@@ -66,15 +66,13 @@
                (require 'sgml-mode)
                (set-syntax-table sgml-mode-syntax-table))))
 
+;; (global-set-key [(control tab)] 'next-buffer)
+(global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
-(global-set-key [f5] 'gdb)
 (global-set-key [f6] '(lambda () (interactive) (occur "TODO")))
 (global-set-key [C-f6] '(lambda () (interactive) (grep "grep -irn 'TODO' .")))
-(global-set-key [f7] 'compile)
-;; (global-set-key [(control tab)] 'next-buffer)
-(global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
 
 
 ;;; program setting
@@ -111,6 +109,21 @@
              (cperl-set-style "PerlStyle")
              (setq cperl-continued-brace-offset -4)
              (abbrev-mode t)))
+
+(require 'gud)
+(setq gdb-many-windows t)
+(define-key gud-mode-map [f5] 'gud-run)
+(global-set-key [f5] 'gdb)
+(global-set-key [C-f5] 'gud-cont)
+(global-set-key [f7] 'compile)
+(global-set-key [f8] 'gud-print)
+(global-set-key [C-f8] 'gud-pstar)
+(global-set-key [f9] 'gud-break)
+(global-set-key [C-f9] 'gud-remove)
+(global-set-key [f10] 'gud-next)
+(global-set-key [C-f10] 'gud-until)
+(global-set-key [f11] 'gud-step)
+(global-set-key [C-f11] 'gud-finish)
 
 
 (provide 'init-basic)
