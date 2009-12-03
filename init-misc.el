@@ -21,16 +21,23 @@
              (cd old-dir)))))
 
 
-;;; misc setting
-;; (require 'htmlize nil t)
+;;; unicad setting
+(require 'unicad nil t)
+
+
+;;; smart-compile setting
 (autoload 'smart-compile "smart-compile" nil t)
 (global-set-key [C-f7] 'smart-compile)
-(require 'unicad nil t)
 
 
 ;;; tabbar setting
 (when (require 'tabbar nil t)
   (tabbar-mode t))
+
+
+;;; window-numbering setting
+(when (require 'window-numbering nil t)
+  (window-numbering-mode 1))
 
 
 ;;; ascii setting

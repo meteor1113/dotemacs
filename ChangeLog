@@ -1,5 +1,7 @@
 2009-12-03  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el (require): Add window-numbering.
+
 	* init-basic.el: Bind gud keys.
 
 2009-12-02  Meteor Liu  <meteor1113@gmail.com>
