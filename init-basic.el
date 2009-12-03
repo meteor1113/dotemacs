@@ -66,7 +66,8 @@
                (require 'sgml-mode)
                (set-syntax-table sgml-mode-syntax-table))))
 
-;; (global-set-key [(control tab)] 'next-buffer)
+(global-set-key [(control tab)]
+                '(lambda () (interactive) (switch-to-buffer (other-buffer))))
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)

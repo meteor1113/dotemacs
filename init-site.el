@@ -35,12 +35,9 @@
   ;; (global-set-key [(control tab)] 'senator-complete-symbol)
   ;; (global-set-key [(control tab)] 'senator-completion-menu-popup)
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol)
-  (global-set-key [(control tab)] 'semantic-ia-complete-symbol-menu)
+  ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol-menu)
   (global-set-key [f12] 'semantic-ia-fast-jump)
   (global-set-key [C-f12] 'semantic-ia-fast-jump)
-
-  (when (require 'eassist nil t)
-    (global-set-key [S-f12] 'eassist-switch-h-cpp))
 
   (defconst cedet-user-include-dirs
     (list "../" "../include/" "../common/"
@@ -54,9 +51,12 @@
     (when (eq system-type 'windows-nt)
       (setq include-dirs (append include-dirs cedet-win32-include-dirs)))
     (mapc (lambda (dir)
-	    (semantic-add-system-include dir 'c++-mode)
+            (semantic-add-system-include dir 'c++-mode)
             (semantic-add-system-include dir 'c-mode))
-          include-dirs)))
+          include-dirs))
+
+  (when (require 'eassist nil t)
+    (global-set-key [S-f12] 'eassist-switch-h-cpp)))
 
 
 ;;; ecb setting
