@@ -112,9 +112,9 @@
 
 (require 'gud)
 (setq gdb-many-windows t)
-(define-key gud-mode-map [f5] 'gud-run)
-(global-set-key [f5] 'gdb)
-(global-set-key [C-f5] 'gud-cont)
+(define-key gud-mode-map [C-f5] 'gud-run)
+(global-set-key [f5] 'gud-cont)
+(global-set-key [C-f5] 'gdb)
 (global-set-key [f7] 'compile)
 (global-set-key [f8] 'gud-print)
 (global-set-key [C-f8] 'gud-pstar)
