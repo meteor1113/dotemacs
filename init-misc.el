@@ -72,12 +72,14 @@
              (global-set-key [?\C-c ?\C-i] 'mark-ifdef)))
 
 
-;;; doxymacs setting
+;;; doc-mode/doxymacs-mode setting
 (add-hook 'c-mode-common-hook
           '(lambda ()
-             (when (require 'doxymacs nil t)
-               (doxymacs-mode t)
-               (doxymacs-font-lock))))
+             (if (require 'doc-mode nil t)
+                 (doc-mode t)
+               (when (require 'doxymacs nil t)
+                 (doxymacs-mode t)
+                 (doxymacs-font-lock)))))
 
 
 ;;; yasnippet setting
