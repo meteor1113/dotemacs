@@ -57,7 +57,8 @@
 (when (require 'highlight-symbol nil t)
   (define-global-minor-mode global-highlight-symbol-mode
     highlight-symbol-mode (lambda () (highlight-symbol-mode 1)))
-  (global-highlight-symbol-mode t)
+  (when window-system
+    (global-highlight-symbol-mode t))
   (setq highlight-symbol-idle-delay 0.2)
   (global-set-key [(control f3)] 'highlight-symbol-at-point)
   (global-set-key [f3] 'highlight-symbol-next)

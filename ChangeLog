@@ -1,3 +1,11 @@
+2009-12-04  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-site.el: In terminal, don't active highlight-change-mode.
+
+	* init-misc.el: In terminal, don't active highlight-sysbol-mode.
+
+	* init-basic.el ([f6]): Bind f6 to grep-cursor.
+
 2009-12-03  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add doc-mode.
