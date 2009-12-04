@@ -1,5 +1,7 @@
 2009-12-04  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (gdb-or-gud-go): Add (gdb-or-gud-go).
+
 	* init-site.el: In terminal, don't active highlight-change-mode.
 
 	* init-misc.el: In terminal, don't active highlight-sysbol-mode.

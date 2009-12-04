@@ -116,9 +116,18 @@
              (setq cperl-continued-brace-offset -4)
              (abbrev-mode t)))
 
+(require 'gdb-ui)
 (setq gdb-many-windows t)
-(global-set-key [f5] 'gud-go)
-(global-set-key [C-f5] 'gdb)
+(defun gdb-or-gud-go ()
+  "if gdb isn't running; run gdb, else call gud-go"
+  (interactive)
+  (if (and gud-comint-buffer
+           (buffer-name gud-comint-buffer)
+           (get-buffer-process gud-comint-buffer)
+           (with-current-buffer gud-comint-buffer (eq gud-minor-mode 'gdba)))
+      (gud-call (if gdb-active-process "continue" "run") "")
+    (gdb (gud-query-cmdline 'gdb))))
+(global-set-key [f5] 'gdb-or-gud-go)
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (global-set-key [f8] 'gud-print)
 (global-set-key [C-f8] 'gud-pstar)
