@@ -68,8 +68,9 @@
 ;;; ifdef setting
 (add-hook 'c-mode-common-hook
           '(lambda ()
-             (require 'ifdef nil t)
-             (global-set-key [?\C-c ?\C-i] 'mark-ifdef)))
+             (when (require 'ifdef nil t)
+               (global-set-key [?\C-c ?\C-i] 'mark-ifdef)
+               (mark-ifdef))))
 
 
 ;;; doc-mode/doxymacs-mode setting
