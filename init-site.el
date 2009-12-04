@@ -26,7 +26,8 @@
   (semantic-load-enable-code-helpers)
   ;; (semantic-load-enable-guady-code-helpers)
   ;; (semantic-load-enable-excessive-code-helpers)
-  (semantic-load-enable-semantic-debugging-helpers)
+  (when window-system
+    (semantic-load-enable-semantic-debugging-helpers))
   (enable-visual-studio-bookmarks)
 
   ;; (setq semanticdb-default-save-directory (expand-file-name "~/.semanticdb"))
