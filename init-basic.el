@@ -143,6 +143,7 @@
 ;; (global-set-key [C-f9] 'gud-remove)
 (global-set-key [f10] 'gud-next)
 (global-set-key [C-f10] 'gud-until)
+(global-set-key [S-f10] 'gud-jump)
 (global-set-key [f11] 'gud-step)
 (global-set-key [C-f11] 'gud-finish)
 
