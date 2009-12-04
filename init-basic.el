@@ -67,19 +67,18 @@
                (set-syntax-table sgml-mode-syntax-table))))
 
 (global-set-key [(control tab)]
-                '(lambda () (interactive) (switch-to-buffer (other-buffer))))
+                (lambda () (interactive) (switch-to-buffer (other-buffer))))
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
 (require 'grep)
-(global-set-key [f6]
-                (lambda ()
-                  (interactive)
-                  (let ((tag (shell-quote-argument (grep-tag-default))))
-                    (grep (concat "grep -irn " tag " .")))))
+(global-set-key [f6] '(lambda ()
+                        (interactive)
+                        (let ((word (grep-tag-default)))
+                          (grep (concat "grep -nr " word " .")))))
 (global-set-key [C-f6] '(lambda () (interactive) (occur "TODO")))
-(global-set-key [S-f6] (lambda () (interactive) (grep "grep -irn 'TODO' .")))
+(global-set-key [S-f6] (lambda () (interactive) (grep "grep -inr 'TODO' .")))
 
 
 ;;; program setting
