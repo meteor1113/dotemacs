@@ -41,6 +41,7 @@
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol-menu)
   (global-set-key [f12] 'semantic-ia-fast-jump)
   (global-set-key [C-f12] 'semantic-ia-fast-jump)
+  (global-set-key [S-f12] 'semantic-mrub-switch-tags)
 
   (defconst cedet-user-include-dirs
     (list "../" "../include/" "../common/"
@@ -59,7 +60,7 @@
           include-dirs))
 
   (when (require 'eassist nil t)
-    (global-set-key [S-f12] 'eassist-switch-h-cpp)))
+    (global-set-key [M-f12] 'eassist-switch-h-cpp)))
 
 
 ;;; ecb setting
