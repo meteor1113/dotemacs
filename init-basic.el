@@ -72,8 +72,14 @@
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
-(global-set-key [f6] '(lambda () (interactive) (occur "TODO")))
-(global-set-key [C-f6] '(lambda () (interactive) (grep "grep -irn 'TODO' .")))
+(require 'grep)
+(global-set-key [f6]
+                (lambda ()
+                  (interactive)
+                  (let ((tag (shell-quote-argument (grep-tag-default))))
+                    (grep (concat "grep -irn " tag " .")))))
+(global-set-key [C-f6] '(lambda () (interactive) (occur "TODO")))
+(global-set-key [S-f6] (lambda () (interactive) (grep "grep -irn 'TODO' .")))
 
 
 ;;; program setting
@@ -111,10 +117,8 @@
              (setq cperl-continued-brace-offset -4)
              (abbrev-mode t)))
 
-(require 'gud)
 (setq gdb-many-windows t)
-(define-key gud-mode-map [C-f5] 'gud-run)
-(global-set-key [f5] 'gud-cont)
+(global-set-key [f5] 'gud-go)
 (global-set-key [C-f5] 'gdb)
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (global-set-key [f8] 'gud-print)
