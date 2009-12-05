@@ -118,7 +118,7 @@
 
 (require 'gdb-ui)
 (defun gdb-or-gud-go ()
-  "if gdb isn't running; run gdb, else call gud-go"
+  "If gdb isn't running; run gdb, else call gud-go."
   (interactive)
   (if (and gud-comint-buffer
            (buffer-name gud-comint-buffer)
@@ -133,8 +133,14 @@
     (if (eq (car (fringe-bitmaps-at-pos (point))) 'breakpoint)
         (gud-remove nil)
       (gud-break nil))))
+(defun gud-kill ()
+  "Kill gdb process."
+  (interactive)
+  (kill-process (get-buffer-process gud-comint-buffer)))
 (setq gdb-many-windows t)
 (global-set-key [f5] 'gdb-or-gud-go)
+;; (global-set-key [S-f5] '(lambda () (interactive) (gud-call "quit" nil)))
+(global-set-key [S-f5] 'gud-kill)
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (global-set-key [f8] 'gud-print)
 (global-set-key [C-f8] 'gud-pstar)

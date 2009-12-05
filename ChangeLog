@@ -1,3 +1,7 @@
+2009-12-05  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (gud-kill): Add (gud-kill).
+
 2009-12-04  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (gdb-or-gud-go): Add (gdb-or-gud-go).
