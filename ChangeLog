@@ -1,6 +1,7 @@
 2009-12-05  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (gud-kill): Add (gud-kill).
+	(gud-kill): Improve (gud-kill).
 
 2009-12-04  Meteor Liu  <meteor1113@gmail.com>
 

@@ -136,6 +136,7 @@
 (defun gud-kill ()
   "Kill gdb process."
   (interactive)
+  (with-current-buffer gud-comint-buffer (comint-skip-input))
   (kill-process (get-buffer-process gud-comint-buffer)))
 (setq gdb-many-windows t)
 (global-set-key [f5] 'gdb-or-gud-go)
