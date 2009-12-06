@@ -1,3 +1,14 @@
+;;;
+;; Copyright (C) 2009 Meteor Liu
+;;
+;; This code has been released into the Public Domain.
+;; You may do whatever you like with it.
+;;
+;; @file
+;; @author Meteor Liu <meteor1113@gmail.com>
+;; @date 2009-12-06
+
+
 (add-to-list 'load-path "~/.emacs.d/dotemacs")
 (add-to-list 'load-path "~/common/dotemacs")
 (add-to-list 'load-path "~/project/common/dotemacs")
