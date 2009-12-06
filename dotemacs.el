@@ -33,3 +33,6 @@
 (require 'init-site nil t)
 (require 'init-misc nil t)
 (require 'init-note nil t)
+
+
+(provide 'dotemacs)
