@@ -67,7 +67,7 @@
                (set-syntax-table sgml-mode-syntax-table))))
 
 (defun move-line-up (p)
-  "Move current line up"
+  "Move current line up, copy from crazycool@smth"
   (interactive "*p")
   (let ((c (current-column)))
     (beginning-of-line)
@@ -78,7 +78,7 @@
     (previous-line 1)
     (move-to-column c)))
 (defun move-line-down (p)
-  "Move current line down"
+  "Move current line down, copy from crazycool@smth"
   (interactive "*p")
   (let ((c (current-column)))
     (beginning-of-line)
@@ -88,8 +88,27 @@
     (yank)
     (previous-line 1)
     (move-to-column c)))
+(defun format-region ()
+  "Format region, if no region actived, format current buffer.
+Like eclipse's Ctrl+Alt+F."
+  (interactive)
+  (let ((start (point-min))
+        (end (point-max)))
+    (when (region-active-p)
+      (setq start (region-beginning))
+      (setq end (region-end)))
+    (save-excursion
+      (save-restriction
+        (narrow-to-region (point-min) end)
+        (push-mark (point))
+        (push-mark (point-max) nil t)
+        (goto-char start)
+        (whitespace-cleanup)
+        (untabify start (point-max))
+        (indent-region start (point-max))))))
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
+(global-set-key [M-f8] 'format-region)
 (global-set-key [(control tab)]
                 (lambda () (interactive) (switch-to-buffer (other-buffer))))
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
@@ -150,7 +169,7 @@
            (with-current-buffer gud-comint-buffer (eq gud-minor-mode 'gdba)))
       (gud-call (if gdb-active-process "continue" "run") "")
     (gdb (gud-query-cmdline 'gdb))))
-(defun gud-break-remove ()
+(defun gud-break-or-remove ()
   "Set/clear breakpoin."
   (interactive)
   (save-excursion
@@ -169,7 +188,7 @@
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (global-set-key [f8] 'gud-print)
 (global-set-key [C-f8] 'gud-pstar)
-(global-set-key [f9] 'gud-break-remove)
+(global-set-key [f9] 'gud-break-or-remove)
 ;; (global-set-key [f9] 'gud-break)
 ;; (global-set-key [C-f9] 'gud-remove)
 (global-set-key [f10] 'gud-next)

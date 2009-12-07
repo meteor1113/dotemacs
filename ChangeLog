@@ -1,3 +1,7 @@
+2009-12-07  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (format-region): Add (format-region).
+
 2009-12-06  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (move-line-up): Add (move-line-up).
