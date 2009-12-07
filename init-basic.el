@@ -108,7 +108,7 @@ Like eclipse's Ctrl+Alt+F."
         (indent-region start (point-max))))))
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
-(global-set-key [M-f8] 'format-region)
+(global-set-key (kbd "C-S-f") 'format-region)
 (global-set-key [(control tab)]
                 (lambda () (interactive) (switch-to-buffer (other-buffer))))
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
@@ -203,8 +203,8 @@ Like eclipse's Ctrl+Alt+F."
   (kill-process (get-buffer-process gud-comint-buffer)))
 (setq gdb-many-windows t)
 (global-set-key [f5] 'gdb-or-gud-go)
-;; (global-set-key [S-f5] '(lambda () (interactive) (gud-call "quit" nil)))
 (global-set-key [S-f5] 'gud-kill)
+;; (global-set-key [S-f5] '(lambda () (interactive) (gud-call "quit" nil)))
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (global-set-key [f8] 'gud-print)
 (global-set-key [C-f8] 'gud-pstar)
