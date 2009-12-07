@@ -1,6 +1,7 @@
 2009-12-07  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (format-region): Add (format-region).
+	(gud-enable-or-disable): Add (gud-enable-or-disable), bind to C-f9.
 
 2009-12-06  Meteor Liu  <meteor1113@gmail.com>
 

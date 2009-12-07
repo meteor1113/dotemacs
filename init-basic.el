@@ -176,6 +176,26 @@ Like eclipse's Ctrl+Alt+F."
     (if (eq (car (fringe-bitmaps-at-pos (point))) 'breakpoint)
         (gud-remove nil)
       (gud-break nil))))
+(defun gud-enable-or-disable ()
+  "Enable/disable breakpoin."
+  (interactive)
+  (let ((pos))
+    (save-excursion
+      (move-beginning-of-line nil)
+      (dolist (overlay (overlays-in (point) (point)))
+        (when (overlay-get overlay 'put-break)
+          (setq obj (overlay-get overlay 'before-string))))
+      (when (stringp obj)
+        (let* ((bptno (get-text-property 0 'gdb-bptno obj)))
+          (string-match "\\([0-9+]\\)*" bptno)
+          (gdb-enqueue-input
+           (list
+            (concat gdb-server-prefix
+                    (if (get-text-property 0 'gdb-enabled obj)
+                        "disable "
+                      "enable ")
+                    (match-string 1 bptno) "\n")
+            'ignore)))))))
 (defun gud-kill ()
   "Kill gdb process."
   (interactive)
@@ -189,8 +209,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [f8] 'gud-print)
 (global-set-key [C-f8] 'gud-pstar)
 (global-set-key [f9] 'gud-break-or-remove)
-;; (global-set-key [f9] 'gud-break)
-;; (global-set-key [C-f9] 'gud-remove)
+(global-set-key [C-f9] 'gud-enable-or-disable)
 (global-set-key [f10] 'gud-next)
 (global-set-key [C-f10] 'gud-until)
 (global-set-key [S-f10] 'gud-jump)
