@@ -210,9 +210,10 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [C-f8] 'gud-pstar)
 (global-set-key [f9] 'gud-break-or-remove)
 (global-set-key [C-f9] 'gud-enable-or-disable)
+(global-set-key [S-f9] 'gud-watch)
 (global-set-key [f10] 'gud-next)
 (global-set-key [C-f10] 'gud-until)
-(global-set-key [S-f10] 'gud-jump)
+(global-set-key [C-S-f10] 'gud-jump)
 (global-set-key [f11] 'gud-step)
 (global-set-key [C-f11] 'gud-finish)
 
