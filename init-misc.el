@@ -115,7 +115,8 @@
   (add-to-list 'ac-modes 'objc-mode)
   (add-to-list 'ac-modes 'jde-mode))
 (when (require 'auto-complete-config nil t)
-  (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources))
+  (when (ac-yasnippet-initialize)
+    (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources)))
   (add-hook 'emacs-lisp-mode-hook
             (lambda ()
               (setq ac-omni-completion-sources
@@ -125,9 +126,9 @@
               ;; (push 'ac-source-symbols ac-sources)
               ;; (setq ac-sources (append '(ac-source-yasnippet) ac-sources))
               ))
+  (ac-c++-keywords-initialize)
   ;; (ac-css-keywords-initialize)
   ;; (ac-ropemacs-initialize)
-  (ac-c++-keywords-initialize)
   ;; (setq ac-trigger-commands '(self-insert-command c-electric-lt-gt))
   ;; (dolist (hook '(c-mode-hook c++-mode-hook jde-mode-hook java-mode-hook))
   ;;   (add-hook hook

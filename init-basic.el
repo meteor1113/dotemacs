@@ -109,6 +109,8 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key (kbd "C-S-f") 'format-region)
+(global-set-key (kbd "M-P") 'previous-buffer)
+(global-set-key (kbd "M-N") 'next-buffer)
 (global-set-key [(control tab)]
                 (lambda () (interactive) (switch-to-buffer (other-buffer))))
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)

@@ -41,7 +41,6 @@
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol-menu)
   (global-set-key [f12] 'semantic-ia-fast-jump)
   (global-set-key [C-f12] 'semantic-ia-fast-jump)
-  ;; (global-set-key [S-f12] 'semantic-mrub-switch-tags)
   (global-set-key [S-f12]
                   (lambda ()
                     (interactive)
