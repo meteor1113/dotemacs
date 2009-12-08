@@ -9,30 +9,36 @@
 ;; @date 2009-12-06
 
 
-(add-to-list 'load-path "~/.emacs.d/dotemacs")
-(add-to-list 'load-path "~/common/dotemacs")
-(add-to-list 'load-path "~/project/common/dotemacs")
-(add-to-list 'load-path "~/common/note")
-(add-to-list 'load-path "~/project/common/note")
-(when (eq system-type 'windows-nt)
-  (add-to-list 'load-path "c:/common/dotemacs")
-  (add-to-list 'load-path "c:/project/common/dotemacs")
-  (add-to-list 'load-path "c:/common/note")
-  (add-to-list 'load-path "c:/project/common/note")
-  (add-to-list 'load-path "d:/common/dotemacs")
-  (add-to-list 'load-path "d:/project/common/dotemacs")
-  (add-to-list 'load-path "d:/common/note")
-  (add-to-list 'load-path "d:/project/common/note")
-  (add-to-list 'load-path "e:/common/dotemacs")
-  (add-to-list 'load-path "e:/project/common/dotemacs")
-  (add-to-list 'load-path "e:/common/note")
-  (add-to-list 'load-path "e:/project/common/note")
-  (add-to-list 'load-path "f:/common/dotemacs")
-  (add-to-list 'load-path "f:/project/common/dotemacs")
-  (add-to-list 'load-path "f:/common/note")
-  (add-to-list 'load-path "f:/project/common/note"))
-(add-to-list 'load-path
-             (file-name-directory (or load-file-name (buffer-file-name))))
+(let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
+       (pdir (file-name-directory (directory-file-name dir)))
+       (note-dir (expand-file-name "note" pdir))
+       (dirs (list "~/.emacs.d/dotemacs"
+                   "~/common/dotemacs"
+                   "~/project/common/dotemacs"
+                   "~/common/note"
+                   "~/project/common/note"
+                   dir
+                   note-dir)))
+  (when (eq system-type 'windows-nt)
+    (setq dirs (append dirs '("c:/common/dotemacs"
+                              "c:/project/common/dotemacs"
+                              "c:/common/note"
+                              "c:/project/common/note"
+                              "d:/common/dotemacs"
+                              "d:/project/common/dotemacs"
+                              "d:/common/note"
+                              "d:/project/common/note"
+                              "e:/common/dotemacs"
+                              "e:/project/common/dotemacs"
+                              "e:/common/note"
+                              "e:/project/common/note"
+                              "f:/common/dotemacs"
+                              "f:/project/common/dotemacs"
+                              "f:/common/note"
+                              "f:/project/common/note"))))
+  (dolist (path dirs)
+    (when (file-exists-p path)
+      (add-to-list 'load-path path))))
 
 (require 'init-basic nil t)
 (require 'init-site nil t)

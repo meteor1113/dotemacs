@@ -1,3 +1,9 @@
+2009-12-08  Meteor Liu  <meteor1113@gmail.com>
+
+	* dotemacs.el: Improve dotemacs.el.
+
+	* init-basic.el (grep-current-word): Add (grep-current-word).
+
 2009-12-07  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (format-region): Add (format-region).

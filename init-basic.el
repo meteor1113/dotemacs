@@ -106,6 +106,16 @@ Like eclipse's Ctrl+Alt+F."
         (whitespace-cleanup)
         (untabify start (point-max))
         (indent-region start (point-max))))))
+(require 'grep)
+(defun grep-current-word (&optional is-prompt)
+  "Run `grep' to find current word in current directory."
+  (interactive "P")
+  (let* ((word (grep-tag-default))
+         (commands (concat "grep -nr " word " .")))
+    (if is-prompt
+        (grep (read-shell-command
+               "Run grep (like this): " commands 'grep-history))
+      (grep commands))))
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key (kbd "C-S-f") 'format-region)
@@ -117,13 +127,9 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
-(require 'grep)
-(global-set-key [f6] '(lambda ()
-                        (interactive)
-                        (let ((word (grep-tag-default)))
-                          (grep (concat "grep -nr " word " .")))))
-(global-set-key [C-f6] '(lambda () (interactive) (occur "TODO")))
-(global-set-key [S-f6] (lambda () (interactive) (grep "grep -inr 'TODO' .")))
+(global-set-key [f6] '(lambda () (interactive) (occur "TODO")))
+(global-set-key [C-f6] (lambda () (interactive) (grep "grep -inr 'TODO' .")))
+(global-set-key [S-f6] 'grep-current-word)
 
 
 ;;; program setting
