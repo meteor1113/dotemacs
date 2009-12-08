@@ -55,8 +55,8 @@
                       (semantic-mrub-switch-tags first))))
 
   (defconst cedet-user-include-dirs
-    (list "../" "../include/" "../common/"
-          "../../" "../../include" "../../common"))
+    (list "../" "../include/" "../inc" "../common/"
+          "../../include" "../../inc" "../../common"))
   (defconst cedet-win32-include-dirs
     (list "C:/MinGW/include"
           "C:/MinGW/include/c++/3.4.5"
@@ -70,8 +70,10 @@
             (semantic-add-system-include dir 'c-mode))
           include-dirs))
 
-  (when (require 'eassist nil t)
-    (global-set-key [M-f12] 'eassist-switch-h-cpp)))
+  (unless (fboundp 'sourcepair-load)
+    (when (require 'eassist nil t)
+      (define-key c-mode-map [M-f12] 'eassist-switch-h-cpp)
+      (define-key c++-mode-map [M-f12] 'eassist-switch-h-cpp))))
 
 
 ;;; ecb setting

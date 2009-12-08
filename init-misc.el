@@ -85,6 +85,17 @@
                  (doxymacs-font-lock)))))
 
 
+;;; sourcepair setting
+(when (require 'sourcepair nil t)
+  (define-key c-mode-map [M-f12] 'sourcepair-load)
+  (define-key c++-mode-map [M-f12] 'sourcepair-load)
+  (setq sourcepair-header-path '("." "include" ".." "../include" "../inc"
+                                 "../../include" "../../inc" "../../*"))
+  (setq sourcepair-source-path '("." "src" ".." "../src" "../*"))
+  (setq sourcepair-recurse-ignore '("CVS" ".svn" ".git"
+                                    "Obj" "Debug" "Release" "bin" "lib")))
+
+
 ;;; yasnippet setting
 (when (or (require 'yasnippet-bundle nil t)
           (require 'yasnippet nil t))

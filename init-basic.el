@@ -14,8 +14,8 @@
 (setq user-mail-address "meteor1113@gmail.com")
 
 (defconst user-include-dirs
-  (list "../" "../include/" "../common/"
-        "../../" "../../include" "../../common"))
+  (list "../" "../include/" "../inc" "../common/"
+        "../../include" "../../inc" "../../common"))
 (defconst win32-include-dirs
   (list "C:/MinGW/include"
         "C:/MinGW/include/c++/3.4.5"
