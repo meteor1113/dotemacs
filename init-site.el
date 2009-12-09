@@ -56,7 +56,7 @@
 
   (defconst cedet-user-include-dirs
     (list "../" "../include/" "../inc" "../common/"
-          "../../include" "../../inc" "../../common"))
+          "../.." "../../include" "../../inc" "../../common"))
   (defconst cedet-win32-include-dirs
     (list "C:/MinGW/include"
           "C:/MinGW/include/c++/3.4.5"
@@ -70,10 +70,29 @@
             (semantic-add-system-include dir 'c-mode))
           include-dirs))
 
-  (unless (fboundp 'sourcepair-load)
-    (when (require 'eassist nil t)
-      (define-key c-mode-map [M-f12] 'eassist-switch-h-cpp)
-      (define-key c++-mode-map [M-f12] 'eassist-switch-h-cpp))))
+  (when (and (not (fboundp 'sourcepair-load))
+             (require 'eassist nil t))
+    (setq eassist-header-switches
+          '(("h" . ("cpp" "cxx" "c++" "CC" "cc" "C" "c" "mm" "M" "m"))
+            ("hh" . ("cc" "CC" "cpp" "cxx" "c++" "C"))
+            ("hpp" . ("cpp" "cxx" "c++" "cc" "CC" "C"))
+            ("hxx" . ("cxx" "cpp" "c++" "cc" "CC" "C"))
+            ("h++" . ("c++" "cpp" "cxx" "cc" "CC" "C"))
+            ("H" . ("C" "CC" "cc" "cpp" "cxx" "c++" "mm" "m" "M"))
+            ("HH" . ("CC" "cc" "C" "cpp" "cxx" "c++"))
+            ("cpp" . ("hpp" "hxx" "h++" "HH" "hh" "H" "h"))
+            ("cxx" . ("hxx" "hpp" "h++" "HH" "hh" "H" "h"))
+            ("c++" . ("h++" "hpp" "hxx" "HH" "hh" "H" "h"))
+            ("CC" . ("HH" "hh" "hpp" "hxx" "h++" "H" "h"))
+            ("cc" . ("hh" "HH" "hpp" "hxx" "h++" "H" "h"))
+            ("C" . ("hpp" "hxx" "h++" "HH" "hh" "H" "h"))
+            ("c" . ("h"))
+            ("m" . ("h"))
+            ("mm" . ("h"))
+            ("M" . ("h"))))
+    (define-key c-mode-map [M-f12] 'eassist-switch-h-cpp)
+    (define-key c++-mode-map [M-f12] 'eassist-switch-h-cpp)
+    (define-key objc-mode-map [M-f12] 'eassist-switch-h-cpp)))
 
 
 ;;; ecb setting

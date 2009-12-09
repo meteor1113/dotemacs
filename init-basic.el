@@ -15,7 +15,7 @@
 
 (defconst user-include-dirs
   (list "../" "../include/" "../inc" "../common/"
-        "../../include" "../../inc" "../../common"))
+        "../.." "../../include" "../../inc" "../../common"))
 (defconst win32-include-dirs
   (list "C:/MinGW/include"
         "C:/MinGW/include/c++/3.4.5"

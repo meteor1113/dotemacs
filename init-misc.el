@@ -89,6 +89,10 @@
 (when (require 'sourcepair nil t)
   (define-key c-mode-map [M-f12] 'sourcepair-load)
   (define-key c++-mode-map [M-f12] 'sourcepair-load)
+  (define-key objc-mode-map [M-f12] 'sourcepair-load)
+  (setq sourcepair-source-extensions
+        '(".cpp" ".cxx" ".c++" ".CC" ".cc" ".C" ".c" ".mm" ".M" ".m"))
+  (setq sourcepair-header-extensions '(".h" ".hpp" ".hh" ".H" ".hxx"))
   (setq sourcepair-header-path '("." "include" ".." "../include" "../inc"
                                  "../../include" "../../inc" "../../*"))
   (setq sourcepair-source-path '("." "src" ".." "../src" "../*"))
