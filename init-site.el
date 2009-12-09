@@ -39,6 +39,7 @@
   ;; (global-set-key [(control tab)] 'senator-completion-menu-popup)
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol)
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol-menu)
+  (global-set-key (kbd "M-n") 'semantic-ia-complete-symbol-menu)
   (global-set-key [f12] 'semantic-ia-fast-jump)
   (global-set-key [C-f12] 'semantic-ia-fast-jump)
   (global-set-key [S-f12]
