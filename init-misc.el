@@ -66,18 +66,6 @@
   (global-set-key [(meta f3)] 'highlight-symbol-query-replace))
 
 
-;;; highlight-80+ setting
-(when (require 'highlight-80+ nil t)
-  (let ((hl80+-modes
-         '(emacs-lisp-mode-hook lisp-interaction-mode-hook
-                                c-mode-common-hook
-                                makefile-mode-hook
-                                perl-mode-hook cperl-mode-hook
-                                python-mode-hook ruby-mode-hook)))
-    (dolist (hook hl80+-modes)
-      (add-hook hook (lambda () (highlight-80+-mode 1))))))
-
-
 ;;; ifdef setting
 (add-hook 'c-mode-common-hook
           '(lambda ()

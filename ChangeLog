@@ -1,5 +1,7 @@
 2009-12-10  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Remove highlight-80+.
+
 	* init-basic.el (c++-mode-hook): (c-set-offset 'innamespace 0).
 
 	* init-misc.el: Add highlight-80+.
