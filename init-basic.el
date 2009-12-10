@@ -143,7 +143,10 @@ Like eclipse's Ctrl+Alt+F."
 (add-to-list 'auto-mode-alist '("\\.[ch]\\'" . c++-mode))
 (add-hook 'c-mode-hook (lambda () (c-set-style "stroustrup")))
 
-(add-hook 'c++-mode-hook (lambda () (c-set-style "stroustrup")))
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (c-set-style "stroustrup")
+            (c-set-offset 'innamespace 0)))
 
 (add-hook 'java-mode-hook (lambda () (c-set-style "java")))
 
