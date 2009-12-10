@@ -95,7 +95,7 @@
   (setq sourcepair-header-extensions
         '(".hpp" ".hxx" ".h++" ".HH" ".hh" ".H" ".h"))
   (setq sourcepair-header-path '("." "include" ".." "../include" "../inc"
-                                 "../../include" "../../inc" "../../*"))
+                                 "../../include" "../../inc" "../*"))
   (setq sourcepair-source-path '("." "src" ".." "../src" "../*"))
   (setq sourcepair-recurse-ignore '("CVS" ".svn" ".git"
                                     "Obj" "Debug" "Release" "bin" "lib")))
