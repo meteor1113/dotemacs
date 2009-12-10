@@ -1,5 +1,8 @@
 2009-12-10  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Add (global-whitespace-mode t).
+	(format-region): Improve (format-region).
+
 	* init-misc.el: Remove highlight-80+.
 
 	* init-basic.el (c++-mode-hook): (c-set-offset 'innamespace 0).

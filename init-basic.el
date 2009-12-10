@@ -44,6 +44,11 @@
 (recentf-mode t)
 (desktop-save-mode t)
 
+(setq whitespace-style
+      '(tabs trailing lines-tail space-before-tab newline
+             indentation empty space-after-tab tab-mark))
+(global-whitespace-mode t)
+
 (ffap-bindings)
 (when (boundp 'ffap-c-path)
   (setq ffap-c-path (append ffap-c-path user-include-dirs))
@@ -94,9 +99,11 @@ Like eclipse's Ctrl+Alt+F."
   (interactive)
   (let ((start (point-min))
         (end (point-max)))
-    (when (region-active-p)
-      (setq start (region-beginning))
-      (setq end (region-end)))
+    (if (region-active-p)
+        (progn (setq start (region-beginning))
+               (setq end (region-end)))
+      (progn (whitespace-cleanup)
+             (setq end (point-max))))
     (save-excursion
       (save-restriction
         (narrow-to-region (point-min) end)
