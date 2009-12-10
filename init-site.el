@@ -71,15 +71,14 @@
             (semantic-add-system-include dir 'c-mode))
           include-dirs))
 
-  (when (and (not (fboundp 'sourcepair-load))
-             (require 'eassist nil t))
+  (when (require 'eassist nil t)
     (setq eassist-header-switches
-          '(("h" . ("cpp" "cxx" "c++" "CC" "cc" "C" "c" "mm" "M" "m"))
+          '(("h" . ("cpp" "cxx" "c++" "CC" "cc" "C" "c" "mm" "m"))
             ("hh" . ("cc" "CC" "cpp" "cxx" "c++" "C"))
             ("hpp" . ("cpp" "cxx" "c++" "cc" "CC" "C"))
             ("hxx" . ("cxx" "cpp" "c++" "cc" "CC" "C"))
             ("h++" . ("c++" "cpp" "cxx" "cc" "CC" "C"))
-            ("H" . ("C" "CC" "cc" "cpp" "cxx" "c++" "mm" "m" "M"))
+            ("H" . ("C" "CC" "cc" "cpp" "cxx" "c++" "mm" "m"))
             ("HH" . ("CC" "cc" "C" "cpp" "cxx" "c++"))
             ("cpp" . ("hpp" "hxx" "h++" "HH" "hh" "H" "h"))
             ("cxx" . ("hxx" "hpp" "h++" "HH" "hh" "H" "h"))
@@ -89,11 +88,8 @@
             ("C" . ("hpp" "hxx" "h++" "HH" "hh" "H" "h"))
             ("c" . ("h"))
             ("m" . ("h"))
-            ("mm" . ("h"))
-            ("M" . ("h"))))
-    (define-key c-mode-map [M-f12] 'eassist-switch-h-cpp)
-    (define-key c++-mode-map [M-f12] 'eassist-switch-h-cpp)
-    (define-key objc-mode-map [M-f12] 'eassist-switch-h-cpp)))
+            ("mm" . ("h"))))
+    (global-set-key [M-f12] 'eassist-switch-h-cpp)))
 
 
 ;;; ecb setting

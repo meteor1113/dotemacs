@@ -66,6 +66,18 @@
   (global-set-key [(meta f3)] 'highlight-symbol-query-replace))
 
 
+;;; highlight-80+ setting
+(when (require 'highlight-80+ nil t)
+  (let ((hl80+-modes
+         '(emacs-lisp-mode-hook lisp-interaction-mode-hook
+                                c-mode-common-hook
+                                makefile-mode-hook
+                                perl-mode-hook cperl-mode-hook
+                                python-mode-hook ruby-mode-hook)))
+    (dolist (hook hl80+-modes)
+      (add-hook hook (lambda () (highlight-80+-mode 1))))))
+
+
 ;;; ifdef setting
 (add-hook 'c-mode-common-hook
           '(lambda ()
@@ -91,8 +103,9 @@
   (define-key c++-mode-map [M-f12] 'sourcepair-load)
   (define-key objc-mode-map [M-f12] 'sourcepair-load)
   (setq sourcepair-source-extensions
-        '(".cpp" ".cxx" ".c++" ".CC" ".cc" ".C" ".c" ".mm" ".M" ".m"))
-  (setq sourcepair-header-extensions '(".h" ".hpp" ".hh" ".H" ".hxx"))
+        '(".cpp" ".cxx" ".c++" ".CC" ".cc" ".C" ".c" ".mm" ".m"))
+  (setq sourcepair-header-extensions
+        '(".hpp" ".hxx" ".h++" ".HH" ".hh" ".H" ".h"))
   (setq sourcepair-header-path '("." "include" ".." "../include" "../inc"
                                  "../../include" "../../inc" "../../*"))
   (setq sourcepair-source-path '("." "src" ".." "../src" "../*"))

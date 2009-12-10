@@ -1,3 +1,7 @@
+2009-12-10  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add highlight-80+.
+
 2009-12-08  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add sourcepair.
