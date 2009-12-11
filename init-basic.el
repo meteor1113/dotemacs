@@ -21,6 +21,9 @@
         "C:/MinGW/include/c++/3.4.5"
         "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
 
+(if (functionp 'global-hi-lock-mode)
+    (global-hi-lock-mode 1)
+  (hi-lock-mode 1))
 (tool-bar-mode t)
 (set-scroll-bar-mode 'right)
 (cua-mode t)
@@ -35,8 +38,10 @@
 (setq bookmark-save-flag 1)
 (setq-default show-trailing-whitespace t)
 (setq mouse-drag-copy-region nil)
+(setq x-select-enable-clipboard t)
 ;; (global-highlight-changes-mode t)
 ;; (global-hl-line-mode t)
+(global-linum-mode 1)
 (global-cwarn-mode 1)
 (require 'saveplace)
 (setq-default save-place t)
@@ -126,6 +131,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key (kbd "C-S-f") 'format-region)
+(global-set-key (kbd "C-=") 'align)
 (global-set-key (kbd "M-P") 'previous-buffer)
 (global-set-key (kbd "M-N") 'next-buffer)
 (global-set-key [(control tab)]

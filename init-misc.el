@@ -25,6 +25,11 @@
 (require 'unicad nil t)
 
 
+;;; autopair setting
+(when (require 'autopair nil t)
+  (autopair-global-mode))
+
+
 ;;; smart-compile setting
 (autoload 'smart-compile "smart-compile" nil t)
 (global-set-key [C-f7] 'smart-compile)
@@ -70,7 +75,7 @@
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (when (require 'ifdef nil t)
-               (global-set-key [?\C-c ?\C-i] 'mark-ifdef)
+               (define-key c-mode-base-map [?\C-c ?\C-i] 'mark-ifdef)
                (mark-ifdef))))
 
 
@@ -121,6 +126,7 @@
 
 ;;; auto-complete setting
 (when (require 'auto-complete nil t)
+  (define-key ac-complete-mode-map (kbd "<return>") 'ac-complete)
   (setq-default ac-sources '(ac-source-abbrev
                              ac-source-words-in-buffer
                              ac-source-words-in-all-buffer
