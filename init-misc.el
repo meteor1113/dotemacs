@@ -25,11 +25,6 @@
 (require 'unicad nil t)
 
 
-;;; autopair setting
-(when (require 'autopair nil t)
-  (autopair-global-mode))
-
-
 ;;; smart-compile setting
 (autoload 'smart-compile "smart-compile" nil t)
 (global-set-key [C-f7] 'smart-compile)
