@@ -173,6 +173,8 @@ Like eclipse's Ctrl+Alt+F."
 
 (add-hook 'python-mode-hook 'program-common-function)
 
+(add-hook 'sh-mode-hook 'program-common-function)
+
 (add-hook 'perl-mode-hook 'program-common-function)
 (add-to-list 'auto-mode-alist
              '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
