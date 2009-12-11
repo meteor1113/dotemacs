@@ -148,6 +148,7 @@ Like eclipse's Ctrl+Alt+F."
 ;;; program setting
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
+  (local-set-key (kbd "<return>") 'newline-and-indent)
   (hs-minor-mode t)
   (imenu-add-menubar-index))
 
@@ -165,8 +166,10 @@ Like eclipse's Ctrl+Alt+F."
 
 (add-hook 'objc-mode-hook (lambda () (c-set-style "stroustrup")))
 
-(add-hook 'emacs-lisp-mode-hook 'program-common-function)
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (program-common-function)
+            (turn-on-eldoc-mode)))
 
 (add-hook 'python-mode-hook 'program-common-function)
 
