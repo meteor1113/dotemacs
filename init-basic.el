@@ -52,7 +52,7 @@
 (setq whitespace-style
       '(tabs trailing lines-tail space-before-tab newline
              indentation empty space-after-tab tab-mark))
-(global-whitespace-mode t)
+;; (global-whitespace-mode t)
 
 (ffap-bindings)
 (when (boundp 'ffap-c-path)
@@ -149,6 +149,7 @@ Like eclipse's Ctrl+Alt+F."
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
   ;; (local-set-key (kbd "<return>") 'newline-and-indent)
+  (whitespace-mode t)
   (hs-minor-mode t)
   (imenu-add-menubar-index))
 
@@ -175,6 +176,10 @@ Like eclipse's Ctrl+Alt+F."
 
 (add-hook 'sh-mode-hook 'program-common-function)
 
+(add-hook 'makefile-mode-hook (lambda () (whitespace-mode 1)))
+
+(add-hook 'autoconf-mode-hook (lambda () (whitespace-mode 1)))
+
 (add-hook 'perl-mode-hook 'program-common-function)
 (add-to-list 'auto-mode-alist
              '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
@@ -188,6 +193,8 @@ Like eclipse's Ctrl+Alt+F."
              (setq cperl-continued-brace-offset -4)
              (abbrev-mode t)))
 
+
+;;; gdb setting
 (require 'gdb-ui)
 (defun gdb-or-gud-go ()
   "If gdb isn't running; run gdb, else call gud-go."
