@@ -148,7 +148,7 @@ Like eclipse's Ctrl+Alt+F."
 ;;; program setting
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
-  (local-set-key (kbd "<return>") 'newline-and-indent)
+  ;; (local-set-key (kbd "<return>") 'newline-and-indent)
   (hs-minor-mode t)
   (imenu-add-menubar-index))
 
