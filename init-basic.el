@@ -51,7 +51,7 @@
 
 (setq whitespace-style
       '(tabs trailing lines-tail space-before-tab newline
-             indentation empty space-after-tab tab-mark))
+             indentation empty space-after-tab tab-mark newline-mark))
 ;; (global-whitespace-mode t)
 
 (ffap-bindings)
@@ -128,8 +128,10 @@ Like eclipse's Ctrl+Alt+F."
         (grep (read-shell-command
                "Run grep (like this): " commands 'grep-history))
       (grep commands))))
+
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
+(global-set-key [M-f8] 'format-region)
 (global-set-key (kbd "C-S-f") 'format-region)
 (global-set-key (kbd "C-=") 'align)
 (global-set-key (kbd "M-P") 'previous-buffer)
@@ -141,7 +143,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
 (global-set-key [f6] '(lambda () (interactive) (occur "TODO")))
-(global-set-key [C-f6] (lambda () (interactive) (grep "grep -inr 'TODO' .")))
+(global-set-key [C-f6] (lambda () (interactive) (grep "grep -inr TODO .")))
 (global-set-key [S-f6] 'grep-current-word)
 
 
