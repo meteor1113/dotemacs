@@ -13,17 +13,9 @@
 (setq user-full-name "Meteor Liu")
 (setq user-mail-address "meteor1113@gmail.com")
 
-(defconst user-include-dirs
-  (list "../" "../include/" "../inc" "../common/"
-        "../.." "../../include" "../../inc" "../../common"))
-(defconst win32-include-dirs
-  (list "C:/MinGW/include"
-        "C:/MinGW/include/c++/3.4.5"
-        "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
-
-(if (functionp 'global-hi-lock-mode)
-    (global-hi-lock-mode 1)
-  (hi-lock-mode 1))
+;; (if (functionp 'global-hi-lock-mode)
+;;     (global-hi-lock-mode 1)
+;;   (hi-lock-mode 1))
 (tool-bar-mode t)
 (set-scroll-bar-mode 'right)
 (cua-mode t)
@@ -54,6 +46,13 @@
              indentation empty space-after-tab tab-mark newline-mark))
 ;; (global-whitespace-mode t)
 
+(defconst user-include-dirs
+  (list "../" "../include/" "../inc" "../common/"
+        "../.." "../../include" "../../inc" "../../common"))
+(defconst win32-include-dirs
+  (list "C:/MinGW/include"
+        "C:/MinGW/include/c++/3.4.5"
+        "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
 (ffap-bindings)
 (when (boundp 'ffap-c-path)
   (setq ffap-c-path (append ffap-c-path user-include-dirs))
@@ -142,9 +141,9 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
-(global-set-key [f6] '(lambda () (interactive) (occur "TODO")))
-(global-set-key [C-f6] (lambda () (interactive) (grep "grep -inr TODO .")))
-(global-set-key [S-f6] 'grep-current-word)
+(global-set-key [f6] 'grep-current-word)
+(global-set-key [C-f6] '(lambda () (interactive) (occur "TODO")))
+(global-set-key [S-f6] (lambda () (interactive) (grep "grep -inr TODO .")))
 
 
 ;;; program setting
@@ -197,15 +196,17 @@ Like eclipse's Ctrl+Alt+F."
 
 
 ;;; gdb setting
-(require 'gdb-ui)
+(require 'gdb-ui nil t)
+(require 'gdb-mi nil t)
 (defun gdb-or-gud-go ()
   "If gdb isn't running; run gdb, else call gud-go."
   (interactive)
   (if (and gud-comint-buffer
            (buffer-name gud-comint-buffer)
            (get-buffer-process gud-comint-buffer)
-           (with-current-buffer gud-comint-buffer (eq gud-minor-mode 'gdba)))
-      (gud-call (if gdb-active-process "continue" "run") "")
+           (with-current-buffer gud-comint-buffer
+             (or (eq gud-minor-mode 'gdba) (eq gud-minor-mode 'gdbmi))))
+      (gud-go nil)
     (gdb (gud-query-cmdline 'gdb))))
 (defun gud-break-or-remove ()
   "Set/clear breakpoin."
@@ -223,7 +224,7 @@ Like eclipse's Ctrl+Alt+F."
       (dolist (overlay (overlays-in (point) (point)))
         (when (overlay-get overlay 'put-break)
           (setq obj (overlay-get overlay 'before-string))))
-      (when (stringp obj)
+      (when (and (stringp obj) (featurep 'gdb-ui))
         (let* ((bptno (get-text-property 0 'gdb-bptno obj)))
           (string-match "\\([0-9+]\\)*" bptno)
           (gdb-enqueue-input
@@ -233,16 +234,23 @@ Like eclipse's Ctrl+Alt+F."
                         "disable "
                       "enable ")
                     (match-string 1 bptno) "\n")
-            'ignore)))))))
+            'ignore))))
+      (when (and (stringp obj) (featurep 'gdb-mi))
+        (gud-basic-call
+         (concat
+          (if (get-text-property 0 'gdb-enabled obj)
+              "-break-disable "
+            "-break-enable ")
+          (get-text-property 0 'gdb-bptno obj)))))))
 (defun gud-kill ()
   "Kill gdb process."
   (interactive)
   (with-current-buffer gud-comint-buffer (comint-skip-input))
-  (kill-process (get-buffer-process gud-comint-buffer)))
+  (set-process-query-on-exit-flag (get-buffer-process gud-comint-buffer) nil)
+  (kill-buffer gud-comint-buffer))
 (setq gdb-many-windows t)
 (global-set-key [f5] 'gdb-or-gud-go)
 (global-set-key [S-f5] 'gud-kill)
-;; (global-set-key [S-f5] '(lambda () (interactive) (gud-call "quit" nil)))
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (global-set-key [f8] 'gud-print)
 (global-set-key [C-f8] 'gud-pstar)

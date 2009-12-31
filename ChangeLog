@@ -1,3 +1,7 @@
+2009-12-31  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Fix gdb for working with gdb-mi.
+
 2009-12-22  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Change highlight-symbol-idle-delay from 0.2 to 0.5.
