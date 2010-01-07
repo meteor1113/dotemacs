@@ -1,3 +1,7 @@
+2010-01-07  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Add gud-tooltip-mode.
+
 2009-12-31  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Fix gdb for working with gdb-mi.

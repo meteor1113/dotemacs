@@ -249,6 +249,7 @@ Like eclipse's Ctrl+Alt+F."
   (set-process-query-on-exit-flag (get-buffer-process gud-comint-buffer) nil)
   (kill-buffer gud-comint-buffer))
 (setq gdb-many-windows t)
+(gud-tooltip-mode t)
 (global-set-key [f5] 'gdb-or-gud-go)
 (global-set-key [S-f5] 'gud-kill)
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
