@@ -39,7 +39,7 @@
   ;; (global-set-key [(control tab)] 'senator-completion-menu-popup)
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol)
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol-menu)
-  (global-set-key (kbd "M-n") 'semantic-ia-complete-symbol-menu)
+  (define-key c-mode-base-map (kbd "M-n") 'semantic-ia-complete-symbol-menu)
   (global-set-key [f12] 'semantic-ia-fast-jump)
   (global-set-key [C-f12] 'semantic-ia-fast-jump)
   (global-set-key [S-f12]
@@ -89,7 +89,7 @@
             ("c" . ("h"))
             ("m" . ("h"))
             ("mm" . ("h"))))
-    (global-set-key [M-f12] 'eassist-switch-h-cpp)))
+    (define-key c-mode-base-map [M-f12] 'eassist-switch-h-cpp)))
 
 
 ;;; ecb setting
