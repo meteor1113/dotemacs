@@ -26,11 +26,11 @@
   (semantic-load-enable-code-helpers)
   ;; (semantic-load-enable-guady-code-helpers)
   ;; (semantic-load-enable-excessive-code-helpers)
+  (enable-visual-studio-bookmarks)
   (if window-system
       (semantic-load-enable-semantic-debugging-helpers)
     (progn (global-semantic-show-unmatched-syntax-mode 1)
            (global-semantic-show-parser-state-mode 1)))
-  (enable-visual-studio-bookmarks)
 
   ;; (setq semanticdb-default-save-directory (expand-file-name "~/.semanticdb"))
   ;; (setq semanticdb-project-roots (list (expand-file-name "/")))

@@ -13,9 +13,6 @@
 (setq user-full-name "Meteor Liu")
 (setq user-mail-address "meteor1113@gmail.com")
 
-;; (if (functionp 'global-hi-lock-mode)
-;;     (global-hi-lock-mode 1)
-;;   (hi-lock-mode 1))
 (tool-bar-mode t)
 (set-scroll-bar-mode 'right)
 (cua-mode t)
