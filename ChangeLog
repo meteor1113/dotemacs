@@ -1,3 +1,7 @@
+2010-01-12  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Close global-linum-mode, because conflict with company-mode in windows.
+
 2010-01-07  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Add gud-tooltip-mode.
