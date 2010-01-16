@@ -115,7 +115,26 @@ Like eclipse's Ctrl+Alt+F."
         (untabify start (point-max))
         (indent-region start (point-max))))))
 (require 'grep)
-(defun grep-current-word (&optional is-prompt)
+(defun moccur-word-all-buffers (regexp)
+  "Run `multi-occur' to find regexp in all buffers."
+  (multi-occur (buffer-list) regexp))
+(defun moccur-word-all-buffers (regexp)
+  "Run `multi-occur' to find regexp in all buffers."
+  (let ((buffers (buffer-list)))
+    (dolist (buffer buffers)
+      ;; (let ((pos (string-match (regexp-quote "*") (buffer-name buffer))))
+      (let ((pos (string-match " *\\*" (buffer-name buffer))))
+        (when (and pos (= 0 pos))
+          (setq buffers (remq buffer buffers)))))
+    (multi-occur buffers regexp)))
+(defun moccur-all-buffers (&optional is-prompt)
+  "Run `multi-occur' to find current word in all buffers."
+  (interactive "P")
+  (let ((word (grep-tag-default)))
+    (when is-prompt
+      (setq word (read-regexp "List lines matching regexp" word)))
+    (moccur-word-all-buffers word)))
+(defun grep-current-dir (&optional is-prompt)
   "Run `grep' to find current word in current directory."
   (interactive "P")
   (let* ((word (grep-tag-default))
@@ -124,7 +143,6 @@ Like eclipse's Ctrl+Alt+F."
         (grep (read-shell-command
                "Run grep (like this): " commands 'grep-history))
       (grep commands))))
-
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key [M-f8] 'format-region)
@@ -138,9 +156,11 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
-(global-set-key [f6] 'grep-current-word)
-(global-set-key [C-f6] '(lambda () (interactive) (occur "TODO")))
-(global-set-key [S-f6] (lambda () (interactive) (grep "grep -inr TODO .")))
+(global-set-key [f6] 'moccur-all-buffers)
+(global-set-key [C-f6] 'grep-current-dir)
+(global-set-key [M-f6]
+                '(lambda () (interactive) (moccur-word-all-buffers "TODO")))
+(global-set-key [C-M-f6] (lambda () (interactive) (grep "grep -inr TODO .")))
 
 
 ;;; program setting
