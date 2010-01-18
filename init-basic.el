@@ -117,12 +117,8 @@ Like eclipse's Ctrl+Alt+F."
 (require 'grep)
 (defun moccur-word-all-buffers (regexp)
   "Run `multi-occur' to find regexp in all buffers."
-  (multi-occur (buffer-list) regexp))
-(defun moccur-word-all-buffers (regexp)
-  "Run `multi-occur' to find regexp in all buffers."
   (let ((buffers (buffer-list)))
     (dolist (buffer buffers)
-      ;; (let ((pos (string-match (regexp-quote "*") (buffer-name buffer))))
       (let ((pos (string-match " *\\*" (buffer-name buffer))))
         (when (and pos (= 0 pos))
           (setq buffers (remq buffer buffers)))))
