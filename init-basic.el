@@ -117,12 +117,14 @@ Like eclipse's Ctrl+Alt+F."
 (require 'grep)
 (defun moccur-word-all-buffers (regexp)
   "Run `multi-occur' to find regexp in all buffers."
-  (let ((buffers (buffer-list)))
-    (dolist (buffer buffers)
-      (let ((pos (string-match " *\\*" (buffer-name buffer))))
-        (when (and pos (= 0 pos))
-          (setq buffers (remq buffer buffers)))))
-    (multi-occur buffers regexp)))
+  (if (= 0 (length regexp))
+      (message "Regexp is blank.")
+    (let ((buffers (buffer-list)))
+      (dolist (buffer buffers)
+        (let ((pos (string-match " *\\*" (buffer-name buffer))))
+          (when (and pos (= 0 pos))
+            (setq buffers (remq buffer buffers)))))
+      (multi-occur buffers regexp))))
 (defun moccur-all-buffers (&optional is-prompt)
   "Run `multi-occur' to find current word in all buffers."
   (interactive "P")
@@ -138,7 +140,9 @@ Like eclipse's Ctrl+Alt+F."
     (if is-prompt
         (grep (read-shell-command
                "Run grep (like this): " commands 'grep-history))
-      (grep commands))))
+      (if (= 0 (length word))
+          (message "Word is blank.")
+        (grep commands)))))
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key [M-f8] 'format-region)
