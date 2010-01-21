@@ -129,6 +129,8 @@
                              ac-source-filename
                              ac-source-imenu))
   (global-auto-complete-mode t)
+  (setq ac-trigger-commands '(self-insert-command org-self-insert-command))
+  (add-to-list 'ac-modes 'org-mode)
   (add-to-list 'ac-modes 'objc-mode)
   (add-to-list 'ac-modes 'jde-mode))
 (when (require 'auto-complete-config nil t)

@@ -1,3 +1,7 @@
+2010-01-21  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el (require): Modify ac-trigger-commands for auto-complete in org-mode.
+
 2010-01-16  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Add (moccur-all-buffers).
