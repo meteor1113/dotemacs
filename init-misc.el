@@ -129,7 +129,7 @@
                              ac-source-filename
                              ac-source-imenu))
   (global-auto-complete-mode t)
-  (setq ac-trigger-commands '(self-insert-command org-self-insert-command))
+  (add-to-list 'ac-trigger-commands 'org-self-insert-command)
   (add-to-list 'ac-modes 'org-mode)
   (add-to-list 'ac-modes 'objc-mode)
   (add-to-list 'ac-modes 'jde-mode))
