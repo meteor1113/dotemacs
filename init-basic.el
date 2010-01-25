@@ -31,6 +31,9 @@
 ;; (global-highlight-changes-mode t)
 ;; (global-hl-line-mode t)
 ;; (global-linum-mode 1)                   ; conflict with company-mode
+(setq compilation-window-height 15)
+(setq compilation-auto-jump-to-first-error t)
+(setq compilation-scroll-output t)
 (global-cwarn-mode 1)
 (require 'saveplace)
 (setq-default save-place t)
