@@ -1,6 +1,7 @@
 2010-01-25  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (compilation-window-height): Some variables for compilation.
+	(compilation-window-height): Change from 15 to 10.
 
 2010-01-21  Meteor Liu  <meteor1113@gmail.com>
 
