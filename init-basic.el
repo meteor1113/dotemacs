@@ -47,8 +47,8 @@
 ;; (global-whitespace-mode t)
 
 (defconst user-include-dirs
-  (list "../" "../include/" "../inc" "../common/"
-        "../.." "../../include" "../../inc" "../../common"))
+  (list "../" "../include" "../inc" "../common" "../public"
+        "../.." "../../include" "../../inc" "../../common" "../../public"))
 (defconst win32-include-dirs
   (list "C:/MinGW/include"
         "C:/MinGW/include/c++/3.4.5"

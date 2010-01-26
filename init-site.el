@@ -56,8 +56,8 @@
                       (semantic-mrub-switch-tags first))))
 
   (defconst cedet-user-include-dirs
-    (list "../" "../include/" "../inc" "../common/"
-          "../.." "../../include" "../../inc" "../../common"))
+    (list ".." "../include" "../inc" "../common" "../public"
+          "../.." "../../include" "../../inc" "../../common" "../../public"))
   (defconst cedet-win32-include-dirs
     (list "C:/MinGW/include"
           "C:/MinGW/include/c++/3.4.5"
