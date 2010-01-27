@@ -64,6 +64,11 @@
   (global-set-key [f3] 'highlight-symbol-next)
   (global-set-key [(shift f3)] 'highlight-symbol-prev)
   (global-set-key [(meta f3)] 'highlight-symbol-query-replace))
+(defadvice highlight-symbol-mode-post-command
+  (around gud-tooltip-mouse-motion activate)
+  "Hack for gud-tooltip-mode."
+  (if (not (eq this-command 'gud-tooltip-mouse-motion))
+      ad-do-it))
 
 
 ;;; ifdef setting

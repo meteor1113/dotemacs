@@ -1,3 +1,7 @@
+2010-01-27  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add defadvice highlight-symbol-mode-post-command.
+
 2010-01-25  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (compilation-window-height): Some variables for compilation.
