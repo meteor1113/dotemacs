@@ -1,3 +1,8 @@
+2010-01-28  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Set highlight-symbol-idle-delay to 0.
+	Remove defadvice highlight-symbol-mode-post-command, because highlight-symbol-idle-delay is 0 will resolve gut-tooltip-mode's problem.
+
 2010-01-27  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add defadvice highlight-symbol-mode-post-command.
