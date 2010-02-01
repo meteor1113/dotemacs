@@ -109,6 +109,7 @@
 ;;; yasnippet setting
 (when (or (require 'yasnippet-bundle nil t)
           (require 'yasnippet nil t))
+  (setq yas/wrap-around-region t)
   (unless (featurep 'yasnippet-bundle)
     (yas/initialize))
   (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
