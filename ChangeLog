@@ -1,3 +1,7 @@
+2010-02-03  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Delete (setq compilation-window-height 10).
+
 2010-02-01  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: (setq yas/wrap-around-region t).
