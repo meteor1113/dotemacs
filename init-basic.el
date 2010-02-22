@@ -138,7 +138,7 @@ Like eclipse's Ctrl+Alt+F."
   "Run `grep' to find current word in current directory."
   (interactive "P")
   (let* ((word (grep-tag-default))
-         (commands (concat "grep -nr '" word "' .")))
+         (commands (concat "grep -inr '" word "' .")))
     (if is-prompt
         (grep (read-shell-command
                "Run grep (like this): " commands 'grep-history))
