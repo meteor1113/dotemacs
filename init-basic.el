@@ -15,6 +15,8 @@
 
 (tool-bar-mode t)
 (set-scroll-bar-mode 'right)
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
 (cua-mode t)
 (setq cua-keep-region-after-copy t)
 (ido-mode t)
