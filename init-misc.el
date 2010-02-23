@@ -59,7 +59,7 @@
     highlight-symbol-mode (lambda () (highlight-symbol-mode 1)))
   (when window-system
     (global-highlight-symbol-mode t))
-  (setq highlight-symbol-idle-delay 0.1)
+  (setq highlight-symbol-idle-delay 0.05)
   (global-set-key [(control f3)] 'highlight-symbol-at-point)
   (global-set-key [f3] 'highlight-symbol-next)
   (global-set-key [(shift f3)] 'highlight-symbol-prev)

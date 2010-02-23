@@ -1,3 +1,7 @@
+2010-02-23  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el (require): Change highlight-symbol-idle-delay to 0.05.
+
 2010-02-22  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (grep-current-dir): Change "grep -nr" to "grep -inr".
