@@ -60,6 +60,9 @@
   (when (eq system-type 'windows-nt)
     (setq ffap-c-path (append ffap-c-path win32-include-dirs))))
 
+(global-set-key (kbd "C-c q") 'auto-fill-mode)
+(add-hook 'change-log-mode-hook 'turn-on-auto-fill)
+
 (setq org-log-done 'time)
 (add-hook 'org-mode-hook
           (lambda ()

@@ -1,3 +1,8 @@
+2010-02-24  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: bind (kbd "C-c q") to (auto-fill-mode).
+	trun-on-auto-fill in change-log-mode.
+
 2010-02-23  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (uniquify-buffer-name-style): Set to 'forward.
