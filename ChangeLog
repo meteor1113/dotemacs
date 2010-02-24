@@ -1,7 +1,11 @@
 2010-02-24  Meteor Liu  <meteor1113@gmail.com>
 
-	* init-basic.el: bind (kbd "C-c q") to (auto-fill-mode).
-	trun-on-auto-fill in change-log-mode.
+	* init-misc.el: Enable auto-complete-mode in change-log-mode.
+
+	* init-basic.el: Bind (kbd "C-c q") to (auto-fill-mode).
+	Trun on auto-fill-mode in change-log-mode.
+	(c-mode-common-hook): Turn on auto-fill-mode in cc-mode.
+	(emacs-lisp-mode-hook): Turn on auto-fill-mode in emacs-lisp-mode.
 
 2010-02-23  Meteor Liu  <meteor1113@gmail.com>
 

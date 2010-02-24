@@ -178,7 +178,10 @@ Like eclipse's Ctrl+Alt+F."
   (hs-minor-mode t)
   (imenu-add-menubar-index))
 
-(add-hook 'c-mode-common-hook 'program-common-function)
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (program-common-function)
+            (turn-on-auto-fill)))
 
 (add-to-list 'auto-mode-alist '("\\.[ch]\\'" . c++-mode))
 (add-hook 'c-mode-hook (lambda () (c-set-style "stroustrup")))
@@ -195,7 +198,8 @@ Like eclipse's Ctrl+Alt+F."
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (program-common-function)
-            (turn-on-eldoc-mode)))
+            (turn-on-eldoc-mode)
+            (turn-on-auto-fill)))
 
 (add-hook 'python-mode-hook 'program-common-function)
 
