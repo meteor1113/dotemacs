@@ -9,7 +9,7 @@
 ;; @date 2008-08-08
 
 
-;;; load-path setting
+;; load-path
 (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
        (lisp-dir (expand-file-name "lisp" dir)))
   (add-to-list 'load-path dir)
@@ -20,40 +20,33 @@
              (normal-top-level-add-subdirs-to-load-path)
              (cd old-dir)))))
 
-
-;;; unicad setting
+;; unicad
 (require 'unicad nil t)
 
-
-;;; smart-compile setting
+;; smart-compile
 (autoload 'smart-compile "smart-compile" nil t)
 (global-set-key [C-f7] 'smart-compile)
 
-
-;;; tabbar setting
+;; tabbar
 (when (require 'tabbar nil t)
   (tabbar-mode t))
 
-
-;;; window-numbering setting
+;; window-numbering
 (when (require 'window-numbering nil t)
   (window-numbering-mode 1))
 
-
-;;; ascii setting
+;; ascii
 (autoload 'ascii-on        "ascii" "Turn on ASCII code display."   t)
 (autoload 'ascii-off       "ascii" "Turn off ASCII code display."  t)
 (autoload 'ascii-display   "ascii" "Toggle ASCII code display."    t)
 (autoload 'ascii-customize "ascii" "Customize ASCII code display." t)
 
-
-;;; recent-jump setting
+;; recent-jump
 (when (require 'recent-jump nil t)
   (global-set-key (kbd "<M-left>") 'recent-jump-jump-backward)
   (global-set-key (kbd "<M-right>") 'recent-jump-jump-forward))
 
-
-;;; highlight-symbol setting
+;; highlight-symbol
 (when (require 'highlight-symbol nil t)
   (define-global-minor-mode global-highlight-symbol-mode
     highlight-symbol-mode (lambda () (highlight-symbol-mode 1)))
@@ -73,16 +66,14 @@
                   (member symbol highlight-symbol-list))
         ad-do-it))))
 
-
-;;; ifdef setting
+;; ifdef
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (when (require 'ifdef nil t)
                (define-key c-mode-base-map [?\C-c ?\C-i] 'mark-ifdef)
                (mark-ifdef))))
 
-
-;;; doc-mode/doxymacs-mode setting
+;; doc-mode/doxymacs-mode
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (if (and (require 'semantic nil t)
@@ -92,8 +83,7 @@
                  (doxymacs-mode t)
                  (doxymacs-font-lock)))))
 
-
-;;; sourcepair setting
+;; sourcepair
 (when (require 'sourcepair nil t)
   (define-key c-mode-map [M-f12] 'sourcepair-load)
   (define-key c++-mode-map [M-f12] 'sourcepair-load)
@@ -108,8 +98,7 @@
   (setq sourcepair-recurse-ignore '("CVS" ".svn" ".git"
                                     "Obj" "Debug" "Release" "bin" "lib")))
 
-
-;;; yasnippet setting
+;; yasnippet
 (when (or (require 'yasnippet-bundle nil t)
           (require 'yasnippet nil t))
   (setq yas/wrap-around-region t)
@@ -127,8 +116,7 @@
                          '(apply ,original-command))
                    (local-set-key [tab] 'yas/expand))))))
 
-
-;;; auto-complete setting
+;; auto-complete
 (when (require 'auto-complete nil t)
   (define-key ac-complete-mode-map (kbd "<return>") 'ac-complete)
   (setq-default ac-sources '(ac-source-abbrev
@@ -167,16 +155,14 @@
   ;;                            (cons "->" '(ac-source-semantic)))))))
   )
 
-
-;;; company setting
+;; company
 (when (require 'company nil t)
   (global-company-mode t)
   (setq company-idle-delay nil)
   (define-key company-mode-map (kbd "M-n") 'company-select-next)
   (define-key company-mode-map (kbd "M-p") 'company-select-previous))
 
-
-;;; eim setting
+;; eim
 (when (require 'eim nil t)
 ;  (setq eim-use-tooltip nil)
   (register-input-method

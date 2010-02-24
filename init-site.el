@@ -9,7 +9,7 @@
 ;; @date 2008-08-08
 
 
-;;; load-path setting
+;; load-path
 (let ((dir "~/.emacs.d"))
   (when (file-exists-p dir)
     (progn (add-to-list 'load-path dir)
@@ -19,7 +19,7 @@
              (cd old-dir)))))
 
 
-;;; cedet setting
+;; cedet
 (when (require 'cedet nil t)
   ;; (semantic-load-enable-minimum-features)
   ;; (semantic-load-enable-all-exuberent-ctags-support)
@@ -91,19 +91,16 @@
             ("mm" . ("h"))))
     (define-key c-mode-base-map [M-f12] 'eassist-switch-h-cpp)))
 
-
-;;; ecb setting
+;; ecb
 (when (require 'ecb nil t)
   (setq ecb-tip-of-the-day nil)
   (setq ecb-auto-compatibility-check nil)
   (setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1))
 
-
-;;; cscope setting
+;; cscope
 (require 'xcscope nil t)
 
-
-;;; jde setting
+;; jde
 (add-hook 'java-mode-hook
           '(lambda ()
              (when (require 'jde nil t)

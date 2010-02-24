@@ -9,10 +9,12 @@
 ;; @date 2009-08-08
 
 
-;;; basic setting
+;;; global setting
+
 (setq user-full-name "Meteor Liu")
 (setq user-mail-address "meteor1113@gmail.com")
 
+;; basic
 (tool-bar-mode t)
 (set-scroll-bar-mode 'right)
 (require 'uniquify)
@@ -41,12 +43,12 @@
 (savehist-mode t)
 (recentf-mode t)
 (desktop-save-mode t)
-
 (setq whitespace-style
       '(tabs trailing lines-tail space-before-tab newline
              indentation empty space-after-tab tab-mark newline-mark))
 ;; (global-whitespace-mode t)
 
+;; ffap
 (defconst user-include-dirs
   (list "../" "../include" "../inc" "../common" "../public"
         "../.." "../../include" "../../inc" "../../common" "../../public"))
@@ -60,25 +62,6 @@
   (when (eq system-type 'windows-nt)
     (setq ffap-c-path (append ffap-c-path win32-include-dirs))))
 
-(global-set-key (kbd "C-c q") 'auto-fill-mode)
-(add-hook 'change-log-mode-hook 'turn-on-auto-fill)
-
-(setq org-log-done 'time)
-(add-hook 'org-mode-hook
-          (lambda ()
-            (imenu-add-menubar-index)
-            (setq comment-start nil)
-            (auto-fill-mode t)))
-
-(when (require 'nxml-mode nil t)
-  (add-to-list 'auto-mode-alist
-               '("\\.\\(xml\\|xsl\\|rng\\|xhtml\\)\\'" . nxml-mode))
-  (setq nxml-bind-meta-tab-to-complete-flag t)
-  (add-hook 'nxml-mode-hook
-            '(lambda ()
-               (require 'sgml-mode)
-               (set-syntax-table sgml-mode-syntax-table))))
-
 (defun move-line-up (p)
   "Move current line up, copy from crazycool@smth"
   (interactive "*p")
@@ -90,6 +73,7 @@
     (yank)
     (previous-line 1)
     (move-to-column c)))
+
 (defun move-line-down (p)
   "Move current line down, copy from crazycool@smth"
   (interactive "*p")
@@ -101,6 +85,7 @@
     (yank)
     (previous-line 1)
     (move-to-column c)))
+
 (defun format-region ()
   "Format region, if no region actived, format current buffer.
 Like eclipse's Ctrl+Alt+F."
@@ -121,7 +106,7 @@ Like eclipse's Ctrl+Alt+F."
         (whitespace-cleanup)
         (untabify start (point-max))
         (indent-region start (point-max))))))
-(require 'grep)
+
 (defun moccur-word-all-buffers (regexp)
   "Run `multi-occur' to find regexp in all buffers."
   (if (= 0 (length regexp))
@@ -132,6 +117,7 @@ Like eclipse's Ctrl+Alt+F."
           (when (and pos (= 0 pos))
             (setq buffers (remq buffer buffers)))))
       (multi-occur buffers regexp))))
+
 (defun moccur-all-buffers (&optional is-prompt)
   "Run `multi-occur' to find current word in all buffers."
   (interactive "P")
@@ -139,6 +125,8 @@ Like eclipse's Ctrl+Alt+F."
     (when is-prompt
       (setq word (read-regexp "List lines matching regexp" word)))
     (moccur-word-all-buffers word)))
+
+(require 'grep)
 (defun grep-current-dir (&optional is-prompt)
   "Run `grep' to find current word in current directory."
   (interactive "P")
@@ -150,6 +138,8 @@ Like eclipse's Ctrl+Alt+F."
       (if (= 0 (length word))
           (message "Word is blank.")
         (grep commands)))))
+
+;; global key bindings
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key [M-f8] 'format-region)
@@ -160,6 +150,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [(control tab)]
                 (lambda () (interactive) (switch-to-buffer (other-buffer))))
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
+(global-set-key (kbd "C-c q") 'auto-fill-mode)
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
@@ -170,7 +161,26 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [C-M-f6] (lambda () (interactive) (grep "grep -inr TODO .")))
 
 
-;;; program setting
+;;; special mode setting
+
+(add-hook 'change-log-mode-hook 'turn-on-auto-fill)
+
+(setq org-log-done 'time)
+(add-hook 'org-mode-hook
+          (lambda ()
+            (imenu-add-menubar-index)
+            (setq comment-start nil)
+            (auto-fill-mode t)))
+
+(when (require 'nxml-mode nil t)
+  (add-to-list 'auto-mode-alist
+               '("\\.\\(xml\\|xsl\\|rng\\|xhtml\\)\\'" . nxml-mode))
+  (setq nxml-bind-meta-tab-to-complete-flag t)
+  (add-hook 'nxml-mode-hook
+            '(lambda ()
+               (require 'sgml-mode)
+               (set-syntax-table sgml-mode-syntax-table))))
+
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
   ;; (local-set-key (kbd "<return>") 'newline-and-indent)
@@ -222,10 +232,10 @@ Like eclipse's Ctrl+Alt+F."
              (setq cperl-continued-brace-offset -4)
              (abbrev-mode t)))
 
-
-;;; gdb setting
+;; gdb setting
 (require 'gdb-ui nil t)
 (require 'gdb-mi nil t)
+
 (defun gdb-or-gud-go ()
   "If gdb isn't running; run gdb, else call gud-go."
   (interactive)
@@ -236,6 +246,7 @@ Like eclipse's Ctrl+Alt+F."
              (or (eq gud-minor-mode 'gdba) (eq gud-minor-mode 'gdbmi))))
       (gud-go nil)
     (gdb (gud-query-cmdline 'gdb))))
+
 (defun gud-break-or-remove ()
   "Set/clear breakpoin."
   (interactive)
@@ -243,6 +254,7 @@ Like eclipse's Ctrl+Alt+F."
     (if (eq (car (fringe-bitmaps-at-pos (point))) 'breakpoint)
         (gud-remove nil)
       (gud-break nil))))
+
 (defun gud-enable-or-disable ()
   "Enable/disable breakpoin."
   (interactive)
@@ -270,12 +282,14 @@ Like eclipse's Ctrl+Alt+F."
               "-break-disable "
             "-break-enable ")
           (get-text-property 0 'gdb-bptno obj)))))))
+
 (defun gud-kill ()
   "Kill gdb process."
   (interactive)
   (with-current-buffer gud-comint-buffer (comint-skip-input))
   (set-process-query-on-exit-flag (get-buffer-process gud-comint-buffer) nil)
   (kill-buffer gud-comint-buffer))
+
 (setq gdb-many-windows t)
 (gud-tooltip-mode t)
 ;; (global-set-key [f5] 'gdb-or-gud-go)

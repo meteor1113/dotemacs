@@ -1,5 +1,11 @@
 2010-02-24  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Format.
+
+	* init-site.el: Format.
+
+	* init-basic.el: Format.
+
 	* init-misc.el: Enable auto-complete-mode in change-log-mode.
 
 	* init-basic.el: Bind (kbd "C-c q") to (auto-fill-mode).
