@@ -1,5 +1,7 @@
 2010-02-24  Meteor Liu  <meteor1113@gmail.com>
 
+	* dotemacs.el: Delete.
+
 	* init-misc.el: Format.
 
 	* init-site.el: Format.
