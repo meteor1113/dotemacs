@@ -1,5 +1,9 @@
 2010-02-26  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Add highlight-tail.
+
+	* lisp/highlight-tail.el: Add.
+
 	* init-site.el: Add pulse setting.
 
 	* init-basic.el (find-dotemacs-file): Add.

@@ -46,6 +46,10 @@
   (global-set-key (kbd "<M-left>") 'recent-jump-jump-backward)
   (global-set-key (kbd "<M-right>") 'recent-jump-jump-forward))
 
+;; highlight-tail
+(when (require 'highlight-tail nil t)
+  (highlight-tail-mode))
+
 ;; highlight-symbol
 (when (require 'highlight-symbol nil t)
   (define-global-minor-mode global-highlight-symbol-mode
