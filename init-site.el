@@ -71,6 +71,25 @@
             (semantic-add-system-include dir 'c-mode))
           include-dirs))
 
+  (pulse-toggle-integration-advice (if window-system 1 -1))
+  (defadvice cua-exchange-point-and-mark (after pulse-advice activate)
+    "Cause the line that is `goto'd to pulse when the cursor gets there."
+    (when (and pulse-command-advice-flag (interactive-p)
+               (> (abs (- (point) (mark))) 400))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice switch-to-buffer (after pulse-advice activate)
+    "After switch-to-buffer, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice ido-switch-buffer (after pulse-advice activate)
+    "After ido-switch-buffer, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice beginning-of-buffer (after pulse-advice activate)
+    "After beginning-of-buffer, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+
   (when (require 'eassist nil t)
     (setq eassist-header-switches
           '(("h" . ("cpp" "cxx" "c++" "CC" "cc" "C" "c" "mm" "m"))

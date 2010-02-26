@@ -62,6 +62,19 @@
   (when (eq system-type 'windows-nt)
     (setq ffap-c-path (append ffap-c-path win32-include-dirs))))
 
+(defun find-dotemacs-file ()
+  "open .emacs file"
+  (interactive)
+  (let* ((homedir (getenv "HOME"))
+         (path1 (expand-file-name ".emacs" homedir))
+         (path2 (expand-file-name "_emacs" homedir))
+         (dotemacs-path path1))
+    (when (file-exists-p path2)
+      (setq dotemacs-path path2))
+    (when (file-exists-p path1)
+      (setq dotemacs-path path1))
+    (find-file dotemacs-path)))
+
 (defun move-line-up (p)
   "Move current line up, copy from crazycool@smth"
   (interactive "*p")
@@ -148,7 +161,9 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "M-P") 'previous-buffer)
 (global-set-key (kbd "M-N") 'next-buffer)
 (global-set-key [(control tab)]
-                (lambda () (interactive) (switch-to-buffer (other-buffer))))
+                (lambda ()
+                  (interactive)
+                  (call-interactively (switch-to-buffer (other-buffer)))))
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
 (global-set-key [f4] 'next-error)

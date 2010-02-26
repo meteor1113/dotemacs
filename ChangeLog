@@ -1,3 +1,9 @@
+2010-02-26  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-site.el: Add pulse setting./
+
+	* init-basic.el (find-dotemacs-file): Add.
+
 2010-02-24  Meteor Liu  <meteor1113@gmail.com>
 
 	* dotemacs.el: Delete.
