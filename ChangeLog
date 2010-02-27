@@ -1,3 +1,7 @@
+2010-02-27  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Open size-indication-mode.
+
 2010-02-26  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add highlight-tail.

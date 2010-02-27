@@ -11,42 +11,63 @@
 
 ;;; global setting
 
+;; user information
 (setq user-full-name "Meteor Liu")
 (setq user-mail-address "meteor1113@gmail.com")
 
-;; basic
+;; tool-bar
 (tool-bar-mode t)
+
+;; scroll-bar
 (set-scroll-bar-mode 'right)
+
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
+
+;; cua
 (cua-mode t)
 (setq cua-keep-region-after-copy t)
-(ido-mode t)
-(icomplete-mode t)
-(column-number-mode t)
-(display-time-mode t)
-(show-paren-mode t)
-(global-auto-revert-mode t)
-(which-function-mode t)
-(setq bookmark-save-flag 1)
-(setq-default show-trailing-whitespace t)
 (setq mouse-drag-copy-region nil)
 (setq x-select-enable-clipboard t)
-;; (global-highlight-changes-mode t)
-;; (global-hl-line-mode t)
-;; (global-linum-mode 1)                   ; conflict with company-mode
-(setq compilation-auto-jump-to-first-error t)
-(setq compilation-scroll-output t)
-(global-cwarn-mode 1)
+
+;; mode-line
+(column-number-mode t)
+(size-indication-mode 1)
+(display-time-mode t)
+(which-function-mode t)
+
+;; save information
 (require 'saveplace)
 (setq-default save-place t)
 (savehist-mode t)
 (recentf-mode t)
 (desktop-save-mode t)
+
+;; whitespace
+(setq-default show-trailing-whitespace t)
 (setq whitespace-style
       '(tabs trailing lines-tail space-before-tab newline
              indentation empty space-after-tab tab-mark newline-mark))
 ;; (global-whitespace-mode t)
+
+;; bookmark
+(setq bookmark-save-flag 1)
+
+;; compile
+(setq compilation-auto-jump-to-first-error t)
+(setq compilation-scroll-output t)
+
+;; complete
+(ido-mode t)
+(icomplete-mode t)
+
+;; misc
+(show-paren-mode t)
+(global-auto-revert-mode t)
+(global-cwarn-mode 1)
+(global-hl-line-mode t)
+;; (global-highlight-changes-mode t)       ; use cedet instead
+;; (global-linum-mode 1)                   ; conflict with company-mode
 
 ;; ffap
 (defconst user-include-dirs
