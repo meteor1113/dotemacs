@@ -174,6 +174,7 @@ Like eclipse's Ctrl+Alt+F."
         (grep commands)))))
 
 ;; global key bindings
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key [M-f8] 'format-region)
