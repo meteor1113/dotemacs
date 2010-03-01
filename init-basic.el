@@ -62,10 +62,12 @@
 (icomplete-mode t)
 
 ;; misc
+(require 'generic-x)
 (show-paren-mode t)
 (global-auto-revert-mode t)
 (global-cwarn-mode 1)
 (global-hl-line-mode t)
+;; (blink-cursor-mode -1)
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 ;; (global-linum-mode 1)                   ; conflict with company-mode
 
