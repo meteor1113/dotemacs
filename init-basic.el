@@ -66,6 +66,9 @@
 ;; (blink-cursor-mode -1)
 (setq x-stretch-cursor t)
 
+;; erc
+(setq erc-server-coding-system '(utf-8 . utf-8))
+
 ;; program
 (show-paren-mode t)
 ;; (setq show-paren-style 'mixed)
