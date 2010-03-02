@@ -18,7 +18,6 @@
              (normal-top-level-add-subdirs-to-load-path)
              (cd old-dir)))))
 
-
 ;; cedet
 (when (require 'cedet nil 'noerror)
   ;; (semantic-load-enable-minimum-features)
@@ -98,7 +97,12 @@
       (pulse-momentary-highlight-one-line (point))))
 
   (when (require 'semantic-tag-folding nil 'noerror)
-    (global-semantic-tag-folding-mode 1))
+    (global-semantic-tag-folding-mode 1)
+    (global-set-key (kbd "<C-kp-divide>") 'global-semantic-tag-folding-mode)
+    (define-key semantic-tag-folding-mode-map
+      (kbd "<C-kp-subtract>") 'semantic-tag-folding-fold-all)
+    (define-key semantic-tag-folding-mode-map
+      (kbd "<C-kp-add>") 'semantic-tag-folding-show-all))
 
   (when (require 'eassist nil 'noerror)
     (setq eassist-header-switches
