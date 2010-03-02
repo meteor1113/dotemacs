@@ -55,6 +55,9 @@
 (when (require 'highlight-tail nil 'noerror)
   (highlight-tail-mode))
 
+(when (require 'highlight-parentheses nil 'noerror)
+  (add-hook 'find-file-hooks (lambda () (highlight-parentheses-mode t))))
+
 ;; highlight-symbol
 (when (require 'highlight-symbol nil 'noerror)
   (define-global-minor-mode global-highlight-symbol-mode

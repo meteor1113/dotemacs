@@ -1,6 +1,7 @@
 2010-03-02  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add cursor-chg.
+	: Add highlight-parentheses.
 
 	* init-site.el: Bind [M-S-f12] to
 	semantic-analyze-proto-impl-toggle.

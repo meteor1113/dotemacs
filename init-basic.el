@@ -68,6 +68,7 @@
 
 ;; program
 (show-paren-mode t)
+;; (setq show-paren-style 'mixed)
 (global-cwarn-mode 1)
 
 ;; misc
