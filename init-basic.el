@@ -61,15 +61,20 @@
 (ido-mode t)
 (icomplete-mode t)
 
+;; cursor
+;; (setq-default cursor-type 'bar)
+;; (blink-cursor-mode -1)
+(setq x-stretch-cursor t)
+
+;; program
+(show-paren-mode t)
+(global-cwarn-mode 1)
+
 ;; misc
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
-(setq x-stretch-cursor t)
-(show-paren-mode t)
 (global-auto-revert-mode t)
-(global-cwarn-mode 1)
 (global-hl-line-mode (if window-system 1 -1))
-;; (blink-cursor-mode -1)
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 ;; (global-linum-mode 1)                   ; conflict with company-mode
 

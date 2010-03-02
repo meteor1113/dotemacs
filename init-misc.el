@@ -23,6 +23,11 @@
 ;; unicad
 (require 'unicad nil 'noerror)
 
+;; cursor-chg
+(when (require 'cursor-chg nil 'noerror)
+  (toggle-cursor-type-when-idle 1)
+  (change-cursor-mode 1))
+
 ;; smart-compile
 (autoload 'smart-compile "smart-compile" nil t)
 (global-set-key [C-f7] 'smart-compile)
