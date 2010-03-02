@@ -2,8 +2,9 @@
 
 	* init-site.el: Bind [M-S-f12] to
 	semantic-analyze-proto-impl-toggle.
-	(require): Bind "C-c SPC" to semantic-ia-complete-symbol-menu in
+	: Bind "C-c SPC" to semantic-ia-complete-symbol-menu in
 	window-system, or semantic-ia-complete-symbol in console.
+	: Add (global-ede-mode 1).
 
 	* init-basic.el (emacs-lisp-mode-hook): Turn off auto-fill-mode in
 	emacs-lisp-mode.

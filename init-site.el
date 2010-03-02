@@ -31,6 +31,10 @@
       (semantic-load-enable-semantic-debugging-helpers)
     (progn (global-semantic-show-unmatched-syntax-mode 1)
            (global-semantic-show-parser-state-mode 1)))
+  (global-ede-mode 1)
+  ;; (global-srecode-minor-mode 1)
+  ;; (global-semantic-tag-folding-mode 1)
+  ;; (semantic-load-enable-primary-exuberent-ctags-support)
 
   ;; (setq semanticdb-default-save-directory (expand-file-name "~/.semanticdb"))
   ;; (setq semanticdb-project-roots (list (expand-file-name "/")))
