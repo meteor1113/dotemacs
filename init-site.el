@@ -40,6 +40,7 @@
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol)
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol-menu)
   (define-key c-mode-base-map (kbd "M-n") 'semantic-ia-complete-symbol-menu)
+  (define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
   (global-set-key [f12] 'semantic-ia-fast-jump)
   (global-set-key [C-f12] 'semantic-ia-fast-jump)
   (global-set-key [S-f12]

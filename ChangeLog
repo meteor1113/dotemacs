@@ -1,5 +1,8 @@
 2010-03-02  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-site.el: Bind [M-S-f12] to
+	semantic-analyze-proto-impl-toggle.
+
 	* init-basic.el (emacs-lisp-mode-hook): Turn off auto-fill-mode in
 	emacs-lisp-mode.
 	(find-tag): Add advice tags-file-name-advice.
