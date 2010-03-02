@@ -63,6 +63,8 @@
 
 ;; misc
 (require 'generic-x)
+(setq ring-bell-function 'ignore)
+(setq x-stretch-cursor t)
 (show-paren-mode t)
 (global-auto-revert-mode t)
 (global-cwarn-mode 1)
@@ -85,8 +87,18 @@
   (when (eq system-type 'windows-nt)
     (setq ffap-c-path (append ffap-c-path win32-include-dirs))))
 
+(defadvice find-tag (before tags-file-name-advice activate)
+  "Find TAGS file in ./ or ../ or ../../ dirs"
+  (let ((list (mapcar 'expand-file-name '("./TAGS" "../TAGS" "../../TAGS"))))
+    (while list
+      (if (file-exists-p (car list))
+          (progn
+            (setq tags-file-name (car list))
+            (setq list nil))
+        (setq list (cdr list))))))
+
 (defun find-dotemacs-file ()
-  "open .emacs file"
+  "Open .emacs file"
   (interactive)
   (let* ((homedir (getenv "HOME"))
          (path1 (expand-file-name ".emacs" homedir))
@@ -247,8 +259,7 @@ Like eclipse's Ctrl+Alt+F."
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (program-common-function)
-            (turn-on-eldoc-mode)
-            (turn-on-auto-fill)))
+            (turn-on-eldoc-mode)))
 
 (add-hook 'python-mode-hook 'program-common-function)
 

@@ -62,7 +62,7 @@
   (global-set-key [(shift f3)] 'highlight-symbol-prev)
   (global-set-key [(meta f3)] 'highlight-symbol-query-replace))
 (defadvice highlight-symbol-mode-post-command
-  (around gud-tooltip-mouse-motion activate)
+  (around gud-tooltip-advice activate)
   "Hack for gud-tooltip-mode."
   (unless (eq this-command 'gud-tooltip-mouse-motion)
     (let ((symbol (highlight-symbol-get-symbol)))
