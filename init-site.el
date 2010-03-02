@@ -26,14 +26,13 @@
   (semantic-load-enable-code-helpers)
   ;; (semantic-load-enable-guady-code-helpers)
   ;; (semantic-load-enable-excessive-code-helpers)
-  (enable-visual-studio-bookmarks)
   (if window-system
       (semantic-load-enable-semantic-debugging-helpers)
     (progn (global-semantic-show-unmatched-syntax-mode 1)
            (global-semantic-show-parser-state-mode 1)))
+  (enable-visual-studio-bookmarks)
   (global-ede-mode 1)
   ;; (global-srecode-minor-mode 1)
-  ;; (global-semantic-tag-folding-mode 1)
   ;; (semantic-load-enable-primary-exuberent-ctags-support)
 
   ;; (setq semanticdb-default-save-directory (expand-file-name "~/.semanticdb"))
@@ -97,6 +96,9 @@
     "After beginning-of-buffer, pulse the line the cursor lands on."
     (when (and pulse-command-advice-flag (interactive-p))
       (pulse-momentary-highlight-one-line (point))))
+
+  (when (require 'semantic-tag-folding nil 'noerror)
+    (global-semantic-tag-folding-mode 1))
 
   (when (require 'eassist nil 'noerror)
     (setq eassist-header-switches
