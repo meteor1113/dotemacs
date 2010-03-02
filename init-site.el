@@ -20,7 +20,7 @@
 
 
 ;; cedet
-(when (require 'cedet nil t)
+(when (require 'cedet nil 'noerror)
   ;; (semantic-load-enable-minimum-features)
   ;; (semantic-load-enable-all-exuberent-ctags-support)
   (semantic-load-enable-code-helpers)
@@ -39,6 +39,9 @@
   ;; (global-set-key [(control tab)] 'senator-completion-menu-popup)
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol)
   ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol-menu)
+  (if window-system
+      (define-key c-mode-base-map "\C-c " 'semantic-ia-complete-symbol-menu)
+    (define-key c-mode-base-map "\C-c " 'semantic-ia-complete-symbol))
   (define-key c-mode-base-map (kbd "M-n") 'semantic-ia-complete-symbol-menu)
   (define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
   (global-set-key [f12] 'semantic-ia-fast-jump)
@@ -63,7 +66,7 @@
     (list "C:/MinGW/include"
           "C:/MinGW/include/c++/3.4.5"
           "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
-  (require 'semantic-c nil t)
+  (require 'semantic-c nil 'noerror)
   (let ((include-dirs cedet-user-include-dirs))
     (when (eq system-type 'windows-nt)
       (setq include-dirs (append include-dirs cedet-win32-include-dirs)))
@@ -91,7 +94,7 @@
     (when (and pulse-command-advice-flag (interactive-p))
       (pulse-momentary-highlight-one-line (point))))
 
-  (when (require 'eassist nil t)
+  (when (require 'eassist nil 'noerror)
     (setq eassist-header-switches
           '(("h" . ("cpp" "cxx" "c++" "CC" "cc" "C" "c" "mm" "m"))
             ("hh" . ("cc" "CC" "cpp" "cxx" "c++" "C"))
@@ -112,18 +115,18 @@
     (define-key c-mode-base-map [M-f12] 'eassist-switch-h-cpp)))
 
 ;; ecb
-(when (require 'ecb nil t)
+(when (require 'ecb nil 'noerror)
   (setq ecb-tip-of-the-day nil)
   (setq ecb-auto-compatibility-check nil)
   (setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1))
 
 ;; cscope
-(require 'xcscope nil t)
+(require 'xcscope nil 'noerror)
 
 ;; jde
 (add-hook 'java-mode-hook
           '(lambda ()
-             (when (require 'jde nil t)
+             (when (require 'jde nil 'noerror)
                (setq jde-enable-abbrev-mode t))))
 
 

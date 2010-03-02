@@ -21,18 +21,18 @@
              (cd old-dir)))))
 
 ;; unicad
-(require 'unicad nil t)
+(require 'unicad nil 'noerror)
 
 ;; smart-compile
 (autoload 'smart-compile "smart-compile" nil t)
 (global-set-key [C-f7] 'smart-compile)
 
 ;; tabbar
-(when (require 'tabbar nil t)
+(when (require 'tabbar nil 'noerror)
   (tabbar-mode t))
 
 ;; window-numbering
-(when (require 'window-numbering nil t)
+(when (require 'window-numbering nil 'noerror)
   (window-numbering-mode 1))
 
 ;; ascii
@@ -42,16 +42,16 @@
 (autoload 'ascii-customize "ascii" "Customize ASCII code display." t)
 
 ;; recent-jump
-(when (require 'recent-jump nil t)
+(when (require 'recent-jump nil 'noerror)
   (global-set-key (kbd "<M-left>") 'recent-jump-jump-backward)
   (global-set-key (kbd "<M-right>") 'recent-jump-jump-forward))
 
 ;; highlight-tail
-(when (require 'highlight-tail nil t)
+(when (require 'highlight-tail nil 'noerror)
   (highlight-tail-mode))
 
 ;; highlight-symbol
-(when (require 'highlight-symbol nil t)
+(when (require 'highlight-symbol nil 'noerror)
   (define-global-minor-mode global-highlight-symbol-mode
     highlight-symbol-mode (lambda () (highlight-symbol-mode 1)))
   (when window-system
@@ -73,22 +73,22 @@
 ;; ifdef
 (add-hook 'c-mode-common-hook
           '(lambda ()
-             (when (require 'ifdef nil t)
+             (when (require 'ifdef nil 'noerror)
                (define-key c-mode-base-map [?\C-c ?\C-i] 'mark-ifdef)
                (mark-ifdef))))
 
 ;; doc-mode/doxymacs-mode
 (add-hook 'c-mode-common-hook
           '(lambda ()
-             (if (and (require 'semantic nil t)
-                      (require 'doc-mode nil t))
+             (if (and (require 'semantic nil 'noerror)
+                      (require 'doc-mode nil 'noerror))
                  (doc-mode t)
-               (when (require 'doxymacs nil t)
+               (when (require 'doxymacs nil 'noerror)
                  (doxymacs-mode t)
                  (doxymacs-font-lock)))))
 
 ;; sourcepair
-(when (require 'sourcepair nil t)
+(when (require 'sourcepair nil 'noerror)
   (define-key c-mode-map [M-f12] 'sourcepair-load)
   (define-key c++-mode-map [M-f12] 'sourcepair-load)
   (define-key objc-mode-map [M-f12] 'sourcepair-load)
@@ -103,8 +103,8 @@
                                     "Obj" "Debug" "Release" "bin" "lib")))
 
 ;; yasnippet
-(when (or (require 'yasnippet-bundle nil t)
-          (require 'yasnippet nil t))
+(when (or (require 'yasnippet-bundle nil 'noerror)
+          (require 'yasnippet nil 'noerror))
   (setq yas/wrap-around-region t)
   (unless (featurep 'yasnippet-bundle)
     (yas/initialize))
@@ -112,7 +112,7 @@
          (snippets-dir (expand-file-name "snippets" dir)))
     (when (file-exists-p snippets-dir)
       (yas/load-directory snippets-dir)))
-  (when (require 'org nil t)
+  (when (require 'org nil 'noerror)
     (add-hook 'org-mode-hook
               (let ((original-command (lookup-key org-mode-map [tab])))
                 `(lambda ()
@@ -121,7 +121,7 @@
                    (local-set-key [tab] 'yas/expand))))))
 
 ;; auto-complete
-(when (require 'auto-complete nil t)
+(when (require 'auto-complete nil 'noerror)
   (define-key ac-complete-mode-map (kbd "<return>") 'ac-complete)
   (setq-default ac-sources '(ac-source-abbrev
                              ac-source-words-in-buffer
@@ -135,7 +135,7 @@
   (add-to-list 'ac-modes 'change-log-mode)
   (add-to-list 'ac-modes 'objc-mode)
   (add-to-list 'ac-modes 'jde-mode))
-(when (require 'auto-complete-config nil t)
+(when (require 'auto-complete-config nil 'noerror)
   (when (ac-yasnippet-initialize)
     (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources)))
   (add-hook 'emacs-lisp-mode-hook
@@ -160,14 +160,14 @@
   )
 
 ;; company
-(when (require 'company nil t)
+(when (require 'company nil 'noerror)
   (global-company-mode t)
   (setq company-idle-delay nil)
   (define-key company-mode-map (kbd "M-n") 'company-select-next)
   (define-key company-mode-map (kbd "M-p") 'company-select-previous))
 
 ;; eim
-(when (require 'eim nil t)
+(when (require 'eim nil 'noerror)
 ;  (setq eim-use-tooltip nil)
   (register-input-method
    "eim-wb" "euc-cn" 'eim-use-package
@@ -176,7 +176,7 @@
    "eim-py" "euc-cn" 'eim-use-package
    "eim-py" "eim-py" "py.txt")
   (setq default-input-method "eim-wb"))
-(when (require 'eim-extra nil t)
+(when (require 'eim-extra nil 'noerror)
   (global-set-key ";" 'eim-insert-ascii))
 
 

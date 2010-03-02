@@ -62,13 +62,13 @@
 (icomplete-mode t)
 
 ;; misc
-(require 'generic-x)
+(require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
 (setq x-stretch-cursor t)
 (show-paren-mode t)
 (global-auto-revert-mode t)
 (global-cwarn-mode 1)
-(global-hl-line-mode t)
+(global-hl-line-mode (if window-system 1 -1))
 ;; (blink-cursor-mode -1)
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 ;; (global-linum-mode 1)                   ; conflict with company-mode
@@ -223,7 +223,7 @@ Like eclipse's Ctrl+Alt+F."
             (setq comment-start nil)
             (auto-fill-mode t)))
 
-(when (require 'nxml-mode nil t)
+(when (require 'nxml-mode nil 'noerror)
   (add-to-list 'auto-mode-alist
                '("\\.\\(xml\\|xsl\\|rng\\|xhtml\\)\\'" . nxml-mode))
   (setq nxml-bind-meta-tab-to-complete-flag t)
@@ -283,8 +283,8 @@ Like eclipse's Ctrl+Alt+F."
              (abbrev-mode t)))
 
 ;; gdb setting
-(require 'gdb-ui nil t)
-(require 'gdb-mi nil t)
+(require 'gdb-ui nil 'noerror)
+(require 'gdb-mi nil 'noerror)
 
 (defun gdb-or-gud-go ()
   "If gdb isn't running; run gdb, else call gud-go."
