@@ -53,7 +53,7 @@
 
 ;; highlight-tail
 (when (require 'highlight-tail nil 'noerror)
-  (highlight-tail-mode))
+  (highlight-tail-mode 1))
 
 (when (require 'highlight-parentheses nil 'noerror)
   (add-hook 'find-file-hooks (lambda () (highlight-parentheses-mode t))))
