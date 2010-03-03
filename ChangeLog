@@ -1,3 +1,7 @@
+2010-03-03  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-site.el: Reset semantic-tag-folding key.
+
 2010-03-02  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add cursor-chg.

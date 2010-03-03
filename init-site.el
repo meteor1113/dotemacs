@@ -98,11 +98,11 @@
 
   (when (require 'semantic-tag-folding nil 'noerror)
     (global-semantic-tag-folding-mode 1)
-    (global-set-key (kbd "<C-kp-divide>") 'global-semantic-tag-folding-mode)
+    (global-set-key (kbd "C-?") 'global-semantic-tag-folding-mode)
     (define-key semantic-tag-folding-mode-map
-      (kbd "<C-kp-subtract>") 'semantic-tag-folding-fold-all)
+      (kbd "C-_") 'semantic-tag-folding-fold-all)
     (define-key semantic-tag-folding-mode-map
-      (kbd "<C-kp-add>") 'semantic-tag-folding-show-all))
+      (kbd "C-+") 'semantic-tag-folding-show-all))
 
   (when (require 'eassist nil 'noerror)
     (setq eassist-header-switches
