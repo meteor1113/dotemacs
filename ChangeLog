@@ -1,5 +1,8 @@
 2010-03-03  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Don't active highlight-sysbol-mode in erc, occur,
+	w3m mode.
+
 	* init-site.el: Reset semantic-tag-folding key.
 
 2010-03-02  Meteor Liu  <meteor1113@gmail.com>

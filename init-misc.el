@@ -60,8 +60,14 @@
 
 ;; highlight-symbol
 (when (require 'highlight-symbol nil 'noerror)
+  (defvar disable-hl-s-modes
+    '(erc-mode occur-mode w3m-mode)
+    "This buffers don't active highlight-symbol-mode.")
   (define-global-minor-mode global-highlight-symbol-mode
-    highlight-symbol-mode (lambda () (highlight-symbol-mode 1)))
+    highlight-symbol-mode
+    (lambda ()
+      (when (not (memq major-mode disable-hl-s-modes))
+        (highlight-symbol-mode 1))))
   (when window-system
     (global-highlight-symbol-mode t))
   (setq highlight-symbol-idle-delay 0.05)

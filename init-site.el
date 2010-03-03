@@ -37,10 +37,10 @@
   ;; (setq semanticdb-default-save-directory (expand-file-name "~/.semanticdb"))
   ;; (setq semanticdb-project-roots (list (expand-file-name "/")))
 
-  ;; (global-set-key [(control tab)] 'senator-complete-symbol)
-  ;; (global-set-key [(control tab)] 'senator-completion-menu-popup)
-  ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol)
-  ;; (global-set-key [(control tab)] 'semantic-ia-complete-symbol-menu)
+  ;; (global-set-key (kbd "C-c , TAB") 'senator-complete-symbol)
+  ;; (global-set-key (kbd "C-c , SPC") 'senator-completion-menu-popup)
+  ;; (global-set-key (kbd "C-c TAB") 'semantic-ia-complete-symbol)
+  ;; (global-set-key (kbd "C-c SPC") 'semantic-ia-complete-symbol-menu)
   (if window-system
       (define-key c-mode-base-map "\C-c " 'semantic-ia-complete-symbol-menu)
     (define-key c-mode-base-map "\C-c " 'semantic-ia-complete-symbol))
