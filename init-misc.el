@@ -163,14 +163,14 @@
               ;; (setq ac-sources (append '(ac-source-yasnippet) ac-sources))
               ))
   (ac-c++-keywords-initialize)
-  ;; (ac-css-keywords-initialize)
+  (ac-css-keywords-initialize)
   ;; (ac-ropemacs-initialize)
   ;; (setq ac-trigger-commands '(self-insert-command c-electric-lt-gt))
   ;; (dolist (hook '(c-mode-hook c++-mode-hook jde-mode-hook java-mode-hook))
   ;;   (add-hook hook
   ;;             '(lambda ()
   ;;                (setq ac-omni-completion-sources
-  ;;                      (list (cons "." '(ac-source-semantic))
+  ;;                      (list (cons "\\." '(ac-source-semantic))
   ;;                            (cons "->" '(ac-source-semantic)))))))
   )
 
@@ -178,6 +178,9 @@
 (when (require 'company nil 'noerror)
   (global-company-mode t)
   (setq company-idle-delay nil)
+  ;; (setq company-idle-delay t
+  ;;       company-minimum-prefix-length 1
+  ;;       company-begin-commands '(self-insert-command c-electric-lt-gt))
   (define-key company-mode-map (kbd "M-n") 'company-select-next)
   (define-key company-mode-map (kbd "M-p") 'company-select-previous))
 
