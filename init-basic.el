@@ -211,6 +211,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
+(global-set-key [mouse-3] 'imenu)
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)

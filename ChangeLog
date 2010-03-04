@@ -2,6 +2,7 @@
 
 	* init-basic.el: Disable size-indication-mode.
 	(program-common-function): Disable hs-minor-mode. cedet instead.
+	: Bind right mouse to imenu.
 
 	* lisp/company-0.5/*: Update company from 0.4.3 to 0.5
 
