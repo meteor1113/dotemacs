@@ -1,5 +1,8 @@
 2010-03-04  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Disable size-indication-mode.
+	(program-common-function): Disable hs-minor-mode. cedet instead.
+
 	* lisp/company-0.5/*: Update company from 0.4.3 to 0.5
 
 2010-03-03  Meteor Liu  <meteor1113@gmail.com>

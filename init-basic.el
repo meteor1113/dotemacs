@@ -32,7 +32,7 @@
 
 ;; mode-line
 (column-number-mode t)
-(size-indication-mode 1)
+;; (size-indication-mode 1)
 (display-time-mode t)
 (which-function-mode t)
 
@@ -245,7 +245,7 @@ Like eclipse's Ctrl+Alt+F."
   (setq indent-tabs-mode nil)
   ;; (local-set-key (kbd "<return>") 'newline-and-indent)
   (whitespace-mode t)
-  (hs-minor-mode t)
+  ;; (hs-minor-mode t)
   (imenu-add-menubar-index))
 
 (add-hook 'c-mode-common-hook
