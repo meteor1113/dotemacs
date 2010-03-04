@@ -1,8 +1,8 @@
 ;;; company-etags.el --- a company-mode completion back-end for etags
 ;;
-;; Copyright (C) 2009 Nikolaj Schumacher
+;; Copyright (C) 2009-2010 Nikolaj Schumacher
 ;;
-;; This file is part of company 0.4.3.
+;; This file is part of company 0.5.
 ;;
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -67,8 +67,9 @@ buffer automatically."
                         (all-completions arg (tags-completion-table)))))
     ('location (let ((tags-table-list (company-etags-buffer-table)))
                  (when (fboundp 'find-tag-noselect)
-                   (let ((buffer (find-tag-noselect arg)))
-                     (cons buffer (with-current-buffer buffer (point)))))))
+                   (save-excursion
+                     (let ((buffer (find-tag-noselect arg)))
+                       (cons buffer (with-current-buffer buffer (point))))))))
     ('sorted t)))
 
 (provide 'company-etags)

@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (C) 2009 Nikolaj Schumacher
 ;;
-;; This file is part of company 0.4.3.
+;; This file is part of company 0.5.
 ;;
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -276,7 +276,7 @@ Returns \"\" if no property found, but feasible at this position."
   (interactive (list 'interactive))
   (case command
     ('interactive (company-begin-backend 'company-css))
-    ('prefix (and (eq major-mode 'css-mode)
+    ('prefix (and (derived-mode-p 'css-mode)
                   (or (company-grab company-css-tag-regexp 1)
                       (company-grab company-css-pseudo-regexp 1)
                       (company-grab company-css-property-value-regexp 2)

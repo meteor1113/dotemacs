@@ -1,10 +1,10 @@
 ;;; company.el --- extensible inline text completion mechanism
 ;;
-;; Copyright (C) 2009 Nikolaj Schumacher
+;; Copyright (C) 2009-2010 Nikolaj Schumacher
 ;;
 ;; Author: Nikolaj Schumacher <bugs * nschum de>
-;; Version: 0.4.3
-;; Keywords: abbrev, convenience, matchis
+;; Version: 0.5
+;; Keywords: abbrev, convenience, matching
 ;; URL: http://nschum.de/src/emacs/company/
 ;; Compatibility: GNU Emacs 22.x, GNU Emacs 23.x
 ;;
@@ -64,6 +64,15 @@
 ;; This behavior is enabled by `company-end-of-buffer-workaround'.
 ;;
 ;;; Change Log:
+;;
+;; 2010-02-24 (0.5)
+;;    `company-ropemacs' now provides location and docs.  (Fernando H. Silva)
+;;    Added `company-with-candidate-inserted' macro.
+;;    Added `company-clang' back-end.
+;;    Added new mechanism for non-consecutive insertion.
+;;      (So far only used by clang for ObjC.)
+;;    The semantic back-end now shows meta information for local symbols.
+;;    Added compatibility for CEDET in Emacs 23.2 and from CVS.  (Oleg Andreev)
 ;;
 ;; 2009-05-07 (0.4.3)
 ;;    Added `company-other-backend'.
@@ -140,7 +149,7 @@
   "Extensible inline text completion mechanism"
   :group 'abbrev
   :group 'convenience
-  :group 'maching)
+  :group 'matching)
 
 (defface company-tooltip
   '((t :background "yellow"
@@ -270,6 +279,7 @@ If this many lines are not available, prefer to display the tooltip above."
 
 (defvar company-safe-backends
   '((company-abbrev . "Abbrev")
+    (company-clang . "clang")
     (company-css . "CSS")
     (company-dabbrev . "dabbrev for plain text")
     (company-dabbrev-code . "dabbrev for code")
@@ -298,8 +308,8 @@ If this many lines are not available, prefer to display the tooltip above."
                 (return t))))))
 
 (defcustom company-backends '(company-elisp company-nxml company-css
-                              company-eclim company-semantic company-xcode
-                              company-ropemacs
+                              company-eclim company-semantic company-clang
+                              company-xcode company-ropemacs
                               (company-gtags company-etags company-dabbrev-code
                                company-pysmell company-keywords)
                               company-oddmuse company-files company-dabbrev)
@@ -522,14 +532,17 @@ The work-around consists of adding a newline.")
 
   (if (or (symbolp backend)
           (functionp backend))
-      (if (ignore-errors (funcall backend 'init) t)
-          (put backend 'company-init t)
-        (put backend 'company-init 'failed)
-        (unless (memq backend company--disabled-backends)
-          (message "Company back-end '%s' could not be initialized"
-                   backend)
-          (push backend company--disabled-backends))
-        nil)
+      (condition-case err
+          (progn
+            (funcall backend 'init)
+            (put backend 'company-init t))
+        (error
+         (put backend 'company-init 'failed)
+         (unless (memq backend company--disabled-backends)
+           (message "Company back-end '%s' could not be initialized:\n%s"
+                    backend (error-message-string err)))
+         (push backend company--disabled-backends)
+         nil))
     (mapc 'company-init-backend backend)))
 
 (defvar company-default-lighter " company")
@@ -738,6 +751,19 @@ keymap during active completions (`company-active-map'):
 
 (defsubst company-strip-prefix (str)
   (substring str (length company-prefix)))
+
+(defmacro company-with-candidate-inserted (candidate &rest body)
+  "Evaluate BODY with CANDIDATE temporarily inserted.
+This is a tool for back-ends that need candidates inserted before they
+can retrieve meta-data for them."
+  (declare (indent 1))
+  `(let ((inhibit-modification-hooks t)
+         (inhibit-point-motion-hooks t)
+         (modified-p (buffer-modified-p)))
+     (insert (company-strip-prefix ,candidate))
+     (unwind-protect
+         (progn ,@body)
+       (delete-region company-point (point)))))
 
 (defun company-explicit-action-p ()
   "Return whether explicit completion action was taken by the user."
@@ -997,7 +1023,9 @@ keymap during active completions (`company-active-map'):
                 company-backend backend
                 c (company-calculate-candidates prefix))
           ;; t means complete/unique.  We don't start, so no hooks.
-          (when (consp c)
+          (if (not (consp c))
+              (when company--explicit-action
+                (message "No completion found"))
             (setq company-prefix prefix)
             (when (symbolp backend)
               (setq company-lighter (concat " " (symbol-name backend))))
@@ -1030,7 +1058,10 @@ keymap during active completions (`company-active-map'):
        (set-buffer-modified-p nil))
   (when company-prefix
     (if (stringp result)
-        (run-hook-with-args 'company-completion-finished-hook result)
+        (progn
+          (company-call-backend 'pre-completion result)
+          (run-hook-with-args 'company-completion-finished-hook result)
+          (company-call-backend 'post-completion result))
       (run-hook-with-args 'company-completion-cancelled-hook result)))
   (setq company-added-newline nil
         company-backend nil
@@ -1397,19 +1428,24 @@ To show the number next to the candidates in some back-ends, enable
     (erase-buffer)
     (current-buffer)))
 
+(defvar company--electric-commands
+  '(scroll-other-window scroll-other-window-down)
+  "List of Commands that won't break out of electric commands.")
+
 (defmacro company--electric-do (&rest body)
   (declare (indent 0) (debug t))
   `(when (company-manual-begin)
      (save-window-excursion
        (let ((height (window-height))
-             (row (company--row)))
+             (row (company--row))
+             cmd)
          ,@body
          (and (< (window-height) height)
               (< (- (window-height) row 2) company-tooltip-limit)
               (recenter (- (window-height) row 2)))
-         (while (eq 'scroll-other-window
-                    (key-binding (vector (list (read-event)))))
-           (call-interactively 'scroll-other-window))
+         (while (memq (setq cmd (key-binding (vector (list (read-event)))))
+                      company--electric-commands)
+           (call-interactively cmd))
          (when last-input-event
            (clear-this-command-keys t)
            (setq unread-command-events (list last-input-event)))))))
@@ -1418,9 +1454,12 @@ To show the number next to the candidates in some back-ends, enable
   "Temporarily show a buffer with the complete documentation for the selection."
   (interactive)
   (company--electric-do
-    (let ((selected (nth company-selection company-candidates)))
-      (display-buffer (or (company-call-backend 'doc-buffer selected)
-                          (error "No documentation available")) t))))
+    (let* ((selected (nth company-selection company-candidates))
+           (doc-buffer (or (company-call-backend 'doc-buffer selected)
+                           (error "No documentation available"))))
+      (with-current-buffer doc-buffer
+        (goto-char (point-min)))
+      (display-buffer doc-buffer t))))
 (put 'company-show-doc-buffer 'company-keep t)
 
 (defun company-show-location ()
@@ -1433,9 +1472,12 @@ To show the number next to the candidates in some back-ends, enable
            (buffer (or (and (bufferp (car location)) (car location))
                        (find-file-noselect (car location) t))))
       (with-selected-window (display-buffer buffer t)
-        (if (bufferp (car location))
-            (goto-char pos)
-          (goto-line pos))
+        (save-restriction
+          (widen)
+          (if (bufferp (car location))
+              (goto-char pos)
+            (goto-char (point-min))
+            (forward-line (1- pos))))
         (set-window-start nil (point))))))
 (put 'company-show-location 'company-keep t)
 
@@ -1840,7 +1882,7 @@ Returns a negative number if the tooltip should be displayed above point."
 
 (defvar company-echo-timer nil)
 
-(defvar company-echo-delay .1)
+(defvar company-echo-delay .01)
 
 (defun company-echo-show (&optional getter)
   (when getter
@@ -1938,6 +1980,10 @@ Returns a negative number if the tooltip should be displayed above point."
     ('pre-command (company-echo-show-soon))
     ('post-command (company-echo-show-soon 'company-fetch-metadata))
     ('hide (company-echo-hide))))
+
+;; templates ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(autoload 'company-template-declare-template "company-template")
 
 (provide 'company)
 ;;; company.el ends here

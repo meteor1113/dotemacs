@@ -1,8 +1,8 @@
 ;;; company-eclim.el --- a company-mode completion back-end for eclim.
 ;;
-;; Copyright (C) 2009 Nikolaj Schumacher
+;; Copyright (C) 2009-2010 Nikolaj Schumacher
 ;;
-;; This file is part of company 0.4.3.
+;; This file is part of company 0.5.
 ;;
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -35,7 +35,7 @@
   :group 'company
   :type 'file)
 
-(defcustom company-eclim-auto-save nil
+(defcustom company-eclim-auto-save t
   "*Determines whether to save the buffer when retrieving completions.
 eclim can only complete correctly when the buffer has been saved."
   :group 'company
@@ -97,7 +97,8 @@ eclim can only complete correctly when the buffer has been saved."
                                           (company-eclim--project-dir)))
         (project-name (company-eclim--project-name)))
     (when company-eclim-auto-save
-      (save-buffer)
+      (when (buffer-modified-p)
+        (basic-save-buffer))
       ;; FIXME: Sometimes this isn't finished when we complete.
       (company-eclim--call-process "java_src_update"
                                   "-p" (company-eclim--project-name)
