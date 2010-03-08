@@ -67,6 +67,9 @@
   (defconst cedet-win32-include-dirs
     (list "C:/MinGW/include"
           "C:/MinGW/include/c++/3.4.5"
+          "C:/MinGW/include/c++/3.4.5/mingw32"
+          "C:/MinGW/include/c++/3.4.5/backward"
+          "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
           "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
   (require 'semantic-c nil 'noerror)
   (let ((include-dirs cedet-user-include-dirs))
