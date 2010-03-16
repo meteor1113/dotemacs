@@ -7,6 +7,7 @@
 ;; @file
 ;; @author Meteor Liu <meteor1113@gmail.com>
 ;; @date 2009-08-08
+;; @URL http://github.com/meteor1113/dotemacs
 
 
 ;;; global setting
@@ -119,29 +120,29 @@
       (setq dotemacs-path path1))
     (find-file dotemacs-path)))
 
-(defun move-line-up (p)
-  "Move current line up, copy from crazycool@smth"
-  (interactive "*p")
-  (let ((c (current-column)))
-    (beginning-of-line)
-    (kill-line 1)
-    (previous-line p)
-    (beginning-of-line)
-    (yank)
-    (previous-line 1)
-    (move-to-column c)))
+;; (defun move-line-up (p)
+;;   "Move current line up, copy from crazycool@smth"
+;;   (interactive "*p")
+;;   (let ((c (current-column)))
+;;     (beginning-of-line)
+;;     (kill-line 1)
+;;     (previous-line p)
+;;     (beginning-of-line)
+;;     (yank)
+;;     (previous-line 1)
+;;     (move-to-column c)))
 
-(defun move-line-down (p)
-  "Move current line down, copy from crazycool@smth"
-  (interactive "*p")
-  (let ((c (current-column)))
-    (beginning-of-line)
-    (kill-line 1)
-    (next-line p)
-    (beginning-of-line)
-    (yank)
-    (previous-line 1)
-    (move-to-column c)))
+;; (defun move-line-down (p)
+;;   "Move current line down, copy from crazycool@smth"
+;;   (interactive "*p")
+;;   (let ((c (current-column)))
+;;     (beginning-of-line)
+;;     (kill-line 1)
+;;     (next-line p)
+;;     (beginning-of-line)
+;;     (yank)
+;;     (previous-line 1)
+;;     (move-to-column c)))
 
 (defun format-region ()
   "Format region, if no region actived, format current buffer.
@@ -197,8 +198,8 @@ Like eclipse's Ctrl+Alt+F."
         (grep commands)))))
 
 ;; global key bindings
-(global-set-key (kbd "<M-up>") 'move-line-up)
-(global-set-key (kbd "<M-down>") 'move-line-down)
+;; (global-set-key (kbd "<M-up>") 'move-line-up)
+;; (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key [M-f8] 'format-region)
 (global-set-key (kbd "C-S-f") 'format-region)
 (global-set-key (kbd "C-=") 'align)

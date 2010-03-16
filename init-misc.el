@@ -7,6 +7,7 @@
 ;; @file
 ;; @author Meteor Liu <meteor1113@gmail.com>
 ;; @date 2008-08-08
+;; @URL http://github.com/meteor1113/dotemacs
 
 
 ;; load-path
@@ -45,6 +46,10 @@
 (autoload 'ascii-off       "ascii" "Turn off ASCII code display."  t)
 (autoload 'ascii-display   "ascii" "Toggle ASCII code display."    t)
 (autoload 'ascii-customize "ascii" "Customize ASCII code display." t)
+
+;; drag-stuff
+(when (require 'drag-stuff nil 'noerror)
+  (drag-stuff-global-mode t))
 
 ;; recent-jump
 (when (require 'recent-jump nil 'noerror)

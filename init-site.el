@@ -7,6 +7,7 @@
 ;; @file
 ;; @author Meteor Liu <meteor1113@gmail.com>
 ;; @date 2008-08-08
+;; @URL http://github.com/meteor1113/dotemacs
 
 
 ;; load-path
@@ -21,7 +22,6 @@
 ;; cedet
 (when (require 'cedet nil 'noerror)
   ;; (semantic-load-enable-minimum-features)
-  ;; (semantic-load-enable-all-exuberent-ctags-support)
   (semantic-load-enable-code-helpers)
   ;; (semantic-load-enable-guady-code-helpers)
   ;; (semantic-load-enable-excessive-code-helpers)
@@ -29,13 +29,33 @@
       (semantic-load-enable-semantic-debugging-helpers)
     (progn (global-semantic-show-unmatched-syntax-mode 1)
            (global-semantic-show-parser-state-mode 1)))
+  ;; (semantic-load-enable-all-exuberent-ctags-support)
+  ;; (semantic-load-enable-primary-exuberent-ctags-support)
   (enable-visual-studio-bookmarks)
   (global-ede-mode 1)
   ;; (global-srecode-minor-mode 1)
-  ;; (semantic-load-enable-primary-exuberent-ctags-support)
 
   ;; (setq semanticdb-default-save-directory (expand-file-name "~/.semanticdb"))
   ;; (setq semanticdb-project-roots (list (expand-file-name "/")))
+
+  (defconst cedet-user-include-dirs
+    (list ".." "../include" "../inc" "../common" "../public"
+          "../.." "../../include" "../../inc" "../../common" "../../public"))
+  (defconst cedet-win32-include-dirs
+    (list "C:/MinGW/include"
+          "C:/MinGW/include/c++/3.4.5"
+          "C:/MinGW/include/c++/3.4.5/mingw32"
+          "C:/MinGW/include/c++/3.4.5/backward"
+          "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
+          "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
+  (require 'semantic-c nil 'noerror)
+  (let ((include-dirs cedet-user-include-dirs))
+    (when (eq system-type 'windows-nt)
+      (setq include-dirs (append include-dirs cedet-win32-include-dirs)))
+    (mapc (lambda (dir)
+            (semantic-add-system-include dir 'c++-mode)
+            (semantic-add-system-include dir 'c-mode))
+          include-dirs))
 
   ;; (global-set-key (kbd "C-c , TAB") 'senator-complete-symbol)
   ;; (global-set-key (kbd "C-c , SPC") 'senator-completion-menu-popup)
@@ -60,25 +80,6 @@
                                                      (semantic-current-tag))
                           (setq first (cdr (car (cdr alist)))))
                       (semantic-mrub-switch-tags first))))
-
-  (defconst cedet-user-include-dirs
-    (list ".." "../include" "../inc" "../common" "../public"
-          "../.." "../../include" "../../inc" "../../common" "../../public"))
-  (defconst cedet-win32-include-dirs
-    (list "C:/MinGW/include"
-          "C:/MinGW/include/c++/3.4.5"
-          "C:/MinGW/include/c++/3.4.5/mingw32"
-          "C:/MinGW/include/c++/3.4.5/backward"
-          "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
-          "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
-  (require 'semantic-c nil 'noerror)
-  (let ((include-dirs cedet-user-include-dirs))
-    (when (eq system-type 'windows-nt)
-      (setq include-dirs (append include-dirs cedet-win32-include-dirs)))
-    (mapc (lambda (dir)
-            (semantic-add-system-include dir 'c++-mode)
-            (semantic-add-system-include dir 'c-mode))
-          include-dirs))
 
   (pulse-toggle-integration-advice (if window-system 1 -1))
   (defadvice cua-exchange-point-and-mark (after pulse-advice activate)
