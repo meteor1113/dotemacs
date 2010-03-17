@@ -47,14 +47,14 @@
 (autoload 'ascii-display   "ascii" "Toggle ASCII code display."    t)
 (autoload 'ascii-customize "ascii" "Customize ASCII code display." t)
 
+;; recent-jump
+(when (require 'recent-jump nil 'noerror)
+  (global-set-key (kbd "<M-S-left>") 'recent-jump-jump-backward)
+  (global-set-key (kbd "<M-S-right>") 'recent-jump-jump-forward))
+
 ;; drag-stuff
 (when (require 'drag-stuff nil 'noerror)
   (drag-stuff-global-mode t))
-
-;; recent-jump
-(when (require 'recent-jump nil 'noerror)
-  (global-set-key (kbd "<M-left>") 'recent-jump-jump-backward)
-  (global-set-key (kbd "<M-right>") 'recent-jump-jump-forward))
 
 ;; highlight-tail
 (when (require 'highlight-tail nil 'noerror)
