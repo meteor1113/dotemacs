@@ -100,9 +100,13 @@
     (when (and pulse-command-advice-flag (interactive-p))
       (pulse-momentary-highlight-one-line (point))))
 
-  (when (require 'semantic-tag-folding nil 'noerror)
+  (when (and window-system (require 'semantic-tag-folding nil 'noerror))
     (global-semantic-tag-folding-mode 1)
     (global-set-key (kbd "C-?") 'global-semantic-tag-folding-mode)
+    (define-key semantic-tag-folding-mode-map
+      (kbd "C-c , -") 'semantic-tag-folding-fold-block)
+    (define-key semantic-tag-folding-mode-map
+      (kbd "C-c , +") 'semantic-tag-folding-show-block)
     (define-key semantic-tag-folding-mode-map
       (kbd "C-_") 'semantic-tag-folding-fold-all)
     (define-key semantic-tag-folding-mode-map
