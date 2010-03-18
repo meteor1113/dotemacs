@@ -75,12 +75,14 @@
 ;; (setq show-paren-style 'mixed)
 (global-cwarn-mode 1)
 
+;; highlight
+(global-hl-line-mode (if window-system 1 -1))
+;; (global-highlight-changes-mode t)       ; use cedet instead
+
 ;; misc
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
 (global-auto-revert-mode t)
-(global-hl-line-mode (if window-system 1 -1))
-;; (global-highlight-changes-mode t)       ; use cedet instead
 ;; (global-linum-mode 1)                   ; conflict with company-mode
 
 ;; ffap
