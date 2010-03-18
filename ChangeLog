@@ -2,6 +2,7 @@
 
 	* init-site.el: Bind key to semantic-tag-folding-fold-block and
 	semantic-tag-folding-show-block.
+	: Bind S-f12 to pop-global-mark.
 
 2010-03-17  Meteor Liu  <meteor1113@gmail.com>
 
