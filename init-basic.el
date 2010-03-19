@@ -54,6 +54,15 @@
 ;; bookmark
 (setq bookmark-save-flag 1)
 
+;; backup
+;; (setq make-backup-files nil)
+;; (setq backup-by-copying t)
+;; (setq backup-directory-alist '(("." . "~/.backups")))
+;; (setq delete-old-versions t)
+;; (setq kept-old-versions 2)
+;; (setq kept-new-versions 5)
+;; (setq version-control t)
+
 ;; compile
 (setq compilation-auto-jump-to-first-error t)
 (setq compilation-scroll-output t)
