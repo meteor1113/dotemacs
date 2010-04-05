@@ -92,7 +92,9 @@
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
 (global-auto-revert-mode t)
-;; (global-linum-mode 1)                   ; conflict with company-mode
+(setq-default indicate-buffer-boundaries (quote left))
+(when (not (eq system-type 'windows-nt))
+  (global-linum-mode 1))		; conflict with company-mode in win32
 
 ;; ffap
 (defconst user-include-dirs

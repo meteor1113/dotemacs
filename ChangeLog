@@ -1,3 +1,8 @@
+2010-04-05  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Add indicate-buffer-boundaries.
+	: Enable linum-mode in linux.
+
 2010-03-29  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el: Bind S-f12 to semantic-mrub-switch-tags.
