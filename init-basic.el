@@ -157,6 +157,11 @@
 ;;     (previous-line 1)
 ;;     (move-to-column c)))
 
+(defun switch-to-previous-buffer ()
+  "Switch to previous buffer."
+  (interactive)
+  (call-interactively (switch-to-buffer (other-buffer))))
+
 (defun format-region ()
   "Format region, if no region actived, format current buffer.
 Like eclipse's Ctrl+Alt+F."
@@ -218,10 +223,8 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "C-=") 'align)
 (global-set-key (kbd "M-P") 'previous-buffer)
 (global-set-key (kbd "M-N") 'next-buffer)
-(global-set-key [(control tab)]
-                (lambda ()
-                  (interactive)
-                  (call-interactively (switch-to-buffer (other-buffer)))))
+(global-set-key [(control tab)] 'switch-to-previous-buffer)
+(global-set-key (kbd "<C-S-tab>") 'switch-to-previous-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
