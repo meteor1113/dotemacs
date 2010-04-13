@@ -249,7 +249,7 @@ Like eclipse's Ctrl+Alt+F."
             (setq comment-start nil)
             (auto-fill-mode t)))
 
-(when (require 'nxml-mode nil 'noerror)
+(when (fboundp 'nxmo-mode)
   (add-to-list 'auto-mode-alist
                '("\\.\\(xml\\|xsl\\|rng\\|xhtml\\)\\'" . nxml-mode))
   (setq nxml-bind-meta-tab-to-complete-flag t)
