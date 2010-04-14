@@ -253,7 +253,7 @@ Like eclipse's Ctrl+Alt+F."
      (define-key org-mode-map [(control tab)] nil)
      (define-key org-mode-map (kbd "<C-S-tab>") 'org-force-cycle-archived)))
 
-(when (fboundp 'nxmo-mode)
+(when (fboundp 'nxml-mode)
   (add-to-list 'auto-mode-alist
                '("\\.\\(xml\\|xsl\\|rng\\|xhtml\\)\\'" . nxml-mode))
   (setq nxml-bind-meta-tab-to-complete-flag t)

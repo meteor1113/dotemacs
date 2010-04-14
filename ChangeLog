@@ -2,6 +2,7 @@
 
 	* init-basic.el: Improve gud-break-or-remove and gud-enable-or-disable.
 	("org"): Redefine org-mode key map.
+	(fboundp): Fix nxml-mode bug.
 
 2010-04-06  Meteor Liu  <meteor1113@gmail.com>
 
