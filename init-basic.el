@@ -94,7 +94,7 @@
 (global-auto-revert-mode t)
 (setq-default indicate-buffer-boundaries (quote left))
 (when (not (eq system-type 'windows-nt))
-  (global-linum-mode 1))		; conflict with company-mode in win32
+  (global-linum-mode 1))                ; conflict with company-mode in win32
 
 ;; ffap
 (defconst user-include-dirs
@@ -312,52 +312,55 @@ Like eclipse's Ctrl+Alt+F."
 (require 'gdb-ui nil 'noerror)
 (require 'gdb-mi nil 'noerror)
 
-(defun gdb-or-gud-go ()
-  "If gdb isn't running; run gdb, else call gud-go."
-  (interactive)
-  (if (and gud-comint-buffer
-           (buffer-name gud-comint-buffer)
-           (get-buffer-process gud-comint-buffer)
-           (with-current-buffer gud-comint-buffer
-             (or (eq gud-minor-mode 'gdba) (eq gud-minor-mode 'gdbmi))))
-      (gud-go nil)
-    (gdb (gud-query-cmdline 'gdb))))
+;; (defun gdb-or-gud-go ()
+;;   "If gdb isn't running; run gdb, else call gud-go."
+;;   (interactive)
+;;   (if (and gud-comint-buffer
+;;            (buffer-name gud-comint-buffer)
+;;            (get-buffer-process gud-comint-buffer)
+;;            (with-current-buffer gud-comint-buffer
+;;              (or (eq gud-minor-mode 'gdba) (eq gud-minor-mode 'gdbmi))))
+;;       (gud-go nil)
+;;     (gdb (gud-query-cmdline 'gdb))))
 
-(defun gud-break-or-remove ()
+(defun gud-break-or-remove (&optional force-remove)
   "Set/clear breakpoin."
-  (interactive)
+  (interactive "P")
   (save-excursion
-    (if (eq (car (fringe-bitmaps-at-pos (point))) 'breakpoint)
+    (if (or force-remove (eq (car (fringe-bitmaps-at-pos (point))) 'breakpoint))
         (gud-remove nil)
       (gud-break nil))))
 
 (defun gud-enable-or-disable ()
-  "Enable/disable breakpoin."
+  "Enable/disable breakpoint."
   (interactive)
-  (let ((pos))
+  (let ((obj))
     (save-excursion
       (move-beginning-of-line nil)
       (dolist (overlay (overlays-in (point) (point)))
         (when (overlay-get overlay 'put-break)
           (setq obj (overlay-get overlay 'before-string))))
-      (when (and (stringp obj) (featurep 'gdb-ui))
-        (let* ((bptno (get-text-property 0 'gdb-bptno obj)))
-          (string-match "\\([0-9+]\\)*" bptno)
-          (gdb-enqueue-input
-           (list
-            (concat gdb-server-prefix
-                    (if (get-text-property 0 'gdb-enabled obj)
-                        "disable "
-                      "enable ")
-                    (match-string 1 bptno) "\n")
-            'ignore))))
-      (when (and (stringp obj) (featurep 'gdb-mi))
-        (gud-basic-call
-         (concat
-          (if (get-text-property 0 'gdb-enabled obj)
-              "-break-disable "
-            "-break-enable ")
-          (get-text-property 0 'gdb-bptno obj)))))))
+      (if  (and obj (stringp obj))
+          (cond ((featurep 'gdb-ui)
+                 (let* ((bptno (get-text-property 0 'gdb-bptno obj)))
+                   (string-match "\\([0-9+]\\)*" bptno)
+                   (gdb-enqueue-input
+                    (list
+                     (concat gdb-server-prefix
+                             (if (get-text-property 0 'gdb-enabled obj)
+                                 "disable "
+                               "enable ")
+                             (match-string 1 bptno) "\n")
+                     'ignore))))
+                ((featurep 'gdb-mi)
+                 (gud-basic-call
+                  (concat
+                   (if (get-text-property 0 'gdb-enabled obj)
+                       "-break-disable "
+                     "-break-enable ")
+                   (get-text-property 0 'gdb-bptno obj))))
+                (t (error "No gud-ui or gui-mi?")))
+        (message "May be there isn't have a breakpoint.")))))
 
 (defun gud-kill ()
   "Kill gdb process."
