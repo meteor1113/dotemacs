@@ -327,7 +327,8 @@ Like eclipse's Ctrl+Alt+F."
   "Set/clear breakpoin."
   (interactive "P")
   (save-excursion
-    (if (or force-remove (eq (car (fringe-bitmaps-at-pos (point))) 'breakpoint))
+    (if (or force-remove
+            (eq (car (fringe-bitmaps-at-pos (point))) 'breakpoint))
         (gud-remove nil)
       (gud-break nil))))
 
