@@ -248,6 +248,10 @@ Like eclipse's Ctrl+Alt+F."
             (imenu-add-menubar-index)
             (setq comment-start nil)
             (auto-fill-mode t)))
+(eval-after-load "org"
+  `(progn
+     (define-key org-mode-map [(control tab)] nil)
+     (define-key org-mode-map (kbd "<C-S-tab>") 'org-force-cycle-archived)))
 
 (when (fboundp 'nxmo-mode)
   (add-to-list 'auto-mode-alist
