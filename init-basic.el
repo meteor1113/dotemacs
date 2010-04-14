@@ -224,7 +224,6 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "M-P") 'previous-buffer)
 (global-set-key (kbd "M-N") 'next-buffer)
 (global-set-key [(control tab)] 'switch-to-previous-buffer)
-(global-set-key (kbd "<C-S-tab>") 'switch-to-previous-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
