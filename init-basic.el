@@ -93,7 +93,8 @@
 (setq ring-bell-function 'ignore)
 (global-auto-revert-mode t)
 (setq-default indicate-buffer-boundaries (quote left))
-(when (not (eq system-type 'windows-nt))
+(when (and (fboundp 'global-linum-mode)
+           (not (eq system-type 'windows-nt)))
   (global-linum-mode 1))                ; conflict with company-mode in win32
 
 ;; ffap

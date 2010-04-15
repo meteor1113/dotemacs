@@ -1,5 +1,7 @@
 2010-04-15  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: For compatible with emacs-22.
+
 	* dotemacs.sample: Edit dotemacs.sample.
 	To Unix Lf.
 
