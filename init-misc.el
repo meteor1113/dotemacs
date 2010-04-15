@@ -21,6 +21,9 @@
              (normal-top-level-add-subdirs-to-load-path)
              (cd old-dir)))))
 
+(when (not (fboundp 'define-globalized-minor-mode))
+  (defalias 'define-globalized-minor-mode 'define-global-minor-mode))
+
 ;; unicad
 (require 'unicad nil 'noerror)
 
@@ -53,13 +56,14 @@
   (global-set-key (kbd "<M-S-right>") 'recent-jump-jump-forward))
 
 ;; drag-stuff
-(when (and (<= 23 emacs-major-version)
-           (require 'drag-stuff nil 'noerror))
+(when (require 'drag-stuff nil 'noerror)
   (drag-stuff-global-mode t))
 
 ;; highlight-tail
-(when (and window-system (require 'highlight-tail nil 'noerror))
-  (highlight-tail-mode 1))
+(autoload 'highlight-tail-mode "highlight-tail"
+  "Draw a \"tail\" while you're typing." t)
+;; (when (and window-system (require 'highlight-tail nil 'noerror))
+;;   (highlight-tail-mode 1))
 
 ;; highlight-parentheses
 (when (require 'highlight-parentheses nil 'noerror)
