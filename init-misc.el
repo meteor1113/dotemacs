@@ -53,11 +53,12 @@
   (global-set-key (kbd "<M-S-right>") 'recent-jump-jump-forward))
 
 ;; drag-stuff
-(when (require 'drag-stuff nil 'noerror)
+(when (and (<= 23 emacs-major-version)
+           (require 'drag-stuff nil 'noerror))
   (drag-stuff-global-mode t))
 
 ;; highlight-tail
-(when (require 'highlight-tail nil 'noerror)
+(when (and window-system (require 'highlight-tail nil 'noerror))
   (highlight-tail-mode 1))
 
 ;; highlight-parentheses

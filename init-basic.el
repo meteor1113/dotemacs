@@ -261,7 +261,8 @@ Like eclipse's Ctrl+Alt+F."
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
   ;; (local-set-key (kbd "<return>") 'newline-and-indent)
-  (whitespace-mode t)
+  (when (fboundp 'whitespace-mode)
+    (whitespace-mode t))
   ;; (hs-minor-mode t)
   (imenu-add-menubar-index))
 
@@ -291,9 +292,9 @@ Like eclipse's Ctrl+Alt+F."
 
 (add-hook 'sh-mode-hook 'program-common-function)
 
-(add-hook 'makefile-mode-hook (lambda () (whitespace-mode 1)))
-
-(add-hook 'autoconf-mode-hook (lambda () (whitespace-mode 1)))
+(when (fboundp 'whitespace-mode)
+  (add-hook 'makefile-mode-hook (lambda () (whitespace-mode 1)))
+  (add-hook 'autoconf-mode-hook (lambda () (whitespace-mode 1))))
 
 (add-hook 'perl-mode-hook 'program-common-function)
 (add-to-list 'auto-mode-alist
