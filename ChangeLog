@@ -1,5 +1,7 @@
 2010-04-16  Meteor Liu  <meteor1113@gmail.com>
 
+	* dotemacs.sample: Rename to .emacs.
+
 	* init-misc.el (highlight-tail-mode): Disable highlight-tail-mode
 	in default.
 
