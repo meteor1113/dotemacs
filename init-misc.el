@@ -28,7 +28,7 @@
 (require 'unicad nil 'noerror)
 
 ;; cursor-chg
-(when (require 'cursor-chg nil 'noerror)
+(when (and window-system (require 'cursor-chg nil 'noerror))
   (toggle-cursor-type-when-idle 1)
   (change-cursor-mode 1))
 
@@ -37,7 +37,7 @@
 (global-set-key [C-f7] 'smart-compile)
 
 ;; tabbar
-(when (require 'tabbar nil 'noerror)
+(when (and window-system (require 'tabbar nil 'noerror))
   (tabbar-mode t))
 
 ;; window-numbering
