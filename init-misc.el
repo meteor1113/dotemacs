@@ -159,6 +159,7 @@
   (add-to-list 'ac-trigger-commands 'org-self-insert-command)
   (add-to-list 'ac-modes 'org-mode)
   (add-to-list 'ac-modes 'change-log-mode)
+  (add-to-list 'ac-modes 'fundamental-mode)
   (add-to-list 'ac-modes 'objc-mode)
   (add-to-list 'ac-modes 'jde-mode))
 (when (require 'auto-complete-config nil 'noerror)
