@@ -197,13 +197,11 @@
 
 ;; eim
 (when (require 'eim nil 'noerror)
-;  (setq eim-use-tooltip nil)
+  ;; (setq eim-use-tooltip nil)
   (register-input-method
-   "eim-wb" "euc-cn" 'eim-use-package
-   "eim-wb" "eim-wb" "wb.txt")
+   "eim-wb" "euc-cn" 'eim-use-package "eim-wb" "eim-wb" "wb.txt")
   (register-input-method
-   "eim-py" "euc-cn" 'eim-use-package
-   "eim-py" "eim-py" "py.txt")
+   "eim-py" "euc-cn" 'eim-use-package "eim-py" "eim-py" "py.txt")
   (setq default-input-method "eim-wb"))
 (when (require 'eim-extra nil 'noerror)
   (global-set-key ";" 'eim-insert-ascii))
