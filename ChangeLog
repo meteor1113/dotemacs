@@ -1,5 +1,7 @@
 2010-04-19  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Disable global-hl-line-mode.
+
 	* init-site.el: Add semantic-ia-fast-jump-or-back, bind to f12.
 
 2010-04-16  Meteor Liu  <meteor1113@gmail.com>

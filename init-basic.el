@@ -85,7 +85,7 @@
 (global-cwarn-mode 1)
 
 ;; highlight
-(global-hl-line-mode (if window-system 1 -1))
+;; (global-hl-line-mode (if window-system 1 -1))
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 
 ;; misc
