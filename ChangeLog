@@ -1,5 +1,9 @@
 2010-04-19  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Bind ESC-f4 to kill-this-buffer.
+
+	* init-site.el: Bind M-f2 to viss-bookmark-next-buffer.
+
 	* init-basic.el: Disable global-hl-line-mode.
 
 	* init-site.el: Add semantic-ia-fast-jump-or-back, bind to f12.

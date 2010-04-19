@@ -229,6 +229,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
+(global-set-key (kbd "ESC <f4>") 'kill-this-buffer)
 (global-set-key [f6] 'moccur-all-buffers)
 (global-set-key [C-f6] 'grep-current-dir)
 (global-set-key [M-f6]
