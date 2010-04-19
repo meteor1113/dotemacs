@@ -48,7 +48,8 @@
 (setq-default show-trailing-whitespace t)
 (setq whitespace-style
       '(tabs trailing lines-tail space-before-tab newline
-             indentation empty space-after-tab tab-mark newline-mark))
+             indentation empty space-after-tab tab-mark))
+(when window-system (push 'newline-mark whitespace-style))
 ;; (global-whitespace-mode t)
 
 ;; bookmark
