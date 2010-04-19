@@ -212,6 +212,7 @@ Like eclipse's Ctrl+Alt+F."
         (grep commands)))))
 
 ;; global key bindings
+(global-set-key (kbd "<select>") 'move-end-of-line) ; for putty
 ;; (global-set-key (kbd "<M-up>") 'move-line-up)
 ;; (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key [M-f8] 'format-region)

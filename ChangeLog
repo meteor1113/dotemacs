@@ -1,6 +1,7 @@
 2010-04-19  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Bind ESC-f4 to kill-this-buffer.
+	: Bind <select> to move-end-of-line, for putty.
 
 	* init-site.el: Bind M-f2 to viss-bookmark-next-buffer.
 
