@@ -1,5 +1,8 @@
 2010-04-20  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (cua-global-keymap): Bind <M-RET> to
+	cua-set-rectangle-mark for putty.
+
 	* init-misc.el: Enable tabbar in terminal.
 
 	* init-basic.el ([f7]): Let f7 global.
