@@ -37,7 +37,7 @@
 (global-set-key [C-f7] 'smart-compile)
 
 ;; tabbar
-(when (and window-system (require 'tabbar nil 'noerror))
+(when (require 'tabbar nil 'noerror)
   (tabbar-mode t))
 
 ;; window-numbering

@@ -1,5 +1,7 @@
 2010-04-20  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Enable tabbar in terminal.
+
 	* init-basic.el ([f7]): Let f7 global.
 
 2010-04-19  Meteor Liu  <meteor1113@gmail.com>
