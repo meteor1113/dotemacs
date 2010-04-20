@@ -383,8 +383,9 @@ Like eclipse's Ctrl+Alt+F."
 (define-key c-mode-base-map [f5] 'gdb)
 (define-key gud-minor-mode-map [f5] 'gud-go)
 (define-key gud-minor-mode-map [S-f5] 'gud-kill)
-(define-key c-mode-base-map [f7]
-  '(lambda () (interactive) (compile compile-command)))
+(global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
+;; (define-key c-mode-base-map [f7]
+;;   '(lambda () (interactive) (compile compile-command)))
 (define-key gud-minor-mode-map [f8] 'gud-print)
 (define-key gud-minor-mode-map [C-f8] 'gud-pstar)
 (define-key gud-minor-mode-map [f9] 'gud-break-or-remove)
