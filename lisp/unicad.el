@@ -1,11 +1,11 @@
 ;;; unicad.el --- an elisp port of Mozilla Universal Charset Auto Detector
 
 ;;;{{{  Copyright and License
-;; Copyright (C) 2006, 2007 Qichen Huang
+;; Copyright (C) 2006, 2007, 2008, 2010 Qichen Huang
 ;; $Id$
 ;; Author: Qichen Huang <unicad.el@gmail.com>
-;; Time-stamp: <2007-12-20 08:55:37>
-;; Version: v1.1.4
+;; Time-stamp: <2010-04-09 12:53:15>
+;; Version: v1.1.5
 ;; Keywords: coding-system, auto-coding-functions
 ;; URL: http://code.google.com/p/unicad/
 
@@ -103,6 +103,7 @@
 ;;;}}}
 
 ;;;{{{ Changelog
+;; v1.1.5 fixed bug in `unicad-char-after' and `unicad-universal-charset-detect' (size calc was wrong)
 ;; v1.1.4 Add function and variable `unicad-version'. small bug fix, correct unicad-eol from unicad-eof.
 ;; v1.1.3 detect dos eol-type
 ;; v1.1.2 (add-to-hook 'kill-emacs-hook 'unicad-disable) to avoid conflict with ido, session, etc.
@@ -141,7 +142,7 @@
 (eval-when-compile
   (require 'cl))
 
-(defvar unicad-version "Unicad v1.1.4")
+(defvar unicad-version "Unicad v1.1.5")
 (defvar unicad-global-enable t)
 (defvar unicad-eol nil)
 (defvar unicad-quick-size 500)
@@ -234,14 +235,18 @@ If optional argument HERE is non-nil, insert string at point."
     (if pos
         (setq char (char-after pos))
       (setq char (char-after)))
-    (if (> char #xff)
-        (setq char (logand char #xff)))
-    char))
+    (if (numberp char)
+        (progn
+          (if (> char #xff)
+              (setq char (logand char #xff)))
+          char)
+      nil)))
 
 ;; ePureAscii, eEscAscii -> unicad-default-coding-system
 ;; eHighbyte -> multibyte-group-prober -> latin1->prober
 (defun unicad-universal-charset-detect (size)
   "detect charset"
+  ;;(goto-char (point-min))
   (when (and  (or (and (numberp unicad-global-enable) (> unicad-global-enable 0))
                   (eq unicad-global-enable t))
               (not (local-variable-p 'buffer-file-coding-system)))
@@ -254,7 +259,9 @@ If optional argument HERE is non-nil, insert string at point."
 ;;       (make-local-variable 'unicad-latin2-guess)
 ;;       (make-local-variable 'unicad-multibyte-group-list)
       (save-excursion
-        (let ((end (+ (point) (min size unicad-max-size)))
+        (goto-char (point-min))
+        (let (;;(end (+ (point) (min size unicad-max-size)))
+              (end (min size (+ (point) unicad-max-size)))
               (input-state 'ePureAscii)
               (code0 0)
               prober-result
@@ -268,6 +275,8 @@ If optional argument HERE is non-nil, insert string at point."
                         (eq input-state 'ePureAscii)
                         (< (point) end))
               (setq code1 (unicad-char-after))
+;; 	      (if (not (numberp code1))
+;; 		  (message "code1 nil %d, end point %d" (point) end))
               (forward-char 1)
               (if (and (= code0 #x0D) (= code1 #x0A))
                   (setq unicad-eol 1))
@@ -4745,5 +4754,5 @@ no validation needed here. State machine has done that"
 
 ;;; unicad.el ends here
 ;;; Local Variables:
-;;; coding: utf-8
+;;; coding: utf-8-unix
 ;;; End:
