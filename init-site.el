@@ -20,7 +20,7 @@
              (cd old-dir)))))
 
 ;; cedet
-(when (require 'cedet nil 'noerror)
+(when (and (not (fboundp 'semantic-mode)) (require 'cedet nil 'noerror))
   ;; (semantic-load-enable-minimum-features)
   (semantic-load-enable-code-helpers)
   ;; (semantic-load-enable-guady-code-helpers)
