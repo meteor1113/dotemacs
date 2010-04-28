@@ -33,7 +33,7 @@
   ;; (semantic-load-enable-primary-exuberent-ctags-support)
   (enable-visual-studio-bookmarks)
   (define-key global-map [M-f2] 'viss-bookmark-next-buffer)
-  (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-next-buffer)
+  (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-next-buffer) ; putty
   (global-ede-mode 1)
   ;; (global-srecode-minor-mode 1)
 

@@ -219,7 +219,7 @@ Like eclipse's Ctrl+Alt+F."
 ;; (global-set-key (kbd "<M-up>") 'move-line-up)
 ;; (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key [M-f8] 'format-region)
-(global-set-key (kbd "ESC <f8>") 'format-region)
+(global-set-key (kbd "ESC <f8>") 'format-region) ; putty
 (global-set-key (kbd "C-S-f") 'format-region)
 (global-set-key (kbd "C-=") 'align)
 (global-set-key (kbd "M-P") 'previous-buffer)
@@ -228,12 +228,12 @@ Like eclipse's Ctrl+Alt+F."
                 (lambda () (interactive) (switch-to-buffer (other-buffer))))
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
-(global-set-key (kbd "ESC M-;") 'comment-or-uncomment-region)
+(global-set-key (kbd "ESC M-;") 'comment-or-uncomment-region) ; putty
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
-(global-set-key (kbd "ESC <f4>") 'kill-this-buffer)
+(global-set-key (kbd "ESC <f4>") 'kill-this-buffer) ; putty
 (global-set-key [f6] 'moccur-all-buffers)
 (global-set-key [C-f6] 'grep-current-dir)
 (global-set-key [M-f6]

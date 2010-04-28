@@ -83,6 +83,7 @@
     (global-highlight-symbol-mode t))
   (setq highlight-symbol-idle-delay 0.05)
   (global-set-key [(control f3)] 'highlight-symbol-at-point)
+  (global-set-key (kbd "ESC <f3>") 'highlight-symbol-at-point) ; putty
   (global-set-key [f3] 'highlight-symbol-next)
   (global-set-key [(shift f3)] 'highlight-symbol-prev)
   (global-set-key [(meta f3)] 'highlight-symbol-query-replace))
@@ -117,7 +118,7 @@
   (define-key c-mode-map [M-f12] 'sourcepair-load)
   (define-key c++-mode-map [M-f12] 'sourcepair-load)
   (define-key objc-mode-map [M-f12] 'sourcepair-load)
-  (define-key c-mode-base-map (kbd "ESC <f12>") 'sourcepair-load)
+  (define-key c-mode-base-map (kbd "ESC <f12>") 'sourcepair-load) ; putty
   (setq sourcepair-source-extensions
         '(".cpp" ".cxx" ".c++" ".CC" ".cc" ".C" ".c" ".mm" ".m"))
   (setq sourcepair-header-extensions
