@@ -82,11 +82,11 @@
   (when window-system
     (global-highlight-symbol-mode t))
   (setq highlight-symbol-idle-delay 0.05)
-  (global-set-key [(control f3)] 'highlight-symbol-at-point)
+  (global-set-key [(meta f3)] 'highlight-symbol-at-point)
   (global-set-key (kbd "ESC <f3>") 'highlight-symbol-at-point) ; putty
   (global-set-key [f3] 'highlight-symbol-next)
   (global-set-key [(shift f3)] 'highlight-symbol-prev)
-  (global-set-key [(meta f3)] 'highlight-symbol-query-replace))
+  (global-set-key [(control f3)] 'highlight-symbol-query-replace))
 (defadvice highlight-symbol-mode-post-command
   (around gud-tooltip-advice activate)
   "Hack for gud-tooltip-mode."

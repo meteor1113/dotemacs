@@ -2,6 +2,8 @@
 
 	* init-misc.el (require): Bind ESC-f3 to highlight-symbol-at-point
 	for putty.
+	(require): Bind M-f3 to highlight-symbol-at-point.
+	(require): Bind C-f3 to highlight-symbol-query-replace.
 
 2010-04-22  Meteor Liu  <meteor1113@gmail.com>
 
