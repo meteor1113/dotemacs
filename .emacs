@@ -7,4 +7,4 @@
 ;; (add-to-list 'load-path "e:/common/note")
 ;; (require 'init-note nil t)
 
-;; (load "e:/common/dotemacs/sample-proj.el" t)
+;; (load "~/dotemacs/sample-proj.el" t)
