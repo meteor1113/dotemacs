@@ -1,5 +1,7 @@
 2010-04-29  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (if): Don't enable desktop-save-mode in console.
+
 	* sample-proj.el: Add. for ede-cpp-root-project sample.
 
 	* .emacs: Update .emacs

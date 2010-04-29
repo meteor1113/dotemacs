@@ -43,7 +43,7 @@
 (setq-default save-place t)
 (savehist-mode t)
 (recentf-mode t)
-(desktop-save-mode t)
+(desktop-save-mode (if window-system 1 -1))
 
 ;; whitespace
 (setq-default show-trailing-whitespace t)
