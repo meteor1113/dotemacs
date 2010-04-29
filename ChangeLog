@@ -1,3 +1,9 @@
+2010-04-29  Meteor Liu  <meteor1113@gmail.com>
+
+	* sample-proj.el: Add. for ede-cpp-root-project sample.
+
+	* .emacs: Update .emacs
+
 2010-04-28  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (require): Bind ESC-f3 to highlight-symbol-at-point
