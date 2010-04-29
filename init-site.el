@@ -142,10 +142,12 @@
     (define-key c-mode-base-map (kbd "ESC <f12>") 'eassist-switch-h-cpp)))
 
 ;; ecb
-(when (require 'ecb nil 'noerror)
-  (setq ecb-tip-of-the-day nil)
-  (setq ecb-auto-compatibility-check nil)
-  (setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1))
+;; (when (require 'ecb nil 'noerror)
+(autoload 'ecb-activate "ecb" nil t)
+(setq ecb-tip-of-the-day nil)
+(setq ecb-auto-compatibility-check nil)
+(setq ecb-source-path (quote ("/")))
+(setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1)
 
 ;; cscope
 (require 'xcscope nil 'noerror)

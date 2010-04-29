@@ -1,5 +1,8 @@
 2010-04-29  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-site.el (ecb-source-path): Set ecb-source-path.
+	Set autoload for ecb.
+
 	* init-basic.el (if): Don't enable desktop-save-mode in console.
 
 	* sample-proj.el: Add. for ede-cpp-root-project sample.
