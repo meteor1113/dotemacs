@@ -148,44 +148,21 @@
                    (local-set-key [tab] 'yas/expand))))))
 
 ;; auto-complete
-(when (require 'auto-complete nil 'noerror)
-  (define-key ac-complete-mode-map (kbd "<return>") 'ac-complete)
-  (setq-default ac-sources '(ac-source-abbrev
-                             ac-source-words-in-buffer
-                             ac-source-words-in-all-buffer
-                             ac-source-files-in-current-dir
-                             ac-source-filename
-                             ac-source-imenu))
-  (global-auto-complete-mode t)
-  (add-to-list 'ac-trigger-commands 'org-self-insert-command)
+(when (and (require 'auto-complete nil 'noerror)
+           (require 'auto-complete-config nil 'noerror))
   (add-to-list 'ac-modes 'org-mode)
   (add-to-list 'ac-modes 'change-log-mode)
   (add-to-list 'ac-modes 'fundamental-mode)
   (add-to-list 'ac-modes 'objc-mode)
-  (add-to-list 'ac-modes 'jde-mode))
-(when (require 'auto-complete-config nil 'noerror)
-  (when (ac-yasnippet-initialize)
-    (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources)))
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda ()
-              (setq ac-omni-completion-sources
-                    '(("\\<require\s+'" ac-source-emacs-lisp-features)
-                      ("\\<load\s+\"" ac-source-emacs-lisp-features)))
-              ;; (push 'ac-source-emacs-lisp-features ac-sources)
-              ;; (push 'ac-source-symbols ac-sources)
-              ;; (setq ac-sources (append '(ac-source-yasnippet) ac-sources))
-              ))
-  (ac-c++-keywords-initialize)
-  (ac-css-keywords-initialize)
-  ;; (ac-ropemacs-initialize)
-  ;; (setq ac-trigger-commands '(self-insert-command c-electric-lt-gt))
-  ;; (dolist (hook '(c-mode-hook c++-mode-hook jde-mode-hook java-mode-hook))
-  ;;   (add-hook hook
-  ;;             '(lambda ()
-  ;;                (setq ac-omni-completion-sources
-  ;;                      (list (cons "\\." '(ac-source-semantic))
-  ;;                            (cons "->" '(ac-source-semantic)))))))
-  )
+  (add-to-list 'ac-modes 'jde-mode)
+  (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
+         (dict-dir (expand-file-name "lisp/auto-complete-1.2/dict" dir)))
+    (add-to-list 'ac-dictionary-directories dict-dir))
+  (global-auto-complete-mode t)
+  (defun ac-semantic-setup ()
+    (setq ac-sources (append '(ac-source-semantic) ac-sources)))
+  (add-hook 'c-mode-common-hook 'ac-semantic-setup)
+  (ac-config-default))
 
 ;; company
 (when (require 'company nil 'noerror)

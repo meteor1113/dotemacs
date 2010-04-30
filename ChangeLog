@@ -1,3 +1,7 @@
+2010-04-30  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Update auto-complete to 1.2
+
 2010-04-29  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el (ecb-source-path): Set ecb-source-path.

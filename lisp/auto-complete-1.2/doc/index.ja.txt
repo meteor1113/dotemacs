@@ -1,0 +1,55 @@
+Title: Auto Complete Mode - GNU Emacsのための最も賢い自動補完機能
+CSS: style.css
+
+Auto Complete Mode
+==================
+
+*[GNU Emacs][]のための最も賢い自動補完機能*
+
+\[[English](index.txt)]
+
+* * * *
+
+{toc}
+
+* * * *
+
+スクリーンショット
+------------------
+
+![](ac.png "自動補完") ![](ac-fuzzy.png "曖昧補完") ![](ac-isearch.png "インクリメンタル検索")
+
+デモ
+----
+
+* [YouTube](http://www.youtube.com/watch?v=rGVVnDxwJYE)
+* [Ogg Theora with video tag](demo.txt)
+
+ダウンロード
+------------
+
+### 最新安定板 ###
+
+* [auto-complete-1.2.tar.bz2](http://cx4a.org/pub/auto-complete/auto-complete-1.2.tar.bz2)
+* [auto-complete-1.2.tar.zip](http://cx4a.org/pub/auto-complete/auto-complete-1.2.zip)
+
+ユーザーマニュアル
+------------------
+
+[Auto Complete Modeユーザーマニュアル](manual.ja.txt)
+
+ソースコード
+------------
+
+ソースコードは以下のGitリポジトリから取得できます。
+
+* <http://cx4a.org/repo/auto-complete.git>
+* <http://github.com/m2ym/auto-complete> (GitHubミラー)
+
+ライセンス
+----------
+
+このソフトウェアは[GPLv3][]のもとで配布されます。
+
+[GNU Emacs]: http://www.gnu.org/software/emacs/
+[GPLv3]: http://gplv3.fsf.org/
