@@ -162,8 +162,10 @@
   (ac-config-default)
   (defun ac-semantic-setup ()
     (setq ac-sources (append '(ac-source-semantic) ac-sources)))
+  (defun ac-org-mode-setup ()
+    (add-to-list 'ac-sources 'ac-source-yasnippet))
   (add-hook 'c-mode-common-hook 'ac-semantic-setup)
-  )
+  (add-hook 'org-mode-hook 'ac-org-mode-setup))
 
 ;; company
 (when (require 'company nil 'noerror)
