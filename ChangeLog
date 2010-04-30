@@ -2,6 +2,7 @@
 
 	* init-misc.el: Update auto-complete to 1.2
 	: Add org setup for auto-complete.
+	(ac-prefix-c-dot): Hack for c++(->).
 
 2010-04-29  Meteor Liu  <meteor1113@gmail.com>
 
