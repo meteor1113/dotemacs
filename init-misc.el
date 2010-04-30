@@ -159,10 +159,11 @@
          (dict-dir (expand-file-name "lisp/auto-complete-1.2/dict" dir)))
     (add-to-list 'ac-dictionary-directories dict-dir))
   (global-auto-complete-mode t)
+  (ac-config-default)
   (defun ac-semantic-setup ()
     (setq ac-sources (append '(ac-source-semantic) ac-sources)))
   (add-hook 'c-mode-common-hook 'ac-semantic-setup)
-  (ac-config-default))
+  )
 
 ;; company
 (when (require 'company nil 'noerror)
