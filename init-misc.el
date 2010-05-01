@@ -162,7 +162,8 @@
   (ac-config-default)
   (defun ac-prefix-c-dot ()
     "C-like languages dot(.) or (->) prefix."
-    (let ((point (re-search-backward "[\\.>]\\([a-zA-Z0-9][_a-zA-Z0-9]*\\)?\\=" nil t)))
+    (let ((point(re-search-backward
+                 "[\\.>]\\([a-zA-Z0-9][_a-zA-Z0-9]*\\)?\\=" nil t)))
       (if point (1+ point))))
   (defun ac-semantic-setup ()
     (setq ac-sources (append '(ac-source-semantic) ac-sources)))
