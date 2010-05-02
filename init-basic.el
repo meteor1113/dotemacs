@@ -398,5 +398,88 @@ Like eclipse's Ctrl+Alt+F."
 (define-key gud-minor-mode-map [f11] 'gud-step)
 (define-key gud-minor-mode-map [C-f11] 'gud-finish)
 
+;; cedet
+(when (fboundp 'semantic-mode)
+  (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
+                                    global-semanticdb-minor-mode
+                                    global-semantic-idle-summary-mode))
+  (semantic-mode 1)
+  (global-semantic-highlight-edits-mode (if window-system 1 -1))
+  (global-semantic-show-unmatched-syntax-mode 1)
+  (global-semantic-show-parser-state-mode 1)
+  (global-ede-mode 1)
+
+  (defconst cedet-user-include-dirs
+    (list ".." "../include" "../inc" "../common" "../public"
+          "../.." "../../include" "../../inc" "../../common" "../../public"))
+  (defconst cedet-win32-include-dirs
+    (list "C:/MinGW/include"
+          "C:/MinGW/include/c++/3.4.5"
+          "C:/MinGW/include/c++/3.4.5/mingw32"
+          "C:/MinGW/include/c++/3.4.5/backward"
+          "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
+          "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
+  ;; (require 'semantic-c nil 'noerror)
+  (let ((include-dirs cedet-user-include-dirs))
+    (when (eq system-type 'windows-nt)
+      (setq include-dirs (append include-dirs cedet-win32-include-dirs)))
+    (mapc (lambda (dir)
+            (semantic-add-system-include dir 'c++-mode)
+            (semantic-add-system-include dir 'c-mode))
+          include-dirs))
+
+  (define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
+
+  (defun semantic-ia-fast-jump-back ()
+    (interactive)
+    (if (ring-empty-p (oref semantic-mru-bookmark-ring ring))
+        (error "Semantic Bookmark ring is currently empty"))
+    (let* ((ring (oref semantic-mru-bookmark-ring ring))
+           (alist (semantic-mrub-ring-to-assoc-list ring))
+           (first (cdr (car alist))))
+      (if (semantic-equivalent-tag-p (oref first tag) (semantic-current-tag))
+          (setq first (cdr (car (cdr alist)))))
+      (semantic-mrub-switch-tags first)))
+  (defun semantic-ia-fast-jump-or-back (&optional back)
+    (interactive "P")
+    (if back
+        (semantic-ia-fast-jump-back)
+      (semantic-ia-fast-jump (point))))
+  (global-set-key [f12] 'semantic-ia-fast-jump-or-back)
+  (global-set-key [C-f12] 'semantic-ia-fast-jump-or-back)
+  (global-set-key [S-f12] 'semantic-ia-fast-jump-back)
+  ;; (global-set-key [S-f12] 'pop-global-mark)
+
+  ;; (pulse-toggle-integration-advice (if window-system 1 -1))
+  ;; (defadvice cua-exchange-point-and-mark (after pulse-advice activate)
+  ;;   "Cause the line that is `goto'd to pulse when the cursor gets there."
+  ;;   (when (and pulse-command-advice-flag (interactive-p)
+  ;;              (> (abs (- (point) (mark))) 400))
+  ;;     (pulse-momentary-highlight-one-line (point))))
+  ;; (defadvice switch-to-buffer (after pulse-advice activate)
+  ;;   "After switch-to-buffer, pulse the line the cursor lands on."
+  ;;   (when (and pulse-command-advice-flag (interactive-p))
+  ;;     (pulse-momentary-highlight-one-line (point))))
+  ;; (defadvice ido-switch-buffer (after pulse-advice activate)
+  ;;   "After ido-switch-buffer, pulse the line the cursor lands on."
+  ;;   (when (and pulse-command-advice-flag (interactive-p))
+  ;;     (pulse-momentary-highlight-one-line (point))))
+  ;; (defadvice beginning-of-buffer (after pulse-advice activate)
+  ;;   "After beginning-of-buffer, pulse the line the cursor lands on."
+  ;;   (when (and pulse-command-advice-flag (interactive-p))
+  ;;     (pulse-momentary-highlight-one-line (point))))
+
+  (when (and window-system (require 'semantic-tag-folding nil 'noerror))
+    (global-semantic-tag-folding-mode 1)
+    (global-set-key (kbd "C-?") 'global-semantic-tag-folding-mode)
+    (define-key semantic-tag-folding-mode-map
+      (kbd "C-c , -") 'semantic-tag-folding-fold-block)
+    (define-key semantic-tag-folding-mode-map
+      (kbd "C-c , +") 'semantic-tag-folding-show-block)
+    (define-key semantic-tag-folding-mode-map
+      (kbd "C-_") 'semantic-tag-folding-fold-all)
+    (define-key semantic-tag-folding-mode-map
+      (kbd "C-+") 'semantic-tag-folding-show-all)))
+
 
 (provide 'init-basic)
