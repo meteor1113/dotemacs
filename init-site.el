@@ -99,6 +99,14 @@
     "After switch-to-buffer, pulse the line the cursor lands on."
     (when (and pulse-command-advice-flag (interactive-p))
       (pulse-momentary-highlight-one-line (point))))
+  (defadvice previous-buffer (after pulse-advice activate)
+    "After previous-buffer, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice next-buffer (after pulse-advice activate)
+    "After next-buffer, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
   (defadvice ido-switch-buffer (after pulse-advice activate)
     "After ido-switch-buffer, pulse the line the cursor lands on."
     (when (and pulse-command-advice-flag (interactive-p))

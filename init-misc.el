@@ -38,6 +38,7 @@
 (global-set-key (kbd "<f2>")   'bm-next)
 (global-set-key (kbd "<S-f2>") 'bm-previous)
 (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
+(global-set-key (kbd "<left-margin> <mouse-1>") 'bm-toggle-mouse)
 
 ;; cursor-chg
 (when (and window-system (require 'cursor-chg nil 'noerror))
