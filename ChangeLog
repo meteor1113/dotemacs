@@ -1,5 +1,9 @@
 2010-05-03  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-site.el: Disable visual-studio-bookmarks, use bm instead.
+
+	* init-misc.el: Add bm.
+
 	* init-basic.el: Enable global-semantic-mru-bookmark-mode.
 	: Load semantic/analyze/refs for semantic-ia-fast-jump.
 	: Refactor include-dirs.

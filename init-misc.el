@@ -27,6 +27,18 @@
 ;; unicad
 (require 'unicad nil 'noerror)
 
+;; bm
+(autoload 'bm-toggle       "bm" "Toggle bookmark in current buffer."    t)
+(autoload 'bm-next         "bm" "Goto bookmark."                        t)
+(autoload 'bm-previous     "bm" "Goto previous bookmark."               t)
+(autoload 'bm-toggle-mouse "bm" "Toggle a bookmark with a mouse click." t)
+(global-set-key (kbd "<C-f2>") 'bm-toggle)
+(global-set-key [M-f2] 'bm-toggle)
+(global-set-key (kbd "ESC <f2>") 'bm-toggle) ; putty
+(global-set-key (kbd "<f2>")   'bm-next)
+(global-set-key (kbd "<S-f2>") 'bm-previous)
+(global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
+
 ;; cursor-chg
 (when (and window-system (require 'cursor-chg nil 'noerror))
   (toggle-cursor-type-when-idle 1)

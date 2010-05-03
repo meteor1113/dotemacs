@@ -31,9 +31,9 @@
            (global-semantic-show-parser-state-mode 1)))
   ;; (semantic-load-enable-all-exuberent-ctags-support)
   ;; (semantic-load-enable-primary-exuberent-ctags-support)
-  (enable-visual-studio-bookmarks)
-  (define-key global-map [M-f2] 'viss-bookmark-next-buffer)
-  (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-next-buffer) ; putty
+  ;; (enable-visual-studio-bookmarks)      ; use bm instead
+  ;; (define-key global-map [M-f2] 'viss-bookmark-next-buffer)
+  ;; (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-next-buffer) ; putty
   (global-ede-mode 1)
   ;; (global-srecode-minor-mode 1)
 
@@ -67,7 +67,6 @@
       (define-key c-mode-base-map "\C-c " 'semantic-ia-complete-symbol-menu)
     (define-key c-mode-base-map "\C-c " 'semantic-ia-complete-symbol))
   (define-key c-mode-base-map (kbd "M-n") 'semantic-ia-complete-symbol-menu)
-  (define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
 
   (defun semantic-ia-fast-jump-back ()
     (interactive)
@@ -88,6 +87,7 @@
   (global-set-key [C-f12] 'semantic-ia-fast-jump-or-back)
   (global-set-key [S-f12] 'semantic-ia-fast-jump-back)
   ;; (global-set-key [S-f12] 'pop-global-mark)
+  (define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
 
   (pulse-toggle-integration-advice (if window-system 1 -1))
   (defadvice cua-exchange-point-and-mark (after pulse-advice activate)

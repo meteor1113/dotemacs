@@ -454,24 +454,53 @@ the mru bookmark stack."
   (global-set-key [S-f12] 'semantic-ia-fast-jump-back)
   ;; (global-set-key [S-f12] 'pop-global-mark)
 
-  ;; (pulse-toggle-integration-advice (if window-system 1 -1))
-  ;; (defadvice cua-exchange-point-and-mark (after pulse-advice activate)
-  ;;   "Cause the line that is `goto'd to pulse when the cursor gets there."
-  ;;   (when (and pulse-command-advice-flag (interactive-p)
-  ;;              (> (abs (- (point) (mark))) 400))
-  ;;     (pulse-momentary-highlight-one-line (point))))
-  ;; (defadvice switch-to-buffer (after pulse-advice activate)
-  ;;   "After switch-to-buffer, pulse the line the cursor lands on."
-  ;;   (when (and pulse-command-advice-flag (interactive-p))
-  ;;     (pulse-momentary-highlight-one-line (point))))
-  ;; (defadvice ido-switch-buffer (after pulse-advice activate)
-  ;;   "After ido-switch-buffer, pulse the line the cursor lands on."
-  ;;   (when (and pulse-command-advice-flag (interactive-p))
-  ;;     (pulse-momentary-highlight-one-line (point))))
-  ;; (defadvice beginning-of-buffer (after pulse-advice activate)
-  ;;   "After beginning-of-buffer, pulse the line the cursor lands on."
-  ;;   (when (and pulse-command-advice-flag (interactive-p))
-  ;;     (pulse-momentary-highlight-one-line (point))))
+  (setq pulse-command-advice-flag t)
+  (defadvice goto-line (after pulse-advice activate)
+    "Cause the line that is `goto'd to pulse when the cursor gets there."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice exchange-point-and-mark (after pulse-advice activate)
+    "Cause the line that is `goto'd to pulse when the cursor gets there."
+    (when (and pulse-command-advice-flag (interactive-p)
+               (> (abs (- (point) (mark))) 400))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice find-tag (after pulse-advice activate)
+    "After going to a tag, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice tags-search (after pulse-advice activate)
+    "After going to a hit, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice tags-loop-continue (after pulse-advice activate)
+    "After going to a hit, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice pop-tag-mark (after pulse-advice activate)
+    "After going to a hit, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice imenu-default-goto-function (after pulse-advice activate)
+    "After going to a tag, pulse the line the cursor lands on."
+    (when pulse-command-advice-flag
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice cua-exchange-point-and-mark (after pulse-advice activate)
+    "Cause the line that is `goto'd to pulse when the cursor gets there."
+    (when (and pulse-command-advice-flag (interactive-p)
+               (> (abs (- (point) (mark))) 400))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice switch-to-buffer (after pulse-advice activate)
+    "After switch-to-buffer, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice ido-switch-buffer (after pulse-advice activate)
+    "After ido-switch-buffer, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice beginning-of-buffer (after pulse-advice activate)
+    "After beginning-of-buffer, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
 
   (when (and window-system (require 'semantic-tag-folding nil 'noerror))
     (global-semantic-tag-folding-mode 1)
