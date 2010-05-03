@@ -2,6 +2,7 @@
 
 	* init-basic.el: Enable global-semantic-mru-bookmark-mode.
 	: Load semantic/analyze/refs for semantic-ia-fast-jump.
+	: Refactor include-dirs.
 
 2010-04-30  Meteor Liu  <meteor1113@gmail.com>
 

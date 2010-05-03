@@ -12,6 +12,17 @@
 
 ;;; global setting
 
+(defconst user-include-dirs
+  (list ".." "../include" "../inc" "../common" "../public"
+        "../.." "../../include" "../../inc" "../../common" "../../public"))
+(defconst win32-include-dirs
+  (list "C:/MinGW/include"
+        "C:/MinGW/include/c++/3.4.5"
+        "C:/MinGW/include/c++/3.4.5/mingw32"
+        "C:/MinGW/include/c++/3.4.5/backward"
+        "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
+        "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
+
 ;; user information
 (setq user-full-name "Meteor Liu")
 (setq user-mail-address "meteor1113@gmail.com")
@@ -101,13 +112,6 @@
   (global-linum-mode 1))                ; conflict with company-mode in win32
 
 ;; ffap
-(defconst user-include-dirs
-  (list "../" "../include" "../inc" "../common" "../public"
-        "../.." "../../include" "../../inc" "../../common" "../../public"))
-(defconst win32-include-dirs
-  (list "C:/MinGW/include"
-        "C:/MinGW/include/c++/3.4.5"
-        "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
 (ffap-bindings)
 (when (boundp 'ffap-c-path)
   (setq ffap-c-path (append ffap-c-path user-include-dirs))
@@ -410,20 +414,10 @@ Like eclipse's Ctrl+Alt+F."
   (global-semantic-mru-bookmark-mode 1)
   (global-ede-mode 1)
 
-  (defconst cedet-user-include-dirs
-    (list ".." "../include" "../inc" "../common" "../public"
-          "../.." "../../include" "../../inc" "../../common" "../../public"))
-  (defconst cedet-win32-include-dirs
-    (list "C:/MinGW/include"
-          "C:/MinGW/include/c++/3.4.5"
-          "C:/MinGW/include/c++/3.4.5/mingw32"
-          "C:/MinGW/include/c++/3.4.5/backward"
-          "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
-          "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
   ;; (require 'semantic-c nil 'noerror)
-  (let ((include-dirs cedet-user-include-dirs))
+  (let ((include-dirs user-include-dirs))
     (when (eq system-type 'windows-nt)
-      (setq include-dirs (append include-dirs cedet-win32-include-dirs)))
+      (setq include-dirs (append include-dirs win32-include-dirs)))
     (mapc (lambda (dir)
             (semantic-add-system-include dir 'c++-mode)
             (semantic-add-system-include dir 'c-mode))
