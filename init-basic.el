@@ -423,8 +423,6 @@ Like eclipse's Ctrl+Alt+F."
             (semantic-add-system-include dir 'c-mode))
           include-dirs))
 
-  (define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
-
   (require 'semantic/analyze/refs)
   (defadvice push-mark (around semantic-mru-bookmark activate)
     "Push a mark at LOCATION with NOMSG and ACTIVATE passed to `push-mark'.
@@ -453,6 +451,7 @@ the mru bookmark stack."
   (global-set-key [C-f12] 'semantic-ia-fast-jump-or-back)
   (global-set-key [S-f12] 'semantic-ia-fast-jump-back)
   ;; (global-set-key [S-f12] 'pop-global-mark)
+  (define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
 
   (setq pulse-command-advice-flag t)
   (defadvice goto-line (after pulse-advice activate)
@@ -508,19 +507,7 @@ the mru bookmark stack."
   (defadvice beginning-of-buffer (after pulse-advice activate)
     "After beginning-of-buffer, pulse the line the cursor lands on."
     (when (and pulse-command-advice-flag (interactive-p))
-      (pulse-momentary-highlight-one-line (point))))
-
-  (when (and window-system (require 'semantic-tag-folding nil 'noerror))
-    (global-semantic-tag-folding-mode 1)
-    (global-set-key (kbd "C-?") 'global-semantic-tag-folding-mode)
-    (define-key semantic-tag-folding-mode-map
-      (kbd "C-c , -") 'semantic-tag-folding-fold-block)
-    (define-key semantic-tag-folding-mode-map
-      (kbd "C-c , +") 'semantic-tag-folding-show-block)
-    (define-key semantic-tag-folding-mode-map
-      (kbd "C-_") 'semantic-tag-folding-fold-all)
-    (define-key semantic-tag-folding-mode-map
-      (kbd "C-+") 'semantic-tag-folding-show-all)))
+      (pulse-momentary-highlight-one-line (point)))))
 
 
 (provide 'init-basic)

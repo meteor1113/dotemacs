@@ -1,4 +1,4 @@
-;;;
+;;
 ;; Copyright (C) 2009 Meteor Liu
 ;;
 ;; This code has been released into the Public Domain.
@@ -39,6 +39,7 @@
 (global-set-key (kbd "<S-f2>") 'bm-previous)
 (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
 (global-set-key (kbd "<left-margin> <mouse-1>") 'bm-toggle-mouse)
+(global-set-key (kbd "<right-fringe> <mouse-1>") 'bm-toggle-mouse)
 
 ;; cursor-chg
 (when (and window-system (require 'cursor-chg nil 'noerror))
@@ -205,6 +206,21 @@
   (setq default-input-method "eim-wb"))
 (when (require 'eim-extra nil 'noerror)
   (global-set-key ";" 'eim-insert-ascii))
+
+;; semantic-tag-folding
+(when (and window-system
+           (fboundp 'semantic-mode)
+           (require 'semantic-tag-folding nil 'noerror))
+  (global-semantic-tag-folding-mode 1)
+  (global-set-key (kbd "C-?") 'global-semantic-tag-folding-mode)
+  (define-key semantic-tag-folding-mode-map
+    (kbd "C-c , -") 'semantic-tag-folding-fold-block)
+  (define-key semantic-tag-folding-mode-map
+    (kbd "C-c , +") 'semantic-tag-folding-show-block)
+  (define-key semantic-tag-folding-mode-map
+    (kbd "C-_") 'semantic-tag-folding-fold-all)
+  (define-key semantic-tag-folding-mode-map
+    (kbd "C-+") 'semantic-tag-folding-show-all))
 
 
 (provide 'init-misc)
