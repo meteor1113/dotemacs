@@ -1,3 +1,8 @@
+2010-05-03  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Enable global-semantic-mru-bookmark-mode.
+	: Load semantic/analyze/refs for semantic-ia-fast-jump.
+
 2010-04-30  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Update auto-complete to 1.2

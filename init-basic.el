@@ -407,6 +407,7 @@ Like eclipse's Ctrl+Alt+F."
   (global-semantic-highlight-edits-mode (if window-system 1 -1))
   (global-semantic-show-unmatched-syntax-mode 1)
   (global-semantic-show-parser-state-mode 1)
+  (global-semantic-mru-bookmark-mode 1)
   (global-ede-mode 1)
 
   (defconst cedet-user-include-dirs
@@ -430,6 +431,15 @@ Like eclipse's Ctrl+Alt+F."
 
   (define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
 
+  (require 'semantic/analyze/refs)
+  (defadvice push-mark (around semantic-mru-bookmark activate)
+    "Push a mark at LOCATION with NOMSG and ACTIVATE passed to `push-mark'.
+If `semantic-mru-bookmark-mode' is active, also push a tag onto
+the mru bookmark stack."
+    (semantic-mrub-push semantic-mru-bookmark-ring
+                        (point)
+                        'mark)
+    ad-do-it)
   (defun semantic-ia-fast-jump-back ()
     (interactive)
     (if (ring-empty-p (oref semantic-mru-bookmark-ring ring))
