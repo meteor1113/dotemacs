@@ -1,6 +1,9 @@
 2010-05-03  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-site.el: Setting visual-studio-bookmarks.
+
 	* init-misc.el: Add semantic-tag-folding setting.
+	: Setting bm.
 
 	* init-basic.el: Pulse setting.
 	: Remove semantic-tag-folding setting.

@@ -414,7 +414,6 @@ Like eclipse's Ctrl+Alt+F."
   (global-semantic-mru-bookmark-mode 1)
   (global-ede-mode 1)
 
-  ;; (require 'semantic-c nil 'noerror)
   (let ((include-dirs user-include-dirs))
     (when (eq system-type 'windows-nt)
       (setq include-dirs (append include-dirs win32-include-dirs)))

@@ -28,18 +28,28 @@
 (require 'unicad nil 'noerror)
 
 ;; bm
-(autoload 'bm-toggle       "bm" "Toggle bookmark in current buffer."    t)
-(autoload 'bm-next         "bm" "Goto bookmark."                        t)
-(autoload 'bm-previous     "bm" "Goto previous bookmark."               t)
-(autoload 'bm-toggle-mouse "bm" "Toggle a bookmark with a mouse click." t)
-(global-set-key (kbd "<C-f2>") 'bm-toggle)
-(global-set-key [M-f2] 'bm-toggle)
-(global-set-key (kbd "ESC <f2>") 'bm-toggle) ; putty
-(global-set-key (kbd "<f2>")   'bm-next)
-(global-set-key (kbd "<S-f2>") 'bm-previous)
-(global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
-(global-set-key (kbd "<left-margin> <mouse-1>") 'bm-toggle-mouse)
-(global-set-key (kbd "<right-fringe> <mouse-1>") 'bm-toggle-mouse)
+(setq bm-restore-repository-on-load t)
+(when (require 'bm nil 'noerror)
+  (setq-default bm-buffer-persistence t)
+  (setq bm-cycle-all-buffers t)
+  ;; (add-hook' after-init-hook 'bm-repository-load)
+  (add-hook 'find-file-hooks 'bm-buffer-restore)
+  (add-hook 'kill-buffer-hook 'bm-buffer-save)
+  (add-hook 'kill-emacs-hook '(lambda nil
+                                (bm-buffer-save-all)
+                                (bm-repository-save)))
+  (add-hook 'after-save-hook 'bm-buffer-save)
+  (add-hook 'after-revert-hook 'bm-buffer-restore)
+  (global-set-key (kbd "<C-f2>") 'bm-toggle)
+  (global-set-key [M-f2] 'bm-toggle)
+  (global-set-key (kbd "ESC <f2>") 'bm-toggle) ; putty
+  (global-set-key (kbd "<f2>")   'bm-next)
+  (global-set-key (kbd "<S-f2>") 'bm-previous)
+  (global-set-key (kbd "<C-S-f2>") 'bm-remove-all-current-buffer)
+  (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
+  (global-set-key (kbd "<left-margin> <mouse-1>") 'bm-toggle-mouse)
+  (global-set-key (kbd "<left-fringe> <mouse-2>") 'bm-toggle-mouse)
+  (global-set-key (kbd "<left-fringe> <mouse-3>") 'bm-next-mouse))
 
 ;; cursor-chg
 (when (and window-system (require 'cursor-chg nil 'noerror))

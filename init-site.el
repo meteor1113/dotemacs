@@ -31,14 +31,16 @@
            (global-semantic-show-parser-state-mode 1)))
   ;; (semantic-load-enable-all-exuberent-ctags-support)
   ;; (semantic-load-enable-primary-exuberent-ctags-support)
-  (enable-visual-studio-bookmarks)
-  (define-key global-map [M-f2] 'viss-bookmark-next-buffer)
-  (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-next-buffer) ; putty
   (global-ede-mode 1)
   ;; (global-srecode-minor-mode 1)
 
-  ;; (setq semanticdb-default-save-directory (expand-file-name "~/.semanticdb"))
-  ;; (setq semanticdb-project-roots (list (expand-file-name "/")))
+  (enable-visual-studio-bookmarks)
+  (define-key global-map [(control f2)] 'viss-bookmark-toggle)
+  (define-key global-map [M-f2] 'viss-bookmark-toggle)
+  (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-toggle) ; putty
+  (define-key global-map [(f2)] 'viss-bookmark-next-buffer)
+  (define-key global-map [(shift f2)] 'viss-bookmark-prev-buffer)
+  (define-key global-map [(control shift f2)] 'viss-bookmark-clear-all-buffer)
 
   (defconst cedet-user-include-dirs
     (list ".." "../include" "../inc" "../common" "../public"
