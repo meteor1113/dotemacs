@@ -174,14 +174,15 @@
 ;; auto-complete
 (when (and (require 'auto-complete nil 'noerror)
            (require 'auto-complete-config nil 'noerror))
-  (add-to-list 'ac-modes 'org-mode)
-  (add-to-list 'ac-modes 'change-log-mode)
-  (add-to-list 'ac-modes 'fundamental-mode)
-  (add-to-list 'ac-modes 'objc-mode)
-  (add-to-list 'ac-modes 'jde-mode)
-  (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
-         (dict-dir (expand-file-name "lisp/auto-complete-1.2/dict" dir)))
-    (add-to-list 'ac-dictionary-directories dict-dir))
+  (setq ac-modes
+        (append ac-modes '(org-mode objc-mode jde-mode change-log-mode
+                                    fundamental-mode
+                                    makefile-gmake-mode makefile-bsdmake-mode
+                                    autoconf-mode makefile-automake-mode)))
+  (let ((ac-path (locate-library "auto-complete")))
+    (when (not (null ac-path))
+      (let ((dict-dir (expand-file-name "dict" (file-name-directory ac-path))))
+        (add-to-list 'ac-dictionary-directories dict-dir))))
   (global-auto-complete-mode t)
   (ac-config-default)
   (defun ac-prefix-c-dot ()
