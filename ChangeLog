@@ -2,6 +2,7 @@
 
 	* init-misc.el: Remove Bind <left-margin> <mouse-1> to bm-toggle-mouse.
 	: Set pluse advice for bm-next, bm-previous, bm-next-mouse, bm-previous-mouse.
+	: Set bm-highlight-style to bm-highlight-only-fringe when window-system.
 
 	* init-basic.el: Bind (kbd "C-c , ,") to semantic-force-refresh.
 

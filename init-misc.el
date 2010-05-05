@@ -32,6 +32,8 @@
 (when (require 'bm nil 'noerror)
   (setq-default bm-buffer-persistence t)
   (setq bm-cycle-all-buffers t)
+  (setq bm-highlight-style
+        (if window-system 'bm-highlight-only-fringe 'bm-highlight-only-line))
   ;; (add-hook' after-init-hook 'bm-repository-load)
   (add-hook 'find-file-hooks 'bm-buffer-restore)
   (add-hook 'kill-buffer-hook 'bm-buffer-save)
