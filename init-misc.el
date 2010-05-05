@@ -47,7 +47,6 @@
   (global-set-key (kbd "<S-f2>") 'bm-previous)
   (global-set-key (kbd "<C-S-f2>") 'bm-remove-all-current-buffer)
   (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
-  (global-set-key (kbd "<left-margin> <mouse-1>") 'bm-toggle-mouse)
   (global-set-key (kbd "<left-fringe> <mouse-2>") 'bm-toggle-mouse)
   (global-set-key (kbd "<left-fringe> <mouse-3>") 'bm-next-mouse))
 
