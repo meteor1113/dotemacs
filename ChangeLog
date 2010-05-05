@@ -1,3 +1,7 @@
+2010-05-05  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Bind (kbd "C-c , ,") to semantic-force-refresh.
+
 2010-05-04  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Set auto-complete's ac-modes and

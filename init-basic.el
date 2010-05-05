@@ -446,11 +446,13 @@ the mru bookmark stack."
     (if back
         (semantic-ia-fast-jump-back)
       (semantic-ia-fast-jump (point))))
-  (global-set-key [f12] 'semantic-ia-fast-jump-or-back)
-  (global-set-key [C-f12] 'semantic-ia-fast-jump-or-back)
-  (global-set-key [S-f12] 'semantic-ia-fast-jump-back)
-  ;; (global-set-key [S-f12] 'pop-global-mark)
-  (define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
+
+  (define-key semantic-mode-map [f12] 'semantic-ia-fast-jump-or-back)
+  (define-key semantic-mode-map [C-f12] 'semantic-ia-fast-jump-or-back)
+  (define-key semantic-mode-map [S-f12] 'semantic-ia-fast-jump-back)
+  ;; (define-key semantic-mode-map [S-f12] 'pop-global-mark)
+  (define-key semantic-mode-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
+  (define-key semantic-mode-map (kbd "C-c , ,") 'semantic-force-refresh)
 
   (setq pulse-command-advice-flag t)
   (defadvice goto-line (after pulse-advice activate)

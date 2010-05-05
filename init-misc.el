@@ -223,7 +223,7 @@
            (fboundp 'semantic-mode)
            (require 'semantic-tag-folding nil 'noerror))
   (global-semantic-tag-folding-mode 1)
-  (global-set-key (kbd "C-?") 'global-semantic-tag-folding-mode)
+  (define-key semantic-mode-map (kbd "C-?") 'global-semantic-tag-folding-mode)
   (define-key semantic-tag-folding-mode-map
     (kbd "C-c , -") 'semantic-tag-folding-fold-block)
   (define-key semantic-tag-folding-mode-map
