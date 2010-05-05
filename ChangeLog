@@ -1,6 +1,7 @@
 2010-05-05  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Remove Bind <left-margin> <mouse-1> to bm-toggle-mouse.
+	: Set pluse advice for bm-next, bm-previous, bm-next-mouse, bm-previous-mouse.
 
 	* init-basic.el: Bind (kbd "C-c , ,") to semantic-force-refresh.
 

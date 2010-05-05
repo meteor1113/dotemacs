@@ -48,7 +48,27 @@
   (global-set-key (kbd "<C-S-f2>") 'bm-remove-all-current-buffer)
   (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
   (global-set-key (kbd "<left-fringe> <mouse-2>") 'bm-toggle-mouse)
-  (global-set-key (kbd "<left-fringe> <mouse-3>") 'bm-next-mouse))
+  (global-set-key (kbd "<left-fringe> <mouse-3>") 'bm-next-mouse)
+  (defadvice bm-next (after pulse-advice activate)
+    "After bm-next, pulse the line the cursor lands on."
+    (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
+               (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice bm-previous (after pulse-advice activate)
+    "After bm-previous, pulse the line the cursor lands on."
+    (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
+               (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice bm-next-mouse (after pulse-advice activate)
+    "After bm-next-mouse, pulse the line the cursor lands on."
+    (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
+               (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice bm-previous-mouse (after pulse-advice activate)
+    "After bm-previous-mouse, pulse the line the cursor lands on."
+    (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
+               (interactive-p))
+      (pulse-momentary-highlight-one-line (point)))))
 
 ;; cursor-chg
 (when (and window-system (require 'cursor-chg nil 'noerror))
