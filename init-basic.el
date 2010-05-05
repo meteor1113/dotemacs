@@ -217,6 +217,7 @@ Like eclipse's Ctrl+Alt+F."
       (if (= 0 (length word))
           (message "Word is blank.")
         (grep commands)))))
+
 (defun switch-to-back-buffer ()
   "Switch to the second-to-last buffer."
   (interactive)
