@@ -217,6 +217,15 @@ Like eclipse's Ctrl+Alt+F."
       (if (= 0 (length word))
           (message "Word is blank.")
         (grep commands)))))
+(defun switch-to-back-buffer ()
+  "Switch to the second-to-last buffer."
+  (interactive)
+  (switch-to-buffer (other-buffer)))
+(defadvice switch-to-back-buffer (after pulse-advice activate)
+  "Afterswitch-to-back-buffer, pulse the line the cursor lands on."
+  (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
+             (interactive-p))
+    (pulse-momentary-highlight-one-line (point))))
 
 ;; global key bindings
 (global-set-key (kbd "<select>") 'move-end-of-line) ; for putty
@@ -228,8 +237,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "C-=") 'align)
 (global-set-key (kbd "M-P") 'previous-buffer)
 (global-set-key (kbd "M-N") 'next-buffer)
-(global-set-key [(control tab)]
-                (lambda () (interactive) (switch-to-buffer (other-buffer))))
+(global-set-key [(control tab)] 'switch-to-back-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
 (global-set-key (kbd "ESC M-;") 'comment-or-uncomment-region) ; putty

@@ -1,5 +1,8 @@
 2010-05-05  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (switch-to-back-buffer): Add func
+	switch-to-back-buffer and it's pulse advice.
+
 	* init-misc.el: Remove Bind <left-margin> <mouse-1> to bm-toggle-mouse.
 	: Set pluse advice for bm-next, bm-previous, bm-next-mouse, bm-previous-mouse.
 	: Set bm-highlight-style to bm-highlight-only-fringe when window-system.
