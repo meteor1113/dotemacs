@@ -3,6 +3,7 @@
 	* init-misc.el (c-mode-common-hook): User c-mode-common-hook to
 	load sourcepair.
 	(eim-use-package): Set autoload for eim.
+	(find-file-hooks): User find-file-hooks to load highlight-parentheses.
 
 	* init-basic.el (switch-to-back-buffer): Rename to switch-to-other-buffer.
 

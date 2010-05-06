@@ -107,12 +107,12 @@
 ;; highlight-tail
 (autoload 'highlight-tail-mode "highlight-tail"
   "Draw a \"tail\" while you're typing." t)
-;; (when (and window-system (require 'highlight-tail nil 'noerror))
-;;   (highlight-tail-mode 1))
 
 ;; highlight-parentheses
-(when (require 'highlight-parentheses nil 'noerror)
-  (add-hook 'find-file-hooks (lambda () (highlight-parentheses-mode t))))
+(add-hook 'find-file-hooks
+          (lambda ()
+            (when (require 'highlight-parentheses nil 'noerror)
+              (highlight-parentheses-mode t))))
 
 ;; highlight-symbol
 (when (require 'highlight-symbol nil 'noerror)
