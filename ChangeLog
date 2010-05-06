@@ -3,6 +3,7 @@
 	* init-basic.el: Set mouse-avoidance-mode to animate.
 	(frame-title-format): Set frame-title-format.
 	(frame-title-format): Reset frame-title-format.
+	(c-mode-common-hook): Don't turn on auto-fill-mode in cc-mode.
 
 2010-05-05  Meteor Liu  <meteor1113@gmail.com>
 
