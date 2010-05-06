@@ -160,10 +160,14 @@
 
 ;; sourcepair
 (when (require 'sourcepair nil 'noerror)
-  (define-key c-mode-map [M-f12] 'sourcepair-load)
-  (define-key c++-mode-map [M-f12] 'sourcepair-load)
-  (define-key objc-mode-map [M-f12] 'sourcepair-load)
-  (define-key c-mode-base-map (kbd "ESC <f12>") 'sourcepair-load) ; putty
+  (if (boundp 'c-mode-base-map)
+      (progn
+        (define-key c-mode-base-map (kbd "ESC <f12>") 'sourcepair-load) ; putty
+        (define-key c-mode-base-map [M-f12] 'sourcepair-load))
+    (eval-after-load "cc-mode"
+      `(progn
+         (define-key c-mode-base-map [M-f12] 'sourcepair-load)
+         (define-key c-mode-base-map (kbd "ESC <f12>") 'sourcepair-load))))
   (setq sourcepair-source-extensions
         '(".cpp" ".cxx" ".c++" ".CC" ".cc" ".C" ".c" ".mm" ".m"))
   (setq sourcepair-header-extensions

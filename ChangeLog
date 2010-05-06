@@ -1,5 +1,7 @@
 2010-05-06  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el (require): Set sourcepair for eval-after-load.
+
 	* init-basic.el: Set mouse-avoidance-mode to animate.
 	(frame-title-format): Set frame-title-format.
 	(frame-title-format): Reset frame-title-format.
