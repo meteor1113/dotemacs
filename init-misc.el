@@ -159,24 +159,20 @@
                  (doxymacs-font-lock)))))
 
 ;; sourcepair
-(when (require 'sourcepair nil 'noerror)
-  (if (boundp 'c-mode-base-map)
-      (progn
-        (define-key c-mode-base-map (kbd "ESC <f12>") 'sourcepair-load) ; putty
-        (define-key c-mode-base-map [M-f12] 'sourcepair-load))
-    (eval-after-load "cc-mode"
-      `(progn
-         (define-key c-mode-base-map [M-f12] 'sourcepair-load)
-         (define-key c-mode-base-map (kbd "ESC <f12>") 'sourcepair-load))))
-  (setq sourcepair-source-extensions
-        '(".cpp" ".cxx" ".c++" ".CC" ".cc" ".C" ".c" ".mm" ".m"))
-  (setq sourcepair-header-extensions
-        '(".hpp" ".hxx" ".h++" ".HH" ".hh" ".H" ".h"))
-  (setq sourcepair-header-path '("." "include" ".." "../include" "../inc"
-                                 "../../include" "../../inc" "../*"))
-  (setq sourcepair-source-path '("." "src" ".." "../src" "../*"))
-  (setq sourcepair-recurse-ignore '("CVS" ".svn" ".git"
-                                    "Obj" "Debug" "Release" "bin" "lib")))
+(setq sourcepair-source-extensions
+      '(".cpp" ".cxx" ".c++" ".CC" ".cc" ".C" ".c" ".mm" ".m"))
+(setq sourcepair-header-extensions
+      '(".hpp" ".hxx" ".h++" ".HH" ".hh" ".H" ".h"))
+(setq sourcepair-header-path '("." "include" ".." "../include" "../inc"
+                               "../../include" "../../inc" "../*"))
+(setq sourcepair-source-path '("." "src" ".." "../src" "../*"))
+(setq sourcepair-recurse-ignore '("CVS" ".svn" ".git"
+                                  "Obj" "Debug" "Release" "bin" "lib"))
+(add-hook 'c-mode-common-hook
+          '(lambda ()
+             (when (require 'sourcepair nil 'noerror)
+               (define-key c-mode-base-map (kbd "ESC <f12>") 'sourcepair-load)
+               (define-key c-mode-base-map [M-f12] 'sourcepair-load))))
 
 ;; yasnippet
 (when (or (require 'yasnippet-bundle nil 'noerror)
