@@ -48,6 +48,10 @@
 ;; (size-indication-mode 1)
 (display-time-mode t)
 (which-function-mode t)
+(setq frame-title-format
+      '((:eval (or (buffer-file-name) (buffer-name)))
+        " - emacs@"
+        (:eval (system-name))))
 
 ;; save information
 (require 'saveplace)
