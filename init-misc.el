@@ -233,15 +233,16 @@
   (define-key company-mode-map (kbd "M-p") 'company-select-previous))
 
 ;; eim
-(when (require 'eim nil 'noerror)
-  ;; (setq eim-use-tooltip nil)
-  (register-input-method
-   "eim-wb" "euc-cn" 'eim-use-package "eim-wb" "eim-wb" "wb.txt")
-  (register-input-method
-   "eim-py" "euc-cn" 'eim-use-package "eim-py" "eim-py" "py.txt")
-  (setq default-input-method "eim-wb"))
-(when (require 'eim-extra nil 'noerror)
-  (global-set-key ";" 'eim-insert-ascii))
+(autoload 'eim-use-package "eim" "The eim input method" t)
+(register-input-method
+ "eim-wb" "euc-cn" 'eim-use-package "eim-wb" "eim-wb" "wb.txt")
+(register-input-method
+ "eim-py" "euc-cn" 'eim-use-package "eim-py" "eim-py" "py.txt")
+(setq default-input-method "eim-wb")
+;; (setq eim-use-tooltip nil)
+(eval-after-load "eim"
+  `(when (require 'eim-extra nil 'noerror)
+     (global-set-key ";" 'eim-insert-ascii)))
 
 ;; semantic-tag-folding
 (when (and window-system

@@ -2,6 +2,7 @@
 
 	* init-misc.el (c-mode-common-hook): User c-mode-common-hook to
 	load sourcepair.
+	(eim-use-package): Set autoload for eim.
 
 	* init-basic.el (switch-to-back-buffer): Rename to switch-to-other-buffer.
 
