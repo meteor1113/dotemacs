@@ -210,6 +210,10 @@
         (add-to-list 'ac-dictionary-directories dict-dir))))
   (global-auto-complete-mode t)
   (ac-config-default)
+  (defadvice ac-update-word-index-1 (around exclude-hidden-buffer activate)
+    "Exclude hidden buffer, hack for eim."
+    (unless (string= (substring (buffer-name) 0 1) " ")
+      ad-do-it))
   (defun ac-prefix-c-dot ()
     "C-like languages dot(.) or (->) prefix."
     (let ((point(re-search-backward
