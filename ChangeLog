@@ -1,5 +1,7 @@
 2010-05-06  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (switch-to-back-buffer): Rename to switch-to-other-buffer.
+
 	* init-misc.el (require): Set sourcepair for eval-after-load.
 	: Add advice to ac-update-word-index-1, hack for eim(hidden buffer).
 
