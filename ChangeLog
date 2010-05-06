@@ -1,3 +1,7 @@
+2010-05-06  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Set mouse-avoidance-mode to animate.
+
 2010-05-05  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (switch-to-back-buffer): Add func
