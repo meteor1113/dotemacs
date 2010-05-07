@@ -1,6 +1,7 @@
 2010-05-07  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Edit ac-prefix-c-dot for :: in C++.
+	("company"): Don't auto load company when start emacs.
 
 2010-05-06  Meteor Liu  <meteor1113@gmail.com>
 

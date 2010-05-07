@@ -223,14 +223,16 @@
   (add-hook 'org-mode-hook 'ac-org-mode-setup))
 
 ;; company
-(when (require 'company nil 'noerror)
-  (global-company-mode t)
-  (setq company-idle-delay nil)
-  ;; (setq company-idle-delay t
-  ;;       company-minimum-prefix-length 1
-  ;;       company-begin-commands '(self-insert-command c-electric-lt-gt))
-  (define-key company-mode-map (kbd "M-n") 'company-select-next)
-  (define-key company-mode-map (kbd "M-p") 'company-select-previous))
+;; (when (require 'company nil 'noerror)
+(eval-after-load "company"
+  '(progn
+     (global-company-mode t)
+     (setq company-idle-delay nil)
+     ;; (setq company-idle-delay t
+     ;;       company-minimum-prefix-length 1
+     ;;       company-begin-commands '(self-insert-command c-electric-lt-gt))
+     (define-key company-mode-map (kbd "M-n") 'company-select-next)
+     (define-key company-mode-map (kbd "M-p") 'company-select-previous)))
 
 ;; eim
 (autoload 'eim-use-package "eim" "The eim input method" t)
