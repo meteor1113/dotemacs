@@ -1,5 +1,7 @@
 2010-05-07  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Initialize auto-complete for python using ropemacs.
+
 	* init-basic.el: Set mouse-avoidance-mode to none.
 	: Enable linum-mode in windows.
 
