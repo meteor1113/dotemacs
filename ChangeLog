@@ -1,5 +1,7 @@
 2010-05-07  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Set mouse-avoidance-mode to none.
+
 	* init-misc.el: Edit ac-prefix-c-dot for :: in C++.
 	("company"): Don't auto load company when start emacs.
 

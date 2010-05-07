@@ -94,7 +94,7 @@
 ;; (setq-default cursor-type 'bar)
 ;; (blink-cursor-mode -1)
 (setq x-stretch-cursor t)
-(mouse-avoidance-mode 'animate)
+;; (mouse-avoidance-mode 'animate)
 
 ;; erc
 (setq erc-server-coding-system '(utf-8 . utf-8))
