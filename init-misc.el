@@ -220,6 +220,7 @@
   (defun ac-org-mode-setup ()
     (add-to-list 'ac-sources 'ac-source-yasnippet))
   (add-hook 'c-mode-common-hook 'ac-semantic-setup)
+  ;; (define-key c-mode-base-map (kbd "M-n") 'ac-complete-semantic)
   (add-hook 'org-mode-hook 'ac-org-mode-setup))
 
 ;; company
