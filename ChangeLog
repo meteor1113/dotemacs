@@ -1,5 +1,7 @@
 2010-05-08  Meteor Liu  <meteor1113@gmail.com>
 
+	* README: Add.
+
 	* init-misc.el: Bind M-n to ac-complete-semantic.
 	: Set auto-complete for python using ropemacs.
 
