@@ -224,11 +224,25 @@
       ad-do-it))
   (ac-config-default)
   ;; auto-complete for semantic
-  (defun ac-prefix-c-dot ()
-    "Redefine ac-prefix-c-dot, add (->) and (::)prefix."
+  (defun ac-prefix-semantic ()
+    "C++ languages prefix(. -> ::)."
     (let ((point(re-search-backward
                  "[\\.>:]\\([a-zA-Z0-9][_a-zA-Z0-9]*\\)?\\=" nil t)))
       (if point (1+ point))))
+  (ac-define-prefix 'semantic 'ac-prefix-semantic)
+  (if (fboundp 'semantic-mode)          ; Redefine ac-source-semantic
+      (setq ac-source-semantic
+            '((depends . semantic/ia)
+              (candidates . (ac-semantic-candidates ac-prefix))
+              (prefix . semantic)
+              (requires . 0)
+              (symbol . "f")))
+    (setq ac-source-semantic
+          '((depends . semantic-ia)
+            (candidates . (ac-semantic-candidates ac-prefix))
+            (prefix . semantic)
+            (requires . 0)
+            (symbol . "f"))))
   (defun ac-semantic-setup ()
     (setq ac-sources (append '(ac-source-semantic) ac-sources))
     (local-set-key (kbd "M-n") 'ac-complete-semantic))

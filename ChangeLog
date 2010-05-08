@@ -1,6 +1,8 @@
 2010-05-08  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Set pulse advice for highlight-symbol-next and highlight-symbol-prev.
+	: Set auto-complete for semantic compatible with official cedet
+	and build in cedet.
 
 	* README: Add.
 
