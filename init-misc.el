@@ -217,7 +217,6 @@
     (when (not (null ac-path))
       (let ((dict-dir (expand-file-name "dict" (file-name-directory ac-path))))
         (add-to-list 'ac-dictionary-directories dict-dir))))
-  (global-auto-complete-mode t)
   (defadvice ac-update-word-index-1 (around exclude-hidden-buffer activate)
     "Exclude hidden buffer, hack for eim."
     (unless (string= (substring (buffer-name) 0 1) " ")
