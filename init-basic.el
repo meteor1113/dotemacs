@@ -417,12 +417,12 @@ Like eclipse's Ctrl+Alt+F."
 (when (fboundp 'semantic-mode)
   (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                     global-semanticdb-minor-mode
-                                    global-semantic-idle-summary-mode))
+                                    global-semantic-idle-summary-mode
+                                    global-semantic-mru-bookmark-mode))
   (semantic-mode 1)
   (global-semantic-highlight-edits-mode (if window-system 1 -1))
   (global-semantic-show-unmatched-syntax-mode 1)
   (global-semantic-show-parser-state-mode 1)
-  (global-semantic-mru-bookmark-mode 1)
   (global-ede-mode 1)
 
   (let ((include-dirs user-include-dirs))
