@@ -221,7 +221,7 @@
   (defun ac-semantic-setup ()
     (setq ac-sources (append '(ac-source-semantic) ac-sources)))
   (add-hook 'c-mode-common-hook 'ac-semantic-setup)
-  ;; (define-key c-mode-base-map (kbd "M-n") 'ac-complete-semantic)
+  (define-key c-mode-base-map (kbd "M-n") 'ac-complete-semantic)
   (ac-ropemacs-initialize)
   (defun ac-org-mode-setup ()
     (add-to-list 'ac-sources 'ac-source-yasnippet))

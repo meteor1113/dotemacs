@@ -1,5 +1,7 @@
 2010-05-08  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Bind M-n to ac-complete-semantic.
+
 	* init-site.el: Add pluse advice for viss-bookmark-next-buffer and viss-bookmark-prev-buffer.
 
 	* init-misc.el: Bind <left-margin> <mouse-1/2> to bm-toggle-mouse,
