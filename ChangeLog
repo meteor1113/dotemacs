@@ -1,6 +1,7 @@
 2010-05-08  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Bind M-n to ac-complete-semantic.
+	: Set auto-complete for python using ropemacs.
 
 	* init-site.el: Add pluse advice for viss-bookmark-next-buffer and viss-bookmark-prev-buffer.
 

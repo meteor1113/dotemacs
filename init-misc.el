@@ -208,21 +208,41 @@
       (let ((dict-dir (expand-file-name "dict" (file-name-directory ac-path))))
         (add-to-list 'ac-dictionary-directories dict-dir))))
   (global-auto-complete-mode t)
-  (ac-config-default)
   (defadvice ac-update-word-index-1 (around exclude-hidden-buffer activate)
     "Exclude hidden buffer, hack for eim."
     (unless (string= (substring (buffer-name) 0 1) " ")
       ad-do-it))
+  (ac-config-default)
+  ;; auto-complete for semantic
   (defun ac-prefix-c-dot ()
-    "C-like languages dot(.) or (->) or (::)prefix."
+    "Redefine ac-prefix-c-dot, add (->) and (::)prefix."
     (let ((point(re-search-backward
                  "[\\.>:]\\([a-zA-Z0-9][_a-zA-Z0-9]*\\)?\\=" nil t)))
       (if point (1+ point))))
   (defun ac-semantic-setup ()
-    (setq ac-sources (append '(ac-source-semantic) ac-sources)))
+    (setq ac-sources (append '(ac-source-semantic) ac-sources))
+    (local-set-key (kbd "M-n") 'ac-complete-semantic))
   (add-hook 'c-mode-common-hook 'ac-semantic-setup)
-  (define-key c-mode-base-map (kbd "M-n") 'ac-complete-semantic)
+  ;; auto-complete for ropemacs
+  (setq ac-source-ropemacs              ; Redefine ac-source-ropemacs
+        '((candidates . (lambda ()
+                          (setq ac-ropemacs-completions-cache
+                                (mapcar
+                                 (lambda (completion)
+                                   (concat ac-prefix completion))
+                                 (ignore-errors
+                                   (rope-completions))))))
+          (prefix . c-dot)
+          (requires . 0)))
+  (defun ac-complete-ropemacs ()
+    (interactive)
+    (auto-complete '(ac-source-ropemacs)))
+  (defun ac-ropemacs-setup ()
+    (ac-ropemacs-require)
+    ;; (setq ac-sources (append (list 'ac-source-ropemacs) ac-sources))
+    (local-set-key (kbd "M-n") 'ac-complete-ropemacs))
   (ac-ropemacs-initialize)
+  ;; auto-complete for org
   (defun ac-org-mode-setup ()
     (add-to-list 'ac-sources 'ac-source-yasnippet))
   (add-hook 'org-mode-hook 'ac-org-mode-setup))
