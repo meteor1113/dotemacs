@@ -117,6 +117,14 @@
     "After beginning-of-buffer, pulse the line the cursor lands on."
     (when (and pulse-command-advice-flag (interactive-p))
       (pulse-momentary-highlight-one-line (point))))
+  (defadvice viss-bookmark-next-buffer (after pulse-advice activate)
+    "After viss-bookmark-next-buffer, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice viss-bookmark-prev-buffer (after pulse-advice activate)
+    "After viss-bookmark-prev-buffer, pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
 
   (when (and window-system (require 'semantic-tag-folding nil 'noerror))
     (global-semantic-tag-folding-mode 1)
