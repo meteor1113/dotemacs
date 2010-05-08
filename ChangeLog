@@ -1,3 +1,8 @@
+2010-05-08  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Bind <left-margin> <mouse-1/2> to bm-toggle-mouse,
+	<left-margin> <mouse-3> to bm-next-mouse.
+
 2010-05-07  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Initialize auto-complete for python using ropemacs.
