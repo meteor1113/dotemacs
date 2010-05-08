@@ -130,6 +130,16 @@
   (when window-system
     (global-highlight-symbol-mode t))
   (setq highlight-symbol-idle-delay 0.05)
+  (defadvice highlight-symbol-next (after pulse-advice activate)
+    "After highlight-symbol-next, pulse the line the cursor lands on."
+    (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
+               (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
+  (defadvice highlight-symbol-prev (after pulse-advice activate)
+    "After highlight-symbol-prev, pulse the line the cursor lands on."
+    (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
+               (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
   (global-set-key [(meta f3)] 'highlight-symbol-at-point)
   (global-set-key (kbd "ESC <f3>") 'highlight-symbol-at-point) ; putty
   (global-set-key [f3] 'highlight-symbol-next)

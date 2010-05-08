@@ -1,5 +1,7 @@
 2010-05-08  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Set pulse advice for highlight-symbol-next and highlight-symbol-prev.
+
 	* README: Add.
 
 	* init-misc.el: Bind M-n to ac-complete-semantic.
