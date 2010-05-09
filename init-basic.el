@@ -433,7 +433,7 @@ Like eclipse's Ctrl+Alt+F."
             (semantic-add-system-include dir 'c-mode))
           include-dirs))
 
-  (require 'semantic/analyze/refs)
+  (require 'semantic/analyze/refs)      ; for semantic-ia-fast-jump
   (defadvice push-mark (around semantic-mru-bookmark activate)
     "Push a mark at LOCATION with NOMSG and ACTIVATE passed to `push-mark'.
 If `semantic-mru-bookmark-mode' is active, also push a tag onto
@@ -465,7 +465,7 @@ the mru bookmark stack."
   (define-key semantic-mode-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
   (define-key semantic-mode-map (kbd "C-c , ,") 'semantic-force-refresh)
 
-  (setq pulse-command-advice-flag t)
+  (setq pulse-command-advice-flag (if window-system 1 nil))
   (defadvice goto-line (after pulse-advice activate)
     "Cause the line that is `goto'd to pulse when the cursor gets there."
     (when (and pulse-command-advice-flag (interactive-p))
