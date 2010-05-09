@@ -1,3 +1,7 @@
+2010-05-09  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Compilation with emacs-23.2
+
 2010-05-08  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Set pulse advice for highlight-symbol-next and highlight-symbol-prev.

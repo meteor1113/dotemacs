@@ -519,7 +519,8 @@ the mru bookmark stack."
   (defadvice beginning-of-buffer (after pulse-advice activate)
     "After beginning-of-buffer, pulse the line the cursor lands on."
     (when (and pulse-command-advice-flag (interactive-p))
-      (pulse-momentary-highlight-one-line (point)))))
+      (pulse-momentary-highlight-one-line (point))))
+  (add-hook 'next-error-hook 'pulse-line-hook-function))
 
 
 (provide 'init-basic)
