@@ -294,20 +294,5 @@
   `(when (require 'eim-extra nil 'noerror)
      (global-set-key ";" 'eim-insert-ascii)))
 
-;; semantic-tag-folding
-(when (and window-system
-           (fboundp 'semantic-mode)
-           (require 'semantic-tag-folding nil 'noerror))
-  (global-semantic-tag-folding-mode 1)
-  (define-key semantic-mode-map (kbd "C-?") 'global-semantic-tag-folding-mode)
-  (define-key semantic-tag-folding-mode-map
-    (kbd "C-c , -") 'semantic-tag-folding-fold-block)
-  (define-key semantic-tag-folding-mode-map
-    (kbd "C-c , +") 'semantic-tag-folding-show-block)
-  (define-key semantic-tag-folding-mode-map
-    (kbd "C-_") 'semantic-tag-folding-fold-all)
-  (define-key semantic-tag-folding-mode-map
-    (kbd "C-+") 'semantic-tag-folding-show-all))
-
 
 (provide 'init-misc)

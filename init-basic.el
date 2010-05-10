@@ -335,17 +335,6 @@ Like eclipse's Ctrl+Alt+F."
 (require 'gdb-ui nil 'noerror)
 (require 'gdb-mi nil 'noerror)
 
-;; (defun gdb-or-gud-go ()
-;;   "If gdb isn't running; run gdb, else call gud-go."
-;;   (interactive)
-;;   (if (and gud-comint-buffer
-;;            (buffer-name gud-comint-buffer)
-;;            (get-buffer-process gud-comint-buffer)
-;;            (with-current-buffer gud-comint-buffer
-;;              (or (eq gud-minor-mode 'gdba) (eq gud-minor-mode 'gdbmi))))
-;;       (gud-go nil)
-;;     (gdb (gud-query-cmdline 'gdb))))
-
 (defun gud-break-or-remove (&optional force-remove)
   "Set/clear breakpoin."
   (interactive "P")
@@ -395,13 +384,10 @@ Like eclipse's Ctrl+Alt+F."
 
 (setq gdb-many-windows t)
 (gud-tooltip-mode t)
-;; (global-set-key [f5] 'gdb-or-gud-go)
 (define-key c-mode-base-map [f5] 'gdb)
 (define-key gud-minor-mode-map [f5] 'gud-go)
 (define-key gud-minor-mode-map [S-f5] 'gud-kill)
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
-;; (define-key c-mode-base-map [f7]
-;;   '(lambda () (interactive) (compile compile-command)))
 (define-key gud-minor-mode-map [f8] 'gud-print)
 (define-key gud-minor-mode-map [C-f8] 'gud-pstar)
 (define-key gud-minor-mode-map [f9] 'gud-break-or-remove)
@@ -413,8 +399,9 @@ Like eclipse's Ctrl+Alt+F."
 (define-key gud-minor-mode-map [f11] 'gud-step)
 (define-key gud-minor-mode-map [C-f11] 'gud-finish)
 
-;; cedet
-(when (fboundp 'semantic-mode)
+;; buildin cedet
+(when (and (fboundp 'semantic-mode)
+           (not (locate-library "semantic-ctxt"))) ; can't found offical cedet
   (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                     global-semanticdb-minor-mode
                                     global-semantic-idle-summary-mode

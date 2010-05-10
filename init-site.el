@@ -19,8 +19,11 @@
              (normal-top-level-add-subdirs-to-load-path)
              (cd old-dir)))))
 
-;; cedet
-(when (and (not (fboundp 'semantic-mode)) (require 'cedet nil 'noerror))
+;; offical cedet
+(when (and (or (not (boundp 'semantic-mode))
+               (and (boundp 'semantic-mode) (null semantic-mode)))
+           (locate-library "semantic-ctxt") ; offical cedet
+           (require 'cedet nil 'noerror))
   ;; (semantic-load-enable-minimum-features)
   (semantic-load-enable-code-helpers)
   ;; (semantic-load-enable-guady-code-helpers)
