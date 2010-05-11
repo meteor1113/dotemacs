@@ -1,8 +1,9 @@
 ;; if you want to use offical cedet
 (let ((default-directory (expand-file-name "~/.emacs.d/cedet-1.0pre7")))
-  (add-to-list 'load-path default-directory)
-  (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-      (normal-top-level-add-subdirs-to-load-path)))
+  (when (file-exists-p default-directory)
+    (add-to-list 'load-path default-directory)
+    (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+        (normal-top-level-add-subdirs-to-load-path))))
 
 (add-to-list 'load-path "~/.emacs.d/dotemacs")
 ;; (add-to-list 'load-path "e:/common/dotemacs")
