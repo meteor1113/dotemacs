@@ -11,13 +11,10 @@
 
 
 ;; load-path
-(let ((dir "~/.emacs.d"))
-  (when (file-exists-p dir)
-    (progn (add-to-list 'load-path dir)
-           (let ((old-dir default-directory))
-             (cd dir)
-             (normal-top-level-add-subdirs-to-load-path)
-             (cd old-dir)))))
+(let ((default-directory (expand-file-name "~/.emacs.d")))
+  (add-to-list 'load-path default-directory)
+  (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+      (normal-top-level-add-subdirs-to-load-path)))
 
 ;; offical cedet
 (when (and (or (not (boundp 'semantic-mode))

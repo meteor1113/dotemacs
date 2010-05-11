@@ -12,14 +12,10 @@
 
 ;; load-path
 (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
-       (lisp-dir (expand-file-name "lisp" dir)))
-  (add-to-list 'load-path dir)
-  (when (file-exists-p lisp-dir)
-    (progn (add-to-list 'load-path lisp-dir)
-           (let ((old-dir default-directory))
-             (cd lisp-dir)
-             (normal-top-level-add-subdirs-to-load-path)
-             (cd old-dir)))))
+       (default-directory (expand-file-name "lisp" dir)))
+  (add-to-list 'load-path default-directory)
+  (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+      (normal-top-level-add-subdirs-to-load-path)))
 
 (when (not (fboundp 'define-globalized-minor-mode))
   (defalias 'define-globalized-minor-mode 'define-global-minor-mode))
