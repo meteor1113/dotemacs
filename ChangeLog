@@ -2,6 +2,7 @@
 
 	* init-basic.el: Compilation with offical CEDET and buildin CEDET.
 	: Better compilation with offical CEDET and buildin CEDET.
+	: Disable gud-tooltip-mode.
 
 2010-05-10  Meteor Liu  <meteor1113@gmail.com>
 

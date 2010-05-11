@@ -126,7 +126,7 @@
         (highlight-symbol-mode 1))))
   (when window-system
     (global-highlight-symbol-mode t))
-  (setq highlight-symbol-idle-delay 0.05)
+  (setq highlight-symbol-idle-delay 0.5)
   (defadvice highlight-symbol-next (after pulse-advice activate)
     "After highlight-symbol-next, pulse the line the cursor lands on."
     (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag

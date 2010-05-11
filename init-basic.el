@@ -383,7 +383,7 @@ Like eclipse's Ctrl+Alt+F."
   (kill-buffer gud-comint-buffer))
 
 (setq gdb-many-windows t)
-(gud-tooltip-mode t)
+;; (gud-tooltip-mode t)
 (define-key c-mode-base-map [f5] 'gdb)
 (define-key gud-minor-mode-map [f5] 'gud-go)
 (define-key gud-minor-mode-map [S-f5] 'gud-kill)
