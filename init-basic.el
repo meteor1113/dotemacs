@@ -108,20 +108,21 @@
 ;; (global-hl-line-mode (if window-system 1 -1))
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 
-;; misc
-(require 'generic-x nil 'noerror)
-(setq ring-bell-function 'ignore)
-(global-auto-revert-mode t)
-(setq-default indicate-buffer-boundaries (quote left))
-(when (fboundp 'global-linum-mode)
-  (global-linum-mode 1))
-
 ;; ffap
 (ffap-bindings)
 (when (boundp 'ffap-c-path)
   (setq ffap-c-path (append ffap-c-path user-include-dirs))
   (when (eq system-type 'windows-nt)
     (setq ffap-c-path (append ffap-c-path win32-include-dirs))))
+
+;; misc
+(setq-default tab-width 4)
+(require 'generic-x nil 'noerror)
+(setq ring-bell-function 'ignore)
+(global-auto-revert-mode t)
+(setq-default indicate-buffer-boundaries (quote left))
+(when (fboundp 'global-linum-mode)
+  (global-linum-mode 1))
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"
