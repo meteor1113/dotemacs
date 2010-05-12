@@ -4,6 +4,7 @@
 	show-trailing-whitespace, use whitespace-mode instead.
 	: whitespace-mode: don't display newline-mark.
 	(tab-width): Set default tab-width to 4.
+	(whitespace-style): don't display indentation.
 
 2010-05-11  Meteor Liu  <meteor1113@gmail.com>
 

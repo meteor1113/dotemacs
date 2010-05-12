@@ -65,7 +65,7 @@
 (setq-default show-trailing-whitespace nil) ; use whitespace-mode instead
 (setq whitespace-style
       '(tabs trailing lines-tail space-before-tab newline
-             indentation empty space-after-tab tab-mark))
+             empty space-after-tab tab-mark))
 ;; (when window-system
 ;;   (setq whitespace-style (append whitespace-style '(newline-mark))))
 ;; (global-whitespace-mode t)
