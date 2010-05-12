@@ -62,7 +62,7 @@
 (desktop-save-mode (if window-system 1 -1))
 
 ;; whitespace
-(setq-default show-trailing-whitespace t)
+(setq-default show-trailing-whitespace nil) ; use whitespace-mode instead
 (setq whitespace-style
       '(tabs trailing lines-tail space-before-tab newline
              indentation empty space-after-tab tab-mark))
