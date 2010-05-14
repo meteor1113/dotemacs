@@ -1,3 +1,7 @@
+2010-05-14  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Add TODO|FIXME to font lock keyword.
+
 2010-05-12  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (show-trailing-whitespace): Close

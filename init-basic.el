@@ -107,6 +107,13 @@
 ;; highlight
 ;; (global-hl-line-mode (if window-system 1 -1))
 ;; (global-highlight-changes-mode t)       ; use cedet instead
+(dolist (mode '(c-mode c++-mode objc-mode java-mode jde-mode
+                       perl-mode cperl-mode python-mode ruby-mode
+                       lisp-mode emacs-lisp-mode
+                       lisp-interaction-mode sh-mode sgml-mode))
+  (font-lock-add-keywords
+   mode
+   '(("\\<\\(FIXME\\|TODO\\|Todo\\):" 1 font-lock-warning-face prepend))))
 
 ;; ffap
 (ffap-bindings)
