@@ -322,6 +322,8 @@ Like eclipse's Ctrl+Alt+F."
 
 (add-hook 'sh-mode-hook 'program-common-function)
 
+(add-hook 'makefile-mode-hook 'imenu-add-menubar-index)
+
 (when (fboundp 'whitespace-mode)
   (add-hook 'makefile-mode-hook (lambda () (whitespace-mode 1)))
   (add-hook 'autoconf-mode-hook (lambda () (whitespace-mode 1))))
