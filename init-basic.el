@@ -129,6 +129,7 @@
 (setq-default tab-width 4)
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
+(auto-image-file-mode t)
 (global-auto-revert-mode t)
 (setq-default indicate-buffer-boundaries (quote left))
 (when (fboundp 'global-linum-mode)
