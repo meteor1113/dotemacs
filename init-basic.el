@@ -69,6 +69,10 @@
 ;; (when window-system
 ;;   (setq whitespace-style (append whitespace-style '(newline-mark))))
 ;; (global-whitespace-mode t)
+(eval-after-load "whitespace"
+  `(defun whitespace-post-command-hook ()
+     "Hack for emacs-23.2's whitespace, it's very slow in c++-mode."
+     ))
 
 ;; bookmark
 (setq bookmark-save-flag 1)

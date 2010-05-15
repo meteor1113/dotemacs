@@ -1,6 +1,7 @@
 2010-05-15  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Create imenu menu for makefile-mode.
+	("whitespace"): Hack whitespace-post-command-hook for emacs-23.2.
 
 2010-05-14  Meteor Liu  <meteor1113@gmail.com>
 
