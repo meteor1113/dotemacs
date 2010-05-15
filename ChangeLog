@@ -2,6 +2,7 @@
 
 	* init-basic.el: Create imenu menu for makefile-mode.
 	("whitespace"): Hack whitespace-post-command-hook for emacs-23.2.
+	(whitespace-style): Don't display space-before-tab and space-after-tab.
 
 2010-05-14  Meteor Liu  <meteor1113@gmail.com>
 
