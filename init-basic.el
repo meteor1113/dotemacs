@@ -127,7 +127,8 @@
                        lisp-interaction-mode sh-mode sgml-mode))
   (font-lock-add-keywords
    mode
-   '(("\\<\\(FIXME\\|TODO\\|Todo\\):" 1 font-lock-warning-face prepend))))
+   '(("\\<\\(FIXME\\|TODO\\|Todo\\)\\>" 1 font-lock-warning-face prepend)
+     ("\\<\\(FIXME\\|TODO\\|Todo\\):" 1 font-lock-warning-face prepend))))
 
 ;; ffap
 (ffap-bindings)

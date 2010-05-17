@@ -1,5 +1,7 @@
 2010-05-17  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Highlight TODO.
+
 	*: Refactor c include dirs.
 
 2010-05-15  Meteor Liu  <meteor1113@gmail.com>
