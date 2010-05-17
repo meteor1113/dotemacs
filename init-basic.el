@@ -12,20 +12,31 @@
 
 ;;; global setting
 
-(defconst user-include-dirs
-  (list ".." "../include" "../inc" "../common" "../public"
-        "../.." "../../include" "../../inc" "../../common" "../../public"))
-(defconst win32-include-dirs
-  (list "C:/MinGW/include"
-        "C:/MinGW/include/c++/3.4.5"
-        "C:/MinGW/include/c++/3.4.5/mingw32"
-        "C:/MinGW/include/c++/3.4.5/backward"
-        "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
-        "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
-
 ;; user information
 (setq user-full-name "Meteor Liu")
 (setq user-mail-address "meteor1113@gmail.com")
+
+;; c/c++ include dir
+(defvar user-include-dirs
+  '(".." "../include" "../inc" "../common" "../public"
+    "../.." "../../include" "../../inc" "../../common" "../../public"
+    "C:/MinGW/include"
+    "C:/MinGW/include/c++/3.4.5"
+    "C:/MinGW/include/c++/3.4.5/mingw32"
+    "C:/MinGW/include/c++/3.4.5/backward"
+    "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
+    "C:/Program Files/Microsoft Visual Studio/VC98/Include"
+    "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"
+    ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include"
+    )
+  "User include dirs for c/c++ mode")
+(defvar c-preprocessor-symbol-files
+  '("C:/MinGW/include/c++/3.4.5/mingw32/bits/c++config.h"
+    "C:/Program Files/Microsoft Visual Studio/VC98/Include/xstddef"
+    ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include/yvals.h"
+    ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include/crtdefs.h"
+    )
+  "Preprocessor symbol files for cedet")
 
 ;; tool-bar
 (tool-bar-mode t)
@@ -121,9 +132,7 @@
 ;; ffap
 (ffap-bindings)
 (when (boundp 'ffap-c-path)
-  (setq ffap-c-path (append ffap-c-path user-include-dirs))
-  (when (eq system-type 'windows-nt)
-    (setq ffap-c-path (append ffap-c-path win32-include-dirs))))
+  (setq ffap-c-path (append ffap-c-path user-include-dirs)))
 
 ;; misc
 (setq-default tab-width 4)
@@ -426,13 +435,15 @@ Like eclipse's Ctrl+Alt+F."
   (global-semantic-show-parser-state-mode 1)
   (global-ede-mode 1)
 
-  (let ((include-dirs user-include-dirs))
-    (when (eq system-type 'windows-nt)
-      (setq include-dirs (append include-dirs win32-include-dirs)))
-    (mapc (lambda (dir)
-            (semantic-add-system-include dir 'c++-mode)
-            (semantic-add-system-include dir 'c-mode))
-          include-dirs))
+  (require 'semantic/bovine/c nil 'noerror)
+  (mapc (lambda (dir)
+          (semantic-add-system-include dir 'c++-mode)
+          (semantic-add-system-include dir 'c-mode))
+        user-include-dirs)
+  (dolist (file c-preprocessor-symbol-files)
+    (when (file-exists-p file)
+      (setq semantic-lex-c-preprocessor-symbol-file
+            (append semantic-lex-c-preprocessor-symbol-file (list file)))))
 
   (require 'semantic/analyze/refs)      ; for semantic-ia-fast-jump
   (defadvice push-mark (around semantic-mru-bookmark activate)
@@ -522,6 +533,5 @@ the mru bookmark stack."
     (when (and pulse-command-advice-flag (interactive-p))
       (pulse-momentary-highlight-one-line (point))))
   (add-hook 'next-error-hook 'pulse-line-hook-function))
-
 
 (provide 'init-basic)

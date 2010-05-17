@@ -18,6 +18,27 @@
         (normal-top-level-add-subdirs-to-load-path))))
 
 ;; offical cedet
+(defvar user-include-dirs
+  '(".." "../include" "../inc" "../common" "../public"
+    "../.." "../../include" "../../inc" "../../common" "../../public"
+    "C:/MinGW/include"
+    "C:/MinGW/include/c++/3.4.5"
+    "C:/MinGW/include/c++/3.4.5/mingw32"
+    "C:/MinGW/include/c++/3.4.5/backward"
+    "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
+    "C:/Program Files/Microsoft Visual Studio/VC98/Include"
+    "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"
+    ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include"
+    )
+  "User include dirs for c/c++ mode")
+(defvar c-preprocessor-symbol-files
+  '("C:/MinGW/include/c++/3.4.5/mingw32/bits/c++config.h"
+    "C:/Program Files/Microsoft Visual Studio/VC98/Include/xstddef"
+    ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include/yvals.h"
+    ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include/crtdefs.h"
+    )
+  "Preprocessor symbol files for cedet")
+
 (when (and (or (not (boundp 'semantic-mode))
                (and (boundp 'semantic-mode) (null semantic-mode)))
            (locate-library "semantic-ctxt") ; offical cedet
@@ -43,24 +64,15 @@
   (define-key global-map [(shift f2)] 'viss-bookmark-prev-buffer)
   (define-key global-map [(control shift f2)] 'viss-bookmark-clear-all-buffer)
 
-  (defconst cedet-user-include-dirs
-    (list ".." "../include" "../inc" "../common" "../public"
-          "../.." "../../include" "../../inc" "../../common" "../../public"))
-  (defconst cedet-win32-include-dirs
-    (list "C:/MinGW/include"
-          "C:/MinGW/include/c++/3.4.5"
-          "C:/MinGW/include/c++/3.4.5/mingw32"
-          "C:/MinGW/include/c++/3.4.5/backward"
-          "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
-          "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
   (require 'semantic-c nil 'noerror)
-  (let ((include-dirs cedet-user-include-dirs))
-    (when (eq system-type 'windows-nt)
-      (setq include-dirs (append include-dirs cedet-win32-include-dirs)))
-    (mapc (lambda (dir)
-            (semantic-add-system-include dir 'c++-mode)
-            (semantic-add-system-include dir 'c-mode))
-          include-dirs))
+  (mapc (lambda (dir)
+          (semantic-add-system-include dir 'c++-mode)
+          (semantic-add-system-include dir 'c-mode))
+        user-include-dirs)
+  (dolist (file c-preprocessor-symbol-files)
+    (when (file-exists-p file)
+      (setq semantic-lex-c-preprocessor-symbol-file
+            (append semantic-lex-c-preprocessor-symbol-file (list file)))))
 
   ;; (global-set-key (kbd "C-c , TAB") 'senator-complete-symbol)
   ;; (global-set-key (kbd "C-c , SPC") 'senator-completion-menu-popup)
