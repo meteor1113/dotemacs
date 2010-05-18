@@ -2,6 +2,7 @@
 
 	* init-basic.el (window-system): In terminal, whitespace-mode
 	don't display tabs.
+	(cua-keep-region-after-copy): In terminal, don't keep region after copy.
 
 2010-05-17  Meteor Liu  <meteor1113@gmail.com>
 

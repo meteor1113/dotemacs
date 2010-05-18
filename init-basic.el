@@ -50,7 +50,7 @@
 ;; cua
 (cua-mode t)
 (define-key cua-global-keymap (kbd "<M-RET>") 'cua-set-rectangle-mark)
-(setq cua-keep-region-after-copy t)
+(setq cua-keep-region-after-copy (if window-system t nil))
 (setq mouse-drag-copy-region nil)
 (setq x-select-enable-clipboard t)
 
