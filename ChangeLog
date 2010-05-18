@@ -1,3 +1,8 @@
+2010-05-18  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (window-system): In terminal, whitespace-mode
+	don't display tabs.
+
 2010-05-17  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Highlight TODO.

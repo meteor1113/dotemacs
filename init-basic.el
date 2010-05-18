@@ -73,11 +73,10 @@
 (desktop-save-mode (if window-system 1 -1))
 
 ;; whitespace
-(setq-default show-trailing-whitespace nil) ; use whitespace-mode instead
-(setq whitespace-style
-      '(tabs trailing lines-tail newline empty tab-mark))
-;; (when window-system
-;;   (setq whitespace-style (append whitespace-style '(newline-mark))))
+;; (setq-default show-trailing-whitespace t) ; use whitespace-mode instead
+(setq whitespace-style '(trailing lines-tail newline empty tab-mark))
+(when window-system
+  (setq whitespace-style (append whitespace-style '(tabs))))
 ;; (global-whitespace-mode t)
 (eval-after-load "whitespace"
   `(defun whitespace-post-command-hook ()
