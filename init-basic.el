@@ -401,9 +401,27 @@ Like eclipse's Ctrl+Alt+F."
 (defun gud-kill ()
   "Kill gdb process."
   (interactive)
-  (with-current-buffer gud-comint-buffer (comint-skip-input))
-  (set-process-query-on-exit-flag (get-buffer-process gud-comint-buffer) nil)
-  (kill-buffer gud-comint-buffer))
+  (dolist (buffer '(gdba gdb-stack-buffer gdb-breakpoints-buffer
+                         gdb-threads-buffer gdb-inferior-io
+                         gdb-registers-buffer gdb-memory-buffer
+                         gdb-locals-buffer gdb-assembler-buffer))
+    (when (gdb-get-buffer buffer)
+      (kill-buffer (gdb-get-buffer buffer)))))
+  ;; (with-current-buffer gud-comint-buffer (comint-skip-input))
+  ;; (set-process-query-on-exit-flag (get-buffer-process gud-comint-buffer) nil)
+  ;; (kill-buffer gud-comint-buffer))
+
+(defun gdb-tooltip-hook ()
+  (gud-tooltip-mode 1)
+  (let ((process (ignore-errors (get-buffer-process (current-buffer)))))
+    (when process
+      (set-process-sentinel process
+                            (lambda (proc change)
+                              (let ((status (process-status proc)))
+                                (when (or (eq status 'exit)
+                                          (eq status 'signal))
+                                  (gud-tooltip-mode -1))))))))
+(add-hook 'gdb-mode-hook 'gdb-tooltip-hook)
 
 (setq gdb-many-windows t)
 ;; (gud-tooltip-mode t)
