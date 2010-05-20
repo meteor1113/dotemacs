@@ -401,29 +401,36 @@ Like eclipse's Ctrl+Alt+F."
 (defun gud-kill ()
   "Kill gdb process."
   (interactive)
+  (with-current-buffer gud-comint-buffer (comint-skip-input))
+  ;; (set-process-query-on-exit-flag (get-buffer-process gud-comint-buffer) nil)
+  ;; (kill-buffer gud-comint-buffer))
   (dolist (buffer '(gdba gdb-stack-buffer gdb-breakpoints-buffer
                          gdb-threads-buffer gdb-inferior-io
                          gdb-registers-buffer gdb-memory-buffer
                          gdb-locals-buffer gdb-assembler-buffer))
     (when (gdb-get-buffer buffer)
+      (let ((proc (get-buffer-process (gdb-get-buffer buffer))))
+        (when proc (set-process-query-on-exit-flag proc nil)))
       (kill-buffer (gdb-get-buffer buffer)))))
-  ;; (with-current-buffer gud-comint-buffer (comint-skip-input))
-  ;; (set-process-query-on-exit-flag (get-buffer-process gud-comint-buffer) nil)
-  ;; (kill-buffer gud-comint-buffer))
 
-(defun gdb-tooltip-hook ()
-  (gud-tooltip-mode 1)
-  (let ((process (ignore-errors (get-buffer-process (current-buffer)))))
-    (when process
-      (set-process-sentinel process
-                            (lambda (proc change)
-                              (let ((status (process-status proc)))
-                                (when (or (eq status 'exit)
-                                          (eq status 'signal))
-                                  (gud-tooltip-mode -1))))))))
-(add-hook 'gdb-mode-hook 'gdb-tooltip-hook)
+;; (defun gdb-tooltip-hook ()
+;;   (gud-tooltip-mode 1)
+;;   (let ((process (ignore-errors (get-buffer-process (current-buffer)))))
+;;     (when process
+;;       (set-process-sentinel process
+;;                             (lambda (proc change)
+;;                               (let ((status (process-status proc)))
+;;                                 (when (or (eq status 'exit)
+;;                                           (eq status 'signal))
+;;                                   (gud-tooltip-mode -1))))))))
+;; (add-hook 'gdb-mode-hook 'gdb-tooltip-hook)
+(add-hook 'gdb-mode-hook (lambda () (gud-tooltip-mode 1)))
+(defadvice gud-kill-buffer-hook (after gud-tooltip-mode activate)
+  "After gdb killed, disable gud-tooltip-mode."
+  (gud-tooltip-mode -1))
 
 (setq gdb-many-windows t)
+;; (setq gdb-use-separate-io-buffer t)
 ;; (gud-tooltip-mode t)
 (define-key c-mode-base-map [f5] 'gdb)
 (define-key gud-minor-mode-map [f5] 'gud-go)

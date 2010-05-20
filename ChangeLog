@@ -1,3 +1,8 @@
+2010-05-20  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (gud-kill-buffer-hook): Add advice for auto
+	enable/disable gud-tooltip-mode.
+
 2010-05-19  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (gdb-tooltip-hook): Add for auto enable/disable gud-tooltip-mode.
