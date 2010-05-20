@@ -413,6 +413,11 @@ Like eclipse's Ctrl+Alt+F."
         (when proc (set-process-query-on-exit-flag proc nil)))
       (kill-buffer (gdb-get-buffer buffer)))))
 
+(defadvice gdb (before ecb-deactivate activate)
+  "if ecb activated, deactivate it."
+  (when (and (boundp 'ecb-minor-mode) (ecb-minor-mode))
+    (ecb-deactivate)))
+
 ;; (defun gdb-tooltip-hook ()
 ;;   (gud-tooltip-mode 1)
 ;;   (let ((process (ignore-errors (get-buffer-process (current-buffer)))))

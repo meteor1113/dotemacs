@@ -2,6 +2,7 @@
 
 	* init-basic.el (gud-kill-buffer-hook): Add advice for auto
 	enable/disable gud-tooltip-mode.
+	(gdb): Add advice for deactivate ecb.
 
 2010-05-19  Meteor Liu  <meteor1113@gmail.com>
 
