@@ -1,5 +1,7 @@
 2010-05-21  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Add autoload for pulse.
+
 	* init-misc.el: Add csharp-mode to support c#.
 
 2010-05-20  Meteor Liu  <meteor1113@gmail.com>

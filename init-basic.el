@@ -507,6 +507,8 @@ the mru bookmark stack."
   (define-key semantic-mode-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
   (define-key semantic-mode-map (kbd "C-c , ,") 'semantic-force-refresh)
 
+  (autoload 'pulse-momentary-highlight-one-line "pulse" "" nil)
+  (autoload 'pulse-line-hook-function "pulse" "" nil)
   (setq pulse-command-advice-flag (if window-system 1 nil))
   (defadvice goto-line (after pulse-advice activate)
     "Cause the line that is `goto'd to pulse when the cursor gets there."
