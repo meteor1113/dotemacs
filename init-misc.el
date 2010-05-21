@@ -168,6 +168,11 @@
                  (doxymacs-mode t)
                  (doxymacs-font-lock)))))
 
+;; csharp-mode
+(autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
+(setq auto-mode-alist
+      (append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
+
 ;; sourcepair
 (setq sourcepair-source-extensions
       '(".cpp" ".cxx" ".c++" ".CC" ".cc" ".C" ".c" ".mm" ".m"))
