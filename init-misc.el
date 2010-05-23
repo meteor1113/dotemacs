@@ -263,9 +263,10 @@
     (interactive)
     (auto-complete '(ac-source-ropemacs)))
   (defun ac-ropemacs-setup ()
-    (ac-ropemacs-require)
-    ;; (setq ac-sources (append (list 'ac-source-ropemacs) ac-sources))
-    (local-set-key (kbd "M-n") 'ac-complete-ropemacs))
+    (when (locate-library "pymacs")
+      (ac-ropemacs-require)
+      ;; (setq ac-sources (append (list 'ac-source-ropemacs) ac-sources))
+      (local-set-key (kbd "M-n") 'ac-complete-ropemacs)))
   (ac-ropemacs-initialize)
   ;; auto-complete for org
   (defun ac-org-mode-setup ()
