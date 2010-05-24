@@ -47,6 +47,13 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
+;; edit
+(setq-default tab-width 4)
+(put 'set-goal-column 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
 ;; cua
 (cua-mode t)
 (define-key cua-global-keymap (kbd "<M-RET>") 'cua-set-rectangle-mark)
@@ -135,7 +142,6 @@
   (setq ffap-c-path (append ffap-c-path user-include-dirs)))
 
 ;; misc
-(setq-default tab-width 4)
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
 (auto-image-file-mode t)
@@ -256,19 +262,21 @@ Like eclipse's Ctrl+Alt+F."
     (pulse-momentary-highlight-one-line (point))))
 
 ;; global key bindings
-(global-set-key (kbd "<select>") 'move-end-of-line) ; for putty
 ;; (global-set-key (kbd "<M-up>") 'move-line-up)
 ;; (global-set-key (kbd "<M-down>") 'move-line-down)
+(global-set-key (kbd "<select>") 'move-end-of-line) ; for putty
+(global-set-key (kbd "C-=") 'align)
+(global-set-key (kbd "C-S-u") 'upcase-region)
+(global-set-key (kbd "C-S-l") 'downcase-region)
+(global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
+(global-set-key (kbd "ESC M-;") 'comment-or-uncomment-region) ; putty
 (global-set-key [M-f8] 'format-region)
 (global-set-key (kbd "ESC <f8>") 'format-region) ; putty
 (global-set-key (kbd "C-S-f") 'format-region)
-(global-set-key (kbd "C-=") 'align)
 (global-set-key (kbd "M-P") 'previous-buffer)
 (global-set-key (kbd "M-N") 'next-buffer)
 (global-set-key [(control tab)] 'switch-to-other-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
-(global-set-key (kbd "ESC M-;") 'comment-or-uncomment-region) ; putty
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)

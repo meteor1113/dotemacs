@@ -1,3 +1,7 @@
+2010-05-24  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Bind C-S-u and C-S-l to upcase-region and downcase-region.
+
 2010-05-21  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Add autoload for pulse.
