@@ -140,6 +140,7 @@
 (setq ring-bell-function 'ignore)
 (auto-image-file-mode t)
 (global-auto-revert-mode t)
+;; (setq require-final-newline 'ask)
 (setq-default indicate-buffer-boundaries (quote left))
 (when (fboundp 'global-linum-mode)
   (global-linum-mode 1))
