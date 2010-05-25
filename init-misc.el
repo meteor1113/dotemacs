@@ -245,7 +245,7 @@
             (requires . 0)
             (symbol . "f"))))
   (defun ac-semantic-setup ()
-    (setq ac-sources (append '(ac-source-semantic) ac-sources))
+    ;; (setq ac-sources (append '(ac-source-semantic) ac-sources))
     (local-set-key (kbd "M-n") 'ac-complete-semantic))
   (add-hook 'c-mode-common-hook 'ac-semantic-setup)
   ;; auto-complete for ropemacs
