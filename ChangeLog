@@ -1,3 +1,8 @@
+2010-05-25  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (artist-coord-win-to-buf): Add advice to fix bug
+	with tabbar-mode.
+
 2010-05-24  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Bind C-S-u and C-S-l to upcase-region and downcase-region.

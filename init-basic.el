@@ -313,6 +313,9 @@ Like eclipse's Ctrl+Alt+F."
                (require 'sgml-mode)
                (set-syntax-table sgml-mode-syntax-table))))
 
+(defadvice artist-coord-win-to-buf (before tabbar-mode activate compile)
+  (if tabbar-mode (setq coord (cons (car coord) (1- (cdr coord))))))
+
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
   ;; (local-set-key (kbd "<return>") 'newline-and-indent)
