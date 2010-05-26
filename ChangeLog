@@ -1,3 +1,8 @@
+2010-05-26  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el ([f7]): Prompt command when press f7.
+	([f7]): Don't prompt command when press f7.
+
 2010-05-25  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (artist-coord-win-to-buf): Add advice to fix bug

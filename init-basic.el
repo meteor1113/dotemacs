@@ -287,6 +287,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [M-f6]
                 '(lambda () (interactive) (moccur-word-all-buffers "TODO")))
 (global-set-key [C-M-f6] (lambda () (interactive) (grep "grep -inr TODO .")))
+(global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 
 
 ;;; special mode setting
@@ -452,7 +453,6 @@ Like eclipse's Ctrl+Alt+F."
 (define-key c-mode-base-map [f5] 'gdb)
 (define-key gud-minor-mode-map [f5] 'gud-go)
 (define-key gud-minor-mode-map [S-f5] 'gud-kill)
-(global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (define-key gud-minor-mode-map [f8] 'gud-print)
 (define-key gud-minor-mode-map [C-f8] 'gud-pstar)
 (define-key gud-minor-mode-map [f9] 'gud-break-or-remove)
