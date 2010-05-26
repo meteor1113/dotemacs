@@ -1,3 +1,7 @@
+2010-05-27  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (inhibit-startup-message): Disable startup message.
+
 2010-05-26  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el ([f7]): Prompt command when press f7.

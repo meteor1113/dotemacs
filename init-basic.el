@@ -142,6 +142,7 @@
   (setq ffap-c-path (append ffap-c-path user-include-dirs)))
 
 ;; misc
+(setq inhibit-startup-message t)
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
 (auto-image-file-mode t)
