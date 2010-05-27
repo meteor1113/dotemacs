@@ -1,5 +1,7 @@
 2010-05-27  Meteor Liu  <meteor1113@gmail.com>
 
+	* .emacs: Support portable emacs.
+
 	* init-basic.el (inhibit-startup-message): Disable startup message.
 
 2010-05-26  Meteor Liu  <meteor1113@gmail.com>
