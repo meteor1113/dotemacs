@@ -2,6 +2,8 @@
 
 	* init-basic.el (sql-mode-hook): sql-mode Setting.
 
+	* init-misc.el: Add ac-source-yasnippet to all ac-modes.
+
 	* init-basic.el (kbd): Alias (kbd "ESC <f6>") to [M-f6].
 	(kbd): Alias (kbd "ESC <C-f6>") to [C-M-f6].
 	(grep-current-dir): When (grep-current-dir) return empty, prompt.
