@@ -346,6 +346,8 @@ Like eclipse's Ctrl+Alt+F."
 
 (add-hook 'objc-mode-hook (lambda () (c-set-style "stroustrup")))
 
+(add-to-list 'auto-mode-alist '("\\.prc\\'" . sql-mode))
+
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (program-common-function)
