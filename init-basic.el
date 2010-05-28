@@ -322,6 +322,7 @@ Like eclipse's Ctrl+Alt+F."
                (set-syntax-table sgml-mode-syntax-table))))
 
 (defadvice artist-coord-win-to-buf (before tabbar-mode activate compile)
+  "Hack artist-mode's wrong position when tabbar-mode."
   (if tabbar-mode (setq coord (cons (car coord) (1- (cdr coord))))))
 
 (defun program-common-function ()
@@ -347,6 +348,7 @@ Like eclipse's Ctrl+Alt+F."
 (add-hook 'objc-mode-hook (lambda () (c-set-style "stroustrup")))
 
 (add-to-list 'auto-mode-alist '("\\.prc\\'" . sql-mode))
+(add-hook 'sql-mode-hook 'program-common-function)
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()

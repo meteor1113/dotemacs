@@ -189,6 +189,10 @@
                (define-key c-mode-base-map (kbd "ESC <f12>") 'sourcepair-load)
                (define-key c-mode-base-map [M-f12] 'sourcepair-load))))
 
+;; sql-indent
+(eval-after-load "sql"
+  '(require 'sql-indent nil 'noerror))
+
 ;; yasnippet
 (when (or (require 'yasnippet-bundle nil 'noerror)
           (require 'yasnippet nil 'noerror))
@@ -211,8 +215,8 @@
 (when (and (require 'auto-complete nil 'noerror)
            (require 'auto-complete-config nil 'noerror))
   (setq ac-modes
-        (append ac-modes '(org-mode objc-mode jde-mode change-log-mode
-                                    fundamental-mode
+        (append ac-modes '(org-mode objc-mode jde-mode sql-mode
+                                    change-log-mode fundamental-mode
                                     makefile-gmake-mode makefile-bsdmake-mode
                                     autoconf-mode makefile-automake-mode)))
   (let ((ac-path (locate-library "auto-complete")))
@@ -268,10 +272,9 @@
       ;; (setq ac-sources (append (list 'ac-source-ropemacs) ac-sources))
       (local-set-key (kbd "M-n") 'ac-complete-ropemacs)))
   (ac-ropemacs-initialize)
-  ;; auto-complete for org
-  (defun ac-org-mode-setup ()
+  (defun ac-yasnippet-setup ()
     (add-to-list 'ac-sources 'ac-source-yasnippet))
-  (add-hook 'org-mode-hook 'ac-org-mode-setup))
+  (add-hook 'auto-complete-mode-hook 'ac-yasnippet-setup))
 
 ;; company
 ;; (when (require 'company nil 'noerror)
