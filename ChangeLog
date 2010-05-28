@@ -1,4 +1,13 @@
+2010-05-28  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (kbd): Alias (kbd "ESC <f6>") to [M-f6].
+	(kbd): Alias (kbd "ESC <C-f6>") to [C-M-f6].
+	(grep-current-dir): When (grep-current-dir) return empty, prompt.
+	(moccur-all-buffers): When (moccur-all-buffers) return empty, prompt.
+
 2010-05-27  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (grep-current-dir): Ignore version control dirs.
 
 	* .emacs: Support portable emacs.
 

@@ -235,22 +235,25 @@ Like eclipse's Ctrl+Alt+F."
   "Run `multi-occur' to find current word in all buffers."
   (interactive "P")
   (let ((word (grep-tag-default)))
-    (when is-prompt
+    (when (or is-prompt (= (length word) 0))
       (setq word (read-regexp "List lines matching regexp" word)))
     (moccur-word-all-buffers word)))
 
-(require 'grep)
-(defun grep-current-dir (&optional is-prompt)
+(autoload 'grep-tag-default "grep")
+(defun grep-current-dir (&optional is-prompt wd)
   "Run `grep' to find current word in current directory."
   (interactive "P")
-  (let* ((word (grep-tag-default))
-         (commands (concat "grep -inr '" word "' .")))
-    (if is-prompt
+  (let* ((word (or wd (grep-tag-default)))
+         (cmd (concat "grep -inrI '" word "' ."
+                      (if (eq system-type 'windows-nt)
+                          nil
+                        " | grep -vE '\.svn/|\.git/|\.hg/|\.bzr/|CVS/'"))))
+    (if (or is-prompt (= (length word) 0))
         (grep (read-shell-command
-               "Run grep (like this): " commands 'grep-history))
+               "Run grep (like this): " cmd 'grep-history))
       (if (= 0 (length word))
           (message "Word is blank.")
-        (grep commands)))))
+        (grep cmd)))))
 
 (defun switch-to-other-buffer ()
   "Switch to (other-buffer)."
@@ -283,11 +286,14 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
 (global-set-key (kbd "ESC <f4>") 'kill-this-buffer) ; putty
-(global-set-key [f6] 'moccur-all-buffers)
 (global-set-key [C-f6] 'grep-current-dir)
+(global-set-key [f6] 'moccur-all-buffers)
 (global-set-key [M-f6]
                 '(lambda () (interactive) (moccur-word-all-buffers "TODO")))
-(global-set-key [C-M-f6] (lambda () (interactive) (grep "grep -inr TODO .")))
+(global-set-key (kbd "ESC <f6>") (key-binding [M-f6]))
+(global-set-key [C-M-f6]
+                '(lambda () (interactive) (grep-current-dir nil "TODO")))
+(global-set-key (kbd "ESC <C-f6>") (key-binding [C-M-f6]))
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 
 

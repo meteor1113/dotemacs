@@ -181,7 +181,7 @@
 (setq sourcepair-header-path '("." "include" ".." "../include" "../inc"
                                "../../include" "../../inc" "../*"))
 (setq sourcepair-source-path '("." "src" ".." "../src" "../*"))
-(setq sourcepair-recurse-ignore '("CVS" ".svn" ".git"
+(setq sourcepair-recurse-ignore '("CVS" ".svn" ".hg" ".git" ".bzr"
                                   "Obj" "Debug" "Release" "bin" "lib"))
 (add-hook 'c-mode-common-hook
           '(lambda ()
