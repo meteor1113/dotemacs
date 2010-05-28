@@ -455,7 +455,7 @@ Like eclipse's Ctrl+Alt+F."
   (gud-tooltip-mode -1))
 
 (setq gdb-many-windows t)
-;; (setq gdb-use-separate-io-buffer t)
+(setq gdb-use-separate-io-buffer t)
 ;; (gud-tooltip-mode t)
 (define-key c-mode-base-map [f5] 'gdb)
 (define-key gud-minor-mode-map [f5] 'gud-go)

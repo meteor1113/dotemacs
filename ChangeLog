@@ -5,6 +5,7 @@
 	(grep-current-dir): When (grep-current-dir) return empty, prompt.
 	(moccur-all-buffers): When (moccur-all-buffers) return empty, prompt.
 	: Swap f6/C-f6, now f6 bind to grep family, C-f6 bind to moccur family.
+	(gdb-use-separate-io-buffer): Set to t.
 
 2010-05-27  Meteor Liu  <meteor1113@gmail.com>
 
