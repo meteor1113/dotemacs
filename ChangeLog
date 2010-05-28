@@ -1,6 +1,7 @@
 2010-05-28  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Load sql-indent.el when sql.
+	: Set tabbar-mode to display modified flag.
 
 	* init-basic.el (sql-mode-hook): sql-mode Setting.
 

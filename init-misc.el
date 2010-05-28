@@ -83,7 +83,20 @@
 
 ;; tabbar
 (when (require 'tabbar nil 'noerror)
-  (tabbar-mode t))
+  (tabbar-mode t)
+  (defadvice tabbar-buffer-tab-label (after modified-flag activate)
+    (setq ad-return-value
+          (if (and (buffer-modified-p (tabbar-tab-value tab))
+                   (buffer-file-name (tabbar-tab-value tab)))
+              (concat ad-return-value " *")
+            ad-return-value)))
+  (defun update-tabbar-modified-state ()
+    (tabbar-set-template tabbar-current-tabset nil)
+    (tabbar-display-update))
+  (defadvice undo (after update-tabbar-tab-label activate)
+    (update-tabbar-modified-state))
+  (add-hook 'first-change-hook 'update-tabbar-modified-state)
+  (add-hook 'after-save-hook 'update-tabbar-modified-state))
 
 ;; window-numbering
 (when (require 'window-numbering nil 'noerror)
