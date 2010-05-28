@@ -1,5 +1,7 @@
 2010-05-28  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Load sql-indent.el when sql.
+
 	* init-basic.el (sql-mode-hook): sql-mode Setting.
 
 	* init-misc.el: Add ac-source-yasnippet to all ac-modes.
