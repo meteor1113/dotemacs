@@ -286,13 +286,13 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
 (global-set-key (kbd "ESC <f4>") 'kill-this-buffer) ; putty
-(global-set-key [C-f6] 'grep-current-dir)
-(global-set-key [f6] 'moccur-all-buffers)
+(global-set-key [f6] 'grep-current-dir)
+(global-set-key [C-f6] 'moccur-all-buffers)
 (global-set-key [M-f6]
-                '(lambda () (interactive) (moccur-word-all-buffers "TODO")))
+                '(lambda () (interactive) (grep-current-dir nil "TODO")))
 (global-set-key (kbd "ESC <f6>") (key-binding [M-f6]))
 (global-set-key [C-M-f6]
-                '(lambda () (interactive) (grep-current-dir nil "TODO")))
+                '(lambda () (interactive) (moccur-word-all-buffers "TODO")))
 (global-set-key (kbd "ESC <C-f6>") (key-binding [C-M-f6]))
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 
