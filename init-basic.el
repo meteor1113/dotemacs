@@ -1,5 +1,5 @@
 ;;;
-;; Copyright (C) 2009 Meteor Liu
+;; Copyright (C) 2008, 2009, 2010 Meteor Liu
 ;;
 ;; This code has been released into the Public Domain.
 ;; You may do whatever you like with it.
@@ -439,7 +439,7 @@ Like eclipse's Ctrl+Alt+F."
 
 (defadvice gdb (before ecb-deactivate activate)
   "if ecb activated, deactivate it."
-  (when (and (boundp 'ecb-minor-mode) (ecb-minor-mode))
+  (when (and (boundp 'ecb-minor-mode) ecb-minor-mode)
     (ecb-deactivate)))
 
 ;; (defun gdb-tooltip-hook ()

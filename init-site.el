@@ -1,5 +1,5 @@
 ;;;
-;; Copyright (C) 2009 Meteor Liu
+;; Copyright (C) 2008, 2009, 2010 Meteor Liu
 ;;
 ;; This code has been released into the Public Domain.
 ;; You may do whatever you like with it.

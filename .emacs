@@ -15,6 +15,8 @@
 (require 'init-basic nil t)
 (require 'init-site nil t)
 (require 'init-misc nil t)
+(require 'init-toolbar nil t)
+(require 'init-test nil t)
 
 ;; (add-to-list 'load-path "e:/common/note")
 ;; (require 'init-note nil t)
