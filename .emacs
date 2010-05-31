@@ -1,7 +1,7 @@
-;; for portable emacs:
-;; copy this file to site-lisp and rename to site-start.el,
-;; then uncomment the following line.
-;; (setenv "HOME" (file-name-directory (or load-file-name (buffer-file-name))))
+;; portable emacs: copy this file to site-lisp and rename to site-start.el.
+(when (and load-file-name
+           (equal (file-name-nondirectory load-file-name) "site-start.el"))
+  (setenv "HOME" (file-name-directory load-file-name)))
 
 ;; if you want to use offical cedet
 (let ((default-directory (expand-file-name "~/.emacs.d/cedet-1.0pre7")))

@@ -1,3 +1,7 @@
+2010-05-31  Meteor Liu  <meteor1113@gmail.com>
+
+	* .emacs: Modify for portable emacs.
+
 2010-05-30  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Add toolbar setting.
