@@ -1,3 +1,7 @@
+2010-06-02  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (hl-line-face): Highlight line using underline.
+
 2010-05-31  Meteor Liu  <meteor1113@gmail.com>
 
 	* .emacs: Modify for portable emacs.

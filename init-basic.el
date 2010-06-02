@@ -125,7 +125,8 @@
 (global-cwarn-mode 1)
 
 ;; highlight
-;; (global-hl-line-mode (if window-system 1 -1))
+(setq hl-line-face 'underline)
+(global-hl-line-mode (if window-system 1 -1))
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 (dolist (mode '(c-mode c++-mode objc-mode java-mode jde-mode
                        perl-mode cperl-mode python-mode ruby-mode
