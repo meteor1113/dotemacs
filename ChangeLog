@@ -1,3 +1,7 @@
+2010-06-03  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Customize PATH in win32.
+
 2010-06-02  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (hl-line-face): Highlight line using underline.

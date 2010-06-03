@@ -16,6 +16,12 @@
 (setq user-full-name "Meteor Liu")
 (setq user-mail-address "meteor1113@gmail.com")
 
+;; environment
+(when (eq system-type 'windows-nt)
+  (let* ((dir (file-name-directory (directory-file-name data-directory)))
+         (bin-dir (expand-file-name "bin" dir)))
+    (setenv "PATH" (concat bin-dir ";" (getenv "PATH")))))
+
 ;; c/c++ include dir
 (defvar user-include-dirs
   '(".." "../include" "../inc" "../common" "../public"
@@ -245,10 +251,8 @@ Like eclipse's Ctrl+Alt+F."
   "Run `grep' to find current word in current directory."
   (interactive "P")
   (let* ((word (or wd (grep-tag-default)))
-         (cmd (concat "grep -inrI '" word "' ."
-                      (if (eq system-type 'windows-nt)
-                          nil
-                        " | grep -vE '\.svn/|\.git/|\.hg/|\.bzr/|CVS/'"))))
+         (cmd (concat "grep -inrIE \"" word "\" ."
+                      " | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")))
     (if (or is-prompt (= (length word) 0))
         (grep (read-shell-command
                "Run grep (like this): " cmd 'grep-history))
@@ -290,10 +294,13 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [f6] 'grep-current-dir)
 (global-set-key [C-f6] 'moccur-all-buffers)
 (global-set-key [M-f6]
-                '(lambda () (interactive) (grep-current-dir nil "TODO")))
+                '(lambda () (interactive) (grep-current-dir nil "TODO|FIXME")))
 (global-set-key (kbd "ESC <f6>") (key-binding [M-f6]))
 (global-set-key [C-M-f6]
-                '(lambda () (interactive) (moccur-word-all-buffers "TODO")))
+                '(lambda ()
+                   (interactive)
+                   (moccur-word-all-buffers
+                    "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>")))
 (global-set-key (kbd "ESC <C-f6>") (key-binding [C-M-f6]))
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 
