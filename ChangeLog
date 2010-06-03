@@ -1,5 +1,7 @@
 2010-06-03  Meteor Liu  <meteor1113@gmail.com>
 
+	* README: Update toolbar config.
+
 	* init-basic.el: Customize PATH in win32.
 
 2010-06-02  Meteor Liu  <meteor1113@gmail.com>
