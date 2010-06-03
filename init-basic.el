@@ -294,7 +294,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [f6] 'grep-current-dir)
 (global-set-key [C-f6] 'moccur-all-buffers)
 (global-set-key [M-f6]
-                '(lambda () (interactive) (grep-current-dir nil "TODO|FIXME")))
+                (lambda () (interactive) (grep-current-dir nil "TODO|FIXME")))
 (global-set-key (kbd "ESC <f6>") (key-binding [M-f6]))
 (global-set-key [C-M-f6]
                 '(lambda ()
