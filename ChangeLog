@@ -1,3 +1,8 @@
+2010-06-04  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (org-export-with-archived-trees): Org also export
+	archived trees.
+
 2010-06-03  Meteor Liu  <meteor1113@gmail.com>
 
 	* README: Update toolbar config.

@@ -310,6 +310,7 @@ Like eclipse's Ctrl+Alt+F."
 (add-hook 'change-log-mode-hook 'turn-on-auto-fill)
 
 (setq org-log-done 'time)
+(setq org-export-with-archived-trees t)
 (add-hook 'org-mode-hook
           (lambda ()
             (imenu-add-menubar-index)
@@ -318,6 +319,8 @@ Like eclipse's Ctrl+Alt+F."
 (eval-after-load "org"
   `(progn
      (define-key org-mode-map [(control tab)] nil)
+     (define-key org-mode-map (kbd "<C-S-iso-lefttab>")
+       'org-force-cycle-archived)
      (define-key org-mode-map (kbd "<C-S-tab>") 'org-force-cycle-archived)))
 
 (when (fboundp 'nxml-mode)
