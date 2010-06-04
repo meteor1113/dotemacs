@@ -166,6 +166,10 @@
                    'semantic-ia-fast-jump
                    :visible 'program-toolbar-show
                    :enable (fboundp 'semantic-ia-fast-jump))
+(tool-bar-add-item "semantic-impl-toggle" 'semantic-analyze-proto-impl-toggle
+                   'semantic-analyze-proto-impl-toggle
+                   :visible 'program-toolbar-show
+                   :enable (fboundp 'semantic-analyze-proto-impl-toggle))
 (tool-bar-add-item "sourcepair"
                    (lambda ()
                      (interactive)
