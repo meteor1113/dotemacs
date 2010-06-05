@@ -1,5 +1,8 @@
 2010-06-05  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Open semanticdb-enable-gnu-global-databases for
+	c-mode and c++-mode.
+
 	* init-misc.el: Add gtags and xgtags setting.
 	Remove gtags.
 	Search cscopt and global.
