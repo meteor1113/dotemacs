@@ -526,9 +526,10 @@ the mru bookmark stack."
     (let* ((ring (oref semantic-mru-bookmark-ring ring))
            (alist (semantic-mrub-ring-to-assoc-list ring))
            (first (cdr (car alist))))
-      (if (semantic-equivalent-tag-p (oref first tag) (semantic-current-tag))
-          (setq first (cdr (car (cdr alist)))))
-      (semantic-mrub-switch-tags first)))
+      ;; (if (semantic-equivalent-tag-p (oref first tag) (semantic-current-tag))
+      ;;     (setq first (cdr (car (cdr alist)))))
+      (semantic-mrub-visit first)
+      (ring-remove ring 0)))
   (defun semantic-ia-fast-jump-or-back (&optional back)
     (interactive "P")
     (if back

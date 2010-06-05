@@ -1,5 +1,7 @@
 2010-06-05  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Update semantic-ia-fast-jump-back for buildin cedet.
+
 	* init-site.el: Update semantic-ia-fast-jump-back.
 	: Enable semantic-load-enable-primary-exuberent-ctags-support.
 
