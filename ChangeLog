@@ -1,6 +1,7 @@
 2010-06-05  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add gtags and xgtags setting.
+	Remove gtags.
 
 	* init-basic.el: Update semantic-ia-fast-jump-back for buildin cedet.
 	: Set ede-locate-setup-options to enable global.

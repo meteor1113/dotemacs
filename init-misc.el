@@ -184,13 +184,6 @@
 ;; cscope
 (require 'xcscope nil 'noerror)
 
-;; gtags
-(autoload 'gtags-mode "gtags" "Toggle Gtags mode" t)
-(eval-after-load "gtags"
-  '(add-hook 'c-mode-common-hook
-             (lambda ()
-               (gtags-mode 1))))
-
 ;; xgtags
 (add-hook 'c-mode-common-hook
           (lambda ()
