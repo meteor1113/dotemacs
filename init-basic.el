@@ -251,8 +251,9 @@ Like eclipse's Ctrl+Alt+F."
   "Run `grep' to find current word in current directory."
   (interactive "P")
   (let* ((word (or wd (grep-tag-default)))
-         (cmd (concat "grep -inrIE \"" word "\" ."
+         (cmd (concat "grep -inrHIE \"" word "\" ."
                       " | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")))
+    (grep-apply-setting 'grep-use-null-device nil)
     (if (or is-prompt (= (length word) 0))
         (grep (read-shell-command
                "Run grep (like this): " cmd 'grep-history))
