@@ -1,5 +1,7 @@
 2010-06-05  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-site.el: Update semantic-ia-fast-jump-back.
+
 	* init-basic.el (grep-current-dir): Update grep setting.
 
 	* init-site.el: Add semantic-load-enable-all-exuberent-ctags-support.

@@ -51,7 +51,7 @@
       (semantic-load-enable-semantic-debugging-helpers)
     (progn (global-semantic-show-unmatched-syntax-mode 1)
            (global-semantic-show-parser-state-mode 1)))
-  (ignore-errors (semantic-load-enable-all-exuberent-ctags-support))
+  (ignore-errors (semantic-load-enable-primary-exuberent-ctags-support))
   (global-ede-mode 1)
   ;; (global-srecode-minor-mode 1)
 
@@ -89,9 +89,10 @@
     (let* ((ring (oref semantic-mru-bookmark-ring ring))
            (alist (semantic-mrub-ring-to-assoc-list ring))
            (first (cdr (car alist))))
-      (if (semantic-equivalent-tag-p (oref first tag) (semantic-current-tag))
-          (setq first (cdr (car (cdr alist)))))
-      (semantic-mrub-switch-tags first)))
+      ;; (if (semantic-equivalent-tag-p (oref first tag) (semantic-current-tag))
+      ;;     (setq first (cdr (car (cdr alist)))))
+      (semantic-mrub-visit first)
+      (ring-remove ring 0)))
   (defun semantic-ia-fast-jump-or-back (&optional back)
     (interactive "P")
     (if back
