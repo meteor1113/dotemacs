@@ -51,8 +51,7 @@
       (semantic-load-enable-semantic-debugging-helpers)
     (progn (global-semantic-show-unmatched-syntax-mode 1)
            (global-semantic-show-parser-state-mode 1)))
-  ;; (semantic-load-enable-all-exuberent-ctags-support)
-  ;; (semantic-load-enable-primary-exuberent-ctags-support)
+  (ignore-errors (semantic-load-enable-all-exuberent-ctags-support))
   (global-ede-mode 1)
   ;; (global-srecode-minor-mode 1)
 
