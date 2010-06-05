@@ -182,13 +182,15 @@
                  (doxymacs-font-lock)))))
 
 ;; cscope
-(require 'xcscope nil 'noerror)
+(when (executable-find "cscope")
+  (require 'xcscope nil 'noerror))
 
 ;; xgtags
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (require 'xgtags nil 'noerror)
-              (xgtags-mode 1))))
+(when (executable-find "global")
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (when (require 'xgtags nil 'noerror)
+                (xgtags-mode 1)))))
 
 ;; csharp-mode
 (autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)

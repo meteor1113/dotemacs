@@ -2,6 +2,7 @@
 
 	* init-misc.el: Add gtags and xgtags setting.
 	Remove gtags.
+	Search cscopt and global.
 
 	* init-basic.el: Update semantic-ia-fast-jump-back for buildin cedet.
 	: Set ede-locate-setup-options to enable global.
