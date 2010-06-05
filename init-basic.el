@@ -500,6 +500,11 @@ Like eclipse's Ctrl+Alt+F."
   (global-semantic-show-parser-state-mode 1)
   (global-ede-mode 1)
 
+  ;; (setq semantic-c-obey-conditional-section-parsing-flag nil) ; ignore #if
+  (setq ede-locate-setup-options
+        '(ede-locate-global
+          ede-locate-base))
+
   (require 'semantic/bovine/c nil 'noerror)
   (mapc (lambda (dir)
           (semantic-add-system-include dir 'c++-mode)

@@ -55,6 +55,11 @@
   (global-ede-mode 1)
   ;; (global-srecode-minor-mode 1)
 
+  ;; (setq semantic-c-obey-conditional-section-parsing-flag nil) ; ignore #if
+  (setq ede-locate-setup-options
+        '(ede-locate-global
+          ede-locate-base))
+
   (enable-visual-studio-bookmarks)
   (define-key global-map [(control f2)] 'viss-bookmark-toggle)
   (define-key global-map [M-f2] 'viss-bookmark-toggle)
@@ -179,9 +184,6 @@
 (setq ecb-auto-compatibility-check nil)
 (setq ecb-source-path (quote ("/")))
 (setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1)
-
-;; cscope
-(require 'xcscope nil 'noerror)
 
 ;; jde
 (add-hook 'java-mode-hook
