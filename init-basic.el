@@ -498,8 +498,9 @@ Like eclipse's Ctrl+Alt+F."
   (global-semantic-highlight-edits-mode (if window-system 1 -1))
   (global-semantic-show-unmatched-syntax-mode 1)
   (global-semantic-show-parser-state-mode 1)
-  (semanticdb-enable-gnu-global-databases 'c-mode)
-  (semanticdb-enable-gnu-global-databases 'c++-mode)
+  (when (executable-find "global")
+    (semanticdb-enable-gnu-global-databases 'c-mode)
+    (semanticdb-enable-gnu-global-databases 'c++-mode))
   (global-ede-mode 1)
 
   ;; (setq semantic-c-obey-conditional-section-parsing-flag nil) ; ignore #if

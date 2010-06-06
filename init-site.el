@@ -52,8 +52,9 @@
     (progn (global-semantic-show-unmatched-syntax-mode 1)
            (global-semantic-show-parser-state-mode 1)))
   (ignore-errors (semantic-load-enable-primary-exuberent-ctags-support))
-  (semanticdb-enable-gnu-global-databases 'c-mode)
-  (semanticdb-enable-gnu-global-databases 'c++-mode)
+  (when (executable-find "global")
+    (semanticdb-enable-gnu-global-databases 'c-mode)
+    (semanticdb-enable-gnu-global-databases 'c++-mode))
   (global-ede-mode 1)
   ;; (global-srecode-minor-mode 1)
 
