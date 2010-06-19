@@ -156,6 +156,10 @@
 (global-set-key "{" 'skeleton-pair-insert-maybe)
 (setq skeleton-pair t)
 
+;; color
+(if window-system
+    (set-background-color "#cce8cf"))
+
 ;; misc
 (setq inhibit-startup-message t)
 (require 'generic-x nil 'noerror)
