@@ -1,5 +1,7 @@
 2010-06-19  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-toolbar.el: Add toolbar button isearch-repeat-forward.
+
 	* init-basic.el (hs-set-up-overlay): Setting hideshow.
 	Add skeleton setting.
 	(window-system): Color setting.

@@ -150,11 +150,11 @@
   (setq ffap-c-path (append ffap-c-path user-include-dirs)))
 
 ;; skeleton
-(global-set-key "<" 'skeleton-pair-insert-maybe)
-(global-set-key "(" 'skeleton-pair-insert-maybe)
-(global-set-key "[" 'skeleton-pair-insert-maybe)
-(global-set-key "{" 'skeleton-pair-insert-maybe)
-(setq skeleton-pair t)
+;; (global-set-key "<" 'skeleton-pair-insert-maybe)
+;; (global-set-key "(" 'skeleton-pair-insert-maybe)
+;; (global-set-key "[" 'skeleton-pair-insert-maybe)
+;; (global-set-key "{" 'skeleton-pair-insert-maybe)
+;; (setq skeleton-pair t)
 
 ;; color
 (if window-system

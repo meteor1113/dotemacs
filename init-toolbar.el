@@ -88,7 +88,8 @@
                          (bm-toggle)
                        (viss-bookmark-toggle)))
                    'bm-toggle
-                   :visible 'bookmark-toolbar-show)
+                   :visible 'bookmark-toolbar-show
+                   :help "Toggle bookmark at point")
 (tool-bar-add-item "bm-next"
                    (lambda ()
                      (interactive)
@@ -96,7 +97,8 @@
                          (call-interactively (bm-next))
                        (viss-bookmark-next-buffer)))
                    'bm-next
-                   :visible 'bookmark-toolbar-show)
+                   :visible 'bookmark-toolbar-show
+                   :help "Goto next bookmark")
 (tool-bar-add-item "bm-previous"
                    (lambda ()
                      (interactive)
@@ -104,7 +106,8 @@
                          (call-interactively (bm-previous))
                        (viss-bookmark-prev-buffer)))
                    'bm-previous
-                   :visible 'bookmark-toolbar-show)
+                   :visible 'bookmark-toolbar-show
+                   :help "Goto previous bookmark")
 (tool-bar-add-item "bm-clear"
                    (lambda ()
                      (interactive)
@@ -112,7 +115,8 @@
                          (bm-remove-all-current-buffer)
                        (viss-bookmark-clear-all-buffer)))
                    'bm-remove-all-current-buffer
-                   :visible 'bookmark-toolbar-show)
+                   :visible 'bookmark-toolbar-show
+                   :help "Delete all visible bookmarks in current buffer")
 
 ;; edit toolbar
 (tool-bar-add-item "separator" nil 'edit-toolbar
@@ -120,19 +124,30 @@
 (tool-bar-add-item "recent-backward"'recent-jump-jump-backward
                    'recent-jump-jump-backward
                    :visible 'edit-toolbar-show
-                   :enable '(fboundp 'recent-jump-jump-backward))
+                   :enable '(fboundp 'recent-jump-jump-backward)
+                   :help "Backward in the history")
 (tool-bar-add-item "recent-forward" 'recent-jump-jump-forward
                    'recent-jump-jump-forward
                    :visible 'edit-toolbar-show
-                   :enable '(fboundp 'recent-jump-jump-forward))
-(tool-bar-add-item "find" 'isearch-forward 'isearch-forward
-                   :visible 'edit-toolbar-show)
+                   :enable '(fboundp 'recent-jump-jump-forward)
+                   :help "Forward in the history")
+(tool-bar-add-item "find" 'isearch-forward
+                   'isearch-forward
+                   :visible 'edit-toolbar-show
+                   :help "Forward String...")
+(tool-bar-add-item "find-next" 'isearch-repeat-forward
+                   'isearch-repeat-forward
+                   :visible 'edit-toolbar-show
+                   :help "Repeat Forward String")
 (tool-bar-add-item "replace" 'query-replace 'query-replace
-                   :visible 'edit-toolbar-show)
+                   :visible 'edit-toolbar-show
+                   :help "Replace String...")
 (tool-bar-add-item "upcase" 'upcase-region 'upcase-region
-                   :visible 'edit-toolbar-show)
+                   :visible 'edit-toolbar-show
+                   :help "Convert the region to upper case")
 (tool-bar-add-item "downcase" 'downcase-region 'downcase-region
-                   :visible 'edit-toolbar-show)
+                   :visible 'edit-toolbar-show
+                   :help "Convert the region to lower case")
 
 ;; toggle toolbar
 (tool-bar-add-item "separator" nil 'toggle-toolbar
@@ -140,11 +155,13 @@
 (tool-bar-add-item "linum" 'global-linum-mode
                    'global-linum-mode
                    :visible 'toggle-toolbar-show
-                   :enable '(fboundp 'global-linum-mode))
+                   :enable '(fboundp 'global-linum-mode)
+                   :help "Toggle Global Linum mode")
 (tool-bar-add-item "whitespace" 'whitespace-mode
                    'whitespace-mode
                    :visible 'toggle-toolbar-show
-                   :enable '(fboundp 'whitespace-mode))
+                   :enable '(fboundp 'whitespace-mode)
+                   :help "Toggle whitespace minor mode visualization")
 (tool-bar-add-item "ecb"
                    (lambda ()
                      (interactive)
@@ -153,7 +170,8 @@
                        (ecb-activate)))
                    'ecb
                    :visible 'toggle-toolbar-show
-                   :enable '(fboundp 'ecb-activate))
+                   :enable '(fboundp 'ecb-activate)
+                   :help "Toggle ECB")
 
 ;; program toolbar
 (tool-bar-add-item "separator" nil 'program-toolbar
@@ -161,15 +179,18 @@
 (tool-bar-add-item "semantic-jump-back" 'semantic-ia-fast-jump-back
                    'semantic-ia-fast-jump-back
                    :visible 'program-toolbar-show
-                   :enable (fboundp 'semantic-ia-fast-jump-back))
+                   :enable (fboundp 'semantic-ia-fast-jump-back)
+                   :help "Jump back to previous tag (Semantic)")
 (tool-bar-add-item "semantic-jump" 'semantic-ia-fast-jump
                    'semantic-ia-fast-jump
                    :visible 'program-toolbar-show
-                   :enable (fboundp 'semantic-ia-fast-jump))
+                   :enable (fboundp 'semantic-ia-fast-jump)
+                   :help "Jump to the tag at point (Semantic)")
 (tool-bar-add-item "semantic-impl-toggle" 'semantic-analyze-proto-impl-toggle
                    'semantic-analyze-proto-impl-toggle
                    :visible 'program-toolbar-show
-                   :enable (fboundp 'semantic-analyze-proto-impl-toggle))
+                   :enable (fboundp 'semantic-analyze-proto-impl-toggle)
+                   :help "Toggle implementation and prototype (Semantic)")
 (tool-bar-add-item "sourcepair"
                    (lambda ()
                      (interactive)
@@ -180,11 +201,14 @@
                    :visible 'program-toolbar-show
                    :enable '(and (memq major-mode '(c++-mode c-mode objc-mode))
                                  (or (fboundp 'sourcepair-load)
-                                     (fboundp 'eassist-switch-h-cpp))))
+                                     (fboundp 'eassist-switch-h-cpp)))
+                   :help "Switch header and body file")
 (tool-bar-add-item "compile" 'compile 'compile
-                   :visible 'program-toolbar-show)
+                   :visible 'program-toolbar-show
+                   :help "Compile...")
 (tool-bar-add-item "debug" 'gdb 'gdb
-                   :visible 'program-toolbar-show)
+                   :visible 'program-toolbar-show
+                   :help "Debugger (GDB)...")
 
 
 (provide 'init-toolbar)
