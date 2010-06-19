@@ -378,6 +378,7 @@ Like eclipse's Ctrl+Alt+F."
           (overlay-put ov 'priority (overlay-end ov))
           (overlay-put ov 'keymap hs--overlay-keymap)
           (overlay-put ov 'pointer 'hand))))
+;; (global-set-key (kbd "C-?") 'hs-minor-mode)
 
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
