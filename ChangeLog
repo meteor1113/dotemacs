@@ -1,6 +1,7 @@
 2010-06-19  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (hs-set-up-overlay): Setting hideshow.
+	Add skeleton setting.
 
 	* init-misc.el (smart-hl): Add smart-hl for double click highlight.
 

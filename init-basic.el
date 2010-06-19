@@ -66,6 +66,7 @@
 (setq cua-keep-region-after-copy (if window-system t nil))
 (setq mouse-drag-copy-region nil)
 (setq x-select-enable-clipboard t)
+;; (setq mouse-yank-at-point t)
 
 ;; mode-line
 (column-number-mode t)
@@ -148,6 +149,13 @@
 (when (boundp 'ffap-c-path)
   (setq ffap-c-path (append ffap-c-path user-include-dirs)))
 
+;; skeleton
+(global-set-key "<" 'skeleton-pair-insert-maybe)
+(global-set-key "(" 'skeleton-pair-insert-maybe)
+(global-set-key "[" 'skeleton-pair-insert-maybe)
+(global-set-key "{" 'skeleton-pair-insert-maybe)
+(setq skeleton-pair t)
+
 ;; misc
 (setq inhibit-startup-message t)
 (require 'generic-x nil 'noerror)
@@ -157,7 +165,14 @@
 ;; (setq require-final-newline 'ask)
 (setq-default indicate-buffer-boundaries (quote left))
 (when (fboundp 'global-linum-mode)
+  ;; (setq linum-eager nil)
   (global-linum-mode 1))
+
+;; Remove the print-buffer button in the tool bar.
+;; (delete-if (lambda (button)
+;;              (and (consp button)
+;;                   (eq (car button) 'print-buffer)))
+;;            tool-bar-map)
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"
