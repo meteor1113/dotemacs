@@ -164,6 +164,9 @@
                   (member symbol highlight-symbol-list))
         ad-do-it))))
 
+;; smart-hl
+(require 'smart-hl nil 'noerror)
+
 ;; ifdef
 (add-hook 'c-mode-common-hook
           '(lambda ()

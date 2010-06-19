@@ -1,3 +1,9 @@
+2010-06-19  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (hs-set-up-overlay): Setting hideshow.
+
+	* init-misc.el (smart-hl): Add smart-hl for double click highlight.
+
 2010-06-06  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el: Search global for CEDET.
