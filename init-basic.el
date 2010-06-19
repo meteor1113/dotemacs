@@ -337,12 +337,29 @@ Like eclipse's Ctrl+Alt+F."
   "Hack artist-mode's wrong position when tabbar-mode."
   (if tabbar-mode (setq coord (cons (car coord) (1- (cdr coord))))))
 
+(defvar hs--overlay-keymap nil "keymap for folding overlay")
+(let ((map (make-sparse-keymap)))
+  (define-key map [mouse-1] 'hs-show-block)
+  (setq hs--overlay-keymap map))
+(setq hs-set-up-overlay
+      (defun my-display-code-line-counts (ov)
+        (when (eq 'code (overlay-get ov 'hs))
+          (overlay-put ov 'display
+                       (propertize
+                        (format " ... <%d lines>"
+                                (count-lines (overlay-start ov)
+                                             (overlay-end ov)))
+                        'face 'highlight))
+          (overlay-put ov 'priority (overlay-end ov))
+          (overlay-put ov 'keymap hs--overlay-keymap)
+          (overlay-put ov 'pointer 'hand))))
+
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
   ;; (local-set-key (kbd "<return>") 'newline-and-indent)
   (when (fboundp 'whitespace-mode)
     (whitespace-mode t))
-  ;; (hs-minor-mode t)
+  (hs-minor-mode t)
   (imenu-add-menubar-index))
 
 (add-hook 'c-mode-common-hook 'program-common-function)
