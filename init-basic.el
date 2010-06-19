@@ -173,6 +173,12 @@
   (global-linum-mode 1))
 
 ;; Remove the print-buffer button in the tool bar.
+(let ((print-buffer-btn))
+  (dolist (button tool-bar-map)
+    (when (and (consp button)
+               (eq (car button) 'print-buffer))
+      (setq print-buffer-btn button)))
+  (delq print-buffer-btn tool-bar-map))
 ;; (delete-if (lambda (button)
 ;;              (and (consp button)
 ;;                   (eq (car button) 'print-buffer)))
