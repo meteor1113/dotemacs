@@ -1,5 +1,7 @@
 2010-06-20  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (auto-mode-alist): .mm alist to objc-mode.
+
 	* init-toolbar.el: Remove the some buttons in the tool bar.
 
 2010-06-19  Meteor Liu  <meteor1113@gmail.com>

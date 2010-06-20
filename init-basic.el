@@ -388,6 +388,7 @@ Like eclipse's Ctrl+Alt+F."
 
 (add-hook 'java-mode-hook (lambda () (c-set-style "java")))
 
+(add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
 (add-hook 'objc-mode-hook (lambda () (c-set-style "stroustrup")))
 
 (add-to-list 'auto-mode-alist '("\\.prc\\'" . sql-mode))
