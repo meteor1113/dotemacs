@@ -10,6 +10,16 @@
 ;; @URL http://github.com/meteor1113/dotemacs
 
 
+;; Remove the some buttons in the tool bar.
+(defvar need-delete-toolbar-buttons '(print-buffer))
+(let ((need-delete-btns))
+  (dolist (button tool-bar-map)
+    (when (and (consp button)
+               (memq (car button) need-delete-toolbar-buttons))
+      (add-to-list 'need-delete-btns button)))
+  (dolist (button need-delete-btns)
+    (delq button tool-bar-map)))
+
 ;; image-load-path
 (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
        (images-dir (expand-file-name "images" dir)))

@@ -172,18 +172,6 @@
   ;; (setq linum-eager nil)
   (global-linum-mode 1))
 
-;; Remove the print-buffer button in the tool bar.
-(let ((print-buffer-btn))
-  (dolist (button tool-bar-map)
-    (when (and (consp button)
-               (eq (car button) 'print-buffer))
-      (setq print-buffer-btn button)))
-  (delq print-buffer-btn tool-bar-map))
-;; (delete-if (lambda (button)
-;;              (and (consp button)
-;;                   (eq (car button) 'print-buffer)))
-;;            tool-bar-map)
-
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"
   (let ((list (mapcar 'expand-file-name '("./TAGS" "../TAGS" "../../TAGS"))))
@@ -433,7 +421,7 @@ Like eclipse's Ctrl+Alt+F."
              (setq cperl-continued-brace-offset -4)
              (abbrev-mode t)))
 
-;; gdb setting
+;; gdb
 (require 'gdb-ui nil 'noerror)
 (require 'gdb-mi nil 'noerror)
 

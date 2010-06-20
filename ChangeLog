@@ -1,3 +1,7 @@
+2010-06-20  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el: Remove the some buttons in the tool bar.
+
 2010-06-19  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Add toolbar button isearch-repeat-forward.
