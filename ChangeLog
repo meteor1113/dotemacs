@@ -1,3 +1,7 @@
+2010-06-21  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-site.el: Enable global-semantic-decoration-mode for include.
+
 2010-06-20  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (auto-mode-alist): .mm alist to objc-mode.

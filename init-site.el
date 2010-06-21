@@ -45,8 +45,11 @@
            (require 'cedet nil 'noerror))
   ;; (semantic-load-enable-minimum-features)
   (semantic-load-enable-code-helpers)
-  ;; (semantic-load-enable-guady-code-helpers)
+  ;; (semantic-load-enable-gaudy-code-helpers)
   ;; (semantic-load-enable-excessive-code-helpers)
+  (global-semantic-decoration-mode 1)
+  (require 'semantic-decorate-include nil 'noerror)
+  ;; (semantic-toggle-decoration-style "semantic-tag-boundary" -1)
   (if window-system
       (semantic-load-enable-semantic-debugging-helpers)
     (progn (global-semantic-show-unmatched-syntax-mode 1)

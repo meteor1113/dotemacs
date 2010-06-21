@@ -132,7 +132,7 @@
 (global-cwarn-mode 1)
 
 ;; highlight
-(setq hl-line-face 'underline)
+;; (setq hl-line-face 'underline)
 (global-hl-line-mode (if window-system 1 -1))
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 (dolist (mode '(c-mode c++-mode objc-mode java-mode jde-mode
@@ -527,6 +527,9 @@ Like eclipse's Ctrl+Alt+F."
                                     global-semantic-idle-summary-mode
                                     global-semantic-mru-bookmark-mode))
   (semantic-mode 1)
+  (global-semantic-decoration-mode 1)
+  (require 'semantic/decorate/include nil 'noerror)
+  ;; (semantic-toggle-decoration-style "semantic-tag-boundary" -1)
   (global-semantic-highlight-edits-mode (if window-system 1 -1))
   (global-semantic-show-unmatched-syntax-mode 1)
   (global-semantic-show-parser-state-mode 1)
