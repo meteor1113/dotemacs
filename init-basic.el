@@ -158,7 +158,7 @@
 
 ;; color
 (if window-system
-    (set-background-color "lightcyan")) ; #E0FFFF
+    (set-background-color "LightCyan")) ; #E0FFFF
 
 ;; misc
 (setq inhibit-startup-message t)        ; for no desktop
