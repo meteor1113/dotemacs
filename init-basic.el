@@ -132,7 +132,7 @@
 (global-cwarn-mode 1)
 
 ;; highlight
-;; (setq hl-line-face 'underline)
+(setq hl-line-face 'underline)          ; for highlight-symbol
 (global-hl-line-mode (if window-system 1 -1))
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 (dolist (mode '(c-mode c++-mode objc-mode java-mode jde-mode
@@ -158,10 +158,10 @@
 
 ;; color
 (if window-system
-    (set-background-color "#cce8cf"))
+    (set-background-color "lightcyan")) ; #E0FFFF
 
 ;; misc
-(setq inhibit-startup-message t)
+(setq inhibit-startup-message t)        ; for no desktop
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
 (auto-image-file-mode t)
