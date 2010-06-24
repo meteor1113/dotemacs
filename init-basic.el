@@ -529,7 +529,7 @@ Like eclipse's Ctrl+Alt+F."
   (semantic-mode 1)
   (global-semantic-decoration-mode 1)
   (require 'semantic/decorate/include nil 'noerror)
-  ;; (semantic-toggle-decoration-style "semantic-tag-boundary" -1)
+  (semantic-toggle-decoration-style "semantic-tag-boundary" -1)
   (global-semantic-highlight-edits-mode (if window-system 1 -1))
   (global-semantic-show-unmatched-syntax-mode 1)
   (global-semantic-show-parser-state-mode 1)
