@@ -62,21 +62,143 @@
 
 ;; toggle toolbar menu
 (defvar toggle-toolbar-menu (make-sparse-keymap "Toolbar"))
+(define-key toggle-toolbar-menu [xml-mode]
+  '(menu-item "XML" nxml-mode
+              :visible (fboundp 'nxml-mode)
+              :button (:radio . (eq major-mode 'nxml-mode))))
+(define-key toggle-toolbar-menu [text-mode]
+  '(menu-item "Text" text-mode
+              :visible (fboundp 'text-mode)
+              :button (:radio . (eq major-mode 'text-mode))))
+(define-key toggle-toolbar-menu [tcl-mode]
+  '(menu-item "Tcl" tcl-mode
+              :visible (fboundp 'tcl-mode)
+              :button (:radio . (eq major-mode 'tcl-mode))))
+(define-key toggle-toolbar-menu [sql-mode]
+  '(menu-item "SQL" sql-mode
+              :visible (fboundp 'sql-mode)
+              :button (:radio . (eq major-mode 'sql-mode))))
+(define-key toggle-toolbar-menu [sh-mode]
+  '(menu-item "Shell" sh-mode
+              :visible (fboundp 'sh-mode)
+              :button (:radio . (eq major-mode 'sh-mode))))
+(define-key toggle-toolbar-menu [scheme-mode]
+  '(menu-item "Scheme" scheme-mode
+              :visible (fboundp 'scheme-mode)
+              :button (:radio . (eq major-mode 'scheme-mode))))
+(define-key toggle-toolbar-menu [ruby-mode]
+  '(menu-item "Ruby" ruby-mode
+              :visible (fboundp 'ruby-mode)
+              :button (:radio . (eq major-mode 'ruby-mode))))
+(define-key toggle-toolbar-menu [rst-mode]
+  '(menu-item "ReST" rst-mode
+              :visible (fboundp 'rst-mode)
+              :button (:radio . (eq major-mode 'rst-mode))))
+(define-key toggle-toolbar-menu [python-mode]
+  '(menu-item "Python" python-mode
+              :visible (fboundp 'python-mode)
+              :button (:radio . (eq major-mode 'python-mode))))
+(define-key toggle-toolbar-menu [php-mode]
+  '(menu-item "PHP" php-mode
+              :visible (fboundp 'php-mode)
+              :button (:radio . (eq major-mode 'php-mode))))
+(define-key toggle-toolbar-menu [perl-mode]
+  '(menu-item "Perl" cperl-mode
+              :visible (fboundp 'cperl-mode)
+              :button (:radio . (eq major-mode 'cperl-mode))))
+(define-key toggle-toolbar-menu [pascal-mode]
+  '(menu-item "Pascal" pascal-mode
+              :visible (fboundp 'pascal-mode)
+              :button (:radio . (eq major-mode 'pascal-mode))))
+(define-key toggle-toolbar-menu [org-mode]
+  '(menu-item "Org" org-mode
+              :visible (fboundp 'org-mode)
+              :button (:radio . (eq major-mode 'org-mode))))
+(define-key toggle-toolbar-menu [objc-mode]
+  '(menu-item "ObjC" objc-mode
+              :visible (fboundp 'objc-mode)
+              :button (:radio . (eq major-mode 'objc-mode))))
+(define-key toggle-toolbar-menu [makefile-mode]
+  '(menu-item "Makefile" makefile-mode
+              :visible (fboundp 'makefile-mode)
+              :button (:radio . (eq major-mode 'makefile-mode))))
+(define-key toggle-toolbar-menu [lisp-mode]
+  '(menu-item "Lisp" lisp-mode
+              :visible (fboundp 'lisp-mode)
+              :button (:radio . (eq major-mode 'lisp-mode))))
+(define-key toggle-toolbar-menu [latex-mode]
+  '(menu-item "LaTeX" latex-mode
+              :visible (fboundp 'latex-mode)
+              :button (:radio . (eq major-mode 'latex-mode))))
+(define-key toggle-toolbar-menu [js-mode]
+  '(menu-item "Javascript" js-mode
+              :visible (fboundp 'js-mode)
+              :button (:radio . (eq major-mode 'js-mode))))
+(define-key toggle-toolbar-menu [java-mode]
+  '(menu-item "Java" java-mode
+              :visible (fboundp 'java-mode)
+              :button (:radio . (eq major-mode 'java-mode))))
+(define-key toggle-toolbar-menu [html-mode]
+  '(menu-item "HTML" html-mode
+              :visible (fboundp 'html-mode)
+              :button (:radio . (eq major-mode 'html-mode))))
+(define-key toggle-toolbar-menu [fortran-mode]
+  '(menu-item "Fortran" fortran-mode
+              :visible (fboundp 'fortran-mode)
+              :button (:radio . (eq major-mode 'fortran-mode))))
+(define-key toggle-toolbar-menu [emacs-lisp-mode]
+  '(menu-item "Emacs-Lisp" emacs-lisp-mode
+              :visible (fboundp 'emacs-lisp-mode)
+              :button (:radio . (eq major-mode 'emacs-lisp-mode))))
+(define-key toggle-toolbar-menu [delphi-mode]
+  '(menu-item "Delphi" delphi-mode
+              :visible (fboundp 'delphi-mode)
+              :button (:radio . (eq major-mode 'delphi-mode))))
+(define-key toggle-toolbar-menu [css-mode]
+  '(menu-item "CSS" css-mode
+              :visible (fboundp 'css-mode)
+              :button (:radio . (eq major-mode 'css-mode))))
+(define-key toggle-toolbar-menu [csharp-mode]
+  '(menu-item "C#" csharp-mode
+              :visible (fboundp 'csharp-mode)
+              :button (:radio . (eq major-mode 'csharp-mode))))
+(define-key toggle-toolbar-menu [c++-mode]
+  '(menu-item "C++" c++-mode
+              :visible (fboundp 'c++-mode)
+              :button (:radio . (eq major-mode 'c++-mode))))
+(define-key toggle-toolbar-menu [c-mode]
+  '(menu-item "C" c-mode
+              :visible (fboundp 'c-mode)
+              :button (:radio . (eq major-mode 'c-mode))))
+(define-key toggle-toolbar-menu [autoconf-mode]
+  '(menu-item "Autoconf" autoconf-mode
+              :visible (fboundp 'autoconf-mode)
+              :button (:radio . (eq major-mode 'autoconf-mode))))
+(define-key toggle-toolbar-menu [asm-mode]
+  '(menu-item "Assembler" asm-mode
+              :visible (fboundp 'asm-mode)
+              :button (:radio . (eq major-mode 'asm-mode))))
+(define-key toggle-toolbar-menu [ada-mode]
+  '(menu-item "Ada" ada-mode
+              :visible (fboundp 'ada-mode)
+              :button (:radio . (eq major-mode 'ada-mode))))
+(define-key toggle-toolbar-menu [separatore-major-mode]
+  '(menu-item "--"))
 (define-key toggle-toolbar-menu [program-toolbar-toggle]
   '(menu-item "Program toolbar" program-toolbar-toggle
-              :help "Turn program toolbar on/off."
+              :help "Turn program toolbar on/off"
               :button (:toggle . program-toolbar-show)))
 (define-key toggle-toolbar-menu [toggle-toolbar-toggle]
   '(menu-item "Toggle toolbar" toggle-toolbar-toggle
-              :help "Turn toggle toolbar on/off."
+              :help "Turn toggle toolbar on/off"
               :button (:toggle . toggle-toolbar-show)))
 (define-key toggle-toolbar-menu [edit-toolbar-toggle]
   '(menu-item "Edit toolbar" edit-toolbar-toggle
-              :help "Turn edit toolbar on/off."
+              :help "Turn edit toolbar on/off"
               :button (:toggle . edit-toolbar-show)))
 (define-key toggle-toolbar-menu [bookmark-toolbar-toggle]
   '(menu-item "Bookmark toolbar" bookmark-toolbar-toggle
-              :help "Turn bookmark toolbar on/off."
+              :help "Turn bookmark toolbar on/off"
               :button (:toggle . bookmark-toolbar-show)))
 ;; (global-set-key (kbd "<S-mouse-2>") toggle-toolbar-menu)
 ;; (define-key-after menu-bar-tools-menu [toggle-toolbar]
