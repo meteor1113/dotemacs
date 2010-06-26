@@ -315,6 +315,7 @@
 
 ;; company
 ;; (when (require 'company nil 'noerror)
+(setq company--disabled-backends '(company-pysmell))
 (eval-after-load "company"
   '(progn
      (global-company-mode t)
