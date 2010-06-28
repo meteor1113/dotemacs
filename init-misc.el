@@ -187,7 +187,7 @@
 ;; doc-mode/doxymacs-mode
 (add-hook 'c-mode-common-hook
           '(lambda ()
-             (if (and (require 'semantic nil 'noerror)
+             (if (and (featurep 'semantic)
                       (require 'doc-mode nil 'noerror))
                  (doc-mode t)
                (when (require 'doxymacs nil 'noerror)
