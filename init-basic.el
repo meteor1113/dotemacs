@@ -389,6 +389,10 @@ Like eclipse's Ctrl+Alt+F."
 
 (add-hook 'java-mode-hook (lambda () (c-set-style "java")))
 
+(add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@implementation" . objc-mode))
+(add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@interface" . objc-mode))
+(add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@protocol" . objc-mode))
+;; (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*#import" . objc-mode))
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
 (add-hook 'objc-mode-hook (lambda () (c-set-style "stroustrup")))
 
