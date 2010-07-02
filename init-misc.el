@@ -209,6 +209,10 @@
 (autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
 (setq auto-mode-alist
       (append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
+(add-hook 'csharp-mode-hook
+          (lambda ()
+            (setq imenu-generic-expression cc-imenu-c++-generic-expression)
+            (imenu-add-menubar-index)))
 
 ;; sourcepair
 (setq sourcepair-source-extensions

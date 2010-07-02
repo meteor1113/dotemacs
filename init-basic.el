@@ -375,7 +375,7 @@ Like eclipse's Ctrl+Alt+F."
   (when (fboundp 'whitespace-mode)
     (whitespace-mode t))
   (hs-minor-mode t)
-  (imenu-add-menubar-index))
+  (ignore-errors (imenu-add-menubar-index)))
 
 (add-hook 'c-mode-common-hook 'program-common-function)
 
