@@ -211,7 +211,7 @@
       (append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
 (add-hook 'csharp-mode-hook
           (lambda ()
-            (setq imenu-generic-expression cc-imenu-c++-generic-expression)
+            (setq imenu-generic-expression cc-imenu-java-generic-expression)
             (imenu-add-menubar-index)))
 
 ;; sourcepair
