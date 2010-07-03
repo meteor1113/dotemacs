@@ -12,13 +12,13 @@
 
 (add-to-list 'load-path "~/.emacs.d/dotemacs")
 ;; (add-to-list 'load-path "e:/common/dotemacs")
-(require 'init-basic nil t)
-(require 'init-site nil t)
-(require 'init-misc nil t)
-(require 'init-toolbar nil t)
-(require 'init-test nil t)
+(load "init-basic" 'noerror)
+(load "init-site" 'noerror)
+(load "init-misc" 'noerror)
+(load "init-toolbar" 'noerror)
+(load "init-test" t)
 
 ;; (add-to-list 'load-path "e:/common/note")
-;; (require 'init-note nil t)
+(load "init-note" 'noerror)
 
 ;; (load "~/dotemacs/sample-proj")

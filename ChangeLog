@@ -1,5 +1,7 @@
 2010-07-03  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (text-mode-hook): Add imenu for text-mode.
+
 	* init-misc.el (csharp-mode-hook): Add imenu for C#.
 
 2010-06-29  Meteor Liu  <meteor1113@gmail.com>

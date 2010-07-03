@@ -322,6 +322,14 @@ Like eclipse's Ctrl+Alt+F."
 
 ;;; special mode setting
 
+(defvar text-imenu-generic-expression
+  `((nil ,"^ \\{0,4\\}\\([一二三四五六七八九十]+[、. )]\\)+\s*[^,。，]+?$" 0)
+    (nil ,"^ \\{0,4\\}\\([0-9]+[、. )]\\)+\s*[^,。，]+?$" 0)))
+(add-hook 'text-mode-hook
+          (lambda ()
+            (setq imenu-generic-expression text-imenu-generic-expression)
+            (imenu-add-menubar-index)))
+
 (add-hook 'change-log-mode-hook 'turn-on-auto-fill)
 
 (setq org-log-done 'time)
