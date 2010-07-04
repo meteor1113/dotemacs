@@ -205,6 +205,11 @@
               (when (require 'xgtags nil 'noerror)
                 (xgtags-mode 1)))))
 
+;; csv-mode
+(add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+(autoload 'csv-mode "csv-mode"
+  "Major mode for editing comma-separated value files." t)
+
 ;; csharp-mode
 (autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
 (setq auto-mode-alist

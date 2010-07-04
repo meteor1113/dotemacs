@@ -1,3 +1,7 @@
+2010-07-04  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add csv-mode.
+
 2010-07-03  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (text-mode-hook): Add imenu for text-mode.
