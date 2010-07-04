@@ -162,6 +162,7 @@
 
 ;; misc
 (setq default-major-mode 'text-mode)
+;; (fset 'yes-or-no-p 'y-or-n-p)
 (setq inhibit-startup-message t)        ; for no desktop
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
