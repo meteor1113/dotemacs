@@ -195,6 +195,10 @@
   '(menu-item "CSS" css-mode
               :visible (fboundp 'css-mode)
               :button (:toggle . (eq major-mode 'css-mode))))
+(define-key toggle-toolbar-menu [csv-mode]
+  '(menu-item "CSV" csv-mode
+              :visible (fboundp 'csv-mode)
+              :button (:toggle . (eq major-mode 'csv-mode))))
 (defvar conf-sub-mode-menu (make-sparse-keymap "Conf"))
 (define-key conf-sub-mode-menu [conf-windows-mode]
   '(menu-item "Windows" conf-windows-mode
