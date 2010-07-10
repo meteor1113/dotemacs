@@ -61,9 +61,10 @@
 (put 'downcase-region 'disabled nil)
 
 ;; cua
-(cua-mode t)
-(define-key cua-global-keymap (kbd "<M-RET>") 'cua-set-rectangle-mark)
-(setq cua-keep-region-after-copy (if window-system t nil))
+(when (fboundp 'cua-mode)
+  (cua-mode t)
+  (define-key cua-global-keymap (kbd "<M-RET>") 'cua-set-rectangle-mark)
+  (setq cua-keep-region-after-copy (if window-system t nil)))
 (setq mouse-drag-copy-region nil)
 (setq x-select-enable-clipboard t)
 ;; (setq mouse-yank-at-point t)
@@ -82,9 +83,11 @@
 ;; save information
 (require 'saveplace)
 (setq-default save-place t)
-(savehist-mode t)
+(when (fboundp 'save-place)
+  (savehist-mode t))
 (recentf-mode t)
-(desktop-save-mode (if window-system 1 -1))
+(when (fboundp 'desktop-save-mode)
+  (desktop-save-mode (if window-system 1 -1)))
 
 ;; whitespace
 ;; (setq-default show-trailing-whitespace t) ; use whitespace-mode instead
@@ -114,7 +117,8 @@
 (setq compilation-scroll-output t)
 
 ;; complete
-(ido-mode t)
+(when (fboundp 'ido-mode)
+  (ido-mode t))
 (icomplete-mode t)
 
 ;; cursor
@@ -132,6 +136,8 @@
 (global-cwarn-mode 1)
 
 ;; highlight
+(when (fboundp 'global-font-lock-mode)
+  (global-font-lock-mode t))
 (setq hl-line-face 'underline)          ; for highlight-symbol
 (global-hl-line-mode (if window-system 1 -1))
 ;; (global-highlight-changes-mode t)       ; use cedet instead
@@ -190,7 +196,10 @@
   (let* ((homedir (getenv "HOME"))
          (path1 (expand-file-name ".emacs" homedir))
          (path2 (expand-file-name "_emacs" homedir))
+         (path3 (expand-file-name "site-start.el" homedir))
          (dotemacs-path path1))
+    (when (file-exists-p path3)
+      (setq dotemacs-path path3))
     (when (file-exists-p path2)
       (setq dotemacs-path path2))
     (when (file-exists-p path1)
@@ -227,7 +236,7 @@ Like eclipse's Ctrl+Alt+F."
   (interactive)
   (let ((start (point-min))
         (end (point-max)))
-    (if (region-active-p)
+    (if (and (fboundp 'region-active-p) (region-active-p))
         (progn (setq start (region-beginning))
                (setq end (region-end)))
       (progn (whitespace-cleanup)
@@ -240,7 +249,7 @@ Like eclipse's Ctrl+Alt+F."
         (goto-char start)
         (whitespace-cleanup)
         (untabify start (point-max))
-        (indent-region start (point-max))))))
+        (indent-region start (point-max) nil)))))
 
 (defun moccur-word-all-buffers (regexp)
   "Run `multi-occur' to find regexp in all buffers."
@@ -324,8 +333,8 @@ Like eclipse's Ctrl+Alt+F."
 ;;; special mode setting
 
 (defvar text-imenu-generic-expression
-  `((nil ,"^ \\{0,4\\}\\([“ª∂˛»˝ÀƒŒÂ¡˘∆ﬂ∞Àæ≈ Æ]+[°¢. )]\\)+\s*[^,°££¨]+?$" 0)
-    (nil ,"^ \\{0,4\\}\\([0-9]+[°¢. )]\\)+\s*[^,°££¨]+?$" 0)))
+  `((nil ,"^ \\{0,4\\}\\([‰∏Ä‰∫å‰∏âÂõõ‰∫îÂÖ≠‰∏ÉÂÖ´‰πùÂçÅ]+[„ÄÅ. )]\\)+ *[^,„ÄÇÔºå]+?$" 0)
+    (nil ,"^ \\{0,4\\}\\([0-9]+[„ÄÅ. )]\\)+ *[^,„ÄÇÔºå]+?$" 0)))
 (add-hook 'text-mode-hook
           (lambda ()
             (setq imenu-generic-expression text-imenu-generic-expression)
@@ -398,9 +407,10 @@ Like eclipse's Ctrl+Alt+F."
 
 (add-hook 'java-mode-hook (lambda () (c-set-style "java")))
 
-(add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@implementation" . objc-mode))
-(add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@interface" . objc-mode))
-(add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@protocol" . objc-mode))
+(when (boundp 'magic-mode-alist)
+  (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@implementation" . objc-mode))
+  (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@interface" . objc-mode))
+  (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@protocol" . objc-mode)))
 ;; (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*#import" . objc-mode))
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
 (add-hook 'objc-mode-hook (lambda () (c-set-style "stroustrup")))
@@ -520,18 +530,20 @@ Like eclipse's Ctrl+Alt+F."
 (setq gdb-use-separate-io-buffer t)
 ;; (gud-tooltip-mode t)
 (define-key c-mode-base-map [f5] 'gdb)
-(define-key gud-minor-mode-map [f5] 'gud-go)
-(define-key gud-minor-mode-map [S-f5] 'gud-kill)
-(define-key gud-minor-mode-map [f8] 'gud-print)
-(define-key gud-minor-mode-map [C-f8] 'gud-pstar)
-(define-key gud-minor-mode-map [f9] 'gud-break-or-remove)
-(define-key gud-minor-mode-map [C-f9] 'gud-enable-or-disable)
-(define-key gud-minor-mode-map [S-f9] 'gud-watch)
-(define-key gud-minor-mode-map [f10] 'gud-next)
-(define-key gud-minor-mode-map [C-f10] 'gud-until)
-(define-key gud-minor-mode-map [C-S-f10] 'gud-jump)
-(define-key gud-minor-mode-map [f11] 'gud-step)
-(define-key gud-minor-mode-map [C-f11] 'gud-finish)
+(eval-after-load "gud"
+  '(progn
+     (define-key gud-minor-mode-map [f5] 'gud-go)
+     (define-key gud-minor-mode-map [S-f5] 'gud-kill)
+     (define-key gud-minor-mode-map [f8] 'gud-print)
+     (define-key gud-minor-mode-map [C-f8] 'gud-pstar)
+     (define-key gud-minor-mode-map [f9] 'gud-break-or-remove)
+     (define-key gud-minor-mode-map [C-f9] 'gud-enable-or-disable)
+     (define-key gud-minor-mode-map [S-f9] 'gud-watch)
+     (define-key gud-minor-mode-map [f10] 'gud-next)
+     (define-key gud-minor-mode-map [C-f10] 'gud-until)
+     (define-key gud-minor-mode-map [C-S-f10] 'gud-jump)
+     (define-key gud-minor-mode-map [f11] 'gud-step)
+     (define-key gud-minor-mode-map [C-f11] 'gud-finish)))
 
 ;; buildin cedet
 (when (and (fboundp 'semantic-mode)

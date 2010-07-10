@@ -20,6 +20,12 @@
 
 (when (not (fboundp 'define-globalized-minor-mode))
   (defalias 'define-globalized-minor-mode 'define-global-minor-mode))
+(when (not (fboundp 'with-no-warnings))
+  (defun with-no-warnings (body)
+    "Before emacs-21, have not with-no-warnings function."))
+(when (not (fboundp 'define-fringe-bitmap))
+  (defun define-fringe-bitmap (var value)
+    "Before emacs-21, have not define-fringe-bitmap function."))
 
 ;; unicad
 (require 'unicad nil 'noerror)
@@ -30,7 +36,9 @@
   (setq-default bm-buffer-persistence t)
   (setq bm-cycle-all-buffers t)
   (setq bm-highlight-style
-        (if window-system 'bm-highlight-only-fringe 'bm-highlight-only-line))
+        (if (and window-system (> emacs-major-version 21))
+            'bm-highlight-only-fringe
+          'bm-highlight-only-line))
   ;; (add-hook' after-init-hook 'bm-repository-load)
   (add-hook 'find-file-hooks 'bm-buffer-restore)
   (add-hook 'kill-buffer-hook 'bm-buffer-save)
@@ -114,7 +122,7 @@
   (global-set-key (kbd "<M-S-right>") 'recent-jump-jump-forward))
 
 ;; drag-stuff
-(when (require 'drag-stuff nil 'noerror)
+(when (and (> emacs-major-version 21) (require 'drag-stuff nil 'noerror))
   (drag-stuff-global-mode t))
 
 ;; highlight-tail
@@ -132,13 +140,18 @@
   (defvar disable-hl-s-modes
     '(erc-mode occur-mode w3m-mode help-mode)
     "This buffers don't active highlight-symbol-mode.")
-  (define-global-minor-mode global-highlight-symbol-mode
-    highlight-symbol-mode
-    (lambda ()
-      (when (not (memq major-mode disable-hl-s-modes))
-        (highlight-symbol-mode 1))))
-  (when window-system
-    (global-highlight-symbol-mode t))
+  (when (fboundp 'define-global-minor-mode)
+    (define-global-minor-mode global-highlight-symbol-mode
+      highlight-symbol-mode
+      (lambda ()
+        (when (not (memq major-mode disable-hl-s-modes))
+          (highlight-symbol-mode 1)))))
+  (if (and window-system (fboundp 'global-highlight-symbol-mode))
+      (global-highlight-symbol-mode t)
+    (add-hook 'find-file-hooks
+              (lambda ()
+                (when (not (memq major-mode disable-hl-s-modes))
+                  (highlight-symbol-mode 1)))))
   (setq highlight-symbol-idle-delay 0.5)
   (defun highlight-symbol-next-or-prev (&optional prev)
     (interactive "P")
@@ -175,7 +188,8 @@
         ad-do-it))))
 
 ;; smart-hl
-(require 'smart-hl nil 'noerror)
+(when (> emacs-major-version 21)
+  (require 'smart-hl nil 'noerror))
 
 ;; ifdef
 (add-hook 'c-mode-common-hook
@@ -190,7 +204,8 @@
              (if (and (featurep 'semantic)
                       (require 'doc-mode nil 'noerror))
                  (doc-mode t)
-               (when (require 'doxymacs nil 'noerror)
+               (when (and (> emacs-major-version 21)
+                          (require 'doxymacs nil 'noerror))
                  (doxymacs-mode t)
                  (doxymacs-font-lock)))))
 
@@ -240,8 +255,9 @@
   '(require 'sql-indent nil 'noerror))
 
 ;; yasnippet
-(when (or (require 'yasnippet-bundle nil 'noerror)
-          (require 'yasnippet nil 'noerror))
+(when (and (> emacs-major-version 21)
+           (or (require 'yasnippet-bundle nil 'noerror)
+               (require 'yasnippet nil 'noerror)))
   (setq yas/wrap-around-region t)
   (unless (featurep 'yasnippet-bundle)
     (yas/initialize))
@@ -258,7 +274,8 @@
                    (local-set-key [tab] 'yas/expand))))))
 
 ;; auto-complete
-(when (and (require 'auto-complete nil 'noerror)
+(when (and (> emacs-major-version 21)
+           (require 'auto-complete nil 'noerror)
            (require 'auto-complete-config nil 'noerror))
   (setq ac-modes
         (append ac-modes '(org-mode objc-mode jde-mode sql-mode

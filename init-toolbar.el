@@ -23,7 +23,9 @@
 ;; image-load-path
 (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
        (images-dir (expand-file-name "images" dir)))
-  (add-to-list 'image-load-path images-dir))
+  (if (boundp 'image-load-path)         ; emacs-21 isn't have image-load-path
+      (add-to-list 'image-load-path images-dir)
+    (add-to-list 'load-path images-dir)))
 
 (setq tool-bar-button-margin 0)
 ;; (setq auto-resize-tool-bars nil)
@@ -62,6 +64,12 @@
 
 ;; toggle toolbar menu
 (defvar toggle-toolbar-menu (make-sparse-keymap "Toolbar"))
+(define-key toggle-toolbar-menu [find-dotemacs-file]
+  '(menu-item "Open .emacs" find-dotemacs-file
+              :visible (fboundp 'find-dotemacs-file)
+              :help "Open .emacs file"))
+(define-key toggle-toolbar-menu [separatore-dotemacs-file]
+  '(menu-item "--"))
 (define-key toggle-toolbar-menu [xml-mode]
   '(menu-item "XML" nxml-mode
               :visible (fboundp 'nxml-mode)
@@ -112,7 +120,7 @@
               :visible (fboundp 'perl-mode)
               :button (:toggle . (eq major-mode 'perl-mode))))
 (define-key toggle-toolbar-menu [perl]
-       (list 'menu-item "Perl" perl-sub-mode-menu))
+  (list 'menu-item "Perl" perl-sub-mode-menu))
 (define-key toggle-toolbar-menu [pascal-mode]
   '(menu-item "Pascal" pascal-mode
               :visible (fboundp 'pascal-mode)
@@ -151,7 +159,7 @@
               :visible (fboundp 'makefile-gmake-mode)
               :button (:toggle . (eq major-mode 'makefile-gmake-mode))))
 (define-key toggle-toolbar-menu [makefile]
-       (list 'menu-item "Makefile" makefile-sub-mode-menu))
+  (list 'menu-item "Makefile" makefile-sub-mode-menu))
 (define-key toggle-toolbar-menu [lisp-mode]
   '(menu-item "Lisp" lisp-mode
               :visible (fboundp 'lisp-mode)
@@ -182,7 +190,7 @@
               :visible (fboundp 'fortran-mode)
               :button (:toggle . (eq major-mode 'fortran-mode))))
 (define-key toggle-toolbar-menu [fortran]
-       (list 'menu-item "Fortran" fortran-sub-mode-menu))
+  (list 'menu-item "Fortran" fortran-sub-mode-menu))
 (define-key toggle-toolbar-menu [emacs-lisp-mode]
   '(menu-item "Emacs-Lisp" emacs-lisp-mode
               :visible (fboundp 'emacs-lisp-mode)
@@ -232,7 +240,7 @@
   '(menu-item "Auto detect..." conf-mode
               :visible (fboundp 'conf-mode)))
 (define-key toggle-toolbar-menu [conf]
-       (list 'menu-item "Conf" conf-sub-mode-menu))
+  (list 'menu-item "Conf" conf-sub-mode-menu))
 (define-key toggle-toolbar-menu [csharp-mode]
   '(menu-item "C#" csharp-mode
               :visible (fboundp 'csharp-mode)
