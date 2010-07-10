@@ -18,12 +18,12 @@
     (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
         (normal-top-level-add-subdirs-to-load-path))))
 
-(when (not (fboundp 'define-globalized-minor-mode))
+(unless (fboundp 'define-globalized-minor-mode)
   (defalias 'define-globalized-minor-mode 'define-global-minor-mode))
-(when (not (fboundp 'with-no-warnings))
+(unless (fboundp 'with-no-warnings)
   (defun with-no-warnings (body)
     "Before emacs-21, have not with-no-warnings function."))
-(when (not (fboundp 'define-fringe-bitmap))
+(unless (fboundp 'define-fringe-bitmap)
   (defun define-fringe-bitmap (var value)
     "Before emacs-21, have not define-fringe-bitmap function."))
 
@@ -137,6 +137,20 @@
 
 ;; highlight-symbol
 (when (require 'highlight-symbol nil 'noerror)
+  (defun highlight-symbol-temp-highlight () ; Hack for emacs-21
+    "Highlight the current symbol until a command is executed."
+    (when highlight-symbol-mode
+      (let ((symbol (highlight-symbol-get-symbol)))
+        (unless (or (equal symbol highlight-symbol)
+                    (member symbol highlight-symbol-list))
+          (highlight-symbol-mode-remove-temp)
+          (when symbol
+            (setq highlight-symbol symbol)
+            (if (< emacs-major-version 22)
+                (let ((color `((background-color . ,"grey")
+                               (foreground-color . "black"))))
+                  (hi-lock-set-pattern `(,symbol (0 (quote ,color) t))))
+              (hi-lock-set-pattern symbol 'highlight-symbol-face)))))))
   (defvar disable-hl-s-modes
     '(erc-mode occur-mode w3m-mode help-mode)
     "This buffers don't active highlight-symbol-mode.")
@@ -144,13 +158,13 @@
     (define-global-minor-mode global-highlight-symbol-mode
       highlight-symbol-mode
       (lambda ()
-        (when (not (memq major-mode disable-hl-s-modes))
+        (unless (memq major-mode disable-hl-s-modes)
           (highlight-symbol-mode 1)))))
   (if (and window-system (fboundp 'global-highlight-symbol-mode))
       (global-highlight-symbol-mode t)
     (add-hook 'find-file-hooks
               (lambda ()
-                (when (not (memq major-mode disable-hl-s-modes))
+                (unless (memq major-mode disable-hl-s-modes)
                   (highlight-symbol-mode 1)))))
   (setq highlight-symbol-idle-delay 0.5)
   (defun highlight-symbol-next-or-prev (&optional prev)
@@ -199,13 +213,14 @@
                (mark-ifdef))))
 
 ;; doc-mode/doxymacs-mode
+(unless (locate-library "url")
+  (provide 'url))                       ; emacs-21 doesn't have url
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (if (and (featurep 'semantic)
                       (require 'doc-mode nil 'noerror))
                  (doc-mode t)
-               (when (and (> emacs-major-version 21)
-                          (require 'doxymacs nil 'noerror))
+               (when (require 'doxymacs nil 'noerror)
                  (doxymacs-mode t)
                  (doxymacs-font-lock)))))
 
@@ -251,6 +266,9 @@
                (define-key c-mode-base-map [M-f12] 'sourcepair-load))))
 
 ;; sql-indent
+(unless (functionp 'syntax-ppss)
+  (defun syntax-ppss (&optional pos)
+    (parse-partial-sexp (point-min) (or pos (point)))))
 (eval-after-load "sql"
   '(require 'sql-indent nil 'noerror))
 
@@ -283,7 +301,7 @@
                                     makefile-gmake-mode makefile-bsdmake-mode
                                     autoconf-mode makefile-automake-mode)))
   (let ((ac-path (locate-library "auto-complete")))
-    (when (not (null ac-path))
+    (unless (null ac-path)
       (let ((dict-dir (expand-file-name "dict" (file-name-directory ac-path))))
         (add-to-list 'ac-dictionary-directories dict-dir))))
   (defadvice ac-update-word-index-1 (around exclude-hidden-buffer activate)
@@ -353,6 +371,9 @@
      (define-key company-mode-map (kbd "M-p") 'company-select-previous)))
 
 ;; eim
+(when (<= emacs-major-version 21)
+  (provide 'help-mode)
+  (defvar emacs-basic-display nil))
 (autoload 'eim-use-package "eim" "The eim input method" t)
 (register-input-method
  "eim-wb" "euc-cn" 'eim-use-package "eim-wb" "eim-wb" "wb.txt")

@@ -1,5 +1,9 @@
 2010-07-10  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el:
+	doxymacs,sql-indent,highlight-symbol,highlight-parentheses now
+	compilation with emacs-21.
+
 	* init-basic.el: Enable move-line-up and move-line-down.
 
 2010-07-09  Meteor Liu  <meteor1113@gmail.com>
