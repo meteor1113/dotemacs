@@ -1,3 +1,7 @@
+2010-07-10  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Enable move-line-up and move-line-down.
+
 2010-07-09  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Compilation with emacs-21.
