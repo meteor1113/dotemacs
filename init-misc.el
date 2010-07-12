@@ -18,12 +18,14 @@
     (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
         (normal-top-level-add-subdirs-to-load-path))))
 
-(unless (fboundp 'define-globalized-minor-mode)
+(unless (fboundp 'define-global-minor-mode) ; for emacs-21
+  (defmacro define-global-minor-mode (global-mode mode turn-on &rest keys)))
+(unless (fboundp 'define-globalized-minor-mode) ; for emacs-22
   (defalias 'define-globalized-minor-mode 'define-global-minor-mode))
-(unless (fboundp 'with-no-warnings)
+(unless (fboundp 'with-no-warnings)     ; for emacs-21
   (defun with-no-warnings (body)
     "Before emacs-21, have not with-no-warnings function."))
-(unless (fboundp 'define-fringe-bitmap)
+(unless (fboundp 'define-fringe-bitmap) ; for emacs-21
   (defun define-fringe-bitmap (var value)
     "Before emacs-21, have not define-fringe-bitmap function."))
 
@@ -122,8 +124,10 @@
   (global-set-key (kbd "<M-S-right>") 'recent-jump-jump-forward))
 
 ;; drag-stuff
-(when (and (> emacs-major-version 21) (require 'drag-stuff nil 'noerror))
-  (drag-stuff-global-mode t))
+(when (ignore-errors (require 'drag-stuff nil 'noerror))
+  (if (fboundp 'drag-stuff-global-mode)
+      (drag-stuff-global-mode t)
+    (add-hook 'find-file-hook 'drag-stuff-mode)))
 
 ;; highlight-tail
 (autoload 'highlight-tail-mode "highlight-tail"

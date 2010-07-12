@@ -138,6 +138,8 @@
 ;; highlight
 (when (fboundp 'global-font-lock-mode)
   (global-font-lock-mode t))
+(when (fboundp 'transient-mark-mode)
+  (transient-mark-mode t))
 (setq hl-line-face 'underline)          ; for highlight-symbol
 (global-hl-line-mode (if window-system 1 -1))
 ;; (global-highlight-changes-mode t)       ; use cedet instead
@@ -333,8 +335,8 @@ Like eclipse's Ctrl+Alt+F."
 ;;; special mode setting
 
 (defvar text-imenu-generic-expression
-  `((nil ,"^ \\{0,4\\}\\([ä¸€äºŒä¸‰å››äº”å…­ä¸ƒå…«ä¹å]+[ã€. )]\\)+ *[^,ã€‚ï¼Œ]+?$" 0)
-    (nil ,"^ \\{0,4\\}\\([0-9]+[ã€. )]\\)+ *[^,ã€‚ï¼Œ]+?$" 0)))
+  `((nil ,"^ \\{0,4\\}\\([Ò»¶şÈıËÄÎåÁùÆß°Ë¾ÅÊ®]+[¡¢. )]\\)+ *[^,¡££¬]+?$" 0)
+    (nil ,"^ \\{0,4\\}\\([0-9]+[¡¢. )]\\)+ *[^,¡££¬]+?$" 0)))
 (add-hook 'text-mode-hook
           (lambda ()
             (setq imenu-generic-expression text-imenu-generic-expression)
