@@ -384,10 +384,10 @@
      (define-key company-mode-map (kbd "M-p") 'company-select-previous)))
 
 ;; eim
-(when (<= emacs-major-version 21)
-  (provide 'help-mode)
-  (defalias 'locate-file 'locate-library)
-  (defvar emacs-basic-display nil))
+;; (when (<= emacs-major-version 21)
+;;   (provide 'help-mode)
+;;   (defalias 'locate-file 'locate-library)
+;;   (defvar emacs-basic-display nil))
 (autoload 'eim-use-package "eim" "The eim input method" t)
 (register-input-method
  "eim-wb" "euc-cn" 'eim-use-package "eim-wb" "eim-wb" "wb.txt")
