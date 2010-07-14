@@ -28,6 +28,15 @@
 (unless (fboundp 'define-fringe-bitmap) ; for emacs-21
   (defun define-fringe-bitmap (var value)
     "Before emacs-21, have not define-fringe-bitmap function."))
+(unless (fboundp 'line-number-at-pos)   ; for emacs-21
+  (defun line-number-at-pos (&optional pos)
+    (let ((opoint (or pos (point))) start)
+      (save-excursion
+        (goto-char (point-min))
+        (setq start (point))
+        (goto-char opoint)
+        (forward-line 0)
+        (1+ (count-lines start (point)))))))
 
 ;; unicad
 (require 'unicad nil 'noerror)
@@ -377,6 +386,7 @@
 ;; eim
 (when (<= emacs-major-version 21)
   (provide 'help-mode)
+  (defalias 'locate-file 'locate-library)
   (defvar emacs-basic-display nil))
 (autoload 'eim-use-package "eim" "The eim input method" t)
 (register-input-method

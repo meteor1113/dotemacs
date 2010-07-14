@@ -1,5 +1,7 @@
 2010-07-14  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Add line-number-at-pos for drag-stuff.
+
 	* init-basic.el (frame-title-format): system-name must in the last.
 
 2010-07-12  Meteor Liu  <meteor1113@gmail.com>
