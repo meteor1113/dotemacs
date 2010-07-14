@@ -10,10 +10,6 @@
     (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
         (normal-top-level-add-subdirs-to-load-path))))
 
-;; emacs-21 can't use CEDET
-(when (<= emacs-major-version 21)
-  (defvar pulse-command-advice-flag nil))
-
 (add-to-list 'load-path "~/.emacs.d/dotemacs")
 ;; (add-to-list 'load-path "e:/common/dotemacs")
 (load "init-basic" 'noerror)
