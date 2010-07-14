@@ -17,6 +17,13 @@
     (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
         (normal-top-level-add-subdirs-to-load-path))))
 
+(unless (fboundp 'custom-autoload)      ; for emacs-21
+  (defun custom-autoload (symbol load &optional noset)
+    "Mark SYMBOL as autoloaded custom variable and add dependency LOAD.
+If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
+    (put symbol 'custom-autoload (if noset 'noset t))
+    (custom-add-load symbol load)))
+
 ;; offical cedet
 (defvar user-include-dirs
   '(".." "../include" "../inc" "../common" "../public"
@@ -150,7 +157,9 @@
     (when (and pulse-command-advice-flag (interactive-p))
       (pulse-momentary-highlight-one-line (point))))
 
-  (when (and window-system (require 'semantic-tag-folding nil 'noerror))
+  (when (and window-system
+             (> emacs-major-version 21)
+             (require 'semantic-tag-folding nil 'noerror))
     (global-semantic-tag-folding-mode 1)
     (global-set-key (kbd "C-?") 'global-semantic-tag-folding-mode)
     (define-key semantic-tag-folding-mode-map
