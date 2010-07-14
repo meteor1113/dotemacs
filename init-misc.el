@@ -18,8 +18,8 @@
     (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
         (normal-top-level-add-subdirs-to-load-path))))
 
-(unless (fboundp 'define-global-minor-mode) ; for emacs-21
-  (defmacro define-global-minor-mode (global-mode mode turn-on &rest keys)))
+;; (unless (fboundp 'define-global-minor-mode) ; for emacs-21
+;;   (defmacro define-global-minor-mode (global-mode mode turn-on &rest keys)))
 (unless (fboundp 'define-globalized-minor-mode) ; for emacs-22
   (defalias 'define-globalized-minor-mode 'define-global-minor-mode))
 (unless (fboundp 'with-no-warnings)     ; for emacs-21
@@ -28,15 +28,6 @@
 (unless (fboundp 'define-fringe-bitmap) ; for emacs-21
   (defun define-fringe-bitmap (var value)
     "Before emacs-21, have not define-fringe-bitmap function."))
-(unless (fboundp 'line-number-at-pos)   ; for emacs-21
-  (defun line-number-at-pos (&optional pos)
-    (let ((opoint (or pos (point))) start)
-      (save-excursion
-        (goto-char (point-min))
-        (setq start (point))
-        (goto-char opoint)
-        (forward-line 0)
-        (1+ (count-lines start (point)))))))
 
 ;; unicad
 (require 'unicad nil 'noerror)
@@ -133,10 +124,9 @@
   (global-set-key (kbd "<M-S-right>") 'recent-jump-jump-forward))
 
 ;; drag-stuff
-(when (ignore-errors (require 'drag-stuff nil 'noerror))
-  (if (fboundp 'drag-stuff-global-mode)
-      (drag-stuff-global-mode t)
-    (add-hook 'find-file-hook 'drag-stuff-mode)))
+(when (and (ignore-errors (require 'drag-stuff nil 'noerror))
+           (fboundp 'drag-stuff-global-mode))
+  (drag-stuff-global-mode t))
 
 ;; highlight-tail
 (autoload 'highlight-tail-mode "highlight-tail"

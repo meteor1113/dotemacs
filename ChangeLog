@@ -2,6 +2,7 @@
 
 	* init-misc.el: Add line-number-at-pos for drag-stuff.
 	Emacs-21 can't use eim.
+	Don't use drag-stuff in emacs-21.
 
 	* init-basic.el (frame-title-format): system-name must in the last.
 
