@@ -75,10 +75,11 @@
 (display-time-mode t)
 (which-function-mode t)
 (setq frame-title-format
-      '("emacs@"
-        (:eval (system-name))
-        " - "
-        (:eval (or (buffer-file-name) (buffer-name)))))
+      '((:eval (or buffer-file-name (buffer-name)))
+        (:eval (if (buffer-modified-p) " * " " - "))
+        invocation-name
+        "@"
+        system-name))
 
 ;; save information
 (require 'saveplace)
