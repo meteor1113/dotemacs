@@ -1,3 +1,7 @@
+2010-07-19  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Enable pc-selection-mode in emacs-21.
+
 2010-07-14  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el: Add custom-autoload for cedet in emacs-21.
