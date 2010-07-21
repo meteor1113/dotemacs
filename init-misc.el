@@ -163,12 +163,13 @@
       (lambda ()
         (unless (memq major-mode disable-hl-s-modes)
           (highlight-symbol-mode 1)))))
-  (if (and window-system (fboundp 'global-highlight-symbol-mode))
-      (global-highlight-symbol-mode t)
-    (add-hook 'find-file-hooks
-              (lambda ()
-                (unless (memq major-mode disable-hl-s-modes)
-                  (highlight-symbol-mode 1)))))
+  (when window-system
+    (if (fboundp 'global-highlight-symbol-mode)
+        (global-highlight-symbol-mode t)
+      (add-hook 'find-file-hooks
+                (lambda ()
+                  (unless (memq major-mode disable-hl-s-modes)
+                    (highlight-symbol-mode 1))))))
   (setq highlight-symbol-idle-delay 0.5)
   (defun highlight-symbol-next-or-prev (&optional prev)
     (interactive "P")
