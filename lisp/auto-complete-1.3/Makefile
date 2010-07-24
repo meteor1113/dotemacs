@@ -4,14 +4,16 @@ PACKAGE=auto-complete-${VERSION}
 byte-compile:
 	emacs -Q -L . -batch -f batch-byte-compile *.el
 
+install:
+	emacs -Q -L . -batch -l etc/install ${DIR}
+
 clean:
 	rm -f *.elc
 	rm -f doc/*.html
 	rm -rf ${PACKAGE}
-	rm -f ${PACKAGE}.zip ${PACKAGE}.tar.bz2 *.elc
+	rm -f ${PACKAGE}.zip ${PACKAGE}.tar.bz2
 
 package: clean
-	rm -rf ${PACKAGE}
 	mkdir ${PACKAGE}
 	cp -r *.el Makefile README.txt TODO.txt doc etc dict ${PACKAGE}
 

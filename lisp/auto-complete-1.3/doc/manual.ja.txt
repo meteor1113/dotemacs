@@ -28,6 +28,11 @@ Auto Complete Mode（通称、`auto-complete.el`, `auto-complete-mode`）は[GNU
 
 なお、Auto Complete Modeは[GPLv3][]のもとでライセンスされています。また、このドキュメントは[GFDL][]のもとでライセンスされています。
 
+ダウンロード
+------------
+
+[Auto Complete Modeのトップページ](index.ja.txt)からダウンロードできます。
+
 インストール
 ------------
 
@@ -41,11 +46,21 @@ Auto Complete Mode（通称、`auto-complete.el`, `auto-complete-mode`）は[GNU
 
 パッケージディレクトリ内の`etc/install.el`というインストールスクリプトを利用すれば簡単にインストールを行うことができます。
 
-起動中のEmacsあるいは新しく起動したEmacsで`M-x load-file RET`と入力してください。ロードするファイル名を尋ねられるのでアーカイブを展開したディレクトリに`/etc/install.el`を追加したフルパスを入力します。例えば展開したディレクトリのパスが`~/tmp/auto-complete-1.2`である場合、`~/tmp/auto-complete-1.2/etc/install.el`と入力します。
+起動中のEmacsあるいは新しく起動したEmacsで`M-x load-file RET`と入力してください。なお`auto-complete-mode`をアップグレードする場合は**`-q`オプションで新しく起動したEmacs**でインストールを行ってください。`auto-complete-mode`ロードするファイル名を尋ねられるのでアーカイブを展開したディレクトリに`/etc/install.el`を追加したフルパスを入力します。例えば展開したディレクトリのパスが`~/tmp/auto-complete-1.2`である場合、`~/tmp/auto-complete-1.2/etc/install.el`と入力します。
 
 次にインストール先のディレクトリを尋ねられますので、お好みディレクトリを入力してください。このディレクトリが`load-path`に設定されていない場合は後で設定する必要があります。デフォルトでは`~/.emacs.d`です。
 
 最後に`RET`を押してインストールを開始してください。インストールが完了すると次のようなバッファが表示されるので、指示に従って`.emacs`を編集してください。
+
+あるいは、次のようにターミナルからインストールすることもできます。
+
+    $ make install
+    $ # あるいはディレクトリをあらかじめ指定して
+    $ make install DIR=$HOME/.emacs.d/
+
+GNU Makeがない場合は次のようにします。
+
+    $ emacs -batch -l etc/install.el
 
 **インストール後のメッセージ例（\*Installation Result*バッファ）**
 
@@ -189,7 +204,7 @@ TABによる補完では共通部分の展開などで何度かTABを押す必�
 
 * その他の場合
 
-  その他の場合、補完メニューを表示して補完を開始します。その後の操作は自動的に補完が開始された場合と同じになります。
+  その他の場合、全体共通部分を展開しつつ補完メニューを表示して補完を開始します。その後の操作は自動的に補完が開始された場合と同じになります。[`ac-show-menu-immediately-on-auto-complete`](#)と[`ac-expand-on-auto-complete`](#)も参照してください。
 
 ### 曖昧マッチによる補完 ###
 
@@ -330,6 +345,10 @@ Emacs Lispについて若干の知識があれば誰でも簡単に情報源を�
 
 Emacsの略語機能のための情報源です。略語機能に関しては`info emacs Abbrevs`を参照してください。
 
+#### `ac-source-css-property` ####
+
+CSSプロパティのための情報源です。
+
 #### `ac-source-dictionary` ####
 
 辞書のための情報源です。辞書に関しては[辞書による補完](#)を参照してください。
@@ -365,6 +384,10 @@ Emacs Lispの関数を補完するための情報源です。`(`の直後で有�
 #### `ac-source-semantic` ####
 
 [Semantic](http://cedet.sourceforge.net/semantic.shtml)のための情報源です。C/C++でメンバー名補完として利用できます。
+
+#### `ac-source-semantic-raw` ####
+
+`ac-source-semantic`と違って、この情報源は生の名前空間でシンボルを補完するのに使います。
 
 #### `ac-source-symbols` ####
 
@@ -447,6 +470,23 @@ Tips
     (define-key ac-completing-map "\t" 'ac-complete)
     (define-key ac-completing-map "\r" nil)
 
+### 補完メニュー表示時のみC-n/C-pで補完候補を選択する ###
+
+次のコードを評価することでC-n/C-pで補完候補を選択できますが、これでは邪魔だと感じることがあります。
+
+    ;; 良くない設定
+    (define-key ac-completing-map "\C-n" 'ac-next)
+    (define-key ac-completing-map "\C-p" 'ac-previous)
+
+そこで補完メニュー表示時のみにC-n/C-pで補完候補を選択できるようにして、キー入力を極力奪わないようにしてみます。`ac-menu-map`は補完メニューが表示されているときに利用されるキーマップで、`ac-use-menu-map`が`t`のときに有効になります。
+
+    (setq ac-use-menu-map t)
+    ;; デフォルトで設定済み
+    (define-key ac-menu-map "\C-n" 'ac-next)
+    (define-key ac-menu-map "\C-p" 'ac-previous)
+
+詳しくは[`ac-use-menu-map`](#)および[`ac-menu-map`](#)を参照してください。
+
 ### クイックヘルプを利用しない ###
 
 補完中に1秒ほど待ったときに出てくるツールチップヘルプをクイックヘルプと呼んでいますが、これを利用したくない場合は次のように設定します。
@@ -519,6 +559,46 @@ Tips
 
     (add-hook 'c++-mode (lambda () (add-to-list 'ac-sources 'ac-source-semantic)))
 
+### 特定の情報源で補完する ###
+
+特定の情報源で補完することも可能です。例えばファイル名補完を行いたい場合は`M-x ac-complete-filename`とします。あるいはC/C++のメンバー名補完を行いたい場合は`M-x ac-complete-semantic`とします。普通は次のようにこれらのコマンドをキーバインドします。
+
+    ;; C++モードにもC-c .でメンバー名補完
+    (add-hook 'c++-mode-hook
+              (lambda ()
+                (local-set-key (kbd "C-c .") 'ac-complete-semantic)))
+    ;; C-c /でファイル名補完
+    (global-set-key (kbd "C-c /") 'ac-complete-filename)
+
+一般的に、このようなコマンドは自動的に定義されます。例えば`ac-source-foobar`という情報源を定義しているとすれば、`ac-complete-foobar`というコマンドも同時に自動的に定義されるのです。利用可能なコマンドは[標準情報源](#)を参照してください。
+
+一つの補完コマンドで複数の情報源を使うには次のように別途定義する必要があります。
+
+    (defun semantic-and-gtags-complete ()
+      (interactive)
+      (auto-complete '(ac-source-semantic ac-source-gtags)))
+
+`auto-complete`関数は`ac-sources`の代替を引数として取ることができます。
+
+### 永続的にヘルプを表示する ###
+
+`ac-help`の代わりに`ac-persist-help`を使ってください。デフォルトで`M-<f1>`と`C-M-?`に割り当てられています。
+
+### 最後に補完したヘルプを表示する ###
+
+`ac-last-help`コマンドは最後に補完した候補のヘルプを`ac-help`（バッファヘルプ）と同じ形式で表示してくれます。`C-u`で引数をあたえるか`ac-last-persist-help`を呼び出すことで、そのヘルプバッファを永続的に表示することも可能です。
+
+`ac-last-quick-help`コマンドは最後に補完した候補のヘルプを`ac-quick-help`（クイックヘルプ）と同じ形式で表示してくれます。例えば、後から関数のドキュメントを見るときなどに便利です。
+
+これらのコマンドは次のようにキーバインドするとよいでしょう。
+
+    (define-key ac-mode-map (kbd "C-c h") 'ac-last-quick-help)
+    (define-key ac-mode-map (kbd "C-c H") 'ac-last-help)
+
+### ヘルプを綺麗に表示する ###
+
+[pos-tip.el](http://www.emacswiki.org/emacs-en/PosTip)がインストールされている場合、`auto-complete-mode`は従来のレンダリングエンジンの代わりに、`pos-tip.el`が提供するネイティブレンダリングエンジンを利用してヘルプを表示します。
+
 設定項目
 --------
 
@@ -531,6 +611,22 @@ Tips
 ### `ac-auto-show-menu` ###
 
 補完時に自動的に補完メニューを表示するかどうかです。`t`の場合は常に自動的に表示します。`nil`の場合は絶対に表示されません。実数を指定すると表示までの遅延時間を秒数で指定できます。
+
+### `ac-show-menu-immediately-on-auto-complete` ###
+
+`auto-complete`時にただちに補完メニューを表示するかどうかです。すでにインライン補完が表示されている場合は、この設定は無視されます。
+
+### `ac-expand-on-auto-complete` ###
+
+`auto-complete`時に補完候補全体の共通部分を展開するかどうかです。
+
+### `ac-disable-faces` ###
+
+自動補完を無効にするフェイス名をシンボルのリストで指定します。カーソル位置のフェイステキストプロパティがそのリストに含まれる場合に自動補完が無効になる仕組みです。
+
+### `ac-stop-flymake-on-completing` ###
+
+補完時にFlymakeを中止するかどうかです。
 
 ### `ac-use-fuzzy` ###
 
@@ -611,6 +707,14 @@ Tips
 * 補完選択時にTABがRETの挙動に変化する
 * 補完候補が一つしかないときにTABをするとRETの挙動になる
 
+### `ac-use-menu-map` ###
+
+補完メニュー表示時に特別なキーマップ（`ac-menu-map`）を有効にするかどうかです。`t`かつ次の条件を満たしたときに`ac-menu-map`が有効になります。
+
+* `ac-auto-start`および`ac-auto-show-menu`が`nil`でなく、補完を開始してから一定時間後にメニューが表示されたとき
+* `auto-complete`コマンドでメニューが表示されたとき
+* `ac-isearch`コマンドでメニューが表示されたとき
+
 ### `ac-use-overriding-local-map` ###
 
 補完の選択などの補完中のキー入力が効かない場合に利用します。内部的には`overriding-local-map`を使いますが、効果が強力すぎて他の拡張と干渉することがあるので、極力利用しないでください。
@@ -650,6 +754,10 @@ Tips
 ### `ac-completing-map` ###
 
 補完中に使用するキーマップです。
+
+### `ac-menu-map` ###
+
+メニュー表示時に使用するキーマップです。[`ac-use-menu-map`](#)も参照してください。
 
 ### `ac-mode-map` ###
 
@@ -842,6 +950,10 @@ Bと入力してBar, Bazが補完候補として現われれば成功です。�
 | a    | 略語           |
 | d    | 辞書           |
 
+#### `summary` ####
+
+補完候補のサマリを文字列で指定します。これは補完候補を簡潔に説明するために使うべきです。
+
 #### `cache` ####
 
 [キャッシュ](#)を利用します。
@@ -857,6 +969,14 @@ Bと入力してBar, Bazが補完候補として現われれば成功です。�
 #### `selection-face` ####
 
 選択された補完候補のフェイスを指定します。[`ac-selection-face`](#)を部分的に上書きします。
+
+#### `depends` ####
+
+依存するfeature（`require`される）をリストで指定します。
+
+#### `available` ####
+
+この情報源が利用できるかを示す関数あるいは式を指定します。
 
 ### 変数一覧 ###
 
@@ -927,6 +1047,20 @@ Ubuntu 9.10にて[IPAフォント](http://ossipedia.ipa.go.jp/ipafont/)をXftで
 
     (set-face-font 'ac-candidate-face "MS Gothic 11")
     (set-face-font 'ac-selection-face "MS Gothic 11")
+
+既知の問題
+----------
+
+### `flyspell-mode`が有効なバッファで自動補完できない ###
+
+`flyspell-mode`の遅延手法が原因で自動補完ができません。これを回避するには`M-x ac-flyspell-workaround`とするか`~/.emacs`に次のように書いてください。
+
+    (ac-flyspell-workaround)
+
+バグレポート
+------------
+
+[Auto Complete Modeのバグトラッキングシステム](http://cx4a.org/redmine/projects/auto-complete-mode)に新しいチケットを登録してください。
 
 [GNU Emacs]: http://www.gnu.org/software/emacs/
 [GPLv3]: http://gplv3.fsf.org/
