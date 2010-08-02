@@ -342,11 +342,11 @@
   (add-hook 'auto-complete-mode-hook 'ac-yasnippet-setup))
 
 ;; company
-;; (when (require 'company nil 'noerror)
 (setq company--disabled-backends '(company-pysmell))
+(autoload 'company-mode "company" nil t)
+(autoload 'global-company-mode "company" nil t)
 (eval-after-load "company"
   '(progn
-     (global-company-mode t)
      (setq company-idle-delay nil)
      ;; (setq company-idle-delay t
      ;;       company-minimum-prefix-length 1
