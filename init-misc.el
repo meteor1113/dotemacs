@@ -317,7 +317,18 @@
     ;; (setq ac-sources (append '(ac-source-semantic) ac-sources))
     (local-set-key (kbd "M-n") 'ac-complete-semantic))
   (add-hook 'c-mode-common-hook 'ac-semantic-setup)
-  ;; auto-complete for ropemacs
+  (when (require 'auto-complete-clang nil 'noerror)
+    (setq ac-clang-flags
+          '("-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
+            "-I../.." "-I../../include" "-I../../inc" "-I../../common"
+            "-I../../public"))
+    (when (fboundp 'semantic-gcc-get-include-paths)
+      (let ((dirs (semantic-gcc-get-include-paths "c++")))
+        (dolist (dir dirs)
+          (add-to-list 'ac-clang-flags (concat "-I" dir)))))
+    (defun ac-clang-setup ()
+      (local-set-key (kbd "M-p") 'ac-complete-clang))
+    (add-hook 'c-mode-common-hook 'ac-clang-setup))
   (setq ac-source-ropemacs              ; Redefine ac-source-ropemacs
         '((candidates . (lambda ()
                           (setq ac-ropemacs-completions-cache

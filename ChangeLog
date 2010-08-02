@@ -1,3 +1,7 @@
+2010-08-03  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Set auto-complete for clang.
+
 2010-08-02  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el ("company"): Set autoload for company-mode.
