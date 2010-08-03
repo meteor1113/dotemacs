@@ -355,6 +355,9 @@ Like eclipse's Ctrl+Alt+F."
           (lambda ()
             (imenu-add-menubar-index)
             (setq comment-start nil)
+            (setq indent-tabs-mode nil)
+            (when (fboundp 'whitespace-mode)
+              (whitespace-mode 1))
             (auto-fill-mode t)))
 (eval-after-load "org"
   `(progn
