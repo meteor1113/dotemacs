@@ -87,6 +87,13 @@
   (toggle-cursor-type-when-idle 1)
   (change-cursor-mode 1))
 
+;; cn-weather
+(setq cn-weather-city "¥Û¡¨")
+(autoload 'cn-weather-today "cn-weather"
+  "Print today's weather info in minibuffer." t)
+(autoload 'cn-weather-forecast "cn-weather"
+  "Print future two days' weather info in minibuffer." t)
+
 ;; smart-compile
 (autoload 'smart-compile "smart-compile" nil t)
 (global-set-key [C-f7] 'smart-compile)
