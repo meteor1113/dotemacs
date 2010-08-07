@@ -88,7 +88,7 @@
 ;; save information
 (require 'saveplace)
 (setq-default save-place t)
-(when (fboundp 'save-place)
+(when (fboundp 'savehist-mode)
   (savehist-mode t))
 (recentf-mode t)
 (when (fboundp 'desktop-save-mode)
@@ -183,9 +183,9 @@
 (global-auto-revert-mode t)
 ;; (setq require-final-newline 'ask)
 (setq-default indicate-buffer-boundaries (quote left))
-(when (fboundp 'global-linum-mode)
-  ;; (setq linum-eager nil)
-  (global-linum-mode 1))
+;; (when (fboundp 'global-linum-mode)
+;;   ;; (setq linum-eager nil)
+;;   (global-linum-mode 1))
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"

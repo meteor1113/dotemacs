@@ -1,5 +1,7 @@
 2010-08-07  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Disable linum-mode in default because slow.
+
 	* init-misc.el: Add cn-weather.
 
 2010-08-04  Meteor Liu  <meteor1113@gmail.com>
