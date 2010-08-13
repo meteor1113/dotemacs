@@ -388,7 +388,7 @@ Like eclipse's Ctrl+Alt+F."
         (when (eq 'code (overlay-get ov 'hs))
           (overlay-put ov 'display
                        (propertize
-                        (format " ... <%d lines>"
+                        (format "...<%d lines>"
                                 (count-lines (overlay-start ov)
                                              (overlay-end ov)))
                         'face 'mode-line))
