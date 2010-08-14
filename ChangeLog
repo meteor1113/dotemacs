@@ -1,3 +1,7 @@
+2010-08-14  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el: Enable upcase-region and downcase-region only (region-active-p).
+
 2010-08-07  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Disable linum-mode in default because slow.

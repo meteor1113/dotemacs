@@ -360,9 +360,11 @@
                    :help "Replace String...")
 (tool-bar-add-item "upcase" 'upcase-region 'upcase-region
                    :visible 'edit-toolbar-show
+                   :enable '(region-active-p)
                    :help "Convert the region to upper case")
 (tool-bar-add-item "downcase" 'downcase-region 'downcase-region
                    :visible 'edit-toolbar-show
+                   :enable '(region-active-p)
                    :help "Convert the region to lower case")
 
 ;; toggle toolbar
