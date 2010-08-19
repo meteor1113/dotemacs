@@ -1,3 +1,7 @@
+2010-08-19  Meteor Liu  <meteor1113@gmail.com>
+
+	* snippets/text-mode/isot: Add.
+
 2010-08-14  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Enable upcase-region and downcase-region only (region-active-p).
