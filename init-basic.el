@@ -426,7 +426,11 @@ Like eclipse's Ctrl+Alt+F."
 (add-hook 'objc-mode-hook (lambda () (c-set-style "stroustrup")))
 
 (add-to-list 'auto-mode-alist '("\\.prc\\'" . sql-mode))
-(add-hook 'sql-mode-hook 'program-common-function)
+(add-hook 'sql-mode-hook
+          (lambda ()
+            (setq indent-tabs-mode nil)
+            (hs-minor-mode t)
+            (ignore-errors (imenu-add-menubar-index))))
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()

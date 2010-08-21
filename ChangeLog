@@ -1,3 +1,7 @@
+2010-08-21  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: In default, don't enable whitespace in sql-mode.
+
 2010-08-19  Meteor Liu  <meteor1113@gmail.com>
 
 	* snippets/text-mode/isot: Add.
