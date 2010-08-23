@@ -246,7 +246,8 @@ Like eclipse's Ctrl+Alt+F."
     (if (and (fboundp 'region-active-p) (region-active-p))
         (progn (setq start (region-beginning))
                (setq end (region-end)))
-      (progn (whitespace-cleanup)
+      (progn (when (fboundp 'whitespace-cleanup)
+               (whitespace-cleanup))
              (setq end (point-max))))
     (save-excursion
       (save-restriction
@@ -254,7 +255,8 @@ Like eclipse's Ctrl+Alt+F."
         (push-mark (point))
         (push-mark (point-max) nil t)
         (goto-char start)
-        (whitespace-cleanup)
+        (when (fboundp 'whitespace-cleanup)
+          (whitespace-cleanup))
         (untabify start (point-max))
         (indent-region start (point-max) nil)))))
 
