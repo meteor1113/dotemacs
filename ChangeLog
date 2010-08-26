@@ -1,3 +1,7 @@
+2010-08-26  Meteor Liu  <meteor1113@gmail.com>
+
+	* .emacs: Update to support cedet-1.0
+
 2010-08-23  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (format-region): Check whitespace-cleanup.
