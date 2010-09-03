@@ -388,5 +388,9 @@
   `(when (require 'eim-extra nil 'noerror)
      (global-set-key ";" 'eim-insert-ascii)))
 
+;; emms
+(when (require 'emms-setup nil 'noerror)
+  (emms-standard)
+  (emms-default-players))
 
 (provide 'init-misc)

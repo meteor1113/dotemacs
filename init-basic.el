@@ -73,6 +73,11 @@
 (setq x-select-enable-clipboard t)
 ;; (setq mouse-yank-at-point t)
 
+;; coding system
+(when (eq system-type 'windows-nt)
+  (let ((code (or file-name-coding-system default-file-name-coding-system)))
+    (setq default-process-coding-system (cons code code))))
+
 ;; mode-line
 (column-number-mode t)
 ;; (size-indication-mode 1)
