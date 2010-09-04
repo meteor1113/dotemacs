@@ -389,8 +389,18 @@
      (global-set-key ";" 'eim-insert-ascii)))
 
 ;; emms
-(when (require 'emms-setup nil 'noerror)
-  (emms-standard)
-  (emms-default-players))
+(autoload 'emms "emms-playlist-mode" nil t)
+(defadvice emms (before setup-emms activate)
+  "Setup emms first."
+  (when (not (featurep 'emms-setup))
+    (when (require 'emms-setup nil 'noerror)
+      (emms-standard)
+      (emms-default-players)
+      (setq emms-repeat-playlist t)
+      (require 'emms-mode-line)
+      (require 'emms-playing-time)
+      (emms-mode-line 1)
+      (emms-mode-line-blank)
+      (emms-playing-time 1))))
 
 (provide 'init-misc)
