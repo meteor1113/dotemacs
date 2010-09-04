@@ -1,3 +1,10 @@
+2010-09-05  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el: Remove semantic-impl-toggle toolbar item.
+	Setup emms toolbar item.
+
+	* init-misc.el (emms): Set autoload for emms.
+
 2010-08-26  Meteor Liu  <meteor1113@gmail.com>
 
 	* .emacs: Update to support cedet-1.0

@@ -47,20 +47,20 @@
   (setq edit-toolbar-show (if edit-toolbar-show nil t))
   (force-window-update))
 
-(defvar toggle-toolbar-show t
-  "If show toogle toolbar.")
-(defun toggle-toolbar-toggle ()
-  "Turn toogle toolbar on/off."
-  (interactive)
-  (setq toggle-toolbar-show (if toggle-toolbar-show nil t))
-  (force-window-update))
-
 (defvar program-toolbar-show t
   "If show program toolbar.")
 (defun program-toolbar-toggle ()
   "Turn program toolbar on/off."
   (interactive)
   (setq program-toolbar-show (if program-toolbar-show nil t))
+  (force-window-update))
+
+(defvar misc-toolbar-show t
+  "If show misc toolbar.")
+(defun misc-toolbar-toggle ()
+  "Turn misc toolbar on/off."
+  (interactive)
+  (setq misc-toolbar-show (if misc-toolbar-show nil t))
   (force-window-update))
 
 ;; toggle toolbar menu
@@ -268,14 +268,14 @@
               :button (:toggle . (eq major-mode 'ada-mode))))
 (define-key toggle-toolbar-menu [separatore-major-mode]
   '(menu-item "--"))
+(define-key toggle-toolbar-menu [misc-toolbar-toggle]
+  '(menu-item "Misc toolbar" misc-toolbar-toggle
+              :help "Turn misc toolbar on/off"
+              :button (:toggle . misc-toolbar-show)))
 (define-key toggle-toolbar-menu [program-toolbar-toggle]
   '(menu-item "Program toolbar" program-toolbar-toggle
               :help "Turn program toolbar on/off"
               :button (:toggle . program-toolbar-show)))
-(define-key toggle-toolbar-menu [toggle-toolbar-toggle]
-  '(menu-item "Toggle toolbar" toggle-toolbar-toggle
-              :help "Turn toggle toolbar on/off"
-              :button (:toggle . toggle-toolbar-show)))
 (define-key toggle-toolbar-menu [edit-toolbar-toggle]
   '(menu-item "Edit toolbar" edit-toolbar-toggle
               :help "Turn edit toolbar on/off"
@@ -366,30 +366,16 @@
                    :visible 'edit-toolbar-show
                    :enable '(region-active-p)
                    :help "Convert the region to lower case")
-
-;; toggle toolbar
-(tool-bar-add-item "separator" nil 'toggle-toolbar
-                   :visible 'toggle-toolbar-show)
 (tool-bar-add-item "linum" 'global-linum-mode
                    'global-linum-mode
-                   :visible 'toggle-toolbar-show
+                   :visible 'edit-toolbar-show
                    :enable '(fboundp 'global-linum-mode)
                    :help "Toggle Global Linum mode")
 (tool-bar-add-item "whitespace" 'whitespace-mode
                    'whitespace-mode
-                   :visible 'toggle-toolbar-show
+                   :visible 'edit-toolbar-show
                    :enable '(fboundp 'whitespace-mode)
                    :help "Toggle whitespace minor mode visualization")
-(tool-bar-add-item "ecb"
-                   (lambda ()
-                     (interactive)
-                     (if (and (boundp 'ecb-minor-mode) ecb-minor-mode)
-                         (ecb-deactivate)
-                       (ecb-activate)))
-                   'ecb
-                   :visible 'toggle-toolbar-show
-                   :enable '(fboundp 'ecb-activate)
-                   :help "Toggle ECB")
 
 ;; program toolbar
 (tool-bar-add-item "separator" nil 'program-toolbar
@@ -404,11 +390,11 @@
                    :visible 'program-toolbar-show
                    :enable (fboundp 'semantic-ia-fast-jump)
                    :help "Jump to the tag at point (Semantic)")
-(tool-bar-add-item "semantic-impl-toggle" 'semantic-analyze-proto-impl-toggle
-                   'semantic-analyze-proto-impl-toggle
-                   :visible 'program-toolbar-show
-                   :enable (fboundp 'semantic-analyze-proto-impl-toggle)
-                   :help "Toggle implementation and prototype (Semantic)")
+;; (tool-bar-add-item "semantic-impl-toggle" 'semantic-analyze-proto-impl-toggle
+;;                    'semantic-analyze-proto-impl-toggle
+;;                    :visible 'program-toolbar-show
+;;                    :enable (fboundp 'semantic-analyze-proto-impl-toggle)
+;;                    :help "Toggle implementation and prototype (Semantic)")
 (tool-bar-add-item "sourcepair"
                    (lambda ()
                      (interactive)
@@ -421,12 +407,35 @@
                                  (or (fboundp 'sourcepair-load)
                                      (fboundp 'eassist-switch-h-cpp)))
                    :help "Switch header and body file")
+(tool-bar-add-item "ecb"
+                   (lambda ()
+                     (interactive)
+                     (if (and (boundp 'ecb-minor-mode) ecb-minor-mode)
+                         (ecb-deactivate)
+                       (ecb-activate)))
+                   'ecb
+                   :visible 'program-toolbar-show
+                   :enable '(fboundp 'ecb-activate)
+                   :help "Toggle ECB")
 (tool-bar-add-item "compile" 'compile 'compile
                    :visible 'program-toolbar-show
                    :help "Compile...")
 (tool-bar-add-item "debug" 'gdb 'gdb
                    :visible 'program-toolbar-show
                    :help "Debugger (GDB)...")
+
+;; misc toolbar
+(tool-bar-add-item "separator" nil 'misc-toolbar
+                   :visible 'misc-toolbar-show)
+(tool-bar-add-item "emms"
+                   (lambda ()
+                     (interactive)
+                     (if (fboundp 'emms-directory)
+                         (emms-directory)
+                       (emms)))
+                   'emms
+                   :visible 'misc-toolbar-show
+                   :help "Emms")
 
 
 (provide 'init-toolbar)

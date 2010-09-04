@@ -390,8 +390,9 @@
 
 ;; emms
 (autoload 'emms "emms-playlist-mode" nil t)
-(defadvice emms (before setup-emms activate)
-  "Setup emms first."
+(defun init-emms ()
+  "Initial emms"
+  (interactive)
   (when (not (featurep 'emms-setup))
     (when (require 'emms-setup nil 'noerror)
       (emms-standard)
@@ -402,5 +403,18 @@
       (emms-mode-line 1)
       (emms-mode-line-blank)
       (emms-playing-time 1))))
+(defadvice emms (before init-emms activate)
+  "Initial emms first."
+  (init-emms))
+(defun emms-directory ()
+  "Switch to the current emms-playlist buffer, and query for a directory."
+  (interactive)
+  (if (or (null emms-playlist-buffer)
+          (not (buffer-live-p emms-playlist-buffer)))
+      (call-interactively 'emms-play-directory))
+  (emms-playlist-mode-go))
+(defadvice emms-directory (before init-emms activate)
+  "Initial emms first."
+  (init-emms))
 
 (provide 'init-misc)
