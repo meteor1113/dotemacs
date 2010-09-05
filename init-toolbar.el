@@ -430,8 +430,8 @@
 (tool-bar-add-item "emms"
                    (lambda ()
                      (interactive)
-                     (if (fboundp 'emms-directory)
-                         (emms-directory)
+                     (if (fboundp 'emms-dir-tree)
+                         (emms-dir-tree)
                        (emms)))
                    'emms
                    :visible 'misc-toolbar-show

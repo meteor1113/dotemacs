@@ -1,5 +1,7 @@
 2010-09-05  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el (emms-dir-tree): Improve emms setting.
+
 	* init-toolbar.el: Remove semantic-impl-toggle toolbar item.
 	Setup emms toolbar item.
 

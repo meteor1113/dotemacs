@@ -394,27 +394,26 @@
   "Initial emms"
   (interactive)
   (when (not (featurep 'emms-setup))
-    (when (require 'emms-setup nil 'noerror)
-      (emms-standard)
-      (emms-default-players)
-      (setq emms-repeat-playlist t)
-      (require 'emms-mode-line)
-      (require 'emms-playing-time)
-      (emms-mode-line 1)
-      (emms-mode-line-blank)
-      (emms-playing-time 1))))
+    (require 'emms-setup)
+    (emms-standard)
+    (emms-default-players)
+    (setq emms-repeat-playlist t)
+    (require 'emms-mode-line)
+    (emms-mode-line 1)
+    (emms-mode-line-blank)
+    (require 'emms-playing-time)
+    (emms-playing-time 1)))
 (defadvice emms (before init-emms activate)
   "Initial emms first."
   (init-emms))
-(defun emms-directory ()
-  "Switch to the current emms-playlist buffer, and query for a directory."
+(defun emms-dir-tree ()
+  "Switch to the current emms-playlist buffer, and query for a directory tree."
   (interactive)
+  (init-emms)
   (if (or (null emms-playlist-buffer)
           (not (buffer-live-p emms-playlist-buffer)))
-      (call-interactively 'emms-play-directory))
+      (call-interactively 'emms-play-directory-tree))
   (emms-playlist-mode-go))
-(defadvice emms-directory (before init-emms activate)
-  "Initial emms first."
-  (init-emms))
+
 
 (provide 'init-misc)
