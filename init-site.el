@@ -206,6 +206,10 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
              (when (require 'jde nil 'noerror)
                (setq jde-enable-abbrev-mode t))))
 
+;; scim
+(when (require 'scim-bridge nil 'noerror)
+  (add-hook 'after-init-hook 'scim-mode-on))
+
 ;; ibus
 (when (require 'ibus nil 'noerror)
   (add-hook 'after-init-hook 'ibus-mode-on))
