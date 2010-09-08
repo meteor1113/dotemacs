@@ -206,5 +206,9 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
              (when (require 'jde nil 'noerror)
                (setq jde-enable-abbrev-mode t))))
 
+;; ibus
+(when (require 'ibus nil 'noerror)
+  (add-hook 'after-init-hook 'ibus-mode-on))
+
 
 (provide 'init-site)

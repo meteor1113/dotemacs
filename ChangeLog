@@ -1,3 +1,7 @@
+2010-09-08  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-site.el: Add ibus setting.
+
 2010-09-05  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (emms-dir-tree): Improve emms setting.
