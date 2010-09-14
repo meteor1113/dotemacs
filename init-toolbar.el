@@ -268,10 +268,6 @@
               :button (:toggle . (eq major-mode 'ada-mode))))
 (define-key toggle-toolbar-menu [separatore-major-mode]
   '(menu-item "--"))
-(define-key toggle-toolbar-menu [misc-toolbar-toggle]
-  '(menu-item "Misc toolbar" misc-toolbar-toggle
-              :help "Turn misc toolbar on/off"
-              :button (:toggle . misc-toolbar-show)))
 (define-key toggle-toolbar-menu [program-toolbar-toggle]
   '(menu-item "Program toolbar" program-toolbar-toggle
               :help "Turn program toolbar on/off"
@@ -284,6 +280,10 @@
   '(menu-item "Bookmark toolbar" bookmark-toolbar-toggle
               :help "Turn bookmark toolbar on/off"
               :button (:toggle . bookmark-toolbar-show)))
+(define-key toggle-toolbar-menu [misc-toolbar-toggle]
+  '(menu-item "Misc toolbar" misc-toolbar-toggle
+              :help "Turn misc toolbar on/off"
+              :button (:toggle . misc-toolbar-show)))
 ;; (global-set-key (kbd "<S-mouse-2>") toggle-toolbar-menu)
 ;; (define-key-after menu-bar-tools-menu [toggle-toolbar]
 ;;   (list 'menu-item "Toolbar" toggle-toolbar-menu))
@@ -293,6 +293,19 @@
                      (interactive)
                      (popup-menu toggle-toolbar-menu))
                    'toggle-toolbar-menu)
+
+;; misc toolbar
+(tool-bar-add-item "separator" nil 'misc-toolbar
+                   :visible 'misc-toolbar-show)
+(tool-bar-add-item "emms"
+                   (lambda ()
+                     (interactive)
+                     (if (fboundp 'emms-dir-tree)
+                         (emms-dir-tree)
+                       (emms)))
+                   'emms
+                   :visible 'misc-toolbar-show
+                   :help "Emms")
 
 ;; bookmark toolbar
 (tool-bar-add-item "separator" nil 'bookmark-toolbar
@@ -423,19 +436,6 @@
 (tool-bar-add-item "debug" 'gdb 'gdb
                    :visible 'program-toolbar-show
                    :help "Debugger (GDB)...")
-
-;; misc toolbar
-(tool-bar-add-item "separator" nil 'misc-toolbar
-                   :visible 'misc-toolbar-show)
-(tool-bar-add-item "emms"
-                   (lambda ()
-                     (interactive)
-                     (if (fboundp 'emms-dir-tree)
-                         (emms-dir-tree)
-                       (emms)))
-                   'emms
-                   :visible 'misc-toolbar-show
-                   :help "Emms")
 
 
 (provide 'init-toolbar)
