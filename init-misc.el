@@ -392,7 +392,9 @@
 (autoload 'emms "emms-playlist-mode" nil t)
 (eval-after-load "emms-playlist-mode"
   '(progn
-     (define-key emms-playlist-mode-map (kbd "SPC") 'emms-pause)))
+     (define-key emms-playlist-mode-map (kbd "SPC") 'emms-pause)
+     (define-key emms-playlist-mode-map [double-mouse-1]
+       'emms-playlist-mode-play-current-track)))
 (defun init-emms ()
   "Initial emms"
   (interactive)
