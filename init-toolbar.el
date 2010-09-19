@@ -452,7 +452,7 @@
 (tool-bar-add-item "emms-previous" 'emms-previous 'emms-previous
                    :visible 'emms-toolbar-show
                    :enable '(fboundp 'emms-previous)
-                   :help "Previous")
+                   :help "Previous track")
 (tool-bar-add-item "emms-seek-backward" 'emms-seek-backward 'emms-seek-backward
                    :visible 'emms-toolbar-show
                    :enable '(fboundp 'emms-seek-backward)
@@ -476,7 +476,7 @@
 (tool-bar-add-item "emms-next" 'emms-next 'emms-next
                    :visible 'emms-toolbar-show
                    :enable '(fboundp 'emms-next)
-                   :help "next")
+                   :help "Next track")
 
 
 (provide 'init-toolbar)
