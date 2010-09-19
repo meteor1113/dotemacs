@@ -1,6 +1,7 @@
 2010-09-19  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el ("folding"): Add toggle-hiding toolbar item.
+	Add emms toolbar.
 
 	* init-misc.el: Bind double click to change song in emms.
 

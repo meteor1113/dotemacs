@@ -55,13 +55,13 @@
   (setq program-toolbar-show (if program-toolbar-show nil t))
   (force-window-update))
 
-;; (defvar misc-toolbar-show t
-;;   "If show misc toolbar.")
-;; (defun misc-toolbar-toggle ()
-;;   "Turn misc toolbar on/off."
-;;   (interactive)
-;;   (setq misc-toolbar-show (if misc-toolbar-show nil t))
-;;   (force-window-update))
+(defvar emms-toolbar-show nil
+  "If show emms toolbar.")
+(defun emms-toolbar-toggle ()
+  "Turn emms toolbar on/off."
+  (interactive)
+  (setq emms-toolbar-show (if emms-toolbar-show nil t))
+  (force-window-update))
 
 ;; toggle toolbar menu
 (defvar toggle-toolbar-menu (make-sparse-keymap "Toolbar"))
@@ -277,6 +277,10 @@
               :button (:toggle . (eq major-mode 'ada-mode))))
 (define-key toggle-toolbar-menu [separatore-major-mode]
   '(menu-item "--"))
+(define-key toggle-toolbar-menu [emms-toolbar-toggle]
+  '(menu-item "Emms toolbar" emms-toolbar-toggle
+              :help "Turn emms toolbar on/off"
+              :button (:toggle . emms-toolbar-show)))
 (define-key toggle-toolbar-menu [program-toolbar-toggle]
   '(menu-item "Program toolbar" program-toolbar-toggle
               :help "Turn program toolbar on/off"
@@ -289,10 +293,6 @@
   '(menu-item "Bookmark toolbar" bookmark-toolbar-toggle
               :help "Turn bookmark toolbar on/off"
               :button (:toggle . bookmark-toolbar-show)))
-;; (define-key toggle-toolbar-menu [misc-toolbar-toggle]
-;;   '(menu-item "Misc toolbar" misc-toolbar-toggle
-;;               :help "Turn misc toolbar on/off"
-;;               :button (:toggle . misc-toolbar-show)))
 ;; (global-set-key (kbd "<S-mouse-2>") toggle-toolbar-menu)
 ;; (define-key-after menu-bar-tools-menu [toggle-toolbar]
 ;;   (list 'menu-item "Toolbar" toggle-toolbar-menu))
@@ -302,19 +302,6 @@
                      (interactive)
                      (popup-menu toggle-toolbar-menu))
                    'toggle-toolbar-menu)
-
-;; misc toolbar
-;; (tool-bar-add-item "separator" nil 'misc-toolbar
-;;                    :visible 'misc-toolbar-show)
-;; (tool-bar-add-item "emms"
-;;                    (lambda ()
-;;                      (interactive)
-;;                      (if (fboundp 'emms-dir-tree)
-;;                          (emms-dir-tree)
-;;                        (emms)))
-;;                    'emms
-;;                    :visible 'misc-toolbar-show
-;;                    :help "Emms")
 
 ;; bookmark toolbar
 (tool-bar-add-item "separator" nil 'bookmark-toolbar
@@ -449,6 +436,47 @@
 (tool-bar-add-item "debug" 'gdb 'gdb
                    :visible 'program-toolbar-show
                    :help "Debugger (GDB)...")
+
+;; emms toolbar
+(tool-bar-add-item "separator" nil 'emms-toolbar
+                   :visible 'emms-toolbar-show)
+(tool-bar-add-item "emms"
+                   (lambda ()
+                     (interactive)
+                     (if (fboundp 'emms-dir-tree)
+                         (emms-dir-tree)
+                       (emms)))
+                   'emms
+                   :visible 'emms-toolbar-show
+                   :help "Emms")
+(tool-bar-add-item "emms-previous" 'emms-previous 'emms-previous
+                   :visible 'emms-toolbar-show
+                   :enable '(fboundp 'emms-previous)
+                   :help "Previous")
+(tool-bar-add-item "emms-seek-backward" 'emms-seek-backward 'emms-seek-backward
+                   :visible 'emms-toolbar-show
+                   :enable '(fboundp 'emms-seek-backward)
+                   :help "Seek backward")
+(tool-bar-add-item "emms-stop" 'emms-stop 'emms-stop
+                   :visible 'emms-toolbar-show
+                   :enable '(fboundp 'emms-stop)
+                   :help "Stop")
+(tool-bar-add-item "emms-start" 'emms-start 'emms-start
+                   :visible 'emms-toolbar-show
+                   :enable '(fboundp 'emms-start)
+                   :help "Start")
+(tool-bar-add-item "emms-pause" 'emms-pause 'emms-pause
+                   :visible 'emms-toolbar-show
+                   :enable '(fboundp 'emms-pause)
+                   :help "Pause")
+(tool-bar-add-item "emms-seek-forward" 'emms-seek-forward 'emms-seek-forward
+                   :visible 'emms-toolbar-show
+                   :enable '(fboundp 'emms-seek-forward)
+                   :help "Seek forward")
+(tool-bar-add-item "emms-next" 'emms-next 'emms-next
+                   :visible 'emms-toolbar-show
+                   :enable '(fboundp 'emms-next)
+                   :help "next")
 
 
 (provide 'init-toolbar)
