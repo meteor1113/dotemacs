@@ -388,6 +388,10 @@
                    :visible 'edit-toolbar-show
                    :enable '(region-active-p)
                    :help "Convert the region to lower case")
+(tool-bar-add-item "folding" 'hs-toggle-hiding 'folding
+                   :visible 'edit-toolbar-show
+                   :enable '(and hs-minor-mode (fboundp 'hs-toggle-hiding))
+                   :help "Toggle hiding/showing of a block(hs-minor-mode)")
 (tool-bar-add-item "linum" 'global-linum-mode
                    'global-linum-mode
                    :visible 'edit-toolbar-show
