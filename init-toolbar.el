@@ -55,20 +55,29 @@
   (setq program-toolbar-show (if program-toolbar-show nil t))
   (force-window-update))
 
-(defvar misc-toolbar-show t
-  "If show misc toolbar.")
-(defun misc-toolbar-toggle ()
-  "Turn misc toolbar on/off."
-  (interactive)
-  (setq misc-toolbar-show (if misc-toolbar-show nil t))
-  (force-window-update))
+;; (defvar misc-toolbar-show t
+;;   "If show misc toolbar.")
+;; (defun misc-toolbar-toggle ()
+;;   "Turn misc toolbar on/off."
+;;   (interactive)
+;;   (setq misc-toolbar-show (if misc-toolbar-show nil t))
+;;   (force-window-update))
 
 ;; toggle toolbar menu
 (defvar toggle-toolbar-menu (make-sparse-keymap "Toolbar"))
 (define-key toggle-toolbar-menu [find-dotemacs-file]
   '(menu-item "Open .emacs" find-dotemacs-file
-              :visible (fboundp 'find-dotemacs-file)
+              :enable (fboundp 'find-dotemacs-file)
               :help "Open .emacs file"))
+(define-key toggle-toolbar-menu [emms]
+  '(menu-item "Emms"
+              (lambda ()
+                (interactive)
+                (if (fboundp 'emms-dir-tree)
+                    (emms-dir-tree)
+                  (emms)))
+              :enable (or (fboundp 'emms-dir-tree) (fboundp 'emms))
+              :help "Emms"))
 (define-key toggle-toolbar-menu [separatore-dotemacs-file]
   '(menu-item "--"))
 (define-key toggle-toolbar-menu [xml-mode]
@@ -280,10 +289,10 @@
   '(menu-item "Bookmark toolbar" bookmark-toolbar-toggle
               :help "Turn bookmark toolbar on/off"
               :button (:toggle . bookmark-toolbar-show)))
-(define-key toggle-toolbar-menu [misc-toolbar-toggle]
-  '(menu-item "Misc toolbar" misc-toolbar-toggle
-              :help "Turn misc toolbar on/off"
-              :button (:toggle . misc-toolbar-show)))
+;; (define-key toggle-toolbar-menu [misc-toolbar-toggle]
+;;   '(menu-item "Misc toolbar" misc-toolbar-toggle
+;;               :help "Turn misc toolbar on/off"
+;;               :button (:toggle . misc-toolbar-show)))
 ;; (global-set-key (kbd "<S-mouse-2>") toggle-toolbar-menu)
 ;; (define-key-after menu-bar-tools-menu [toggle-toolbar]
 ;;   (list 'menu-item "Toolbar" toggle-toolbar-menu))
@@ -295,17 +304,17 @@
                    'toggle-toolbar-menu)
 
 ;; misc toolbar
-(tool-bar-add-item "separator" nil 'misc-toolbar
-                   :visible 'misc-toolbar-show)
-(tool-bar-add-item "emms"
-                   (lambda ()
-                     (interactive)
-                     (if (fboundp 'emms-dir-tree)
-                         (emms-dir-tree)
-                       (emms)))
-                   'emms
-                   :visible 'misc-toolbar-show
-                   :help "Emms")
+;; (tool-bar-add-item "separator" nil 'misc-toolbar
+;;                    :visible 'misc-toolbar-show)
+;; (tool-bar-add-item "emms"
+;;                    (lambda ()
+;;                      (interactive)
+;;                      (if (fboundp 'emms-dir-tree)
+;;                          (emms-dir-tree)
+;;                        (emms)))
+;;                    'emms
+;;                    :visible 'misc-toolbar-show
+;;                    :help "Emms")
 
 ;; bookmark toolbar
 (tool-bar-add-item "separator" nil 'bookmark-toolbar

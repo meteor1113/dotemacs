@@ -1,3 +1,7 @@
+2010-09-19  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el: Use emms pop menu instead of toolbar item.
+
 2010-09-16  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Bind [header-line double-mouse-1] to kill-this-buffer.
