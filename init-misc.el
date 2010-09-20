@@ -216,6 +216,9 @@
 (when (> emacs-major-version 21)
   (require 'smart-hl nil 'noerror))
 
+;; dired+.el
+(add-hook 'dired-mode-hook '(lambda () (require 'dired+ nil 'noerror)))
+
 ;; ifdef
 (add-hook 'c-mode-common-hook
           '(lambda ()
