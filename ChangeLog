@@ -1,3 +1,7 @@
+2010-09-22  Meteor Liu  <meteor1113@gmail.com>
+
+	* Add lisp/w32-browser.el
+
 2010-09-20  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (dired-mode-hook): Add dired+.
