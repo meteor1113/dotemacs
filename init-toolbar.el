@@ -97,6 +97,18 @@
   (customize-mark-to-save 'toolbarshow-program)
   (custom-save-all))
 
+(defcustom toolbarshow-remember nil
+  "If show remember toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+(defun toolbarshow-toggle-remember ()
+  "Turn remember toolbar on/off."
+  (interactive)
+  (setq toolbarshow-remember (if toolbarshow-remember nil t))
+  (force-window-update)
+  (customize-mark-to-save 'toolbarshow-remember)
+  (custom-save-all))
+
 (defcustom toolbarshow-emms nil
   "If show emms toolbar."
   :type 'boolean
@@ -327,6 +339,10 @@
   '(menu-item "Emms toolbar" toolbarshow-toggle-emms
               :help "Turn emms toolbar on/off"
               :button (:toggle . toolbarshow-emms)))
+(define-key toggle-toolbar-menu [toolbarshow-toggle-remember]
+  '(menu-item "Remember toolbar" toolbarshow-toggle-remember
+              :help "Turn remember toolbar on/off"
+              :button (:toggle . toolbarshow-remember)))
 (define-key toggle-toolbar-menu [toolbarshow-toggle-program]
   '(menu-item "Program toolbar" toolbarshow-toggle-program
               :help "Turn program toolbar on/off"
@@ -506,6 +522,21 @@
 (tool-bar-add-item "debug" 'gdb 'gdb
                    :visible 'toolbarshow-program
                    :help "Debugger (GDB)...")
+
+;; remember toolbar
+(tool-bar-add-item "separator" nil 'remember-toolbar
+                   :visible 'toolbarshow-remember)
+(tool-bar-add-item "remember" 'remember 'remember
+                   :visible 'toolbarshow-remember
+                   :help "Remember")
+(tool-bar-add-item "remember-open"
+                   (lambda ()
+                     (interactive)
+                     (require 'remember nil 'noerror)
+                     (find-file remember-data-file))
+                   'remember-open
+                   :visible 'toolbarshow-remember
+                   :help "Open remember data file")
 
 ;; emms toolbar
 (tool-bar-add-item "separator" nil 'emms-toolbar

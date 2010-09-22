@@ -2,6 +2,7 @@
 
 	* init-toolbar.el: Add comment and format toolbar item.
 	Auto save toolbarshow setting.
+	Add remember toolbar.
 
 	* Add lisp/w32-browser.el
 
