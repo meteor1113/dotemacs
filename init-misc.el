@@ -219,6 +219,10 @@
 ;; dired+.el
 (eval-after-load "dired" '(require 'dired+ nil 'noerror))
 
+;; browse-kill-ring
+(when (require 'browse-kill-ring nil 'noerror)
+  (browse-kill-ring-default-keybindings))
+
 ;; ifdef
 (add-hook 'c-mode-common-hook
           '(lambda ()
