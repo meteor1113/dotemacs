@@ -244,7 +244,9 @@
 
 ;; cscope
 (when (executable-find "cscope")
-  (require 'xcscope nil 'noerror))
+  (when (require 'xcscope nil 'noerror)
+    (define-key cscope-list-entry-keymap [mouse-1]
+      'cscope-mouse-select-entry-other-window)))
 
 ;; xgtags
 (when (executable-find "global")
