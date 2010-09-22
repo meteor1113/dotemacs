@@ -31,53 +31,83 @@
 (setq tool-bar-button-margin 0)
 ;; (setq auto-resize-tool-bars nil)
 
-(defvar edit-toolbar-show t
-  "If show edit toolbar.")
-(defun edit-toolbar-toggle ()
+(defgroup toolbarshow nil
+  "Custom toolbar"
+  :group 'environment)
+
+;; (defvar toolbarshow-edit t
+;;   "If show edit toolbar.")
+(defcustom toolbarshow-edit t
+  "If show edit toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+(defun toolbarshow-toggle-edit ()
   "Turn edit toolbar on/off."
   (interactive)
-  (setq edit-toolbar-show (if edit-toolbar-show nil t))
-  (force-window-update))
+  (setq toolbarshow-edit (if toolbarshow-edit nil t))
+  (force-window-update)
+  (customize-mark-to-save 'toolbarshow-edit)
+  (custom-save-all))
 
-(defvar search-toolbar-show nil
-  "If show search toolbar.")
-(defun search-toolbar-toggle ()
+(defcustom toolbarshow-search nil
+  "If show search toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+(defun toolbarshow-toggle-search ()
   "Turn search toolbar on/off."
   (interactive)
-  (setq search-toolbar-show (if search-toolbar-show nil t))
-  (force-window-update))
+  (setq toolbarshow-search (if toolbarshow-search nil t))
+  (force-window-update)
+  (customize-mark-to-save 'toolbarshow-search)
+  (custom-save-all))
 
-(defvar bookmark-toolbar-show nil
-  "If show bookmark toolbar.")
-(defun bookmark-toolbar-toggle ()
+(defcustom toolbarshow-bookmark nil
+  "If show bookmark toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+(defun toolbarshow-toggle-bookmark ()
   "Turn bookmark toolbar on/off."
   (interactive)
-  (setq bookmark-toolbar-show (if bookmark-toolbar-show nil t))
-  (force-window-update))
+  (setq toolbarshow-bookmark (if toolbarshow-bookmark nil t))
+  (force-window-update)
+  (customize-mark-to-save 'toolbarshow-bookmark)
+  (custom-save-all))
 
-(defvar view-toolbar-show t
-  "If show view toolbar.")
-(defun view-toolbar-toggle ()
+(defcustom toolbarshow-view t
+  "If show view toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+(defun toolbarshow-toggle-view ()
   "Turn view toolbar on/off."
   (interactive)
-  (setq view-toolbar-show (if view-toolbar-show nil t))
-  (force-window-update))
+  (setq toolbarshow-view (if toolbarshow-view nil t))
+  (force-window-update)
+  (customize-mark-to-save 'toolbarshow-view)
+  (custom-save-all))
 
-(defvar program-toolbar-show t
-  "If show program toolbar.")
-(defun program-toolbar-toggle ()
+(defcustom toolbarshow-program t
+  "If show program toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+(defun toolbarshow-toggle-program ()
   "Turn program toolbar on/off."
   (interactive)
-  (setq program-toolbar-show (if program-toolbar-show nil t))
-  (force-window-update))
+  (setq toolbarshow-program (if toolbarshow-program nil t))
+  (force-window-update)
+  (customize-mark-to-save 'toolbarshow-program)
+  (custom-save-all))
 
-(defvar emms-toolbar-show nil
-  "If show emms toolbar.")
-(defun emms-toolbar-toggle ()
+(defcustom toolbarshow-emms nil
+  "If show emms toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+(defun toolbarshow-toggle-emms ()
   "Turn emms toolbar on/off."
   (interactive)
-  (setq emms-toolbar-show (if emms-toolbar-show nil t))
-  (force-window-update))
+  (setq toolbarshow-emms (if toolbarshow-emms nil t))
+  (force-window-update)
+  (customize-mark-to-save 'toolbarshow-emms)
+  (custom-save-all))
 
 ;; toggle toolbar menu
 (defvar toggle-toolbar-menu (make-sparse-keymap "Toolbar"))
@@ -293,26 +323,30 @@
               :button (:toggle . (eq major-mode 'ada-mode))))
 (define-key toggle-toolbar-menu [separatore-major-mode]
   '(menu-item "--"))
-(define-key toggle-toolbar-menu [emms-toolbar-toggle]
-  '(menu-item "Emms toolbar" emms-toolbar-toggle
+(define-key toggle-toolbar-menu [toolbarshow-toggle-emms]
+  '(menu-item "Emms toolbar" toolbarshow-toggle-emms
               :help "Turn emms toolbar on/off"
-              :button (:toggle . emms-toolbar-show)))
-(define-key toggle-toolbar-menu [program-toolbar-toggle]
-  '(menu-item "Program toolbar" program-toolbar-toggle
+              :button (:toggle . toolbarshow-emms)))
+(define-key toggle-toolbar-menu [toolbarshow-toggle-program]
+  '(menu-item "Program toolbar" toolbarshow-toggle-program
               :help "Turn program toolbar on/off"
-              :button (:toggle . program-toolbar-show)))
-(define-key toggle-toolbar-menu [view-toolbar-toggle]
-  '(menu-item "View toolbar" view-toolbar-toggle
+              :button (:toggle . toolbarshow-program)))
+(define-key toggle-toolbar-menu [toolbarshow-toggle-view]
+  '(menu-item "View toolbar" toolbarshow-toggle-view
               :help "Turn view toolbar on/off"
-              :button (:toggle . view-toolbar-show)))
-(define-key toggle-toolbar-menu [search-toolbar-toggle]
-  '(menu-item "Search toolbar" search-toolbar-toggle
+              :button (:toggle . toolbarshow-view)))
+(define-key toggle-toolbar-menu [toolbarshow-toggle-bookmark]
+  '(menu-item "Bookmark toolbar" toolbarshow-toggle-bookmark
+              :help "Turn bookmark toolbar on/off"
+              :button (:toggle . toolbarshow-bookmark)))
+(define-key toggle-toolbar-menu [toolbarshow-toggle-search]
+  '(menu-item "Search toolbar" toolbarshow-toggle-search
               :help "Turn search toolbar on/off"
-              :button (:toggle . search-toolbar-show)))
-(define-key toggle-toolbar-menu [edit-toolbar-toggle]
-  '(menu-item "Edit toolbar" edit-toolbar-toggle
+              :button (:toggle . toolbarshow-search)))
+(define-key toggle-toolbar-menu [toolbarshow-toggle-edit]
+  '(menu-item "Edit toolbar" toolbarshow-toggle-edit
               :help "Turn edit toolbar on/off"
-              :button (:toggle . edit-toolbar-show)))
+              :button (:toggle . toolbarshow-edit)))
 ;; (global-set-key (kbd "<S-mouse-2>") toggle-toolbar-menu)
 ;; (define-key-after menu-bar-tools-menu [toggle-toolbar]
 ;;   (list 'menu-item "Toolbar" toggle-toolbar-menu))
@@ -325,52 +359,52 @@
 
 ;; edit toolbar
 (tool-bar-add-item "separator" nil 'edit-toolbar
-                   :visible 'edit-toolbar-show)
+                   :visible 'toolbarshow-edit)
 (tool-bar-add-item "upcase" 'upcase-region 'upcase-region
-                   :visible 'edit-toolbar-show
+                   :visible 'toolbarshow-edit
                    :enable '(region-active-p)
                    :help "Convert the region to upper case")
 (tool-bar-add-item "downcase" 'downcase-region 'downcase-region
-                   :visible 'edit-toolbar-show
+                   :visible 'toolbarshow-edit
                    :enable '(region-active-p)
                    :help "Convert the region to lower case")
 (tool-bar-add-item "comment-toggle" 'comment-or-uncomment-region 'comment-toggle
-                   :visible 'edit-toolbar-show
+                   :visible 'toolbarshow-edit
                    :enable '(region-active-p)
                    :help "Comment or uncomment region")
 (tool-bar-add-item "format-region" 'format-region 'format-region
-                   :visible 'edit-toolbar-show
+                   :visible 'toolbarshow-edit
                    :enable '(fboundp 'format-region)
                    :help "Format region or all buffer")
 
 ;; search toolbar
 (tool-bar-add-item "separator" nil 'search-toolbar
-                   :visible 'search-toolbar-show)
+                   :visible 'toolbarshow-search)
 (tool-bar-add-item "recent-backward"'recent-jump-jump-backward
                    'recent-jump-jump-backward
-                   :visible 'search-toolbar-show
+                   :visible 'toolbarshow-search
                    :enable '(fboundp 'recent-jump-jump-backward)
                    :help "Backward in the history")
 (tool-bar-add-item "recent-forward" 'recent-jump-jump-forward
                    'recent-jump-jump-forward
-                   :visible 'search-toolbar-show
+                   :visible 'toolbarshow-search
                    :enable '(fboundp 'recent-jump-jump-forward)
                    :help "Forward in the history")
 (tool-bar-add-item "find" 'isearch-forward
                    'isearch-forward
-                   :visible 'search-toolbar-show
+                   :visible 'toolbarshow-search
                    :help "Forward String...")
 (tool-bar-add-item "find-next" 'isearch-repeat-forward
                    'isearch-repeat-forward
-                   :visible 'search-toolbar-show
+                   :visible 'toolbarshow-search
                    :help "Repeat Forward String")
 (tool-bar-add-item "replace" 'query-replace 'query-replace
-                   :visible 'search-toolbar-show
+                   :visible 'toolbarshow-search
                    :help "Replace String...")
 
 ;; bookmark toolbar
 (tool-bar-add-item "separator" nil 'bookmark-toolbar
-                   :visible 'bookmark-toolbar-show)
+                   :visible 'toolbarshow-bookmark)
 (tool-bar-add-item "bm-toggle"
                    (lambda ()
                      (interactive)
@@ -378,7 +412,7 @@
                          (bm-toggle)
                        (viss-bookmark-toggle)))
                    'bm-toggle
-                   :visible 'bookmark-toolbar-show
+                   :visible 'toolbarshow-bookmark
                    :help "Toggle bookmark at point")
 (tool-bar-add-item "bm-next"
                    (lambda ()
@@ -387,7 +421,7 @@
                          (call-interactively (bm-next))
                        (viss-bookmark-next-buffer)))
                    'bm-next
-                   :visible 'bookmark-toolbar-show
+                   :visible 'toolbarshow-bookmark
                    :help "Goto next bookmark")
 (tool-bar-add-item "bm-previous"
                    (lambda ()
@@ -396,7 +430,7 @@
                          (call-interactively (bm-previous))
                        (viss-bookmark-prev-buffer)))
                    'bm-previous
-                   :visible 'bookmark-toolbar-show
+                   :visible 'toolbarshow-bookmark
                    :help "Goto previous bookmark")
 (tool-bar-add-item "bm-clear"
                    (lambda ()
@@ -405,24 +439,24 @@
                          (bm-remove-all-current-buffer)
                        (viss-bookmark-clear-all-buffer)))
                    'bm-remove-all-current-buffer
-                   :visible 'bookmark-toolbar-show
+                   :visible 'toolbarshow-bookmark
                    :help "Delete all visible bookmarks in current buffer")
 
 ;; view toolbar
 (tool-bar-add-item "separator" nil 'view-toolbar
-                   :visible 'view-toolbar-show)
+                   :visible 'toolbarshow-view)
 (tool-bar-add-item "folding" 'hs-toggle-hiding 'folding
-                   :visible 'view-toolbar-show
+                   :visible 'toolbarshow-view
                    :enable '(and hs-minor-mode (fboundp 'hs-toggle-hiding))
                    :help "Toggle hiding/showing of a block(hs-minor-mode)")
 (tool-bar-add-item "linum" 'global-linum-mode
                    'global-linum-mode
-                   :visible 'view-toolbar-show
+                   :visible 'toolbarshow-view
                    :enable '(fboundp 'global-linum-mode)
                    :help "Toggle Global Linum mode")
 (tool-bar-add-item "whitespace" 'whitespace-mode
                    'whitespace-mode
-                   :visible 'view-toolbar-show
+                   :visible 'toolbarshow-view
                    :enable '(fboundp 'whitespace-mode)
                    :help "Toggle whitespace minor mode visualization")
 (tool-bar-add-item "ecb"
@@ -432,26 +466,26 @@
                          (ecb-deactivate)
                        (ecb-activate)))
                    'ecb
-                   :visible 'view-toolbar-show
+                   :visible 'toolbarshow-view
                    :enable '(fboundp 'ecb-activate)
                    :help "Toggle ECB")
 
 ;; program toolbar
 (tool-bar-add-item "separator" nil 'program-toolbar
-                   :visible 'program-toolbar-show)
+                   :visible 'toolbarshow-program)
 (tool-bar-add-item "semantic-jump-back" 'semantic-ia-fast-jump-back
                    'semantic-ia-fast-jump-back
-                   :visible 'program-toolbar-show
+                   :visible 'toolbarshow-program
                    :enable (fboundp 'semantic-ia-fast-jump-back)
                    :help "Jump back to previous tag (Semantic)")
 (tool-bar-add-item "semantic-jump" 'semantic-ia-fast-jump
                    'semantic-ia-fast-jump
-                   :visible 'program-toolbar-show
+                   :visible 'toolbarshow-program
                    :enable (fboundp 'semantic-ia-fast-jump)
                    :help "Jump to the tag at point (Semantic)")
 ;; (tool-bar-add-item "semantic-impl-toggle" 'semantic-analyze-proto-impl-toggle
 ;;                    'semantic-analyze-proto-impl-toggle
-;;                    :visible 'program-toolbar-show
+;;                    :visible 'toolbarshow-program
 ;;                    :enable (fboundp 'semantic-analyze-proto-impl-toggle)
 ;;                    :help "Toggle implementation and prototype (Semantic)")
 (tool-bar-add-item "sourcepair"
@@ -461,21 +495,21 @@
                          (sourcepair-load)
                        (eassist-switch-h-cpp)))
                    'sourcepair
-                   :visible 'program-toolbar-show
+                   :visible 'toolbarshow-program
                    :enable '(and (memq major-mode '(c++-mode c-mode objc-mode))
                                  (or (fboundp 'sourcepair-load)
                                      (fboundp 'eassist-switch-h-cpp)))
                    :help "Switch header and body file")
 (tool-bar-add-item "compile" 'compile 'compile
-                   :visible 'program-toolbar-show
+                   :visible 'toolbarshow-program
                    :help "Compile...")
 (tool-bar-add-item "debug" 'gdb 'gdb
-                   :visible 'program-toolbar-show
+                   :visible 'toolbarshow-program
                    :help "Debugger (GDB)...")
 
 ;; emms toolbar
 (tool-bar-add-item "separator" nil 'emms-toolbar
-                   :visible 'emms-toolbar-show)
+                   :visible 'toolbarshow-emms)
 (tool-bar-add-item "emms"
                    (lambda ()
                      (interactive)
@@ -483,34 +517,34 @@
                          (emms-dir-tree)
                        (emms)))
                    'emms
-                   :visible 'emms-toolbar-show
+                   :visible 'toolbarshow-emms
                    :help "Emms")
 (tool-bar-add-item "emms-previous" 'emms-previous 'emms-previous
-                   :visible 'emms-toolbar-show
+                   :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-previous)
                    :help "Previous track")
 (tool-bar-add-item "emms-seek-backward" 'emms-seek-backward 'emms-seek-backward
-                   :visible 'emms-toolbar-show
+                   :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-seek-backward)
                    :help "Seek backward")
 (tool-bar-add-item "emms-stop" 'emms-stop 'emms-stop
-                   :visible 'emms-toolbar-show
+                   :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-stop)
                    :help "Stop")
 (tool-bar-add-item "emms-start" 'emms-start 'emms-start
-                   :visible 'emms-toolbar-show
+                   :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-start)
                    :help "Start")
 (tool-bar-add-item "emms-pause" 'emms-pause 'emms-pause
-                   :visible 'emms-toolbar-show
+                   :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-pause)
                    :help "Pause")
 (tool-bar-add-item "emms-seek-forward" 'emms-seek-forward 'emms-seek-forward
-                   :visible 'emms-toolbar-show
+                   :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-seek-forward)
                    :help "Seek forward")
 (tool-bar-add-item "emms-next" 'emms-next 'emms-next
-                   :visible 'emms-toolbar-show
+                   :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-next)
                    :help "Next track")
 
