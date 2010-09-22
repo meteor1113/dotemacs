@@ -31,6 +31,22 @@
 (setq tool-bar-button-margin 0)
 ;; (setq auto-resize-tool-bars nil)
 
+(defvar edit-toolbar-show t
+  "If show edit toolbar.")
+(defun edit-toolbar-toggle ()
+  "Turn edit toolbar on/off."
+  (interactive)
+  (setq edit-toolbar-show (if edit-toolbar-show nil t))
+  (force-window-update))
+
+(defvar search-toolbar-show nil
+  "If show search toolbar.")
+(defun search-toolbar-toggle ()
+  "Turn search toolbar on/off."
+  (interactive)
+  (setq search-toolbar-show (if search-toolbar-show nil t))
+  (force-window-update))
+
 (defvar bookmark-toolbar-show nil
   "If show bookmark toolbar.")
 (defun bookmark-toolbar-toggle ()
@@ -39,12 +55,12 @@
   (setq bookmark-toolbar-show (if bookmark-toolbar-show nil t))
   (force-window-update))
 
-(defvar edit-toolbar-show t
-  "If show edit toolbar.")
-(defun edit-toolbar-toggle ()
-  "Turn edit toolbar on/off."
+(defvar view-toolbar-show t
+  "If show view toolbar.")
+(defun view-toolbar-toggle ()
+  "Turn view toolbar on/off."
   (interactive)
-  (setq edit-toolbar-show (if edit-toolbar-show nil t))
+  (setq view-toolbar-show (if view-toolbar-show nil t))
   (force-window-update))
 
 (defvar program-toolbar-show t
@@ -285,14 +301,18 @@
   '(menu-item "Program toolbar" program-toolbar-toggle
               :help "Turn program toolbar on/off"
               :button (:toggle . program-toolbar-show)))
+(define-key toggle-toolbar-menu [view-toolbar-toggle]
+  '(menu-item "View toolbar" view-toolbar-toggle
+              :help "Turn view toolbar on/off"
+              :button (:toggle . view-toolbar-show)))
+(define-key toggle-toolbar-menu [search-toolbar-toggle]
+  '(menu-item "Search toolbar" search-toolbar-toggle
+              :help "Turn search toolbar on/off"
+              :button (:toggle . search-toolbar-show)))
 (define-key toggle-toolbar-menu [edit-toolbar-toggle]
   '(menu-item "Edit toolbar" edit-toolbar-toggle
               :help "Turn edit toolbar on/off"
               :button (:toggle . edit-toolbar-show)))
-(define-key toggle-toolbar-menu [bookmark-toolbar-toggle]
-  '(menu-item "Bookmark toolbar" bookmark-toolbar-toggle
-              :help "Turn bookmark toolbar on/off"
-              :button (:toggle . bookmark-toolbar-show)))
 ;; (global-set-key (kbd "<S-mouse-2>") toggle-toolbar-menu)
 ;; (define-key-after menu-bar-tools-menu [toggle-toolbar]
 ;;   (list 'menu-item "Toolbar" toggle-toolbar-menu))
@@ -302,6 +322,51 @@
                      (interactive)
                      (popup-menu toggle-toolbar-menu))
                    'toggle-toolbar-menu)
+
+;; edit toolbar
+(tool-bar-add-item "separator" nil 'edit-toolbar
+                   :visible 'edit-toolbar-show)
+(tool-bar-add-item "upcase" 'upcase-region 'upcase-region
+                   :visible 'edit-toolbar-show
+                   :enable '(region-active-p)
+                   :help "Convert the region to upper case")
+(tool-bar-add-item "downcase" 'downcase-region 'downcase-region
+                   :visible 'edit-toolbar-show
+                   :enable '(region-active-p)
+                   :help "Convert the region to lower case")
+(tool-bar-add-item "comment-toggle" 'comment-or-uncomment-region 'comment-toggle
+                   :visible 'edit-toolbar-show
+                   :enable '(region-active-p)
+                   :help "Comment or uncomment region")
+(tool-bar-add-item "format-region" 'format-region 'format-region
+                   :visible 'edit-toolbar-show
+                   :enable '(fboundp 'format-region)
+                   :help "Format region or all buffer")
+
+;; search toolbar
+(tool-bar-add-item "separator" nil 'search-toolbar
+                   :visible 'search-toolbar-show)
+(tool-bar-add-item "recent-backward"'recent-jump-jump-backward
+                   'recent-jump-jump-backward
+                   :visible 'search-toolbar-show
+                   :enable '(fboundp 'recent-jump-jump-backward)
+                   :help "Backward in the history")
+(tool-bar-add-item "recent-forward" 'recent-jump-jump-forward
+                   'recent-jump-jump-forward
+                   :visible 'search-toolbar-show
+                   :enable '(fboundp 'recent-jump-jump-forward)
+                   :help "Forward in the history")
+(tool-bar-add-item "find" 'isearch-forward
+                   'isearch-forward
+                   :visible 'search-toolbar-show
+                   :help "Forward String...")
+(tool-bar-add-item "find-next" 'isearch-repeat-forward
+                   'isearch-repeat-forward
+                   :visible 'search-toolbar-show
+                   :help "Repeat Forward String")
+(tool-bar-add-item "replace" 'query-replace 'query-replace
+                   :visible 'search-toolbar-show
+                   :help "Replace String...")
 
 ;; bookmark toolbar
 (tool-bar-add-item "separator" nil 'bookmark-toolbar
@@ -343,52 +408,33 @@
                    :visible 'bookmark-toolbar-show
                    :help "Delete all visible bookmarks in current buffer")
 
-;; edit toolbar
-(tool-bar-add-item "separator" nil 'edit-toolbar
-                   :visible 'edit-toolbar-show)
-(tool-bar-add-item "recent-backward"'recent-jump-jump-backward
-                   'recent-jump-jump-backward
-                   :visible 'edit-toolbar-show
-                   :enable '(fboundp 'recent-jump-jump-backward)
-                   :help "Backward in the history")
-(tool-bar-add-item "recent-forward" 'recent-jump-jump-forward
-                   'recent-jump-jump-forward
-                   :visible 'edit-toolbar-show
-                   :enable '(fboundp 'recent-jump-jump-forward)
-                   :help "Forward in the history")
-(tool-bar-add-item "find" 'isearch-forward
-                   'isearch-forward
-                   :visible 'edit-toolbar-show
-                   :help "Forward String...")
-(tool-bar-add-item "find-next" 'isearch-repeat-forward
-                   'isearch-repeat-forward
-                   :visible 'edit-toolbar-show
-                   :help "Repeat Forward String")
-(tool-bar-add-item "replace" 'query-replace 'query-replace
-                   :visible 'edit-toolbar-show
-                   :help "Replace String...")
-(tool-bar-add-item "upcase" 'upcase-region 'upcase-region
-                   :visible 'edit-toolbar-show
-                   :enable '(region-active-p)
-                   :help "Convert the region to upper case")
-(tool-bar-add-item "downcase" 'downcase-region 'downcase-region
-                   :visible 'edit-toolbar-show
-                   :enable '(region-active-p)
-                   :help "Convert the region to lower case")
+;; view toolbar
+(tool-bar-add-item "separator" nil 'view-toolbar
+                   :visible 'view-toolbar-show)
 (tool-bar-add-item "folding" 'hs-toggle-hiding 'folding
-                   :visible 'edit-toolbar-show
+                   :visible 'view-toolbar-show
                    :enable '(and hs-minor-mode (fboundp 'hs-toggle-hiding))
                    :help "Toggle hiding/showing of a block(hs-minor-mode)")
 (tool-bar-add-item "linum" 'global-linum-mode
                    'global-linum-mode
-                   :visible 'edit-toolbar-show
+                   :visible 'view-toolbar-show
                    :enable '(fboundp 'global-linum-mode)
                    :help "Toggle Global Linum mode")
 (tool-bar-add-item "whitespace" 'whitespace-mode
                    'whitespace-mode
-                   :visible 'edit-toolbar-show
+                   :visible 'view-toolbar-show
                    :enable '(fboundp 'whitespace-mode)
                    :help "Toggle whitespace minor mode visualization")
+(tool-bar-add-item "ecb"
+                   (lambda ()
+                     (interactive)
+                     (if (and (boundp 'ecb-minor-mode) ecb-minor-mode)
+                         (ecb-deactivate)
+                       (ecb-activate)))
+                   'ecb
+                   :visible 'view-toolbar-show
+                   :enable '(fboundp 'ecb-activate)
+                   :help "Toggle ECB")
 
 ;; program toolbar
 (tool-bar-add-item "separator" nil 'program-toolbar
@@ -420,16 +466,6 @@
                                  (or (fboundp 'sourcepair-load)
                                      (fboundp 'eassist-switch-h-cpp)))
                    :help "Switch header and body file")
-(tool-bar-add-item "ecb"
-                   (lambda ()
-                     (interactive)
-                     (if (and (boundp 'ecb-minor-mode) ecb-minor-mode)
-                         (ecb-deactivate)
-                       (ecb-activate)))
-                   'ecb
-                   :visible 'program-toolbar-show
-                   :enable '(fboundp 'ecb-activate)
-                   :help "Toggle ECB")
 (tool-bar-add-item "compile" 'compile 'compile
                    :visible 'program-toolbar-show
                    :help "Compile...")
