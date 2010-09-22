@@ -1,5 +1,7 @@
 2010-09-22  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (global-map): Setup dired-x.
+
 	* init-misc.el (require): Add browse-kill-ring.
 
 	* init-toolbar.el: Add comment and format toolbar item.

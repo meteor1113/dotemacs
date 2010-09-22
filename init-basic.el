@@ -326,6 +326,11 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [(control tab)] 'switch-to-other-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
+(define-key global-map "\C-x\C-j"
+  (lambda ()
+    (interactive)
+    (when (require 'dired-x nil 'noerror)
+      (dired-jump))))
 (global-set-key [f4] 'next-error)
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
