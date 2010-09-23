@@ -1,4 +1,4 @@
-;;;
+;;; -*- coding: gbk -*-
 ;; Copyright (C) 2010 Meteor Liu
 ;;
 ;; This code has been released into the Public Domain.
