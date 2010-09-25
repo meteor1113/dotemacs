@@ -527,7 +527,8 @@
 (tool-bar-add-item "separator" nil 'remember-toolbar
                    :visible 'toolbarshow-remember)
 (tool-bar-add-item "remember" 'remember 'remember
-                   :visible 'toolbarshow-remember
+                   :visible '(and toolbarshow-remember
+                                  (not (eq major-mode 'remember-mode)))
                    :help "Remember")
 (tool-bar-add-item "remember-open"
                    (lambda ()
@@ -535,8 +536,17 @@
                      (require 'remember nil 'noerror)
                      (find-file remember-data-file))
                    'remember-open
-                   :visible 'toolbarshow-remember
+                   :visible '(and toolbarshow-remember
+                                  (not (eq major-mode 'remember-mode)))
                    :help "Open remember data file")
+(tool-bar-add-item "remember-finalize" 'remember-finalize 'remember-finalize
+                   :visible '(and toolbarshow-remember
+                                  (eq major-mode 'remember-mode))
+                   :help "Remember the contents of the current buffer")
+(tool-bar-add-item "remember-destroy" 'remember-destroy 'remember-destroy
+                   :visible '(and toolbarshow-remember
+                                  (eq major-mode 'remember-mode))
+                   :help "Destroy the current *Remember* buffer")
 
 ;; emms toolbar
 (tool-bar-add-item "separator" nil 'emms-toolbar
