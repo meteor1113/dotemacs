@@ -1,5 +1,7 @@
 2010-09-25  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el (anything-command-map-prefix-key): anything.
+
 	* init-toolbar.el: Improve remember toolbar setting.
 	Disable all separator.
 

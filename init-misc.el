@@ -429,5 +429,9 @@
       (call-interactively 'emms-play-directory-tree))
   (emms-playlist-mode-go))
 
+;; anything
+(setq anything-command-map-prefix-key "")
+;; (require 'anything-config nil 'noerror)
+
 
 (provide 'init-misc)
