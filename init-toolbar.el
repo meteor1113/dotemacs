@@ -375,7 +375,8 @@
 
 ;; edit toolbar
 (tool-bar-add-item "separator" nil 'edit-toolbar
-                   :visible 'toolbarshow-edit)
+                   :visible 'toolbarshow-edit
+                   :enable nil)
 (tool-bar-add-item "upcase" 'upcase-region 'upcase-region
                    :visible 'toolbarshow-edit
                    :enable '(region-active-p)
@@ -395,7 +396,8 @@
 
 ;; search toolbar
 (tool-bar-add-item "separator" nil 'search-toolbar
-                   :visible 'toolbarshow-search)
+                   :visible 'toolbarshow-search
+                   :enable nil)
 (tool-bar-add-item "recent-backward"'recent-jump-jump-backward
                    'recent-jump-jump-backward
                    :visible 'toolbarshow-search
@@ -420,7 +422,8 @@
 
 ;; bookmark toolbar
 (tool-bar-add-item "separator" nil 'bookmark-toolbar
-                   :visible 'toolbarshow-bookmark)
+                   :visible 'toolbarshow-bookmark
+                   :enable nil)
 (tool-bar-add-item "bm-toggle"
                    (lambda ()
                      (interactive)
@@ -460,7 +463,8 @@
 
 ;; view toolbar
 (tool-bar-add-item "separator" nil 'view-toolbar
-                   :visible 'toolbarshow-view)
+                   :visible 'toolbarshow-view
+                   :enable nil)
 (tool-bar-add-item "folding" 'hs-toggle-hiding 'folding
                    :visible 'toolbarshow-view
                    :enable '(and hs-minor-mode (fboundp 'hs-toggle-hiding))
@@ -488,7 +492,8 @@
 
 ;; program toolbar
 (tool-bar-add-item "separator" nil 'program-toolbar
-                   :visible 'toolbarshow-program)
+                   :visible 'toolbarshow-program
+                   :enable nil)
 (tool-bar-add-item "semantic-jump-back" 'semantic-ia-fast-jump-back
                    'semantic-ia-fast-jump-back
                    :visible 'toolbarshow-program
@@ -525,7 +530,8 @@
 
 ;; remember toolbar
 (tool-bar-add-item "separator" nil 'remember-toolbar
-                   :visible 'toolbarshow-remember)
+                   :visible 'toolbarshow-remember
+                   :enable nil)
 (tool-bar-add-item "remember" 'remember 'remember
                    :visible '(and toolbarshow-remember
                                   (not (eq major-mode 'remember-mode)))
@@ -550,7 +556,8 @@
 
 ;; emms toolbar
 (tool-bar-add-item "separator" nil 'emms-toolbar
-                   :visible 'toolbarshow-emms)
+                   :visible 'toolbarshow-emms
+                   :enable nil)
 (tool-bar-add-item "emms"
                    (lambda ()
                      (interactive)
