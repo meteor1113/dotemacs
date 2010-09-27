@@ -419,6 +419,14 @@
 (tool-bar-add-item "replace" 'query-replace 'query-replace
                    :visible 'toolbarshow-search
                    :help "Replace String...")
+(tool-bar-add-item "grep-current-dir" 'grep-current-dir 'grep-current-dir
+                   :visible '(and toolbarshow-search
+                                  (fboundp 'grep-current-dir))
+                   :help "Find current word in current directory")
+(tool-bar-add-item "moccur-all-buffers" 'moccur-all-buffers 'moccur-all-buffers
+                   :visible '(and toolbarshow-search
+                                  (fboundp 'moccur-all-buffers))
+                   :help "Find current word in all buffers")
 
 ;; bookmark toolbar
 (tool-bar-add-item "separator" nil 'bookmark-toolbar
