@@ -143,45 +143,119 @@
                   (emms)))
               :enable (or (fboundp 'emms-dir-tree) (fboundp 'emms))
               :help "Emms"))
-(define-key toggle-toolbar-menu [separatore-dotemacs-file]
+(define-key toggle-toolbar-menu [separatore-misc]
   '(menu-item "--"))
-(define-key toggle-toolbar-menu [xml-mode]
+
+(defvar change-encoding-sub-menu (make-sparse-keymap "Change encoding"))
+(define-key change-encoding-sub-menu [encoding-sjis]
+  '(menu-item "Shift-jis" (lambda () (interactive)
+                            (set-buffer-file-coding-system 'sjis))))
+(define-key change-encoding-sub-menu [encoding-big5]
+  '(menu-item "Chinese-Big5" (lambda () (interactive)
+                               (set-buffer-file-coding-system 'big5))))
+(define-key change-encoding-sub-menu [encoding-gbk]
+  '(menu-item "Chinese-GBK" (lambda () (interactive)
+                              (set-buffer-file-coding-system 'gbk))))
+(define-key change-encoding-sub-menu [encoding-utf-16le-sign]
+  '(menu-item "UTF-16-LE(BOM)"
+              (lambda () (interactive)
+                (set-buffer-file-coding-system 'utf-16le-with-signature))))
+(define-key change-encoding-sub-menu [encoding-utf-16le]
+  '(menu-item "UTF-16-LE" (lambda () (interactive)
+                            (set-buffer-file-coding-system 'utf-16-le))))
+(define-key change-encoding-sub-menu [encoding-utf-16-sign]
+  '(menu-item "UTF-16(BOM)"
+              (lambda () (interactive)
+                (set-buffer-file-coding-system 'utf-16be-with-signature))))
+(define-key change-encoding-sub-menu [encoding-utf-16]
+  '(menu-item "UTF-16" (lambda () (interactive)
+                         (set-buffer-file-coding-system 'utf-16))))
+(define-key change-encoding-sub-menu [encoding-utf-8-sign]
+  '(menu-item "UTF-8(BOM)"
+              (lambda () (interactive)
+                (set-buffer-file-coding-system 'utf-8-with-signature))))
+(define-key change-encoding-sub-menu [encoding-utf-8]
+  '(menu-item "UTF-8" (lambda () (interactive)
+                        (set-buffer-file-coding-system 'utf-8))))
+(define-key change-encoding-sub-menu [encoding-ascii]
+  '(menu-item "US-ASCII" (lambda () (interactive)
+                           (set-buffer-file-coding-system 'us-ascii))))
+(define-key toggle-toolbar-menu [change-encoding]
+  (list 'menu-item "Change encoding" change-encoding-sub-menu))
+(defvar revert-encoding-sub-menu (make-sparse-keymap "Revert encoding"))
+(define-key revert-encoding-sub-menu [encoding-sjis]
+  '(menu-item "Shift-jis" (lambda () (interactive)
+                            (revert-buffer-with-coding-system 'sjis))))
+(define-key revert-encoding-sub-menu [encoding-big5]
+  '(menu-item "Chinese-Big5" (lambda () (interactive)
+                               (revert-buffer-with-coding-system 'big5))))
+(define-key revert-encoding-sub-menu [encoding-gbk]
+  '(menu-item "Chinese-GBK" (lambda () (interactive)
+                              (revert-buffer-with-coding-system 'gbk))))
+(define-key revert-encoding-sub-menu [encoding-utf-16le-sign]
+  '(menu-item "UTF-16-LE(BOM)"
+              (lambda () (interactive)
+                (revert-buffer-with-coding-system 'utf-16le-with-signature))))
+(define-key revert-encoding-sub-menu [encoding-utf-16le]
+  '(menu-item "UTF-16-LE" (lambda () (interactive)
+                            (revert-buffer-with-coding-system 'utf-16-le))))
+(define-key revert-encoding-sub-menu [encoding-utf-16-sign]
+  '(menu-item "UTF-16(BOM)"
+              (lambda () (interactive)
+                (revert-buffer-with-coding-system 'utf-16be-with-signature))))
+(define-key revert-encoding-sub-menu [encoding-utf-16]
+  '(menu-item "UTF-16" (lambda () (interactive)
+                         (revert-buffer-with-coding-system 'utf-16))))
+(define-key revert-encoding-sub-menu [encoding-utf-8-sign]
+  '(menu-item "UTF-8(BOM)"
+              (lambda () (interactive)
+                (revert-buffer-with-coding-system 'utf-8-with-signature))))
+(define-key revert-encoding-sub-menu [encoding-utf-8]
+  '(menu-item "UTF-8" (lambda () (interactive)
+                        (revert-buffer-with-coding-system 'utf-8))))
+(define-key revert-encoding-sub-menu [encoding-ascii]
+  '(menu-item "US-ASCII" (lambda () (interactive)
+                           (revert-buffer-with-coding-system 'us-ascii))))
+(define-key toggle-toolbar-menu [revert-encoding]
+  (list 'menu-item "Revert with encoding" revert-encoding-sub-menu))
+(defvar language-sub-menu (make-sparse-keymap "Language"))
+(define-key language-sub-menu [xml-mode]
   '(menu-item "XML" nxml-mode
               :visible (fboundp 'nxml-mode)
               :button (:toggle . (eq major-mode 'nxml-mode))))
-(define-key toggle-toolbar-menu [text-mode]
+(define-key language-sub-menu [text-mode]
   '(menu-item "Text" text-mode
               :visible (fboundp 'text-mode)
               :button (:toggle . (eq major-mode 'text-mode))))
-(define-key toggle-toolbar-menu [tcl-mode]
+(define-key language-sub-menu [tcl-mode]
   '(menu-item "Tcl" tcl-mode
               :visible (fboundp 'tcl-mode)
               :button (:toggle . (eq major-mode 'tcl-mode))))
-(define-key toggle-toolbar-menu [sql-mode]
+(define-key language-sub-menu [sql-mode]
   '(menu-item "SQL" sql-mode
               :visible (fboundp 'sql-mode)
               :button (:toggle . (eq major-mode 'sql-mode))))
-(define-key toggle-toolbar-menu [sh-mode]
+(define-key language-sub-menu [sh-mode]
   '(menu-item "Shell" sh-mode
               :visible (fboundp 'sh-mode)
               :button (:toggle . (eq major-mode 'sh-mode))))
-(define-key toggle-toolbar-menu [scheme-mode]
+(define-key language-sub-menu [scheme-mode]
   '(menu-item "Scheme" scheme-mode
               :visible (fboundp 'scheme-mode)
               :button (:toggle . (eq major-mode 'scheme-mode))))
-(define-key toggle-toolbar-menu [ruby-mode]
+(define-key language-sub-menu [ruby-mode]
   '(menu-item "Ruby" ruby-mode
               :visible (fboundp 'ruby-mode)
               :button (:toggle . (eq major-mode 'ruby-mode))))
-(define-key toggle-toolbar-menu [rst-mode]
+(define-key language-sub-menu [rst-mode]
   '(menu-item "ReST" rst-mode
               :visible (fboundp 'rst-mode)
               :button (:toggle . (eq major-mode 'rst-mode))))
-(define-key toggle-toolbar-menu [python-mode]
+(define-key language-sub-menu [python-mode]
   '(menu-item "Python" python-mode
               :visible (fboundp 'python-mode)
               :button (:toggle . (eq major-mode 'python-mode))))
-(define-key toggle-toolbar-menu [php-mode]
+(define-key language-sub-menu [php-mode]
   '(menu-item "PHP" php-mode
               :visible (fboundp 'php-mode)
               :button (:toggle . (eq major-mode 'php-mode))))
@@ -194,17 +268,17 @@
   '(menu-item "Perl" perl-mode
               :visible (fboundp 'perl-mode)
               :button (:toggle . (eq major-mode 'perl-mode))))
-(define-key toggle-toolbar-menu [perl]
+(define-key language-sub-menu [perl]
   (list 'menu-item "Perl" perl-sub-mode-menu))
-(define-key toggle-toolbar-menu [pascal-mode]
+(define-key language-sub-menu [pascal-mode]
   '(menu-item "Pascal" pascal-mode
               :visible (fboundp 'pascal-mode)
               :button (:toggle . (eq major-mode 'pascal-mode))))
-(define-key toggle-toolbar-menu [org-mode]
+(define-key language-sub-menu [org-mode]
   '(menu-item "Org" org-mode
               :visible (fboundp 'org-mode)
               :button (:toggle . (eq major-mode 'org-mode))))
-(define-key toggle-toolbar-menu [objc-mode]
+(define-key language-sub-menu [objc-mode]
   '(menu-item "ObjC" objc-mode
               :visible (fboundp 'objc-mode)
               :button (:toggle . (eq major-mode 'objc-mode))))
@@ -233,25 +307,25 @@
   '(menu-item "GNU make" makefile-gmake-mode
               :visible (fboundp 'makefile-gmake-mode)
               :button (:toggle . (eq major-mode 'makefile-gmake-mode))))
-(define-key toggle-toolbar-menu [makefile]
+(define-key language-sub-menu [makefile]
   (list 'menu-item "Makefile" makefile-sub-mode-menu))
-(define-key toggle-toolbar-menu [lisp-mode]
+(define-key language-sub-menu [lisp-mode]
   '(menu-item "Lisp" lisp-mode
               :visible (fboundp 'lisp-mode)
               :button (:toggle . (eq major-mode 'lisp-mode))))
-(define-key toggle-toolbar-menu [latex-mode]
+(define-key language-sub-menu [latex-mode]
   '(menu-item "LaTeX" latex-mode
               :visible (fboundp 'latex-mode)
               :button (:toggle . (eq major-mode 'latex-mode))))
-(define-key toggle-toolbar-menu [js-mode]
+(define-key language-sub-menu [js-mode]
   '(menu-item "Javascript" js-mode
               :visible (fboundp 'js-mode)
               :button (:toggle . (eq major-mode 'js-mode))))
-(define-key toggle-toolbar-menu [java-mode]
+(define-key language-sub-menu [java-mode]
   '(menu-item "Java" java-mode
               :visible (fboundp 'java-mode)
               :button (:toggle . (eq major-mode 'java-mode))))
-(define-key toggle-toolbar-menu [html-mode]
+(define-key language-sub-menu [html-mode]
   '(menu-item "HTML" html-mode
               :visible (fboundp 'html-mode)
               :button (:toggle . (eq major-mode 'html-mode))))
@@ -264,21 +338,21 @@
   '(menu-item "Fortran" fortran-mode
               :visible (fboundp 'fortran-mode)
               :button (:toggle . (eq major-mode 'fortran-mode))))
-(define-key toggle-toolbar-menu [fortran]
+(define-key language-sub-menu [fortran]
   (list 'menu-item "Fortran" fortran-sub-mode-menu))
-(define-key toggle-toolbar-menu [emacs-lisp-mode]
+(define-key language-sub-menu [emacs-lisp-mode]
   '(menu-item "Emacs-Lisp" emacs-lisp-mode
               :visible (fboundp 'emacs-lisp-mode)
               :button (:toggle . (eq major-mode 'emacs-lisp-mode))))
-(define-key toggle-toolbar-menu [delphi-mode]
+(define-key language-sub-menu [delphi-mode]
   '(menu-item "Delphi" delphi-mode
               :visible (fboundp 'delphi-mode)
               :button (:toggle . (eq major-mode 'delphi-mode))))
-(define-key toggle-toolbar-menu [css-mode]
+(define-key language-sub-menu [css-mode]
   '(menu-item "CSS" css-mode
               :visible (fboundp 'css-mode)
               :button (:toggle . (eq major-mode 'css-mode))))
-(define-key toggle-toolbar-menu [csv-mode]
+(define-key language-sub-menu [csv-mode]
   '(menu-item "CSV" csv-mode
               :visible (fboundp 'csv-mode)
               :button (:toggle . (eq major-mode 'csv-mode))))
@@ -314,34 +388,37 @@
 (define-key conf-sub-mode-menu [conf-mode]
   '(menu-item "Auto detect..." conf-mode
               :visible (fboundp 'conf-mode)))
-(define-key toggle-toolbar-menu [conf]
+(define-key language-sub-menu [conf]
   (list 'menu-item "Conf" conf-sub-mode-menu))
-(define-key toggle-toolbar-menu [csharp-mode]
+(define-key language-sub-menu [csharp-mode]
   '(menu-item "C#" csharp-mode
               :visible (fboundp 'csharp-mode)
               :button (:toggle . (eq major-mode 'csharp-mode))))
-(define-key toggle-toolbar-menu [c++-mode]
+(define-key language-sub-menu [c++-mode]
   '(menu-item "C++" c++-mode
               :visible (fboundp 'c++-mode)
               :button (:toggle . (eq major-mode 'c++-mode))))
-(define-key toggle-toolbar-menu [c-mode]
+(define-key language-sub-menu [c-mode]
   '(menu-item "C" c-mode
               :visible (fboundp 'c-mode)
               :button (:toggle . (eq major-mode 'c-mode))))
-(define-key toggle-toolbar-menu [autoconf-mode]
+(define-key language-sub-menu [autoconf-mode]
   '(menu-item "Autoconf" autoconf-mode
               :visible (fboundp 'autoconf-mode)
               :button (:toggle . (eq major-mode 'autoconf-mode))))
-(define-key toggle-toolbar-menu [asm-mode]
+(define-key language-sub-menu [asm-mode]
   '(menu-item "Assembler" asm-mode
               :visible (fboundp 'asm-mode)
               :button (:toggle . (eq major-mode 'asm-mode))))
-(define-key toggle-toolbar-menu [ada-mode]
+(define-key language-sub-menu [ada-mode]
   '(menu-item "Ada" ada-mode
               :visible (fboundp 'ada-mode)
               :button (:toggle . (eq major-mode 'ada-mode))))
-(define-key toggle-toolbar-menu [separatore-major-mode]
+(define-key toggle-toolbar-menu [language]
+  (list 'menu-item "Language" language-sub-menu))
+(define-key toggle-toolbar-menu [separatore-encoding]
   '(menu-item "--"))
+
 (define-key toggle-toolbar-menu [toolbarshow-toggle-emms]
   '(menu-item "Emms toolbar" toolbarshow-toggle-emms
               :help "Turn emms toolbar on/off"
@@ -370,6 +447,7 @@
   '(menu-item "Edit toolbar" toolbarshow-toggle-edit
               :help "Turn edit toolbar on/off"
               :button (:toggle . toolbarshow-edit)))
+
 ;; (global-set-key (kbd "<S-mouse-2>") toggle-toolbar-menu)
 ;; (define-key-after menu-bar-tools-menu [toggle-toolbar]
 ;;   (list 'menu-item "Toolbar" toggle-toolbar-menu))
@@ -388,22 +466,22 @@
                    :visible 'toolbarshow-edit
                    :enable '(region-active-p)
                    :help '(concat "Convert the region to upper case"
-                                 (key4cmd 'upcase-region)))
+                                  (key4cmd 'upcase-region)))
 (tool-bar-add-item "downcase" 'downcase-region 'downcase-region
                    :visible 'toolbarshow-edit
                    :enable '(region-active-p)
                    :help '(concat "Convert the region to lower case"
-                                 (key4cmd 'downcase-region)))
+                                  (key4cmd 'downcase-region)))
 (tool-bar-add-item "comment-toggle" 'comment-or-uncomment-region 'comment-toggle
                    :visible 'toolbarshow-edit
                    :enable '(region-active-p)
                    :help '(concat "Comment or uncomment region"
-                                 (key4cmd 'comment-or-uncomment-region)))
+                                  (key4cmd 'comment-or-uncomment-region)))
 (tool-bar-add-item "format-region" 'format-region 'format-region
                    :visible 'toolbarshow-edit
                    :enable '(fboundp 'format-region)
                    :help '(concat "Format region or all buffer"
-                                 (key4cmd 'format-region)))
+                                  (key4cmd 'format-region)))
 
 ;; search toolbar
 (tool-bar-add-item "separator" nil 'search-toolbar
@@ -414,41 +492,41 @@
                    :visible 'toolbarshow-search
                    :enable '(fboundp 'recent-jump-jump-backward)
                    :help '(concat "Backward in the history"
-                                 (key4cmd 'recent-jump-jump-backward)))
+                                  (key4cmd 'recent-jump-jump-backward)))
 (tool-bar-add-item "recent-forward" 'recent-jump-jump-forward
                    'recent-jump-jump-forward
                    :visible 'toolbarshow-search
                    :enable '(fboundp 'recent-jump-jump-forward)
                    :help '(concat "Forward in the history"
-                                 (key4cmd 'recent-jump-jump-forward)))
+                                  (key4cmd 'recent-jump-jump-forward)))
 (tool-bar-add-item "find" 'isearch-forward 'isearch-forward
                    :visible 'toolbarshow-search
                    :help '(concat "Forward String..."
-                                 (key4cmd 'isearch-forward)))
+                                  (key4cmd 'isearch-forward)))
 (tool-bar-add-item "find-next" 'isearch-repeat-forward 'isearch-repeat-forward
                    :visible 'toolbarshow-search
                    :help '(concat "Repeat Forward String"
-                                 (key4cmd 'isearch-repeat-forward)))
+                                  (key4cmd 'isearch-repeat-forward)))
 (tool-bar-add-item "replace" 'query-replace 'query-replace
                    :visible 'toolbarshow-search
                    :help '(concat "Replace String..."
-                                 (key4cmd 'query-replace)))
+                                  (key4cmd 'query-replace)))
 (tool-bar-add-item "grep-current-dir" 'grep-current-dir 'grep-current-dir
                    :visible 'toolbarshow-search
                    :help '(concat "Find current word in current directory"
-                                 (key4cmd 'grep-current-dir)))
+                                  (key4cmd 'grep-current-dir)))
 (tool-bar-add-item "moccur-all-buffers" 'moccur-all-buffers 'moccur-all-buffers
                    :visible 'toolbarshow-search
                    :help '(concat "Find current word in all buffers"
-                                 (key4cmd 'moccur-all-buffers)))
+                                  (key4cmd 'moccur-all-buffers)))
 (tool-bar-add-item "todo-grep" 'grep-todo-current-dir 'todo-grep
                    :visible 'toolbarshow-search
                    :help '(concat "Find 'TODO' in current directory"
-                                 (key4cmd 'grep-todo-current-dir)))
+                                  (key4cmd 'grep-todo-current-dir)))
 (tool-bar-add-item "todo-moccur" 'moccur-todo-all-buffers 'todo-moccur
                    :visible 'toolbarshow-search
                    :help '(concat "Find 'TODO' in all buffers"
-                                 (key4cmd 'moccur-todo-all-buffers)))
+                                  (key4cmd 'moccur-todo-all-buffers)))
 
 ;; bookmark toolbar
 (tool-bar-add-item "separator" nil 'bookmark-toolbar
@@ -463,7 +541,7 @@
                    'bm-toggle
                    :visible 'toolbarshow-bookmark
                    :help '(concat "Toggle bookmark at point"
-                                 (key4cmd 'bm-toggle)))
+                                  (key4cmd 'bm-toggle)))
 (tool-bar-add-item "bm-next"
                    (lambda ()
                      (interactive)
@@ -473,7 +551,7 @@
                    'bm-next
                    :visible 'toolbarshow-bookmark
                    :help '(concat "Goto next bookmark"
-                                 (key4cmd 'bm-next)))
+                                  (key4cmd 'bm-next)))
 (tool-bar-add-item "bm-previous"
                    (lambda ()
                      (interactive)
@@ -483,7 +561,7 @@
                    'bm-previous
                    :visible 'toolbarshow-bookmark
                    :help '(concat "Goto previous bookmark"
-                                 (key4cmd 'bm-previous)))
+                                  (key4cmd 'bm-previous)))
 (tool-bar-add-item "bm-clear"
                    (lambda ()
                      (interactive)
@@ -493,7 +571,7 @@
                    'bm-remove-all-current-buffer
                    :visible 'toolbarshow-bookmark
                    :help '(concat "Delete all bookmarks in current buffer"
-                                 (key4cmd 'bm-remove-all-current-buffer)))
+                                  (key4cmd 'bm-remove-all-current-buffer)))
 
 ;; view toolbar
 (tool-bar-add-item "separator" nil 'view-toolbar
@@ -508,12 +586,12 @@
                    :visible 'toolbarshow-view
                    :enable '(fboundp 'global-linum-mode)
                    :help '(concat "Toggle Global Linum mode"
-                                 (key4cmd 'global-linum-mode)))
+                                  (key4cmd 'global-linum-mode)))
 (tool-bar-add-item "whitespace" 'whitespace-mode 'whitespace-mode
                    :visible 'toolbarshow-view
                    :enable '(fboundp 'whitespace-mode)
                    :help '(concat "Toggle whitespace minor mode visualization"
-                                 (key4cmd 'whitespace-mode)))
+                                  (key4cmd 'whitespace-mode)))
 (tool-bar-add-item "ecb"
                    (lambda ()
                      (interactive)
@@ -524,7 +602,7 @@
                    :visible 'toolbarshow-view
                    :enable '(fboundp 'ecb-activate)
                    :help '(concat "Toggle ECB"
-                                 (key4cmd 'ecb-activate)))
+                                  (key4cmd 'ecb-activate)))
 
 ;; program toolbar
 (tool-bar-add-item "separator" nil 'program-toolbar
@@ -535,12 +613,12 @@
                    :visible 'toolbarshow-program
                    :enable (fboundp 'semantic-ia-fast-jump-back)
                    :help '(concat "Jump back to previous tag (Semantic)"
-                                 (key4cmd 'semantic-ia-fast-jump-back)))
+                                  (key4cmd 'semantic-ia-fast-jump-back)))
 (tool-bar-add-item "semantic-jump" 'semantic-ia-fast-jump 'semantic-ia-fast-jump
                    :visible 'toolbarshow-program
                    :enable (fboundp 'semantic-ia-fast-jump)
                    :help '(concat "Jump to the tag at point (Semantic)"
-                                 (key4cmd 'semantic-ia-fast-jump-or-back)))
+                                  (key4cmd 'semantic-ia-fast-jump-or-back)))
 ;; (tool-bar-add-item "semantic-impl-toggle" 'semantic-analyze-proto-impl-toggle
 ;;                    'semantic-analyze-proto-impl-toggle
 ;;                    :visible 'toolbarshow-program
@@ -559,15 +637,15 @@
                                  (or (fboundp 'sourcepair-load)
                                      (fboundp 'eassist-switch-h-cpp)))
                    :help '(concat "Switch header and body file"
-                                 (key4cmd 'sourcepair-load)))
+                                  (key4cmd 'sourcepair-load)))
 (tool-bar-add-item "compile" 'compile 'compile
                    :visible 'toolbarshow-program
                    :help '(concat "Compile..."
-                                 (key4cmd 'compile)))
+                                  (key4cmd 'compile)))
 (tool-bar-add-item "debug" 'gdb 'gdb
                    :visible 'toolbarshow-program
                    :help '(concat "Debugger (GDB)..."
-                                 (key4cmd 'gdb)))
+                                  (key4cmd 'gdb)))
 
 ;; remember toolbar
 (tool-bar-add-item "separator" nil 'remember-toolbar
@@ -577,7 +655,7 @@
                    :visible '(and toolbarshow-remember
                                   (not (eq major-mode 'remember-mode)))
                    :help '(concat "Remember"
-                                 (key4cmd 'remember)))
+                                  (key4cmd 'remember)))
 (tool-bar-add-item "remember-open"
                    (lambda ()
                      (interactive)
@@ -591,12 +669,12 @@
                    :visible '(and toolbarshow-remember
                                   (eq major-mode 'remember-mode))
                    :help '(concat "Remember the contents of the current buffer"
-                                 (key4cmd 'remember-finalize)))
+                                  (key4cmd 'remember-finalize)))
 (tool-bar-add-item "remember-destroy" 'remember-destroy 'remember-destroy
                    :visible '(and toolbarshow-remember
                                   (eq major-mode 'remember-mode))
                    :help '(concat "Destroy the current *Remember* buffer"
-                                 (key4cmd 'remember-destroy)))
+                                  (key4cmd 'remember-destroy)))
 
 ;; emms toolbar
 (tool-bar-add-item "separator" nil 'emms-toolbar
@@ -611,42 +689,42 @@
                    'emms
                    :visible 'toolbarshow-emms
                    :help '(concat "Emms"
-                                 (key4cmd 'emms)))
+                                  (key4cmd 'emms)))
 (tool-bar-add-item "emms-previous" 'emms-previous 'emms-previous
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-previous)
                    :help '(concat "Previous track"
-                                 (key4cmd 'emms-previous)))
+                                  (key4cmd 'emms-previous)))
 (tool-bar-add-item "emms-seek-backward" 'emms-seek-backward 'emms-seek-backward
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-seek-backward)
                    :help '(concat "Seek backward"
-                                 (key4cmd 'emms-seek-backward)))
+                                  (key4cmd 'emms-seek-backward)))
 (tool-bar-add-item "emms-stop" 'emms-stop 'emms-stop
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-stop)
                    :help '(concat "Stop"
-                                 (key4cmd 'emms-stop)))
+                                  (key4cmd 'emms-stop)))
 (tool-bar-add-item "emms-start" 'emms-start 'emms-start
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-start)
                    :help '(concat "Start"
-                                 (key4cmd 'emms-start)))
+                                  (key4cmd 'emms-start)))
 (tool-bar-add-item "emms-pause" 'emms-pause 'emms-pause
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-pause)
                    :help '(concat "Pause"
-                                 (key4cmd 'emms-pause)))
+                                  (key4cmd 'emms-pause)))
 (tool-bar-add-item "emms-seek-forward" 'emms-seek-forward 'emms-seek-forward
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-seek-forward)
                    :help '(concat "Seek forward"
-                                 (key4cmd 'emms-seek-forward)))
+                                  (key4cmd 'emms-seek-forward)))
 (tool-bar-add-item "emms-next" 'emms-next 'emms-next
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-next)
                    :help '(concat "Next track"
-                                 (key4cmd 'emms-next)))
+                                  (key4cmd 'emms-next)))
 
 
 (provide 'init-toolbar)
