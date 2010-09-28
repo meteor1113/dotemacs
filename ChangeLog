@@ -2,6 +2,7 @@
 
 	* init-toolbar.el: Add key description for toolbar help.
 	: Add Revert and Change encoding menu.
+	(emms-sub-menu): Improve emms menu.
 
 2010-09-27  Meteor Liu  <meteor1113@gmail.com>
 

@@ -134,7 +134,29 @@
   '(menu-item "Open .emacs" find-dotemacs-file
               :enable (fboundp 'find-dotemacs-file)
               :help "Open .emacs file"))
-(define-key toggle-toolbar-menu [emms]
+(defvar emms-sub-menu (make-sparse-keymap "Emms"))
+(define-key emms-sub-menu [emms-seek-backward]
+  '(menu-item "Seek backward" emms-seek-backward
+              :enable (fboundp 'emms-seek-backward)))
+(define-key emms-sub-menu [emms-seek-forward]
+  '(menu-item "Seek forward" emms-seek-forward
+              :enable (fboundp 'emms-seek-forward)))
+(define-key emms-sub-menu [emms-stop]
+  '(menu-item "Stop" emms-stop
+              :enable (fboundp 'emms-stop)))
+(define-key emms-sub-menu [emms-start]
+  '(menu-item "Start" emms-start
+              :enable (fboundp 'emms-start)))
+(define-key emms-sub-menu [emms-pause]
+  '(menu-item "Pause" emms-pause
+              :enable (fboundp 'emms-pause)))
+(define-key emms-sub-menu [emms-next]
+  '(menu-item "Next track" emms-next
+              :enable (fboundp 'emms-next)))
+(define-key emms-sub-menu [emms-previous]
+  '(menu-item "Previous track" emms-previous
+              :enable (fboundp 'emms-previous)))
+(define-key emms-sub-menu [emms]
   '(menu-item "Emms"
               (lambda ()
                 (interactive)
@@ -143,6 +165,8 @@
                   (emms)))
               :enable (or (fboundp 'emms-dir-tree) (fboundp 'emms))
               :help "Emms"))
+(define-key toggle-toolbar-menu [emms]
+  (list 'menu-item "Emms" emms-sub-menu))
 (define-key toggle-toolbar-menu [separatore-misc]
   '(menu-item "--"))
 
