@@ -284,6 +284,12 @@ Like eclipse's Ctrl+Alt+F."
       (setq word (read-regexp "List lines matching regexp" word)))
     (moccur-word-all-buffers word)))
 
+(defun moccur-todo-all-buffers ()
+  "Run `multi-occur' to find 'TODO' in all buffers."
+  (interactive)
+  (moccur-word-all-buffers
+   "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>"))
+
 (autoload 'grep-tag-default "grep")
 (defun grep-current-dir (&optional is-prompt wd)
   "Run `grep' to find current word in current directory."
@@ -298,6 +304,11 @@ Like eclipse's Ctrl+Alt+F."
       (if (= 0 (length word))
           (message "Word is blank.")
         (grep cmd)))))
+
+(defun grep-todo-current-dir ()
+  "Run `grep' to find 'TODO' in current directory."
+  (interactive)
+  (grep-current-dir nil "TODO|FIXME"))
 
 (defun switch-to-other-buffer ()
   "Switch to (other-buffer)."
@@ -337,14 +348,14 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "ESC <f4>") 'kill-this-buffer) ; putty
 (global-set-key [f6] 'grep-current-dir)
 (global-set-key [C-f6] 'moccur-all-buffers)
-(global-set-key [M-f6]
-                (lambda () (interactive) (grep-current-dir nil "TODO|FIXME")))
+(global-set-key [M-f6] 'grep-todo-current-dir)
+                ;; (lambda () (interactive) (grep-current-dir nil "TODO|FIXME")))
 (global-set-key (kbd "ESC <f6>") (key-binding [M-f6]))
-(global-set-key [C-M-f6]
-                '(lambda ()
-                   (interactive)
-                   (moccur-word-all-buffers
-                    "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>")))
+(global-set-key [C-M-f6] 'moccur-todo-all-buffers)
+                ;; '(lambda ()
+                ;;    (interactive)
+                ;;    (moccur-word-all-buffers
+                ;;     "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>")))
 (global-set-key (kbd "ESC <C-f6>") (key-binding [C-M-f6]))
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (global-set-key [header-line double-mouse-1] 'kill-this-buffer)

@@ -31,6 +31,13 @@
 (setq tool-bar-button-margin 0)
 ;; (setq auto-resize-tool-bars nil)
 
+(defun key4cmd (cmd)
+  "Get keys for command."
+  (let ((key (mapconcat 'key-description (where-is-internal cmd) ",")))
+    (if (= 0 (length key))
+        (concat "(M-x " (symbol-name cmd) ")")
+      (concat "(" key ")"))))
+(key4cmd 'ecb-activate)
 (defgroup toolbarshow nil
   "Custom toolbar"
   :group 'environment)
@@ -380,53 +387,68 @@
 (tool-bar-add-item "upcase" 'upcase-region 'upcase-region
                    :visible 'toolbarshow-edit
                    :enable '(region-active-p)
-                   :help "Convert the region to upper case")
+                   :help '(concat "Convert the region to upper case"
+                                 (key4cmd 'upcase-region)))
 (tool-bar-add-item "downcase" 'downcase-region 'downcase-region
                    :visible 'toolbarshow-edit
                    :enable '(region-active-p)
-                   :help "Convert the region to lower case")
+                   :help '(concat "Convert the region to lower case"
+                                 (key4cmd 'downcase-region)))
 (tool-bar-add-item "comment-toggle" 'comment-or-uncomment-region 'comment-toggle
                    :visible 'toolbarshow-edit
                    :enable '(region-active-p)
-                   :help "Comment or uncomment region")
+                   :help '(concat "Comment or uncomment region"
+                                 (key4cmd 'comment-or-uncomment-region)))
 (tool-bar-add-item "format-region" 'format-region 'format-region
                    :visible 'toolbarshow-edit
                    :enable '(fboundp 'format-region)
-                   :help "Format region or all buffer")
+                   :help '(concat "Format region or all buffer"
+                                 (key4cmd 'format-region)))
 
 ;; search toolbar
 (tool-bar-add-item "separator" nil 'search-toolbar
                    :visible 'toolbarshow-search
                    :enable nil)
-(tool-bar-add-item "recent-backward"'recent-jump-jump-backward
+(tool-bar-add-item "recent-backward" 'recent-jump-jump-backward
                    'recent-jump-jump-backward
                    :visible 'toolbarshow-search
                    :enable '(fboundp 'recent-jump-jump-backward)
-                   :help "Backward in the history")
+                   :help '(concat "Backward in the history"
+                                 (key4cmd 'recent-jump-jump-backward)))
 (tool-bar-add-item "recent-forward" 'recent-jump-jump-forward
                    'recent-jump-jump-forward
                    :visible 'toolbarshow-search
                    :enable '(fboundp 'recent-jump-jump-forward)
-                   :help "Forward in the history")
-(tool-bar-add-item "find" 'isearch-forward
-                   'isearch-forward
+                   :help '(concat "Forward in the history"
+                                 (key4cmd 'recent-jump-jump-forward)))
+(tool-bar-add-item "find" 'isearch-forward 'isearch-forward
                    :visible 'toolbarshow-search
-                   :help "Forward String...")
-(tool-bar-add-item "find-next" 'isearch-repeat-forward
-                   'isearch-repeat-forward
+                   :help '(concat "Forward String..."
+                                 (key4cmd 'isearch-forward)))
+(tool-bar-add-item "find-next" 'isearch-repeat-forward 'isearch-repeat-forward
                    :visible 'toolbarshow-search
-                   :help "Repeat Forward String")
+                   :help '(concat "Repeat Forward String"
+                                 (key4cmd 'isearch-repeat-forward)))
 (tool-bar-add-item "replace" 'query-replace 'query-replace
                    :visible 'toolbarshow-search
-                   :help "Replace String...")
+                   :help '(concat "Replace String..."
+                                 (key4cmd 'query-replace)))
 (tool-bar-add-item "grep-current-dir" 'grep-current-dir 'grep-current-dir
-                   :visible '(and toolbarshow-search
-                                  (fboundp 'grep-current-dir))
-                   :help "Find current word in current directory")
+                   :visible 'toolbarshow-search
+                   :help '(concat "Find current word in current directory"
+                                 (key4cmd 'grep-current-dir)))
 (tool-bar-add-item "moccur-all-buffers" 'moccur-all-buffers 'moccur-all-buffers
-                   :visible '(and toolbarshow-search
-                                  (fboundp 'moccur-all-buffers))
-                   :help "Find current word in all buffers")
+                   :visible 'toolbarshow-search
+                   :help '(concat "Find current word in all buffers"
+                                 (key4cmd 'moccur-all-buffers)))
+(tool-bar-add-item "todo-grep" 'grep-todo-current-dir 'todo-grep
+                   :visible 'toolbarshow-search
+                   :help '(concat "Find 'TODO' in current directory"
+                                 (key4cmd 'grep-todo-current-dir)))
+(tool-bar-add-item "todo-moccur" 'moccur-todo-all-buffers 'todo-moccur
+                   :visible 'toolbarshow-search
+                   :help '(concat "Find 'TODO' in all buffers"
+                                 (key4cmd 'moccur-todo-all-buffers)))
 
 ;; bookmark toolbar
 (tool-bar-add-item "separator" nil 'bookmark-toolbar
@@ -440,7 +462,8 @@
                        (viss-bookmark-toggle)))
                    'bm-toggle
                    :visible 'toolbarshow-bookmark
-                   :help "Toggle bookmark at point")
+                   :help '(concat "Toggle bookmark at point"
+                                 (key4cmd 'bm-toggle)))
 (tool-bar-add-item "bm-next"
                    (lambda ()
                      (interactive)
@@ -449,7 +472,8 @@
                        (viss-bookmark-next-buffer)))
                    'bm-next
                    :visible 'toolbarshow-bookmark
-                   :help "Goto next bookmark")
+                   :help '(concat "Goto next bookmark"
+                                 (key4cmd 'bm-next)))
 (tool-bar-add-item "bm-previous"
                    (lambda ()
                      (interactive)
@@ -458,7 +482,8 @@
                        (viss-bookmark-prev-buffer)))
                    'bm-previous
                    :visible 'toolbarshow-bookmark
-                   :help "Goto previous bookmark")
+                   :help '(concat "Goto previous bookmark"
+                                 (key4cmd 'bm-previous)))
 (tool-bar-add-item "bm-clear"
                    (lambda ()
                      (interactive)
@@ -467,7 +492,8 @@
                        (viss-bookmark-clear-all-buffer)))
                    'bm-remove-all-current-buffer
                    :visible 'toolbarshow-bookmark
-                   :help "Delete all visible bookmarks in current buffer")
+                   :help '(concat "Delete all bookmarks in current buffer"
+                                 (key4cmd 'bm-remove-all-current-buffer)))
 
 ;; view toolbar
 (tool-bar-add-item "separator" nil 'view-toolbar
@@ -476,17 +502,18 @@
 (tool-bar-add-item "folding" 'hs-toggle-hiding 'folding
                    :visible 'toolbarshow-view
                    :enable '(and hs-minor-mode (fboundp 'hs-toggle-hiding))
-                   :help "Toggle hiding/showing of a block(hs-minor-mode)")
-(tool-bar-add-item "linum" 'global-linum-mode
-                   'global-linum-mode
+                   :help '(concat "Toggle hiding/showing of a block"
+                                  (key4cmd 'hs-toggle-hiding)))
+(tool-bar-add-item "linum" 'global-linum-mode 'global-linum-mode
                    :visible 'toolbarshow-view
                    :enable '(fboundp 'global-linum-mode)
-                   :help "Toggle Global Linum mode")
-(tool-bar-add-item "whitespace" 'whitespace-mode
-                   'whitespace-mode
+                   :help '(concat "Toggle Global Linum mode"
+                                 (key4cmd 'global-linum-mode)))
+(tool-bar-add-item "whitespace" 'whitespace-mode 'whitespace-mode
                    :visible 'toolbarshow-view
                    :enable '(fboundp 'whitespace-mode)
-                   :help "Toggle whitespace minor mode visualization")
+                   :help '(concat "Toggle whitespace minor mode visualization"
+                                 (key4cmd 'whitespace-mode)))
 (tool-bar-add-item "ecb"
                    (lambda ()
                      (interactive)
@@ -496,7 +523,8 @@
                    'ecb
                    :visible 'toolbarshow-view
                    :enable '(fboundp 'ecb-activate)
-                   :help "Toggle ECB")
+                   :help '(concat "Toggle ECB"
+                                 (key4cmd 'ecb-activate)))
 
 ;; program toolbar
 (tool-bar-add-item "separator" nil 'program-toolbar
@@ -506,17 +534,19 @@
                    'semantic-ia-fast-jump-back
                    :visible 'toolbarshow-program
                    :enable (fboundp 'semantic-ia-fast-jump-back)
-                   :help "Jump back to previous tag (Semantic)")
-(tool-bar-add-item "semantic-jump" 'semantic-ia-fast-jump
-                   'semantic-ia-fast-jump
+                   :help '(concat "Jump back to previous tag (Semantic)"
+                                 (key4cmd 'semantic-ia-fast-jump-back)))
+(tool-bar-add-item "semantic-jump" 'semantic-ia-fast-jump 'semantic-ia-fast-jump
                    :visible 'toolbarshow-program
                    :enable (fboundp 'semantic-ia-fast-jump)
-                   :help "Jump to the tag at point (Semantic)")
+                   :help '(concat "Jump to the tag at point (Semantic)"
+                                 (key4cmd 'semantic-ia-fast-jump-or-back)))
 ;; (tool-bar-add-item "semantic-impl-toggle" 'semantic-analyze-proto-impl-toggle
 ;;                    'semantic-analyze-proto-impl-toggle
 ;;                    :visible 'toolbarshow-program
 ;;                    :enable (fboundp 'semantic-analyze-proto-impl-toggle)
-;;                    :help "Toggle implementation and prototype (Semantic)")
+;;                    :help '(concat "Toggle impl and prototype (Semantic)"
+;;                                  (key4cmd 'semantic-analyze-proto-impl-toggle)))
 (tool-bar-add-item "sourcepair"
                    (lambda ()
                      (interactive)
@@ -528,13 +558,16 @@
                    :enable '(and (memq major-mode '(c++-mode c-mode objc-mode))
                                  (or (fboundp 'sourcepair-load)
                                      (fboundp 'eassist-switch-h-cpp)))
-                   :help "Switch header and body file")
+                   :help '(concat "Switch header and body file"
+                                 (key4cmd 'sourcepair-load)))
 (tool-bar-add-item "compile" 'compile 'compile
                    :visible 'toolbarshow-program
-                   :help "Compile...")
+                   :help '(concat "Compile..."
+                                 (key4cmd 'compile)))
 (tool-bar-add-item "debug" 'gdb 'gdb
                    :visible 'toolbarshow-program
-                   :help "Debugger (GDB)...")
+                   :help '(concat "Debugger (GDB)..."
+                                 (key4cmd 'gdb)))
 
 ;; remember toolbar
 (tool-bar-add-item "separator" nil 'remember-toolbar
@@ -543,7 +576,8 @@
 (tool-bar-add-item "remember" 'remember 'remember
                    :visible '(and toolbarshow-remember
                                   (not (eq major-mode 'remember-mode)))
-                   :help "Remember")
+                   :help '(concat "Remember"
+                                 (key4cmd 'remember)))
 (tool-bar-add-item "remember-open"
                    (lambda ()
                      (interactive)
@@ -556,11 +590,13 @@
 (tool-bar-add-item "remember-finalize" 'remember-finalize 'remember-finalize
                    :visible '(and toolbarshow-remember
                                   (eq major-mode 'remember-mode))
-                   :help "Remember the contents of the current buffer")
+                   :help '(concat "Remember the contents of the current buffer"
+                                 (key4cmd 'remember-finalize)))
 (tool-bar-add-item "remember-destroy" 'remember-destroy 'remember-destroy
                    :visible '(and toolbarshow-remember
                                   (eq major-mode 'remember-mode))
-                   :help "Destroy the current *Remember* buffer")
+                   :help '(concat "Destroy the current *Remember* buffer"
+                                 (key4cmd 'remember-destroy)))
 
 ;; emms toolbar
 (tool-bar-add-item "separator" nil 'emms-toolbar
@@ -574,35 +610,43 @@
                        (emms)))
                    'emms
                    :visible 'toolbarshow-emms
-                   :help "Emms")
+                   :help '(concat "Emms"
+                                 (key4cmd 'emms)))
 (tool-bar-add-item "emms-previous" 'emms-previous 'emms-previous
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-previous)
-                   :help "Previous track")
+                   :help '(concat "Previous track"
+                                 (key4cmd 'emms-previous)))
 (tool-bar-add-item "emms-seek-backward" 'emms-seek-backward 'emms-seek-backward
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-seek-backward)
-                   :help "Seek backward")
+                   :help '(concat "Seek backward"
+                                 (key4cmd 'emms-seek-backward)))
 (tool-bar-add-item "emms-stop" 'emms-stop 'emms-stop
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-stop)
-                   :help "Stop")
+                   :help '(concat "Stop"
+                                 (key4cmd 'emms-stop)))
 (tool-bar-add-item "emms-start" 'emms-start 'emms-start
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-start)
-                   :help "Start")
+                   :help '(concat "Start"
+                                 (key4cmd 'emms-start)))
 (tool-bar-add-item "emms-pause" 'emms-pause 'emms-pause
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-pause)
-                   :help "Pause")
+                   :help '(concat "Pause"
+                                 (key4cmd 'emms-pause)))
 (tool-bar-add-item "emms-seek-forward" 'emms-seek-forward 'emms-seek-forward
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-seek-forward)
-                   :help "Seek forward")
+                   :help '(concat "Seek forward"
+                                 (key4cmd 'emms-seek-forward)))
 (tool-bar-add-item "emms-next" 'emms-next 'emms-next
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-next)
-                   :help "Next track")
+                   :help '(concat "Next track"
+                                 (key4cmd 'emms-next)))
 
 
 (provide 'init-toolbar)

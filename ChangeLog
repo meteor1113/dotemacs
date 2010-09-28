@@ -1,3 +1,7 @@
+2010-09-28  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el: Add key description for toolbar help.
+
 2010-09-27  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Add grep and moccur toolbar item.
