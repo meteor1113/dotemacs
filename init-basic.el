@@ -64,7 +64,7 @@
 (if (fboundp 'cua-mode)
     (progn
       (cua-mode t)
-      (define-key cua-global-keymap (kbd "<M-RET>") 'cua-set-rectangle-mark)
+      ;; (define-key cua-global-keymap (kbd "<M-RET>") 'cua-set-rectangle-mark)
       (setq cua-keep-region-after-copy (if window-system t nil)))
   (when (fboundp 'pc-selection-mode)
     (setq pc-select-selection-keys-only t)
