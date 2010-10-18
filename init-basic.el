@@ -349,13 +349,13 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [f6] 'grep-current-dir)
 (global-set-key [C-f6] 'moccur-all-buffers)
 (global-set-key [M-f6] 'grep-todo-current-dir)
-                ;; (lambda () (interactive) (grep-current-dir nil "TODO|FIXME")))
+;; (lambda () (interactive) (grep-current-dir nil "TODO|FIXME")))
 (global-set-key (kbd "ESC <f6>") (key-binding [M-f6]))
 (global-set-key [C-M-f6] 'moccur-todo-all-buffers)
-                ;; '(lambda ()
-                ;;    (interactive)
-                ;;    (moccur-word-all-buffers
-                ;;     "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>")))
+;; '(lambda ()
+;;    (interactive)
+;;    (moccur-word-all-buffers
+;;     "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>")))
 (global-set-key (kbd "ESC <C-f6>") (key-binding [C-M-f6]))
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (global-set-key [header-line double-mouse-1] 'kill-this-buffer)

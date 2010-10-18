@@ -265,6 +265,14 @@
   '(menu-item "Tabbar" tabbar-mode
               :enable (fboundp 'tabbar-mode)
               :button (:toggle . tabbar-mode)))
+(define-key minormode-sub-menu [whitespace-mode]
+  '(menu-item "Whitespace" whitespace-mode
+              :enable (fboundp 'whitespace-mode)
+              :button (:toggle . whitespace-mode)))
+(define-key minormode-sub-menu [global-linum-mode]
+  '(menu-item "Global linum" global-linum-mode
+              :enable (fboundp 'global-linum-mode)
+              :button (:toggle . global-linum-mode)))
 (define-key toggle-toolbar-menu [minor-mode]
   (list 'menu-item "Minor mode" minormode-sub-menu))
 
