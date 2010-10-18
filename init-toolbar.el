@@ -130,10 +130,22 @@
 
 ;; toggle toolbar menu
 (defvar toggle-toolbar-menu (make-sparse-keymap "Toolbar"))
-(define-key toggle-toolbar-menu [find-dotemacs-file]
+
+(defvar misc-sub-menu (make-sparse-keymap "Misc"))
+(define-key misc-sub-menu [ascii-display]
+  '(menu-item "Ascii" ascii-display
+              :enable (fboundp 'ascii-display)
+              :button (:toggle . ascii-display)))
+(define-key misc-sub-menu [cn-weather-today]
+  '(menu-item "Today's weather" cn-weather-today
+              :enable (fboundp 'cn-weather-today)))
+(define-key misc-sub-menu [find-dotemacs-file]
   '(menu-item "Open .emacs" find-dotemacs-file
               :enable (fboundp 'find-dotemacs-file)
               :help "Open .emacs file"))
+(define-key toggle-toolbar-menu [misc]
+  (list 'menu-item "Misc" misc-sub-menu))
+
 (defvar emms-sub-menu (make-sparse-keymap "Emms"))
 (define-key emms-sub-menu [emms-seek-backward]
   '(menu-item "Seek backward" emms-seek-backward
@@ -206,6 +218,7 @@
                            (set-buffer-file-coding-system 'us-ascii))))
 (define-key toggle-toolbar-menu [change-encoding]
   (list 'menu-item "Change encoding" change-encoding-sub-menu))
+
 (defvar revert-encoding-sub-menu (make-sparse-keymap "Revert encoding"))
 (define-key revert-encoding-sub-menu [encoding-sjis]
   '(menu-item "Shift-jis" (lambda () (interactive)
@@ -242,6 +255,19 @@
                            (revert-buffer-with-coding-system 'us-ascii))))
 (define-key toggle-toolbar-menu [revert-encoding]
   (list 'menu-item "Revert with encoding" revert-encoding-sub-menu))
+
+(defvar minormode-sub-menu (make-sparse-keymap "Minor mode"))
+(define-key minormode-sub-menu [highlight-tail-mode]
+  '(menu-item "Highlight tail" highlight-tail-mode
+              :enable (fboundp 'highlight-tail-mode)
+              :button (:toggle . highlight-tail-mode)))
+(define-key minormode-sub-menu [tabbar-mode]
+  '(menu-item "Tabbar" tabbar-mode
+              :enable (fboundp 'tabbar-mode)
+              :button (:toggle . tabbar-mode)))
+(define-key toggle-toolbar-menu [minor-mode]
+  (list 'menu-item "Minor mode" minormode-sub-menu))
+
 (defvar language-sub-menu (make-sparse-keymap "Language"))
 (define-key language-sub-menu [xml-mode]
   '(menu-item "XML" nxml-mode

@@ -1,3 +1,7 @@
+2010-10-18  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el: Add Minor mode and Misc sub menu.
+
 2010-09-28  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Add key description for toolbar help.
