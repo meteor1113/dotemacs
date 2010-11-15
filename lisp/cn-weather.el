@@ -1,8 +1,8 @@
 ;;; cn-weather.el --- Weather forecast for cities in China
 
-;; Copyright (C) 2009  
+;; Copyright (C) 2010
 
-;; Author: wlamos <wlamos@gmail.com>
+;; Author: Wlamos <wlamos@gmail.com>
 ;; Keywords:
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -26,8 +26,16 @@
 
 ;; (require 'cn-weather)
 
-;; Use "M-x cn-weather-today" to get today's weather info.
+;; And if you want to show real-time weather info in mode line, you can
+
+;; (display-cn-weather-mode t)
+
+;; Use "M-x cn-weather" to get today's and the realtime weather info
 ;; Use "M-x cn-weather-forecast" to get the future two days' weather info.
+;; Use "M-x cn-weacher-now" to get real-time weather info
+;; Use "M-x cn-weather-today" to get today's weather info
+
+;; Also there is a minor mode for cn-weather.
 
 ;; By default, Beijing's weather info will be printed in Minibuffer.  By changing
 ;; `cn-weather-city', you can customize it:
@@ -42,12 +50,24 @@
 ;; Thanks sly9@newsmth.net (http://sly9.net/) for providing me the json file. 
 
 ;;; Code:
-
+(require 'timer)
 (eval-when-compile
   (require 'cl))
 
-(defvar cn-weather-city "北京"
-  "The city whose weather you're intereseted in.")
+(defgroup cn-weather nil
+  "Display weather information in China."
+  :prefix "cn-weather-"
+  :group 'applications)
+
+(defcustom cn-weather-update-interval 3600
+  "Seconds after which the weather info will be updated."
+  :type 'integer
+  :group 'cn-weather)
+
+(defcustom cn-weather-city "北京"
+  "The city whose weather info will be displayed"
+  :type 'string
+  :group 'cn-weather)
 
 (defconst *cn-weather-city-url-lists*
   '(("西宁" . "101150101")
@@ -2561,85 +2581,192 @@
     ("绥中" . "101071403")
     ("兴城" . "101071404")))
 
-(defun cn-weather-build-url (city)
-  "Build the url that will be used to fetch CITY'sweather data info."
-  (let ((url-postfix (assoc city *cn-weather-city-url-lists*)))
-    (unless url-postfix
-      (message "Error, can not find city %s" city))
-    (when url-postfix
-      (concat "http://m.weather.com.cn/data/" (cdr url-postfix) ".html"))))
+(defconst cn-weather-forecast-url
+  "http://m.weather.com.cn/data/%s.html"
+  "The base url to retrieve the weather forecast info.")
 
-(defun cn-weather-query (parser-fn city)
-  "Using PARSER-FN to query CITY's weather info.
-PARSER-FN is the function used to parse the queried data."
-  (let ((url-request-method "GET")
-	(query-url (cn-weather-build-url city)))
-    (when query-url
-      (let ((weather-buffer
-	     (ignore-errors (url-retrieve-synchronously query-url))))
-	(unless weather-buffer
-	  (message "%s" "Error, can not get the weather info!"))
-	(when weather-buffer
-	  (set-buffer weather-buffer)
-	  (goto-char (point-min))
-	  (search-forward "weatherinfo\":{" nil nil nil)
-	  (let* ((beg (point))
-		 (end (- (point-max) 2))
-		 (str (string-as-multibyte (buffer-substring beg end))))
-	    (kill-buffer nil)
-	    (funcall parser-fn (remove ?\" str))))))))
+(defconst cn-weather-realtime-url
+  "http://www.weather.com.cn/data/sk/%s.html"
+  "The base url to retrieve the realtime weather info.")
+
+(defvar cn-weather-mode-line-string nil
+  "String to display in the mode line")
+
+(put 'cn-weather-mode-line-string 'risky-local-variable t)
+
+(defvar cn-weather-update-timer nil
+  "Interval timer object.")
+
+(defvar cn-weather-realtime-info nil
+  "--")
+(defvar cn-weather-today-info nil
+  "--")
+(defvar cn-weather-forecast-info nil
+  "--")
+
+;;;###autoload
+(defun cn-weather ()
+  "Display weather information of `cn-weather-city' in the echo area.
+Now today's and realtime weather information will be shown."
+  (interactive)
+  (cn-weather-query 'cn-weather-parse-today-weather-str
+		    cn-weather-city
+		    cn-weather-forecast-url)
+  (cn-weather-query 'cn-weather-parse-realtime-weather-str
+		    cn-weather-city
+		    cn-weather-realtime-url)	     
+  (message "%s今日天气: %s 实况: %s"
+	   cn-weather-city
+	   cn-weather-today-info
+	   cn-weather-realtime-info))
+
+(define-minor-mode display-cn-weather-mode
+  "Display weather information in the mode line.
+The mode line will be updated automatically every `cn-weather-update-interval'
+seconds."
+  :global t :group 'cn-weather
+  (setq cn-weather-mode-line-string "")
+  (or global-mode-string (setq global-mode-string '("")))
+  (and cn-weather-update-timer (cancel-timer cn-weather-update-timer))
+  (if (not display-cn-weather-mode)
+      (setq global-mode-string
+	    (delq 'cn-weather-mode-line-string global-mode-string))
+    (add-to-list 'global-mode-string 'cn-weather-mode-line-string t)
+    (setq cn-weather-update-timer (run-at-time nil cn-weather-update-interval
+					       'cn-weather-update-handler))
+    (cn-weather-update)))
+
+(defun cn-weather-update-handler ()
+  (cn-weather-update)
+  (sit-for 0))
+
+;;; Here we only show the real time weather info in the mode line
+;;; Should we make it configurable?
+;;; 1. whether show today's forecast info
+;;; 2. whether show fengli, shidu?
+(defun cn-weather-update ()
+  "Update weather information in the mode line."
+  (setq cn-weather-mode-line-string
+	(propertize (progn
+		      (cn-weather-query 'cn-weather-parse-realtime-weather-str
+					cn-weather-city
+					cn-weather-realtime-url)
+		      (if cn-weather-realtime-info
+			  (format "[%s]" cn-weather-realtime-info)
+			"[--]"))
+		    'help-echo "Realtime weather information"))
+  (force-mode-line-update))
+
+(defun cn-weather-now ()
+  "Print realtime weather info in minibuffer"
+  (interactive)
+  (cn-weather-query 'cn-weather-parse-realtime-weather-str
+		    cn-weather-city
+		    cn-weather-realtime-url)
+  (message "%s天气实况: %s" cn-weather-city
+	   cn-weather-realtime-info))
 
 (defun cn-weather-today ()
   "Print today's weather info in minibuffer."
   (interactive)
-  (cn-weather-query 'cn-weather-parse-today-weather-str cn-weather-city))
+  (cn-weather-query 'cn-weather-parse-today-weather-str
+		    cn-weather-city
+		    cn-weather-forecast-url)  
+  (message "%s今日天气: %s" cn-weather-city
+	   cn-weather-today-info))
 
 (defun cn-weather-forecast ()
   "Print future two days' weather info in minibuffer."
   (interactive)
-  (cn-weather-query 'cn-weather-parse-future-weather-str cn-weather-city))
+  (cn-weather-query 'cn-weather-parse-future-weather-str
+		    cn-weather-city
+		    cn-weather-forecast-url))
+
+(defun cn-weather-build-url (city base-url)
+  "Build the url that will be used to fetch CITY's weather data info."
+  (let ((url-postfix (assoc city *cn-weather-city-url-lists*)))
+    (unless url-postfix
+      (message "cn-weather: Error, can not find city %s" city))
+    (when url-postfix
+      (format base-url (cdr url-postfix)))))
+
+(defun cn-weather-query (parser-fn city base-url)
+  "Using PARSER-FN to query CITY's weather info.
+PARSER-FN is the function used to parse the queried data."
+  (let ((url-request-method "GET")
+	(query-url (cn-weather-build-url city base-url)))
+    (when query-url
+      (condition-case nil
+	  (url-retrieve query-url 'cn-weather-callback (list parser-fn))
+	(error (message "Some error happens in cn-weather, maybe there is no network connection."))))))
+
+;;; FIXME if there is no network connect, an error will be signaled by url
+;;; we need to process it.
+(defun cn-weather-callback (status parser-fn)
+  "Callback function used in `url-retrieve'.
+PARSER-FN is the function used to parse the string containing the weather info.
+STATUS is the returned status. If error happens, it will be redirected to an
+error page."
+  (block nil
+    (while status
+      (when (and (eq (car status) :redirect)
+		 (string-match "error" (cadr status)))
+	(return))
+      (setq status (cddr status)))
+    
+    (goto-char (point-min))
+    (search-forward "weatherinfo\":{" nil nil nil)
+    (let* ((beg (point))
+	   (end (- (point-max) 2))
+	   (str (string-as-multibyte (buffer-substring beg end))))
+      (kill-buffer nil)
+      (funcall parser-fn (remove ?\" str)))))
 
 (defun cn-weather-find-field (field-name fields-pairs)
   "Find FIELD-NAME from FIELDS-PAIRS."
   (cadr (find field-name fields-pairs :test 'string= :key 'car)))
 
+(defmacro cn-weather-with-values (str args &rest body)
+  (declare (indent defun))
+  `(let* ((fields (split-string ,str ","))
+	  (fields-pairs
+	   (mapcar '(lambda (str-pair)
+		      (split-string str-pair ":"))
+		   fields)))
+     (let ,(mapcar (lambda (var)
+		     `(,var (cn-weather-find-field (symbol-name ',var) fields-pairs)))
+		   args)
+       ,@body)))
+
 (defun cn-weather-parse-today-weather-str (str)
   "Parse today's weather info.
 STR is a string containing the weather info."
-  (let ((fields (split-string str ",")))
-    (let ((fields-pairs
-	   (mapcar '(lambda (str-pair)
-		      (split-string str-pair ":"))
-		   fields)))
-      (let ((city (cn-weather-find-field "city" fields-pairs ))
-	    (weather1 (cn-weather-find-field "weather1" fields-pairs))
-	    (temp1 (cn-weather-find-field "temp1" fields-pairs))
-	    (wind1 (cn-weather-find-field "wind1" fields-pairs)))
-	(message "今日%s天气: %s" city (concat weather1 ", "
-					       temp1 ", "
-					       wind1 ))))))
-	    
+  (cn-weather-with-values str (weather1 temp1 wind1)
+    (setq cn-weather-today-info
+	  (format "%s, %s, %s" weather1 temp1 wind1))))
+
 (defun cn-weather-parse-future-weather-str (str)
   "Parse the future two days' weather info.
 STR is a string containing the weather info."
-  (let ((fields (split-string str ",")))
-    (let ((fields-pairs
-	   (mapcar '(lambda (str-pair)
-		      (split-string str-pair ":"))
-		   fields)))
-      (let ((city (cn-weather-find-field "city" fields-pairs ))
-	    (weather2 (cn-weather-find-field "weather2" fields-pairs))
-	    (temp2 (cn-weather-find-field "temp2" fields-pairs))
-	    (wind2 (cn-weather-find-field "wind2" fields-pairs))
-	    (weather3 (cn-weather-find-field "weather3" fields-pairs))
-	    (temp3 (cn-weather-find-field "temp3" fields-pairs))
-	    (wind3 (cn-weather-find-field "wind3" fields-pairs)))
-	(message "未来两天%s天气: %s" city (concat "明天，" weather2 ", "
-						   temp2 ", "
-						   wind2 "; "
-						   "后天， " weather3 ", "
-						   temp3 ", "
-						   wind3 "。"))))))
+  (cn-weather-with-values str (city weather2 temp2 wind2 weather3 temp3 wind3)
+    (message "未来两天%s天气: %s" city (concat "明天，" weather2 ", "
+					       temp2 ", "
+					       wind2 "; "
+					       "后天， " weather3 ", "
+					       temp3 ", "
+					       wind3 "。"))))
+
+(defun cn-weather-parse-realtime-weather-str (str)
+  "Parse the realtime weather info.
+STR is a string containing the weather info."
+  (cn-weather-with-values str (city temp WD WS SD)
+    (setq cn-weather-realtime-info
+	  (format "%s℃ %s%s 湿度%s" temp WD WS SD))
+    (when display-cn-weather-mode
+      (setq cn-weather-mode-line-string
+	    (propertize (format "[%s]" cn-weather-realtime-info)
+			'help-echo "Realtime weather information"))
+      (force-mode-line-update))))
 
 (provide 'cn-weather)
 ;;; cn-weather.el ends here

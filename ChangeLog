@@ -1,3 +1,7 @@
+2010-11-15  Meteor Liu  <meteor1113@gmail.com>
+
+	* lisp/cn-weather.el: Update cn-weather.
+
 2010-10-18  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Add Minor mode and Misc sub menu.
