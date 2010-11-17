@@ -136,9 +136,9 @@
   '(menu-item "Ascii" ascii-display
               :enable (fboundp 'ascii-display)
               :button (:toggle . ascii-display)))
-(define-key misc-sub-menu [cn-weather-today]
-  '(menu-item "Today's weather" cn-weather-today
-              :enable (fboundp 'cn-weather-today)))
+(define-key misc-sub-menu [cn-weather]
+  '(menu-item "Display weather" cn-weather
+              :enable (fboundp 'cn-weather)))
 (define-key misc-sub-menu [find-dotemacs-file]
   '(menu-item "Open .emacs" find-dotemacs-file
               :enable (fboundp 'find-dotemacs-file)
@@ -257,6 +257,10 @@
   (list 'menu-item "Revert with encoding" revert-encoding-sub-menu))
 
 (defvar minormode-sub-menu (make-sparse-keymap "Minor mode"))
+(define-key minormode-sub-menu [display-cn-weather-mode]
+  '(menu-item "Display weather" display-cn-weather-mode
+              :enable (fboundp 'display-cn-weather-mode)
+              :button (:toggle . display-cn-weather-mode)))
 (define-key minormode-sub-menu [highlight-tail-mode]
   '(menu-item "Highlight tail" highlight-tail-mode
               :enable (fboundp 'highlight-tail-mode)

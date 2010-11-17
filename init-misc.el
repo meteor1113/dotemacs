@@ -89,8 +89,10 @@
 
 ;; cn-weather
 (setq cn-weather-city "¥Û¡¨")
-(autoload 'cn-weather-today "cn-weather"
-  "Print today's weather info in minibuffer." t)
+(autoload 'display-cn-weather-mode "cn-weather"
+  "Display weather information in the mode line." t)
+(autoload 'cn-weather "cn-weather"
+  "Print Now today's and realtime weather in the echo area." t)
 (autoload 'cn-weather-forecast "cn-weather"
   "Print future two days' weather info in minibuffer." t)
 
