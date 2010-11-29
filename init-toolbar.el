@@ -261,6 +261,10 @@
   '(menu-item "Display weather" display-cn-weather-mode
               :enable (fboundp 'display-cn-weather-mode)
               :button (:toggle . display-cn-weather-mode)))
+(define-key minormode-sub-menu [rainbow-mode]
+  '(menu-item "Rainbow" rainbow-mode
+              :enable (fboundp 'rainbow-mode)
+              :button (:toggle . rainbow-mode)))
 (define-key minormode-sub-menu [highlight-tail-mode]
   '(menu-item "Highlight tail" highlight-tail-mode
               :enable (fboundp 'highlight-tail-mode)

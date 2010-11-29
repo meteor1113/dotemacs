@@ -1,3 +1,7 @@
+2010-11-29  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add rainbow-mode.
+
 2010-11-17  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Update cn-weather toolbar item.

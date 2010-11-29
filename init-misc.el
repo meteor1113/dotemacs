@@ -137,6 +137,10 @@
            (fboundp 'drag-stuff-global-mode))
   (drag-stuff-global-mode t))
 
+;; rainbow-mode
+(autoload 'rainbow-mode "rainbow-mode"
+  "Colorize strings that represent colors." t)
+
 ;; highlight-tail
 (autoload 'highlight-tail-mode "highlight-tail"
   "Draw a \"tail\" while you're typing." t)
