@@ -4,7 +4,7 @@
 
 ;; Author: Tomohiro Matsuyama <m2ym.pub@gmail.com>
 ;; Keywords: convenience
-;; Version: 1.3
+;; Version: 1.3.1
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -374,13 +374,16 @@
 
 (defun ac-css-property-candidates ()
   (or (loop with list = (assoc-default ac-css-property ac-css-property-alist)
+            with seen = nil
             with value
             while (setq value (pop list))
             if (symbolp value)
-            do (setq list
-                     (append list
-                             (or (assoc-default value ac-css-value-classes)
-                                 (assoc-default (symbol-name value) ac-css-property-alist))))
+            do (unless (memq value seen)
+                 (push value seen)
+                 (setq list
+                       (append list
+                               (or (assoc-default value ac-css-value-classes)
+                                   (assoc-default (symbol-name value) ac-css-property-alist)))))
             else collect value)
       ac-css-pseudo-classes))
 
