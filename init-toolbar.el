@@ -31,13 +31,15 @@
 (setq tool-bar-button-margin 0)
 ;; (setq auto-resize-tool-bars nil)
 
-(defun key4cmd (cmd)
+(defun key4cmd (cmd &optional optioncmd)
   "Get keys for command."
   (let ((key (mapconcat 'key-description (where-is-internal cmd) ",")))
+    (when (and (= 0 (length key)) optioncmd)
+      (setq key (mapconcat 'key-description (where-is-internal optioncmd) ",")))
     (if (= 0 (length key))
         (concat "(M-x " (symbol-name cmd) ")")
       (concat "(" key ")"))))
-(key4cmd 'ecb-activate)
+
 (defgroup toolbarshow nil
   "Custom toolbar"
   :group 'environment)
@@ -102,6 +104,18 @@
   (setq toolbarshow-program (if toolbarshow-program nil t))
   (force-window-update)
   (customize-mark-to-save 'toolbarshow-program)
+  (custom-save-all))
+
+(defcustom toolbarshow-flymake nil
+  "If show flymake toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+(defun toolbarshow-toggle-flymake ()
+  "Turn flymake toolbar on/off."
+  (interactive)
+  (setq toolbarshow-flymake (if toolbarshow-flymake nil t))
+  (force-window-update)
+  (customize-mark-to-save 'toolbarshow-flymake)
   (custom-save-all))
 
 (defcustom toolbarshow-remember nil
@@ -493,6 +507,10 @@
   '(menu-item "Remember toolbar" toolbarshow-toggle-remember
               :help "Turn remember toolbar on/off"
               :button (:toggle . toolbarshow-remember)))
+(define-key toggle-toolbar-menu [toolbarshow-toggle-flymake]
+  '(menu-item "Flymake toolbar" toolbarshow-toggle-flymake
+              :help "Turn flymake toolbar on/off"
+              :button (:toggle . toolbarshow-flymake)))
 (define-key toggle-toolbar-menu [toolbarshow-toggle-program]
   '(menu-item "Program toolbar" toolbarshow-toggle-program
               :help "Turn program toolbar on/off"
@@ -607,7 +625,8 @@
                    'bm-toggle
                    :visible 'toolbarshow-bookmark
                    :help '(concat "Toggle bookmark at point"
-                                  (key4cmd 'bm-toggle)))
+                                  (key4cmd 'bm-toggle
+                                           'viss-bookmark-toggle)))
 (tool-bar-add-item "bm-next"
                    (lambda ()
                      (interactive)
@@ -617,7 +636,8 @@
                    'bm-next
                    :visible 'toolbarshow-bookmark
                    :help '(concat "Goto next bookmark"
-                                  (key4cmd 'bm-next)))
+                                  (key4cmd 'bm-next
+                                           'viss-bookmark-next-buffer)))
 (tool-bar-add-item "bm-previous"
                    (lambda ()
                      (interactive)
@@ -627,7 +647,8 @@
                    'bm-previous
                    :visible 'toolbarshow-bookmark
                    :help '(concat "Goto previous bookmark"
-                                  (key4cmd 'bm-previous)))
+                                  (key4cmd 'bm-previous
+                                           'viss-bookmark-prev-buffer)))
 (tool-bar-add-item "bm-clear"
                    (lambda ()
                      (interactive)
@@ -637,7 +658,8 @@
                    'bm-remove-all-current-buffer
                    :visible 'toolbarshow-bookmark
                    :help '(concat "Delete all bookmarks in current buffer"
-                                  (key4cmd 'bm-remove-all-current-buffer)))
+                                  (key4cmd 'bm-remove-all-current-buffer
+                                           'viss-bookmark-clear-all-buffer)))
 
 ;; view toolbar
 (tool-bar-add-item "separator" nil 'view-toolbar
@@ -684,7 +706,8 @@
                    :visible 'toolbarshow-program
                    :enable (fboundp 'semantic-ia-fast-jump)
                    :help '(concat "Jump to the tag at point (Semantic)"
-                                  (key4cmd 'semantic-ia-fast-jump-or-back)))
+                                  (key4cmd 'semantic-ia-fast-jump-or-back
+                                           'semantic-ia-fast-jump)))
 ;; (tool-bar-add-item "semantic-impl-toggle" 'semantic-analyze-proto-impl-toggle
 ;;                    'semantic-analyze-proto-impl-toggle
 ;;                    :visible 'toolbarshow-program
@@ -703,7 +726,8 @@
                                  (or (fboundp 'sourcepair-load)
                                      (fboundp 'eassist-switch-h-cpp)))
                    :help '(concat "Switch header and body file"
-                                  (key4cmd 'sourcepair-load)))
+                                  (key4cmd 'sourcepair-load
+                                           'eassist-switch-h-cpp)))
 (tool-bar-add-item "compile" 'compile 'compile
                    :visible 'toolbarshow-program
                    :help '(concat "Compile..."
@@ -712,6 +736,47 @@
                    :visible 'toolbarshow-program
                    :help '(concat "Debugger (GDB)..."
                                   (key4cmd 'gdb)))
+
+;; flymake toolbar
+(tool-bar-add-item "separator" nil 'flymake-toolbar
+                   :visible 'toolbarshow-flymake
+                   :enable nil)
+(tool-bar-add-item "flymake-prev"
+                   (lambda ()
+                     (interactive)
+                     (if (fboundp 'flymake-goto-prev-error-disp)
+                         (flymake-goto-prev-error-disp)
+                       (flymake-goto-prev-error)))
+                   'flymake-prev
+                   :visible 'toolbarshow-flymake
+                   :enable '(and flymake-mode
+                                 (or (fboundp 'flymake-goto-prev-error-disp)
+                                     (fboundp 'flymake-goto-prev-error)))
+                   :help '(concat "Go to prev flymake error"
+                                  (key4cmd 'flymake-goto-prev-error-disp)))
+(tool-bar-add-item "flymake-next"
+                   (lambda ()
+                     (interactive)
+                     (if (fboundp 'flymake-goto-next-error-disp)
+                         (flymake-goto-next-error-disp)
+                       (flymake-goto-next-error)))
+                   'flymake-next
+                   :visible 'toolbarshow-flymake
+                   :enable '(and flymake-mode
+                                 (or (fboundp 'flymake-goto-prev-error-disp)
+                                     (fboundp 'flymake-goto-prev-error)))
+                   :help '(concat "Go to next flymake error"
+                                  (key4cmd 'flymake-goto-next-error-disp)))
+(tool-bar-add-item "flymake-err-menu"
+                   'flymake-display-err-menu-for-current-line
+                   'flymake-err-menu
+                   :visible 'toolbarshow-flymake
+                   :enable '(and flymake-mode
+                                 (fboundp
+                                  'flymake-display-err-menu-for-current-line))
+                   :help '(concat "Display a menu with flymake errors/warnings"
+                                  (key4cmd
+                                   'flymake-display-err-menu-for-current-line)))
 
 ;; remember toolbar
 (tool-bar-add-item "separator" nil 'remember-toolbar
@@ -755,7 +820,8 @@
                    'emms
                    :visible 'toolbarshow-emms
                    :help '(concat "Emms"
-                                  (key4cmd 'emms)))
+                                  (key4cmd 'emms-dir-tree
+                                           'emms)))
 (tool-bar-add-item "emms-previous" 'emms-previous 'emms-previous
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-previous)
