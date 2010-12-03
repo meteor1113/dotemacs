@@ -515,7 +515,6 @@ Use CREATE-TEMP-F for creating temp copy."
       (list "pyflakes" (list local-file))))
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.py\\'" flymake-pyflakes-init)))
-
 (defun flymake-display-current-error ()
   "Display errors/warnings under cursor."
   (interactive)
