@@ -188,9 +188,9 @@
 (global-auto-revert-mode t)
 ;; (setq require-final-newline 'ask)
 (setq-default indicate-buffer-boundaries (quote left))
-;; (when (fboundp 'global-linum-mode)
-;;   ;; (setq linum-eager nil)
-;;   (global-linum-mode 1))
+(when (fboundp 'global-linum-mode)
+  ;; (setq linum-eager nil)
+  (global-linum-mode 1))
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"
