@@ -422,83 +422,117 @@ Like eclipse's Ctrl+Alt+F."
           (overlay-put ov 'pointer 'hand))))
 ;; (global-set-key (kbd "C-?") 'hs-minor-mode)
 
-;; (autoload 'flymake-find-file-hook "flymake" "" t)
-(when (require 'flymake nil 'noerror)
-  (add-hook 'find-file-hook 'flymake-find-file-hook)
-  (setq flymake-gui-warnings-enabled nil)
-  (setq flymake-log-level 1)
-  (defvar flymake-makefile-filenames '("Makefile" "makefile" "GNUmakefile")
-    "File names for make.")
-  (defun flymake-get-make-gcc-cmdline (source base-dir)
-    (let (found)
-      (dolist (makefile flymake-makefile-filenames)
-        (if (file-readable-p (concat base-dir "/" makefile))
-            (setq found t)))
-      (if found
-          (flymake-get-make-cmdline source base-dir)
-        (list (if (string= (file-name-extension source) "c") "gcc" "g++")
-              (list "-Wall"
-                    "-Wextra"
-                    "-pedantic"
-                    "-fsyntax-only"
-                    source)))))
-  (defun flymake-simple-make-gcc-init-impl (create-temp-f
-                                            use-relative-base-dir
-                                            use-relative-source
-                                            build-file-name
-                                            get-cmdline-f)
-    "Create syntax check command line for a directly checked source file.
+(autoload 'flymake-find-file-hook "flymake" "" t)
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+(setq flymake-gui-warnings-enabled nil)
+(setq flymake-log-level 1)
+(defvar flymake-makefile-filenames '("Makefile" "makefile" "GNUmakefile")
+  "File names for make.")
+(defun flymake-get-make-gcc-cmdline (source base-dir)
+  (let (found)
+    (dolist (makefile flymake-makefile-filenames)
+      (if (file-readable-p (concat base-dir "/" makefile))
+          (setq found t)))
+    (if (and found (executable-find "make"))
+        (flymake-get-make-cmdline source base-dir)
+      (let ((cc (if (string= (file-name-extension source) "c") "gcc" "g++")))
+        (when (executable-find cc)
+          (list cc
+                (list "-Wall"
+                      "-Wextra"
+                      "-pedantic"
+                      "-fsyntax-only"
+                      source)))))))
+(defun flymake-simple-make-gcc-init-impl (create-temp-f
+                                          use-relative-base-dir
+                                          use-relative-source
+                                          build-file-name
+                                          get-cmdline-f)
+  "Create syntax check command line for a directly checked source file.
 Use CREATE-TEMP-F for creating temp copy."
-    (let* ((args nil)
-           (source-file-name buffer-file-name)
-           (buildfile-dir (file-name-directory source-file-name)))
-      (if buildfile-dir
-          (let* ((temp-source-file-name
-                  (flymake-init-create-temp-buffer-copy create-temp-f)))
-            (setq args
-                  (flymake-get-syntax-check-program-args
-                   temp-source-file-name
-                   buildfile-dir
-                   use-relative-base-dir
-                   use-relative-source
-                   get-cmdline-f))))
-      args))
-  (defun flymake-simple-make-gcc-init ()
-    (flymake-simple-make-gcc-init-impl 'flymake-create-temp-inplace t t
-                                       "Makefile"
-                                       'flymake-get-make-gcc-cmdline))
-  (setq flymake-allowed-file-name-masks
-        (cons '("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'"
-                flymake-simple-make-gcc-init)
-              flymake-allowed-file-name-masks))
-  (defun flymake-display-current-error ()
-    "Display errors/warnings under cursor."
-    (interactive)
-    (let ((ovs (overlays-in (point) (1+ (point)))))
-      (dolist (ov ovs)
-        (catch 'found
-          (when (flymake-overlay-p ov)
-            (message (overlay-get ov 'help-echo))
-            (throw 'found t))))))
-  (defun flymake-goto-next-error-disp ()
-    "Go to next error in err ring, then display error/warning."
-    (interactive)
-    (flymake-goto-next-error)
-    (flymake-display-current-error))
-  (defun flymake-goto-prev-error-disp ()
-    "Go to previous error in err ring, then display error/warning."
-    (interactive)
-    (flymake-goto-prev-error)
-    (flymake-display-current-error))
-  (defvar flymake-mode-map (make-sparse-keymap))
-  (define-key flymake-mode-map (kbd "C-c <f4>") 'flymake-goto-next-error-disp)
-  (define-key flymake-mode-map (kbd "C-c <S-f4>") 'flymake-goto-prev-error-disp)
-  (define-key flymake-mode-map (kbd "C-c <C-f4>")
-    'flymake-display-err-menu-for-current-line)
-  (or (assoc 'flymake-mode minor-mode-map-alist)
-      (setq minor-mode-map-alist
-            (cons (cons 'flymake-mode flymake-mode-map)
-                  minor-mode-map-alist))))
+  (let* ((args nil)
+         (source-file-name buffer-file-name)
+         (buildfile-dir (file-name-directory source-file-name)))
+    (if buildfile-dir
+        (let* ((temp-source-file-name
+                (flymake-init-create-temp-buffer-copy create-temp-f)))
+          (setq args
+                (flymake-get-syntax-check-program-args
+                 temp-source-file-name
+                 buildfile-dir
+                 use-relative-base-dir
+                 use-relative-source
+                 get-cmdline-f))))
+    args))
+(defun flymake-simple-make-gcc-init ()
+  (flymake-simple-make-gcc-init-impl 'flymake-create-temp-inplace t t
+                                     "Makefile"
+                                     'flymake-get-make-gcc-cmdline))
+;; (setq flymake-allowed-file-name-masks
+;;       (cons '("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'"
+;;               flymake-simple-make-gcc-init)
+;;             flymake-allowed-file-name-masks))
+(setq flymake-allowed-file-name-masks '())
+(when (executable-find "texify")
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.tex\\'" flymake-simple-tex-init))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("[0-9]+\\.tex\\'"
+                 flymake-master-tex-init flymake-master-cleanup)))
+(when (executable-find "xml")
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.xml\\'" flymake-xml-init))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.html?\\'" flymake-xml-init)))
+(when (executable-find "perl")
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.p[ml]\\'" flymake-perl-init)))
+(when (executable-find "php")
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.php[345]?\\'" flymake-php-init)))
+(when (executable-find "make")
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.idl\\'" flymake-simple-make-init))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.java\\'"
+                 flymake-simple-make-java-init flymake-simple-java-cleanup))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.cs\\'" flymake-simple-make-init))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.h\\'"
+                 flymake-master-make-header-init flymake-master-cleanup)))
+(when (or (executable-find "make") (executable-find "gcc"))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'"
+                 flymake-simple-make-gcc-init)))
+(defun flymake-display-current-error ()
+  "Display errors/warnings under cursor."
+  (interactive)
+  (let ((ovs (overlays-in (point) (1+ (point)))))
+    (dolist (ov ovs)
+      (catch 'found
+        (when (flymake-overlay-p ov)
+          (message (overlay-get ov 'help-echo))
+          (throw 'found t))))))
+(defun flymake-goto-next-error-disp ()
+  "Go to next error in err ring, then display error/warning."
+  (interactive)
+  (flymake-goto-next-error)
+  (flymake-display-current-error))
+(defun flymake-goto-prev-error-disp ()
+  "Go to previous error in err ring, then display error/warning."
+  (interactive)
+  (flymake-goto-prev-error)
+  (flymake-display-current-error))
+(defvar flymake-mode-map (make-sparse-keymap))
+(define-key flymake-mode-map (kbd "C-c <f4>") 'flymake-goto-next-error-disp)
+(define-key flymake-mode-map (kbd "C-c <S-f4>") 'flymake-goto-prev-error-disp)
+(define-key flymake-mode-map (kbd "C-c <C-f4>")
+  'flymake-display-err-menu-for-current-line)
+(or (assoc 'flymake-mode minor-mode-map-alist)
+    (setq minor-mode-map-alist
+          (cons (cons 'flymake-mode flymake-mode-map)
+                minor-mode-map-alist)))
 
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
