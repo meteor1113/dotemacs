@@ -2,6 +2,7 @@
 
 	* init-basic.el: Improve flymake setting.
 	Enable global-linum-mode.
+	: Add flymake setting for python using pyflakes.
 
 	* init-toolbar.el: Add flymake toolbar.
 
