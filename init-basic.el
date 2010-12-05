@@ -489,7 +489,7 @@ Like eclipse's Ctrl+Alt+F."
 (autoload 'flymake-find-file-hook "flymake" "" t)
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 (setq flymake-gui-warnings-enabled nil)
-(setq flymake-log-level 1)
+(setq flymake-log-level 0)
 ;; (setq flymake-no-changes-timeout 0.5)
 (setq flymake-master-file-dirs
       '("." "./src" "../src" "../../src"

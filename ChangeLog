@@ -1,6 +1,7 @@
 2010-12-05  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Flymake now support c/c++ header file.
+	: set flymake-log-level to 0.
 
 2010-12-03  Meteor Liu  <meteor1113@gmail.com>
 
