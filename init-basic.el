@@ -376,14 +376,15 @@ Like eclipse's Ctrl+Alt+F."
 
 (setq org-log-done 'time)
 (setq org-export-with-archived-trees t)
+(setq org-startup-truncated nil)
 (add-hook 'org-mode-hook
           (lambda ()
-            (imenu-add-menubar-index)
             (setq comment-start nil)
             (setq indent-tabs-mode nil)
-            (when (fboundp 'whitespace-mode)
-              (whitespace-mode 1))
-            (auto-fill-mode t)))
+            ;; (when (fboundp 'whitespace-mode)
+            ;;   (whitespace-mode 1))
+            ;; (auto-fill-mode t)
+            (imenu-add-menubar-index)))
 (eval-after-load "org"
   `(progn
      (define-key org-mode-map [(control tab)] nil)
@@ -529,7 +530,7 @@ Like eclipse's Ctrl+Alt+F."
           (executable-find "g++"))
   (defvar flymake-makefile-filenames '("Makefile" "makefile" "GNUmakefile")
     "File names for make.")
-  (defun flymake-get-gcc-cmdline (source base-dir)
+  (defun flymake-get-cc-cmdline (source base-dir)
     (let ((cc (if (string= (file-name-extension source) "c") "gcc" "g++")))
       (list cc
             (list "-Wall"
@@ -559,9 +560,9 @@ Like eclipse's Ctrl+Alt+F."
               (setq flymake-base-dir buildfile-dir)
               (throw 'found t)))))
       buildfile-dir))
-  (defun flymake-simple-make-gcc-init-impl (create-temp-f
-                                            use-relative-base-dir
-                                            use-relative-source)
+  (defun flymake-simple-make-cc-init-impl (create-temp-f
+                                           use-relative-base-dir
+                                           use-relative-source)
     "Create syntax check command line for a directly checked source file.
 Use CREATE-TEMP-F for creating temp copy."
     (let* ((args nil)
@@ -586,7 +587,7 @@ Use CREATE-TEMP-F for creating temp copy."
                        use-relative-source
                        (if buildfile-dir
                            'flymake-get-make-cmdline
-                         'flymake-get-gcc-cmdline)))
+                         'flymake-get-cc-cmdline)))
               (flymake-report-fatal-status
                "TMPERR"
                (format "Can't create temp file for %s" source-file-name))))
@@ -594,11 +595,11 @@ Use CREATE-TEMP-F for creating temp copy."
          "NOMK" (format "No buildfile (%s) found for %s, or can't found %s"
                         "Makefile" source-file-name cc)))
       args))
-  (defun flymake-simple-make-gcc-init ()
-    (flymake-simple-make-gcc-init-impl 'flymake-create-temp-inplace t t))
-  (defun flymake-master-make-gcc-init (get-incl-dirs-f
-                                       master-file-masks
-                                       include-regexp)
+  (defun flymake-simple-make-cc-init ()
+    (flymake-simple-make-cc-init-impl 'flymake-create-temp-inplace t t))
+  (defun flymake-master-make-cc-init (get-incl-dirs-f
+                                      master-file-masks
+                                      include-regexp)
     "Create make command line for a source file
  checked via master file compilation."
     (let* ((args nil)
@@ -626,7 +627,7 @@ Use CREATE-TEMP-F for creating temp copy."
                             nil
                             (if buildfile-dir
                                 'flymake-get-make-cmdline
-                              'flymake-get-gcc-cmdline)))
+                              'flymake-get-cc-cmdline)))
               (flymake-report-fatal-status
                "NOMK"
                (format "No buildfile (%s) found for %s, or can't found %s"
@@ -634,17 +635,17 @@ Use CREATE-TEMP-F for creating temp copy."
         (flymake-report-fatal-status
          "TMPERR" (format "Can't create temp file for %s" source-file-name)))
       args))
-  (defun flymake-master-make-gcc-header-init ()
-    (flymake-master-make-gcc-init
+  (defun flymake-master-make-cc-header-init ()
+    (flymake-master-make-cc-init
      'flymake-get-include-dirs
      '("\\.cpp\\'" "\\.c\\'")
      "[ \t]*#[ \t]*include[ \t]*\"\\([[:word:]0-9/\\_.]*%s\\)\""))
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.\\(?:h\\(?:pp\\)?\\)\\'"
-                 flymake-master-make-gcc-header-init flymake-master-cleanup))
+                 flymake-master-make-cc-header-init flymake-master-cleanup))
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'"
-                 flymake-simple-make-gcc-init)))
+                 flymake-simple-make-cc-init)))
 (when (executable-find "pyflakes")
   (defun flymake-pyflakes-init ()
     (let* ((temp-file (flymake-init-create-temp-buffer-copy

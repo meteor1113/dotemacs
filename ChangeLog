@@ -1,3 +1,8 @@
+2010-12-06  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (org-mode-hook): Don't enable whitespace and
+	auto-fill-mode in org.
+
 2010-12-05  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Flymake now support c/c++ header file.
