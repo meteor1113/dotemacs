@@ -28,11 +28,11 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
 (defvar user-include-dirs
   '(".." "../include" "../inc" "../common" "../public"
     "../.." "../../include" "../../inc" "../../common" "../../public"
-    "C:/MinGW/include"
-    "C:/MinGW/include/c++/3.4.5"
-    "C:/MinGW/include/c++/3.4.5/mingw32"
-    "C:/MinGW/include/c++/3.4.5/backward"
-    "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
+    ;; "C:/MinGW/include"
+    ;; "C:/MinGW/include/c++/3.4.5"
+    ;; "C:/MinGW/include/c++/3.4.5/mingw32"
+    ;; "C:/MinGW/include/c++/3.4.5/backward"
+    ;; "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
     "C:/Program Files/Microsoft Visual Studio/VC98/Include"
     "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"
     ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include"
@@ -82,6 +82,8 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
   (define-key global-map [(control shift f2)] 'viss-bookmark-clear-all-buffer)
 
   (require 'semantic-c nil 'noerror)
+  (when (executable-find "gcc")
+    (semantic-gcc-setup))
   (mapc (lambda (dir)
           (semantic-add-system-include dir 'c++-mode)
           (semantic-add-system-include dir 'c-mode))
