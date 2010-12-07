@@ -527,27 +527,45 @@ Like eclipse's Ctrl+Alt+F."
                '("\\.cs\\'" flymake-simple-make-init)))
 (when (or (executable-find "make")
           (executable-find "gcc")
-          (executable-find "g++"))
+          (executable-find "g++")
+          (executable-find "cl"))
   (defvar flymake-makefile-filenames '("Makefile" "makefile" "GNUmakefile")
     "File names for make.")
   (defun flymake-get-cc-cmdline (source base-dir)
     (let ((cc (if (string= (file-name-extension source) "c") "gcc" "g++")))
-      (list cc
-            (list "-Wall"
-                  "-Wextra"
-                  "-pedantic"
-                  "-fsyntax-only"
-                  "-I.."
-                  "-I../include"
-                  "-I../inc"
-                  "-I../common"
-                  "-I../public"
-                  "-I../.."
-                  "-I../../include"
-                  "-I../../inc"
-                  "-I../../common"
-                  "-I../../public"
-                  source))))
+      (if (executable-find cc)
+          (list cc
+                (list "-Wall"
+                      "-Wextra"
+                      "-pedantic"
+                      "-fsyntax-only"
+                      "-I.."
+                      "-I../include"
+                      "-I../inc"
+                      "-I../common"
+                      "-I../public"
+                      "-I../.."
+                      "-I../../include"
+                      "-I../../inc"
+                      "-I../../common"
+                      "-I../../public"
+                      source))
+        (when (executable-find "cl")
+          (list "cl"
+                (list "/EHsc"
+                      "/Wall"
+                      "/I.."
+                      "/I../include"
+                      "/I../inc"
+                      "/I../common"
+                      "/I../public"
+                      "/I../.."
+                      "/I../../include"
+                      "/I../../inc"
+                      "/I../../common"
+                      "/I../../public"
+                      "/c"
+                      source))))))
   (defun flymake-init-find-makfile-dir (source-file-name)
     "Find Makefile, store its dir in buffer data and return its dir, if found."
     (let* ((source-dir (file-name-directory source-file-name))
@@ -574,7 +592,7 @@ Use CREATE-TEMP-F for creating temp copy."
            (cc (if (string= (file-name-extension source-file-name) "c")
                    "gcc"
                  "g++")))
-      (if (or buildfile-dir (executable-find cc))
+      (if (or buildfile-dir (executable-find cc) (executable-find "cl"))
           (let* ((temp-source-file-name
                   (ignore-errors
                     (flymake-init-create-temp-buffer-copy create-temp-f))))
@@ -592,8 +610,8 @@ Use CREATE-TEMP-F for creating temp copy."
                "TMPERR"
                (format "Can't create temp file for %s" source-file-name))))
         (flymake-report-fatal-status
-         "NOMK" (format "No buildfile (%s) found for %s, or can't found %s"
-                        "Makefile" source-file-name cc)))
+         "NOMK" (format "No buildfile (%s) found for %s, or can't found compile"
+                        "Makefile" source-file-name)))
       args))
   (defun flymake-simple-make-cc-init ()
     (flymake-simple-make-cc-init-impl 'flymake-create-temp-inplace t t))
@@ -619,7 +637,7 @@ Use CREATE-TEMP-F for creating temp copy."
                  (buildfile-dir
                   (and (executable-find "make")
                        (flymake-init-find-makfile-dir source-file-name))))
-            (if (or buildfile-dir (executable-find cc))
+            (if (or buildfile-dir (executable-find cc) (executable-find "cl"))
                 (setq args (flymake-get-syntax-check-program-args
                             temp-master-file-name
                             (if buildfile-dir buildfile-dir source-dir)
@@ -630,8 +648,8 @@ Use CREATE-TEMP-F for creating temp copy."
                               'flymake-get-cc-cmdline)))
               (flymake-report-fatal-status
                "NOMK"
-               (format "No buildfile (%s) found for %s, or can't found %s"
-                       "Makefile" source-file-name cc))))
+               (format "No buildfile (%s) found for %s, or can't found compile"
+                       "Makefile" source-file-name))))
         (flymake-report-fatal-status
          "TMPERR" (format "Can't create temp file for %s" source-file-name)))
       args))

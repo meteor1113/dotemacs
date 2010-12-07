@@ -1,5 +1,7 @@
 2010-12-07  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Flymake now support vc.
+
 	* init-toolbar.el: Improve flymake toolbar.
 
 	* init-site.el: Setup INCLUDE path for gcc.
