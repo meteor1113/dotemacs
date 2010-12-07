@@ -1,5 +1,7 @@
 2010-12-07  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-toolbar.el: Improve flymake toolbar.
+
 	* init-site.el: Setup INCLUDE path for gcc.
 
 2010-12-06  Meteor Liu  <meteor1113@gmail.com>

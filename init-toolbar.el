@@ -283,6 +283,20 @@
   '(menu-item "Highlight tail" highlight-tail-mode
               :enable (fboundp 'highlight-tail-mode)
               :button (:toggle . highlight-tail-mode)))
+(define-key minormode-sub-menu [flymake-mode]
+  '(menu-item "Flymake" flymake-mode
+              :enable (fboundp 'flymake-mode)
+              :button (:toggle . flymake-mode)))
+(define-key minormode-sub-menu [flymake-find-file-hook]
+  '(menu-item "Flymake hook"
+              (lambda ()
+                (interactive)
+                (if (memq 'flymake-find-file-hook find-file-hook)
+                    (remove-hook 'find-file-hook 'flymake-find-file-hook)
+                  (add-hook 'find-file-hook 'flymake-find-file-hook)))
+              :enable (fboundp 'flymake-find-file-hook)
+              :button
+              (:toggle . (memq 'flymake-find-file-hook find-file-hook))))
 (define-key minormode-sub-menu [tabbar-mode]
   '(menu-item "Tabbar" tabbar-mode
               :enable (fboundp 'tabbar-mode)
@@ -741,6 +755,17 @@
 (tool-bar-add-item "separator" nil 'flymake-toolbar
                    :visible 'toolbarshow-flymake
                    :enable nil)
+(tool-bar-add-item "flymake-mode" 'flymake-mode 'flymake-mode
+                   :visible 'toolbarshow-flymake
+                   :help '(concat "Toggle flymake minor mode"
+                                  (key4cmd 'flymake-mode)))
+(tool-bar-add-item "flymake-check"
+                   'flymake-start-syntax-check
+                   'flymake-check
+                   :visible 'toolbarshow-flymake
+                   :enable 'flymake-mode
+                   :help '(concat "Flymake - Start syntax checking"
+                                  (key4cmd 'flymake-start-syntax-check)))
 (tool-bar-add-item "flymake-prev"
                    (lambda ()
                      (interactive)
@@ -752,7 +777,7 @@
                    :enable '(and flymake-mode
                                  (or (fboundp 'flymake-goto-prev-error-disp)
                                      (fboundp 'flymake-goto-prev-error)))
-                   :help '(concat "Go to prev flymake error"
+                   :help '(concat "Flymake - Go to prev error"
                                   (key4cmd 'flymake-goto-prev-error-disp)))
 (tool-bar-add-item "flymake-next"
                    (lambda ()
@@ -765,7 +790,7 @@
                    :enable '(and flymake-mode
                                  (or (fboundp 'flymake-goto-prev-error-disp)
                                      (fboundp 'flymake-goto-prev-error)))
-                   :help '(concat "Go to next flymake error"
+                   :help '(concat "Flymake - Go to next error"
                                   (key4cmd 'flymake-goto-next-error-disp)))
 (tool-bar-add-item "flymake-err-menu"
                    'flymake-display-err-menu-for-current-line
@@ -774,7 +799,7 @@
                    :enable '(and flymake-mode
                                  (fboundp
                                   'flymake-display-err-menu-for-current-line))
-                   :help '(concat "Display a menu with flymake errors/warnings"
+                   :help '(concat "Flymake - Display a errors/warnings menu"
                                   (key4cmd
                                    'flymake-display-err-menu-for-current-line)))
 
