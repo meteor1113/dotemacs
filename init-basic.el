@@ -553,7 +553,7 @@ Like eclipse's Ctrl+Alt+F."
         (when (executable-find "cl")
           (list "cl"
                 (list "/EHsc"
-                      "/Wall"
+                      "/W4"
                       "/I.."
                       "/I../include"
                       "/I../inc"
@@ -564,6 +564,7 @@ Like eclipse's Ctrl+Alt+F."
                       "/I../../inc"
                       "/I../../common"
                       "/I../../public"
+                      (concat "/Fo" (getenv "TEMP") "\\null.obj")
                       "/c"
                       source))))))
   (defun flymake-init-find-makfile-dir (source-file-name)

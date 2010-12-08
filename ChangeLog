@@ -1,3 +1,7 @@
+2010-12-08  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Flymake both support vc6 and vc2010.
+
 2010-12-07  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Flymake now support vc.
