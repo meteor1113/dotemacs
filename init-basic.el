@@ -525,146 +525,133 @@ Like eclipse's Ctrl+Alt+F."
                  flymake-simple-make-java-init flymake-simple-java-cleanup))
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.cs\\'" flymake-simple-make-init)))
-(when (or (executable-find "make")
-          (executable-find "gcc")
-          (executable-find "g++")
-          (executable-find "cl"))
-  (defvar flymake-makefile-filenames '("Makefile" "makefile" "GNUmakefile")
-    "File names for make.")
-  (defun flymake-get-cc-cmdline (source base-dir)
-    (let ((cc (if (string= (file-name-extension source) "c") "gcc" "g++")))
-      (if (executable-find cc)
-          (list cc
-                (list "-Wall"
-                      "-Wextra"
-                      "-pedantic"
-                      "-fsyntax-only"
-                      "-I.."
-                      "-I../include"
-                      "-I../inc"
-                      "-I../common"
-                      "-I../public"
-                      "-I../.."
-                      "-I../../include"
-                      "-I../../inc"
-                      "-I../../common"
-                      "-I../../public"
-                      source))
-        (when (executable-find "cl")
-          (list "cl"
-                (list "/EHsc"
-                      "/W4"
-                      "/I.."
-                      "/I../include"
-                      "/I../inc"
-                      "/I../common"
-                      "/I../public"
-                      "/I../.."
-                      "/I../../include"
-                      "/I../../inc"
-                      "/I../../common"
-                      "/I../../public"
-                      (concat "/Fo" (getenv "TEMP") "\\null.obj")
-                      "/c"
-                      source))))))
-  (defun flymake-init-find-makfile-dir (source-file-name)
-    "Find Makefile, store its dir in buffer data and return its dir, if found."
-    (let* ((source-dir (file-name-directory source-file-name))
-           (buildfile-dir nil))
-      (catch 'found
-        (dolist (makefile flymake-makefile-filenames)
-          (let ((found-dir (flymake-find-buildfile makefile source-dir)))
-            (when found-dir
-              (setq buildfile-dir found-dir)
-              (setq flymake-base-dir buildfile-dir)
-              (throw 'found t)))))
-      buildfile-dir))
-  (defun flymake-simple-make-cc-init-impl (create-temp-f
-                                           use-relative-base-dir
-                                           use-relative-source)
-    "Create syntax check command line for a directly checked source file.
+(defvar flymake-makefile-filenames '("Makefile" "makefile" "GNUmakefile")
+  "File names for make.")
+(defvar flymake-c-file-cmdlines
+  '(("gcc" ("-Wall" "-Wextra" "-pedantic" "-fsyntax-only"
+            "-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
+            "-I../.." "-I../../include" "-I../../inc"
+            "-I../../common" "-I../../public"))
+    ("clang" ("-Wall" "-Wextra" "-pedantic" "-fsyntax-only"
+              "-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
+              "-I../.." "-I../../include" "-I../../inc"
+              "-I../../common" "-I../../public"))
+    ("cl" ("/EHsc" "/W4"
+           "/I.." "/I../include" "/I../inc" "/I../common" "/I../public"
+           "/I../.." "/I../../include" "/I../../inc"
+           "/I../../common" "/I../../public"
+           (concat "/Fo" (getenv "TEMP") "\\null.obj") "/c"))))
+(defvar flymake-cpp-file-cmdlines
+  '(("g++" ("-Wall" "-Wextra" "-pedantic" "-fsyntax-only"
+            "-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
+            "-I../.." "-I../../include" "-I../../inc"
+            "-I../../common" "-I../../public"))
+    ("clang++" ("-Wall" "-Wextra" "-pedantic" "-fsyntax-only"
+                "-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
+                "-I../.." "-I../../include" "-I../../inc"
+                "-I../../common" "-I../../public"))
+    ("cl" ("/EHsc" "/W4"
+           "/I.." "/I../include" "/I../inc" "/I../common" "/I../public"
+           "/I../.." "/I../../include" "/I../../inc"
+           "/I../../common" "/I../../public"
+           (concat "/Fo" (getenv "TEMP") "\\null.obj") "/c"))))
+(defun flymake-get-cc-cmdline (source base-dir)
+  (let ((args nil)
+        (cmdlines (if (string= (file-name-extension source) "c")
+                      flymake-c-file-cmdlines
+                    flymake-cpp-file-cmdlines)))
+    (while (and (not args) cmdlines)
+      (let ((cmdline (car cmdlines)))
+        (if (executable-find (car cmdline))
+            (setq args (list (car cmdline)
+                             (append (car (cdr cmdline)) (list source))))
+          (setq cmdlines (cdr cmdlines)))))
+    (when (not args)
+      (flymake-report-fatal-status
+       "NOMK" (format "No compile found for %s" source)))
+    args))
+(defun flymake-init-find-makfile-dir (source-file-name)
+  "Find Makefile, store its dir in buffer data and return its dir, if found."
+  (let* ((source-dir (file-name-directory source-file-name))
+         (buildfile-dir nil))
+    (catch 'found
+      (dolist (makefile flymake-makefile-filenames)
+        (let ((found-dir (flymake-find-buildfile makefile source-dir)))
+          (when found-dir
+            (setq buildfile-dir found-dir)
+            (setq flymake-base-dir buildfile-dir)
+            (throw 'found t)))))
+    buildfile-dir))
+(defun flymake-simple-make-cc-init-impl (create-temp-f
+                                         use-relative-base-dir
+                                         use-relative-source)
+  "Create syntax check command line for a directly checked source file.
 Use CREATE-TEMP-F for creating temp copy."
-    (let* ((args nil)
-           (source-file-name buffer-file-name)
-           (source-dir (file-name-directory source-file-name))
-           (buildfile-dir
-            (and (executable-find "make")
-                 (flymake-init-find-makfile-dir source-file-name)))
-           (cc (if (string= (file-name-extension source-file-name) "c")
-                   "gcc"
-                 "g++")))
-      (if (or buildfile-dir (executable-find cc) (executable-find "cl"))
-          (let* ((temp-source-file-name
-                  (ignore-errors
-                    (flymake-init-create-temp-buffer-copy create-temp-f))))
-            (if temp-source-file-name
-                (setq args
-                      (flymake-get-syntax-check-program-args
-                       temp-source-file-name
-                       (if buildfile-dir buildfile-dir source-dir)
-                       use-relative-base-dir
-                       use-relative-source
-                       (if buildfile-dir
-                           'flymake-get-make-cmdline
-                         'flymake-get-cc-cmdline)))
-              (flymake-report-fatal-status
-               "TMPERR"
-               (format "Can't create temp file for %s" source-file-name))))
-        (flymake-report-fatal-status
-         "NOMK" (format "No buildfile (%s) found for %s, or can't found compile"
-                        "Makefile" source-file-name)))
-      args))
-  (defun flymake-simple-make-cc-init ()
-    (flymake-simple-make-cc-init-impl 'flymake-create-temp-inplace t t))
-  (defun flymake-master-make-cc-init (get-incl-dirs-f
-                                      master-file-masks
-                                      include-regexp)
-    "Create make command line for a source file
+  (let* ((args nil)
+         (source-file-name buffer-file-name)
+         (source-dir (file-name-directory source-file-name))
+         (buildfile-dir
+          (and (executable-find "make")
+               (flymake-init-find-makfile-dir source-file-name)))
+         (temp-source-file-name
+          (ignore-errors
+            (flymake-init-create-temp-buffer-copy create-temp-f))))
+    (if temp-source-file-name
+        (setq args
+              (flymake-get-syntax-check-program-args
+               temp-source-file-name
+               (if buildfile-dir buildfile-dir source-dir)
+               use-relative-base-dir
+               use-relative-source
+               (if buildfile-dir
+                   'flymake-get-make-cmdline
+                 'flymake-get-cc-cmdline)))
+      (flymake-report-fatal-status
+       "TMPERR" (format "Can't create temp file for %s" source-file-name)))
+    args))
+(defun flymake-simple-make-cc-init ()
+  (flymake-simple-make-cc-init-impl 'flymake-create-temp-inplace t t))
+(defun flymake-master-make-cc-init (get-incl-dirs-f
+                                    master-file-masks
+                                    include-regexp)
+  "Create make command line for a source file
  checked via master file compilation."
-    (let* ((args nil)
-           (temp-master-file-name
-            (ignore-errors
-              (flymake-init-create-temp-source-and-master-buffer-copy
-               get-incl-dirs-f
-               'flymake-create-temp-inplace
-               master-file-masks
-               include-regexp)))
-           (cc (if (string= (file-name-extension buffer-file-name) "c")
-                   "gcc"
-                 "g++")))
-      (if temp-master-file-name
-          (let* ((source-file-name buffer-file-name)
-                 (source-dir (file-name-directory source-file-name))
-                 (buildfile-dir
-                  (and (executable-find "make")
-                       (flymake-init-find-makfile-dir source-file-name))))
-            (if (or buildfile-dir (executable-find cc) (executable-find "cl"))
-                (setq args (flymake-get-syntax-check-program-args
-                            temp-master-file-name
-                            (if buildfile-dir buildfile-dir source-dir)
-                            nil
-                            nil
-                            (if buildfile-dir
-                                'flymake-get-make-cmdline
-                              'flymake-get-cc-cmdline)))
-              (flymake-report-fatal-status
-               "NOMK"
-               (format "No buildfile (%s) found for %s, or can't found compile"
-                       "Makefile" source-file-name))))
-        (flymake-report-fatal-status
-         "TMPERR" (format "Can't create temp file for %s" source-file-name)))
-      args))
-  (defun flymake-master-make-cc-header-init ()
-    (flymake-master-make-cc-init
-     'flymake-get-include-dirs
-     '("\\.cpp\\'" "\\.c\\'")
-     "[ \t]*#[ \t]*include[ \t]*\"\\([[:word:]0-9/\\_.]*%s\\)\""))
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.\\(?:h\\(?:pp\\)?\\)\\'"
-                 flymake-master-make-cc-header-init flymake-master-cleanup))
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'"
-                 flymake-simple-make-cc-init)))
+  (let* ((args nil)
+         (temp-master-file-name
+          (ignore-errors
+            (flymake-init-create-temp-source-and-master-buffer-copy
+             get-incl-dirs-f
+             'flymake-create-temp-inplace
+             master-file-masks
+             include-regexp))))
+    (if temp-master-file-name
+        (let* ((source-file-name buffer-file-name)
+               (source-dir (file-name-directory source-file-name))
+               (buildfile-dir
+                (and (executable-find "make")
+                     (flymake-init-find-makfile-dir source-file-name))))
+          (setq args (flymake-get-syntax-check-program-args
+                      temp-master-file-name
+                      (if buildfile-dir buildfile-dir source-dir)
+                      nil
+                      nil
+                      (if buildfile-dir
+                          'flymake-get-make-cmdline
+                        'flymake-get-cc-cmdline))))
+      (flymake-report-fatal-status
+       "TMPERR" (format "Can't create temp file for %s" source-file-name)))
+    args))
+(defun flymake-master-make-cc-header-init ()
+  (flymake-master-make-cc-init
+   'flymake-get-include-dirs
+   '("\\.cpp\\'" "\\.c\\'")
+   "[ \t]*#[ \t]*include[ \t]*\"\\([[:word:]0-9/\\_.]*%s\\)\""))
+(add-to-list 'flymake-allowed-file-name-masks
+             '("\\.\\(?:h\\(?:pp\\)?\\)\\'"
+               flymake-master-make-cc-header-init flymake-master-cleanup))
+(add-to-list 'flymake-allowed-file-name-masks
+             '("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'"
+               flymake-simple-make-cc-init))
 (when (executable-find "pyflakes")
   (defun flymake-pyflakes-init ()
     (let* ((temp-file (flymake-init-create-temp-buffer-copy
