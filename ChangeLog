@@ -2,6 +2,7 @@
 
 	* init-basic.el: Check C/C++ compile when startup.
 	: Add elisp and shell support for flymake.
+	Disable FlymakeElisp because ede-projects.el error when startup.
 
 2010-12-11  Meteor Liu  <meteor1113@gmail.com>
 

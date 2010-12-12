@@ -584,7 +584,7 @@ Like eclipse's Ctrl+Alt+F."
                  (princ (format "%s:%s: error: Unmatched bracket or quote\n"
                                 file (line-number-at-pos)))))))))
         local-file)))))
-(add-to-list 'flymake-allowed-file-name-masks '("\\.el$" flymake-elisp-init))
+;; (add-to-list 'flymake-allowed-file-name-masks '("\\.el$" flymake-elisp-init))
 
 (defcustom flymake-shell-of-choice "sh"
   "Path of shell.")
