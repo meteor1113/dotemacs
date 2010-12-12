@@ -1,3 +1,7 @@
+2010-12-12  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Check C/C++ compile when startup.
+
 2010-12-11  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Flymake now support clang.

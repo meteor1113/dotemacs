@@ -528,38 +528,48 @@ Like eclipse's Ctrl+Alt+F."
 (defvar flymake-makefile-filenames '("Makefile" "makefile" "GNUmakefile")
   "File names for make.")
 (defvar flymake-c-file-cmdlines
-  '(("gcc" ("-Wall" "-Wextra" "-pedantic" "-fsyntax-only"
-            "-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
+  '(("gcc" ("-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
             "-I../.." "-I../../include" "-I../../inc"
-            "-I../../common" "-I../../public"))
-    ("clang" ("-Wall" "-Wextra" "-pedantic" "-fsyntax-only"
-              "-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
+            "-I../../common" "-I../../public"
+            "-Wall" "-Wextra" "-pedantic" "-fsyntax-only"))
+    ("clang" ("-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
               "-I../.." "-I../../include" "-I../../inc"
-              "-I../../common" "-I../../public"))
-    ("cl" ("/EHsc" "/W4"
-           "/I.." "/I../include" "/I../inc" "/I../common" "/I../public"
+              "-I../../common" "-I../../public"
+              "-Wall" "-Wextra" "-pedantic" "-fsyntax-only"))
+    ("cl" ("/I.." "/I../include" "/I../inc" "/I../common" "/I../public"
            "/I../.." "/I../../include" "/I../../inc"
            "/I../../common" "/I../../public"
-           (concat "/Fo" (getenv "TEMP") "\\null.obj") "/c"))))
-(defvar flymake-cpp-file-cmdlines
-  '(("g++" ("-Wall" "-Wextra" "-pedantic" "-fsyntax-only"
-            "-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
+           "/EHsc" "/W4" (concat "/Fo" (getenv "TEMP") "\\null.obj") "/c"))))
+(defvar flymake-cxx-file-cmdlines
+  '(("g++" ("-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
             "-I../.." "-I../../include" "-I../../inc"
-            "-I../../common" "-I../../public"))
-    ("clang++" ("-Wall" "-Wextra" "-pedantic" "-fsyntax-only"
-                "-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
+            "-I../../common" "-I../../public"
+            "-Wall" "-Wextra" "-pedantic" "-fsyntax-only"))
+    ("clang++" ("-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
                 "-I../.." "-I../../include" "-I../../inc"
-                "-I../../common" "-I../../public"))
-    ("cl" ("/EHsc" "/W4"
-           "/I.." "/I../include" "/I../inc" "/I../common" "/I../public"
+                "-I../../common" "-I../../public"
+                "-Wall" "-Wextra" "-pedantic" "-fsyntax-only"))
+    ("cl" ("/I.." "/I../include" "/I../inc" "/I../common" "/I../public"
            "/I../.." "/I../../include" "/I../../inc"
            "/I../../common" "/I../../public"
-           (concat "/Fo" (getenv "TEMP") "\\null.obj") "/c"))))
+           "/EHsc" "/W4" (concat "/Fo" (getenv "TEMP") "\\null.obj") "/c"))))
+(defun flymake-get-compile (cmdlines)
+  (let ((compile nil))
+    (while (and (not compile) cmdlines)
+      (let ((cmdline (car cmdlines)))
+        (if (executable-find (car cmdline))
+            (setq compile (car cmdline))
+          (setq cmdlines (cdr cmdlines)))))
+    compile))
+(defun flymake-get-c-compile ()
+  (flymake-get-compile flymake-c-file-cmdlines))
+(defun flymake-get-cxx-compile ()
+  (flymake-get-compile flymake-cxx-file-cmdlines))
 (defun flymake-get-cc-cmdline (source base-dir)
   (let ((args nil)
         (cmdlines (if (string= (file-name-extension source) "c")
                       flymake-c-file-cmdlines
-                    flymake-cpp-file-cmdlines)))
+                    flymake-cxx-file-cmdlines)))
     (while (and (not args) cmdlines)
       (let ((cmdline (car cmdlines)))
         (if (executable-find (car cmdline))
@@ -646,12 +656,15 @@ Use CREATE-TEMP-F for creating temp copy."
    'flymake-get-include-dirs
    '("\\.cpp\\'" "\\.c\\'")
    "[ \t]*#[ \t]*include[ \t]*\"\\([[:word:]0-9/\\_.]*%s\\)\""))
-(add-to-list 'flymake-allowed-file-name-masks
-             '("\\.\\(?:h\\(?:pp\\)?\\)\\'"
-               flymake-master-make-cc-header-init flymake-master-cleanup))
-(add-to-list 'flymake-allowed-file-name-masks
-             '("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'"
-               flymake-simple-make-cc-init))
+(when (or (executable-find "make")
+          (flymake-get-c-compile)
+          (flymake-get-cxx-compile))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.\\(?:h\\(?:pp\\)?\\)\\'"
+                 flymake-master-make-cc-header-init flymake-master-cleanup))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'"
+                 flymake-simple-make-cc-init)))
 (when (executable-find "pyflakes")
   (defun flymake-pyflakes-init ()
     (let* ((temp-file (flymake-init-create-temp-buffer-copy
