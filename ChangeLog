@@ -1,3 +1,9 @@
+2010-12-13  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el: Small changes for flymake toolbar.
+
+	* init-basic.el: Small changes for flymake.
+
 2010-12-12  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Check C/C++ compile when startup.

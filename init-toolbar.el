@@ -766,39 +766,21 @@
                    :enable 'flymake-mode
                    :help '(concat "Flymake - Start syntax checking"
                                   (key4cmd 'flymake-start-syntax-check)))
-(tool-bar-add-item "flymake-prev"
-                   (lambda ()
-                     (interactive)
-                     (if (fboundp 'flymake-goto-prev-error-disp)
-                         (flymake-goto-prev-error-disp)
-                       (flymake-goto-prev-error)))
-                   'flymake-prev
+(tool-bar-add-item "flymake-prev" 'flymake-goto-prev-error 'flymake-prev
                    :visible 'toolbarshow-flymake
-                   :enable '(and flymake-mode
-                                 (or (fboundp 'flymake-goto-prev-error-disp)
-                                     (fboundp 'flymake-goto-prev-error)))
+                   :enable 'flymake-mode
                    :help '(concat "Flymake - Go to prev error"
-                                  (key4cmd 'flymake-goto-prev-error-disp)))
-(tool-bar-add-item "flymake-next"
-                   (lambda ()
-                     (interactive)
-                     (if (fboundp 'flymake-goto-next-error-disp)
-                         (flymake-goto-next-error-disp)
-                       (flymake-goto-next-error)))
-                   'flymake-next
+                                  (key4cmd 'flymake-goto-prev-error)))
+(tool-bar-add-item "flymake-next" 'flymake-goto-next-error 'flymake-next
                    :visible 'toolbarshow-flymake
-                   :enable '(and flymake-mode
-                                 (or (fboundp 'flymake-goto-prev-error-disp)
-                                     (fboundp 'flymake-goto-prev-error)))
+                   :enable 'flymake-mode
                    :help '(concat "Flymake - Go to next error"
-                                  (key4cmd 'flymake-goto-next-error-disp)))
+                                  (key4cmd 'flymake-goto-next-error)))
 (tool-bar-add-item "flymake-err-menu"
                    'flymake-display-err-menu-for-current-line
                    'flymake-err-menu
                    :visible 'toolbarshow-flymake
-                   :enable '(and flymake-mode
-                                 (fboundp
-                                  'flymake-display-err-menu-for-current-line))
+                   :enable 'flymake-mode
                    :help '(concat "Flymake - Display a errors/warnings menu"
                                   (key4cmd
                                    'flymake-display-err-menu-for-current-line)))

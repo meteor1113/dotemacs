@@ -488,8 +488,8 @@ Like eclipse's Ctrl+Alt+F."
 
 ;; flymake
 (autoload 'flymake-find-file-hook "flymake" "" t)
-(setq flymake-allowed-file-name-masks '())
 (add-hook 'find-file-hook 'flymake-find-file-hook)
+(setq flymake-allowed-file-name-masks '())
 (setq flymake-gui-warnings-enabled nil)
 (setq flymake-log-level 0)
 ;; (setq flymake-no-changes-timeout 0.5)
@@ -500,34 +500,19 @@ Like eclipse's Ctrl+Alt+F."
         "./test" "../test" "../../test"
         "./Test" "../Test" "../../Test"
         "./UnitTest" "../UnitTest" "../../UnitTest"))
-(defun flymake-display-current-error ()
-  "Display errors/warnings under cursor."
-  (interactive)
-  (let ((ovs (overlays-in (point) (1+ (point)))))
-    (catch 'found
-      (dolist (ov ovs)
-        (when (flymake-overlay-p ov)
-          (message (overlay-get ov 'help-echo))
-          (throw 'found t))))))
-(defun flymake-goto-next-error-disp ()
-  "Go to next error in err ring, then display error/warning."
-  (interactive)
-  (flymake-goto-next-error)
-  (flymake-display-current-error))
-(defun flymake-goto-prev-error-disp ()
-  "Go to previous error in err ring, then display error/warning."
-  (interactive)
-  (flymake-goto-prev-error)
-  (flymake-display-current-error))
 (defvar flymake-mode-map (make-sparse-keymap))
-(define-key flymake-mode-map (kbd "C-c <f4>") 'flymake-goto-next-error-disp)
-(define-key flymake-mode-map (kbd "C-c <S-f4>") 'flymake-goto-prev-error-disp)
+(define-key flymake-mode-map (kbd "C-c <f4>") 'flymake-goto-next-error)
+(define-key flymake-mode-map (kbd "C-c <S-f4>") 'flymake-goto-prev-error)
 (define-key flymake-mode-map (kbd "C-c <C-f4>")
   'flymake-display-err-menu-for-current-line)
 (or (assoc 'flymake-mode minor-mode-map-alist)
     (setq minor-mode-map-alist
           (cons (cons 'flymake-mode flymake-mode-map)
                 minor-mode-map-alist)))
+(defadvice flymake-goto-prev-error (after display activate)
+  (message (get-char-property (point) 'help-echo)))
+(defadvice flymake-goto-next-error (after display activate)
+  (message (get-char-property (point) 'help-echo)))
 
 (when (executable-find "texify")
   (add-to-list 'flymake-allowed-file-name-masks
@@ -576,15 +561,18 @@ Like eclipse's Ctrl+Alt+F."
           (dolist (file command-line-args-left)
             (with-temp-buffer
               (insert-file-contents file)
+              (emacs-lisp-mode)
               (condition-case data
-                  (progn (emacs-lisp-mode)
-                         (scan-sexps (point-min) (point-max)))
+                  (scan-sexps (point-min) (point-max))
                 (scan-error
                  (goto-char(nth 2 data))
                  (princ (format "%s:%s: error: Unmatched bracket or quote\n"
                                 file (line-number-at-pos)))))))))
         local-file)))))
 ;; (add-to-list 'flymake-allowed-file-name-masks '("\\.el$" flymake-elisp-init))
+;; (add-hook 'write-file-functions (lambda nil
+;;                                   (when (eq major-mode 'emacs-lisp-mode)
+;;                                     (check-parens))))
 
 (defcustom flymake-shell-of-choice "sh"
   "Path of shell.")
