@@ -1,3 +1,7 @@
+2010-12-15  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Small changes for flymake python.
+
 2010-12-13  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Small changes for flymake toolbar.

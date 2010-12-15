@@ -590,6 +590,22 @@ Like eclipse's Ctrl+Alt+F."
 (when (executable-find flymake-shell-of-choice)
   (add-to-list 'flymake-allowed-file-name-masks '("\\.sh$" flymake-shell-init)))
 
+(when (executable-find "pyflakes")
+  (defun flymake-pyflakes-init ()
+    (let* ((args nil)
+           (temp-file (ignore-errors (flymake-init-create-temp-buffer-copy
+                                      'flymake-create-temp-inplace))))
+      (if temp-file
+          (let ((local-file (file-relative-name
+                             temp-file
+                             (file-name-directory buffer-file-name))))
+            (setq args (list "pyflakes" (list local-file))))
+        (flymake-report-fatal-status
+         "TMPERR" (format "Can't create temp file")))
+      args))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.py\\'" flymake-pyflakes-init)))
+
 (defvar flymake-makefile-filenames '("Makefile" "makefile" "GNUmakefile")
   "File names for make.")
 (defvar flymake-c-file-arguments
@@ -726,17 +742,6 @@ Use CREATE-TEMP-F for creating temp copy."
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'"
                  flymake-simple-make-cc-init)))
-
-(when (executable-find "pyflakes")
-  (defun flymake-pyflakes-init ()
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-           (local-file (file-relative-name
-                        temp-file
-                        (file-name-directory buffer-file-name))))
-      (list "pyflakes" (list local-file))))
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.py\\'" flymake-pyflakes-init)))
 
 ;; gdb
 (require 'gdb-ui nil 'noerror)
