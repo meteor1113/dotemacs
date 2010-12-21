@@ -467,6 +467,9 @@ Like eclipse's Ctrl+Alt+F."
 
 (add-hook 'sh-mode-hook 'program-common-function)
 
+(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
+
 (add-hook 'makefile-mode-hook 'imenu-add-menubar-index)
 
 (when (fboundp 'whitespace-mode)
