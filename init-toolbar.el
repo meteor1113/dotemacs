@@ -174,7 +174,7 @@
   '(menu-item "Start" emms-start
               :enable (fboundp 'emms-start)))
 (define-key emms-sub-menu [emms-pause]
-  '(menu-item "Pause" emms-pause
+  '(menu-item "Pause/Resume" emms-pause
               :enable (fboundp 'emms-pause)))
 (define-key emms-sub-menu [emms-next]
   '(menu-item "Next track" emms-next
@@ -852,7 +852,7 @@
 (tool-bar-add-item "emms-pause" 'emms-pause 'emms-pause
                    :visible 'toolbarshow-emms
                    :enable '(fboundp 'emms-pause)
-                   :help '(concat "Pause"
+                   :help '(concat "Pause/Resume"
                                   (key4cmd 'emms-pause)))
 (tool-bar-add-item "emms-seek-forward" 'emms-seek-forward 'emms-seek-forward
                    :visible 'toolbarshow-emms
