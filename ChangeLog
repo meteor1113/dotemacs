@@ -1,3 +1,7 @@
+2011-01-10  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Don't enable flymake in default.
+
 2010-12-21  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (shell-mode-hook): Enable
