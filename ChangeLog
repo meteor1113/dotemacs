@@ -1,5 +1,7 @@
 2011-01-13  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: highlight-symbol-face's background set to gray83(eclipse).
+
 	* init-site.el: Fix a bug for ede-cpp-root-project when not
 	install global.
 
