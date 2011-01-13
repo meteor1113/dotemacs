@@ -62,16 +62,13 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     (progn (global-semantic-show-unmatched-syntax-mode 1)
            (global-semantic-show-parser-state-mode 1)))
   (ignore-errors (semantic-load-enable-primary-exuberent-ctags-support))
+  ;; (global-srecode-minor-mode 1)
+  (global-ede-mode 1)
   (when (executable-find "global")
     (semanticdb-enable-gnu-global-databases 'c-mode)
-    (semanticdb-enable-gnu-global-databases 'c++-mode))
-  (global-ede-mode 1)
-  ;; (global-srecode-minor-mode 1)
-
+    (semanticdb-enable-gnu-global-databases 'c++-mode)
+    (setq ede-locate-setup-options '(ede-locate-global ede-locate-base)))
   ;; (setq semantic-c-obey-conditional-section-parsing-flag nil) ; ignore #if
-  (setq ede-locate-setup-options
-        '(ede-locate-global
-          ede-locate-base))
 
   (enable-visual-studio-bookmarks)
   (define-key global-map [(control f2)] 'viss-bookmark-toggle)
