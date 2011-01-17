@@ -721,7 +721,7 @@ Use CREATE-TEMP-F for creating temp copy."
                (source-dir (file-name-directory source-file-name))
                (buildfile-dir
                 (and (executable-find "make")
-                     (flymake-init-find-makfile-dir source-file-name))))
+                     (flymake-init-find-makfile-dir temp-master-file-name))))
           (setq args (flymake-get-syntax-check-program-args
                       temp-master-file-name
                       (if buildfile-dir buildfile-dir source-dir)

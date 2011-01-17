@@ -1,3 +1,7 @@
+2011-01-17  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (flymake-master-make-cc-init): Fix a flymake bug.
+
 2011-01-13  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: highlight-symbol-face's background set to gray83(eclipse).
