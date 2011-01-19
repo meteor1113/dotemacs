@@ -497,7 +497,7 @@ Like eclipse's Ctrl+Alt+F."
 (setq flymake-allowed-file-name-masks '())
 (setq flymake-gui-warnings-enabled nil)
 (setq flymake-log-level 0)
-;; (setq flymake-no-changes-timeout 0.5)
+(setq flymake-no-changes-timeout 5.0)
 (setq flymake-master-file-dirs
       '("." "./src" "../src" "../../src"
         "./source" "../source" "../../source"

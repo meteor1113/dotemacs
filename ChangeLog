@@ -1,3 +1,7 @@
+2011-01-19  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (flymake-no-changes-timeout): Change from 0.5 to 5.0
+
 2011-01-17  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (flymake-master-make-cc-init): Fix a flymake bug.
