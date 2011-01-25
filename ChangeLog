@@ -1,5 +1,7 @@
 2011-01-25  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Enable global-hl-line-mode in terminal.
+
 	* init-misc.el: Enable highlight-symbol-mode in terminal.
 
 2011-01-19  Meteor Liu  <meteor1113@gmail.com>

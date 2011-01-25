@@ -151,7 +151,7 @@
 (when (fboundp 'transient-mark-mode)
   (transient-mark-mode t))
 (setq hl-line-face 'underline)          ; for highlight-symbol
-(global-hl-line-mode (if window-system 1 -1))
+(global-hl-line-mode 1);; (if window-system 1 -1))
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 (dolist (mode '(c-mode c++-mode objc-mode java-mode jde-mode
                        perl-mode cperl-mode python-mode ruby-mode
@@ -325,7 +325,8 @@ Like eclipse's Ctrl+Alt+F."
 ;; global key bindings
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
-(global-set-key (kbd "<select>") 'move-end-of-line) ; for putty
+(global-set-key (kbd "<find>") 'move-beginning-of-line) ; putty
+(global-set-key (kbd "<select>") 'move-end-of-line) ; putty
 (global-set-key (kbd "C-=") 'align)
 (global-set-key (kbd "C-S-u") 'upcase-region)
 (global-set-key (kbd "C-S-l") 'downcase-region)
