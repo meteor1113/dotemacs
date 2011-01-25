@@ -328,6 +328,9 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key (kbd "<find>") 'move-beginning-of-line) ; putty
 (global-set-key (kbd "<select>") 'move-end-of-line) ; putty
+(when (not window-system)                           ; putty
+  (global-set-key [mouse-4] 'scroll-down)
+  (global-set-key [mouse-5] 'scroll-up))
 (global-set-key (kbd "C-=") 'align)
 (global-set-key (kbd "C-S-u") 'upcase-region)
 (global-set-key (kbd "C-S-l") 'downcase-region)
