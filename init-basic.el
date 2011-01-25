@@ -135,6 +135,7 @@
 ;; (setq-default cursor-type 'bar)
 ;; (blink-cursor-mode -1)
 (setq x-stretch-cursor t)
+(xterm-mouse-mode t)
 ;; (mouse-avoidance-mode 'animate)
 
 ;; erc
