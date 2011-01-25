@@ -272,23 +272,27 @@
 
 (defvar minormode-sub-menu (make-sparse-keymap "Minor mode"))
 (define-key minormode-sub-menu [display-cn-weather-mode]
-  '(menu-item "Display weather" display-cn-weather-mode
+  '(menu-item "display-cn-weather-mode" display-cn-weather-mode
               :enable (fboundp 'display-cn-weather-mode)
               :button (:toggle . display-cn-weather-mode)))
+(define-key minormode-sub-menu [artist-mode]
+  '(menu-item "artist-mode" artist-mode
+              :enable (fboundp 'artist-mode)
+              :button (:toggle . artist-mode)))
 (define-key minormode-sub-menu [rainbow-mode]
-  '(menu-item "Rainbow" rainbow-mode
+  '(menu-item "rainbow-mode" rainbow-mode
               :enable (fboundp 'rainbow-mode)
               :button (:toggle . rainbow-mode)))
 (define-key minormode-sub-menu [highlight-tail-mode]
-  '(menu-item "Highlight tail" highlight-tail-mode
+  '(menu-item "highlight-tail-mode" highlight-tail-mode
               :enable (fboundp 'highlight-tail-mode)
               :button (:toggle . highlight-tail-mode)))
 (define-key minormode-sub-menu [flymake-mode]
-  '(menu-item "Flymake" flymake-mode
+  '(menu-item "flymake-mode" flymake-mode
               :enable (fboundp 'flymake-mode)
               :button (:toggle . flymake-mode)))
 (define-key minormode-sub-menu [flymake-find-file-hook]
-  '(menu-item "Flymake hook"
+  '(menu-item "flymake-find-file-hook"
               (lambda ()
                 (interactive)
                 (if (memq 'flymake-find-file-hook find-file-hook)
@@ -298,15 +302,15 @@
               :button
               (:toggle . (memq 'flymake-find-file-hook find-file-hook))))
 (define-key minormode-sub-menu [tabbar-mode]
-  '(menu-item "Tabbar" tabbar-mode
+  '(menu-item "tabbar-mode" tabbar-mode
               :enable (fboundp 'tabbar-mode)
               :button (:toggle . tabbar-mode)))
 (define-key minormode-sub-menu [whitespace-mode]
-  '(menu-item "Whitespace" whitespace-mode
+  '(menu-item "whitespace-mode" whitespace-mode
               :enable (fboundp 'whitespace-mode)
               :button (:toggle . whitespace-mode)))
 (define-key minormode-sub-menu [global-linum-mode]
-  '(menu-item "Global linum" global-linum-mode
+  '(menu-item "global-linum-mode" global-linum-mode
               :enable (fboundp 'global-linum-mode)
               :button (:toggle . global-linum-mode)))
 (define-key toggle-toolbar-menu [minor-mode]
