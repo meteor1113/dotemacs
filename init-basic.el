@@ -366,7 +366,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "ESC <C-f6>") (key-binding [C-M-f6]))
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (global-set-key [header-line double-mouse-1] 'kill-this-buffer)
-(global-set-key [header-line mouse-3] 'delete-other-windows)
+(global-set-key [header-line mouse-3] 'kill-this-buffer)
 
 
 ;;; special mode setting
