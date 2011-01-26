@@ -107,8 +107,7 @@
 ;; (global-whitespace-mode t)
 (eval-after-load "whitespace"
   `(defun whitespace-post-command-hook ()
-     "Hack for emacs-23.2's whitespace, it's very slow in c++-mode."
-     ))
+     "Hack for emacs-23.2's whitespace, it's very slow in c++-mode."))
 
 ;; bookmark
 (setq bookmark-save-flag 1)
@@ -135,7 +134,7 @@
 ;; (setq-default cursor-type 'bar)
 ;; (blink-cursor-mode -1)
 (setq x-stretch-cursor t)
-(xterm-mouse-mode t)
+(xterm-mouse-mode (if window-system -1 1))
 ;; (mouse-avoidance-mode 'animate)
 
 ;; erc

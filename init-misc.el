@@ -47,8 +47,8 @@
   (add-hook 'kill-emacs-hook '(lambda nil
                                 (bm-buffer-save-all)
                                 (bm-repository-save)))
-  (add-hook 'after-save-hook 'bm-buffer-save)
-  (add-hook 'after-revert-hook 'bm-buffer-restore)
+  ;; (add-hook 'after-save-hook 'bm-buffer-save)
+  ;; (add-hook 'after-revert-hook 'bm-buffer-restore)
   (global-set-key (kbd "<C-f2>") 'bm-toggle)
   (global-set-key [M-f2] 'bm-toggle)
   (global-set-key (kbd "ESC <f2>") 'bm-toggle) ; putty
