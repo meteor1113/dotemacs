@@ -1,3 +1,7 @@
+2011-01-26  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Disable highlight-symbol-mode-post-command.
+
 2011-01-25  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Enable global-hl-line-mode in terminal.

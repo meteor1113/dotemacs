@@ -180,17 +180,17 @@
       (lambda ()
         (unless (memq major-mode disable-hl-s-modes)
           (highlight-symbol-mode 1)))))
-  (defadvice highlight-symbol-mode-post-command
-    (around gud-tooltip-advice activate)
-    "Hack for gud-tooltip-mode."
-    (unless (eq this-command 'gud-tooltip-mouse-motion)
-      (let ((symbol (highlight-symbol-get-symbol)))
-        (unless (or (equal symbol highlight-symbol)
-                    (member symbol highlight-symbol-list))
-          ad-do-it))))
-  ;; (defadvice highlight-symbol-mode (after disable activate)
-  ;;   "Disable highlight-symbol-mode-post-command."
-  ;;   (remove-hook 'post-command-hook 'highlight-symbol-mode-post-command t))
+  ;; (defadvice highlight-symbol-mode-post-command
+  ;;   (around gud-tooltip-advice activate)
+  ;;   "Hack for gud-tooltip-mode."
+  ;;   (unless (eq this-command 'gud-tooltip-mouse-motion)
+  ;;     (let ((symbol (highlight-symbol-get-symbol)))
+  ;;       (unless (or (equal symbol highlight-symbol)
+  ;;                   (member symbol highlight-symbol-list))
+  ;;         ad-do-it))))
+  (defadvice highlight-symbol-mode (after disable activate)
+    "Disable highlight-symbol-mode-post-command."
+    (remove-hook 'post-command-hook 'highlight-symbol-mode-post-command t))
   ;; (when window-system
   (if (fboundp 'global-highlight-symbol-mode)
       (global-highlight-symbol-mode t)
