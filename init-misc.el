@@ -133,8 +133,7 @@
   (global-set-key (kbd "<M-S-right>") 'recent-jump-jump-forward))
 
 ;; drag-stuff
-(autoload 'drag-stuff-global-mode "drag-stuff"
-  "Toggle Drag-Stuff mode." t)
+(autoload 'drag-stuff-global-mode "drag-stuff" "Toggle Drag-Stuff mode." t)
 ;; (when (and (ignore-errors (require 'drag-stuff nil 'noerror))
 ;;            (fboundp 'drag-stuff-global-mode))
 ;;   (drag-stuff-global-mode t))

@@ -1,6 +1,7 @@
 2011-01-27  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Disable highlight-parentheses.
+	autoload drag-stuff.
 
 2011-01-26  Meteor Liu  <meteor1113@gmail.com>
 
