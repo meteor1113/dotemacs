@@ -287,6 +287,10 @@
   '(menu-item "drag-stuff-global-mode" drag-stuff-global-mode
               :enable (fboundp 'drag-stuff-global-mode)
               :button (:toggle . drag-stuff-global-mode)))
+(define-key minormode-sub-menu [change-cursor-mode]
+  '(menu-item "change-cursor-mode" change-cursor-mode
+              :enable (fboundp 'change-cursor-mode)
+              :button (:toggle . change-cursor-mode)))
 (define-key minormode-sub-menu [highlight-tail-mode]
   '(menu-item "highlight-tail-mode" highlight-tail-mode
               :enable (fboundp 'highlight-tail-mode)
