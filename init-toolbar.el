@@ -283,6 +283,10 @@
   '(menu-item "rainbow-mode" rainbow-mode
               :enable (fboundp 'rainbow-mode)
               :button (:toggle . rainbow-mode)))
+(define-key minormode-sub-menu [drag-stuff-global-mode]
+  '(menu-item "drag-stuff-global-mode" drag-stuff-global-mode
+              :enable (fboundp 'drag-stuff-global-mode)
+              :button (:toggle . drag-stuff-global-mode)))
 (define-key minormode-sub-menu [highlight-tail-mode]
   '(menu-item "highlight-tail-mode" highlight-tail-mode
               :enable (fboundp 'highlight-tail-mode)

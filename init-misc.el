@@ -84,7 +84,7 @@
 
 ;; cursor-chg
 (when (and window-system (require 'cursor-chg nil 'noerror))
-  (toggle-cursor-type-when-idle 1)
+  ;; (toggle-cursor-type-when-idle 1)
   (change-cursor-mode 1))
 
 ;; cn-weather
@@ -133,9 +133,11 @@
   (global-set-key (kbd "<M-S-right>") 'recent-jump-jump-forward))
 
 ;; drag-stuff
-(when (and (ignore-errors (require 'drag-stuff nil 'noerror))
-           (fboundp 'drag-stuff-global-mode))
-  (drag-stuff-global-mode t))
+(autoload 'drag-stuff-global-mode "drag-stuff"
+  "Toggle Drag-Stuff mode." t)
+;; (when (and (ignore-errors (require 'drag-stuff nil 'noerror))
+;;            (fboundp 'drag-stuff-global-mode))
+;;   (drag-stuff-global-mode t))
 
 ;; rainbow-mode
 (autoload 'rainbow-mode "rainbow-mode"
@@ -146,10 +148,10 @@
   "Draw a \"tail\" while you're typing." t)
 
 ;; highlight-parentheses
-(add-hook 'find-file-hooks
-          (lambda ()
-            (when (require 'highlight-parentheses nil 'noerror)
-              (highlight-parentheses-mode t))))
+;; (add-hook 'find-file-hooks
+;;           (lambda ()
+;;             (when (require 'highlight-parentheses nil 'noerror)
+;;               (highlight-parentheses-mode t))))
 
 ;; highlight-symbol
 (when (require 'highlight-symbol nil 'noerror)
