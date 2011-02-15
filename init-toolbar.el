@@ -275,6 +275,10 @@
   '(menu-item "display-cn-weather-mode" display-cn-weather-mode
               :enable (fboundp 'display-cn-weather-mode)
               :button (:toggle . display-cn-weather-mode)))
+(define-key minormode-sub-menu [iimage-mode]
+  '(menu-item "iimage-mode" iimage-mode
+              :enable (fboundp 'iimage-mode)
+              :button (:toggle . iimage-mode)))
 (define-key minormode-sub-menu [artist-mode]
   '(menu-item "artist-mode" artist-mode
               :enable (fboundp 'artist-mode)

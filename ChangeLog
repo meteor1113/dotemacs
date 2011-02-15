@@ -1,3 +1,7 @@
+2011-02-15  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el (minormode-sub-menu): Add iimage-mode menu.
+
 2011-01-27  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Disable highlight-parentheses.
