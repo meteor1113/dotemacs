@@ -26,9 +26,9 @@
 (load "init-note" 'noerror)
 
 ;; AIX?
-(global-set-key (kbd "C-d") 'backward-delete-char-untabify)
-(eval-after-load "cc-mode"
-  '(progn
-     (define-key c-mode-base-map "\C-d" 'c-electric-backspace)))
+;; (global-set-key (kbd "C-d") 'backward-delete-char-untabify)
+;; (eval-after-load "cc-mode"
+;;   '(progn
+;;      (define-key c-mode-base-map "\C-d" 'c-electric-backspace)))
 
 ;; (load "~/dotemacs/sample-proj")
