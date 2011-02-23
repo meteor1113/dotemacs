@@ -177,6 +177,8 @@
 ;; color
 (if window-system
     (set-background-color "honeydew"))  ; #f0fff0
+(unless window-system
+  (setq frame-background-mode 'dark))
 
 ;; misc
 (setq default-major-mode 'text-mode)

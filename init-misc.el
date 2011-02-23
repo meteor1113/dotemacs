@@ -156,7 +156,7 @@
 (when (require 'highlight-symbol nil 'noerror)
   (custom-set-faces
    '(highlight-symbol-face
-     ((((class color) (background dark)) (:background "gray30"))
+     ((((class color) (background dark)) (:background "blue"))
       (((class color) (background light)) (:background "gray83")))))
   (defun highlight-symbol-temp-highlight () ; Hack for emacs-21
     "Highlight the current symbol until a command is executed."
