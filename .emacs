@@ -25,10 +25,13 @@
 ;; (add-to-list 'load-path "e:/common/note")
 (load "init-note" 'noerror)
 
+;; (load "~/dotemacs/sample-proj")
+
 ;; AIX?
 ;; (global-set-key (kbd "C-d") 'backward-delete-char-untabify)
 ;; (eval-after-load "cc-mode"
 ;;   '(progn
 ;;      (define-key c-mode-base-map "\C-d" 'c-electric-backspace)))
-
-;; (load "~/dotemacs/sample-proj")
+;; (eval-after-load "comint"
+;;   '(progn
+;;      (define-key comint-mode-map "\C-d" 'delete-backward-char)))
