@@ -1,3 +1,7 @@
+2011-03-04  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Only enable dired+ in window-system.
+
 2011-02-23  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: User dark frame-background-mode for terminal.

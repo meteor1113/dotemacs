@@ -231,7 +231,8 @@
   (require 'smart-hl nil 'noerror))
 
 ;; dired+.el
-(eval-after-load "dired" '(require 'dired+ nil 'noerror))
+(when window-system
+  (eval-after-load "dired" '(require 'dired+ nil 'noerror)))
 
 ;; browse-kill-ring
 (when (require 'browse-kill-ring nil 'noerror)
