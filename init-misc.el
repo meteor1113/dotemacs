@@ -58,7 +58,7 @@
   (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
   (global-set-key (kbd "<left-fringe> <mouse-2>") 'bm-toggle-mouse)
   (global-set-key (kbd "<left-fringe> <mouse-3>") 'bm-next-mouse)
-  (global-set-key (kbd "<left-margin> <mouse-1>") 'bm-toggle-mouse)
+  ;; (global-set-key (kbd "<left-margin> <mouse-1>") 'bm-toggle-mouse)
   (global-set-key (kbd "<left-margin> <mouse-2>") 'bm-toggle-mouse)
   (global-set-key (kbd "<left-margin> <mouse-3>") 'bm-next-mouse)
   (defadvice bm-next (after pulse-advice activate)

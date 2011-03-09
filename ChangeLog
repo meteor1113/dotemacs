@@ -1,3 +1,8 @@
+2011-03-09  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (mark-current-line-mouse): Bind <left-margin>
+	<mouse-1> to mark-current-line-mouse.
+
 2011-03-04  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Only enable dired+ in window-system.

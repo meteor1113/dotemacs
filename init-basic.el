@@ -324,6 +324,19 @@ Like eclipse's Ctrl+Alt+F."
              (interactive-p))
     (pulse-momentary-highlight-one-line (point))))
 
+(defun mark-current-line ()
+  "Put point at beginning of this line, mark at end."
+  (interactive)
+  (move-beginning-of-line 1)
+  (set-mark (point))
+  (move-end-of-line 1))
+
+(defun mark-current-line-mouse (ev)
+  "Mark current line with a mouse click. EV is the mouse event."
+  (interactive "e")
+  (mouse-set-point ev)
+  (mark-current-line))
+
 ;; global key bindings
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
@@ -368,6 +381,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 (global-set-key [header-line double-mouse-1] 'kill-this-buffer)
 (global-set-key [header-line mouse-3] 'kill-this-buffer)
+(global-set-key (kbd "<left-margin> <mouse-1>") 'mark-current-line-mouse)
 
 
 ;;; special mode setting
