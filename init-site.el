@@ -25,6 +25,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     (custom-add-load symbol load)))
 
 ;; offical cedet
+;; (semantic-gcc-setup) will add mingw dirs if found gcc.
 (defvar user-include-dirs
   '(".." "../include" "../inc" "../common" "../public"
     "../.." "../../include" "../../inc" "../../common" "../../public"

@@ -344,6 +344,8 @@
     (unless (string= (substring (buffer-name) 0 1) " ")
       ad-do-it))
   (ac-config-default)
+  ;; (global-set-key (kbd "M-n") 'auto-complete)
+  (setq ac-disable-faces nil)
   (defun ac-semantic-setup ()
     ;; (setq ac-sources (append '(ac-source-semantic) ac-sources))
     (local-set-key (kbd "M-n") 'ac-complete-semantic))

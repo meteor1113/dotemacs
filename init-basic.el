@@ -22,7 +22,7 @@
          (bin-dir (expand-file-name "bin" dir)))
     (setenv "PATH" (concat bin-dir ";" (getenv "PATH")))))
 
-;; c/c++ include dir
+;; c/c++ include dir (ffap use mingw dirs)
 (defvar user-include-dirs
   '(".." "../include" "../inc" "../common" "../public"
     "../.." "../../include" "../../inc" "../../common" "../../public"

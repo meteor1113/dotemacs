@@ -1,5 +1,7 @@
 2011-03-10  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Enable auto-complete in comment.
+
 	* init-basic.el (user-include-dirs): user-include-dirs also used
 	by ffap.
 
