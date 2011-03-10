@@ -1,3 +1,8 @@
+2011-03-10  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (user-include-dirs): user-include-dirs also used
+	by ffap.
+
 2011-03-09  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (mark-current-line-mouse): Bind <left-margin>
