@@ -195,6 +195,7 @@
   (global-linum-mode 1))
 (when (fboundp 'winner-mode)
   (winner-mode))
+(find-function-setup-keys)
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"

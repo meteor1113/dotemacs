@@ -1,6 +1,7 @@
 2011-03-17  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Let whitespace-style compatible with emacs-23.3
+	Add find-func setting.
 
 2011-03-10  Meteor Liu  <meteor1113@gmail.com>
 
