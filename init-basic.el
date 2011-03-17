@@ -101,13 +101,13 @@
 
 ;; whitespace
 ;; (setq-default show-trailing-whitespace t) ; use whitespace-mode instead
-(setq whitespace-style '(trailing lines-tail newline empty tab-mark))
+(setq whitespace-style '(face trailing lines-tail newline empty tab-mark))
 (when window-system
   (setq whitespace-style (append whitespace-style '(tabs))))
 ;; (global-whitespace-mode t)
 (eval-after-load "whitespace"
   `(defun whitespace-post-command-hook ()
-     "Hack for emacs-23.2's whitespace, it's very slow in c++-mode."))
+     "Hack whitespace, it's very slow in c++-mode."))
 
 ;; bookmark
 (setq bookmark-save-flag 1)
