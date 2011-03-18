@@ -196,6 +196,7 @@
 (when (fboundp 'winner-mode)
   (winner-mode))
 (find-function-setup-keys)
+;; (setq mouse-autoselect-window t)
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"
