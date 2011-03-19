@@ -16,7 +16,7 @@
 (setq user-full-name "Meteor Liu")
 (setq user-mail-address "meteor1113@gmail.com")
 
-;; environment
+;; path
 (when (eq system-type 'windows-nt)
   (let* ((dir (file-name-directory (directory-file-name data-directory)))
          (bin-dir (expand-file-name "bin" dir)))
@@ -44,23 +44,65 @@
     )
   "Preprocessor symbol files for cedet")
 
-;; tool-bar
+;; ui
 (tool-bar-mode t)
-
-;; scroll-bar
 (set-scroll-bar-mode 'right)
-
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
+(column-number-mode t)
+;; (size-indication-mode 1)
+(display-time-mode t)
+(which-function-mode t)
+(when (fboundp 'global-linum-mode)
+  ;; (setq linum-eager nil)
+  (global-linum-mode 1))
+;; (setq-default cursor-type 'bar)
+;; (blink-cursor-mode -1)
+(setq x-stretch-cursor t)
+(xterm-mouse-mode (if window-system -1 1))
+;; (mouse-avoidance-mode 'animate)
+;; (setq mouse-autoselect-window t)
+(setq-default indicate-buffer-boundaries (quote left))
+(when (fboundp 'winner-mode)
+  (winner-mode))
+(setq frame-title-format
+      '((:eval (or buffer-file-name (buffer-name)))
+        (:eval (if (buffer-modified-p) " * " " - "))
+        invocation-name
+        "@"
+        system-name))
+(if window-system
+    (set-background-color "honeydew"))  ; #f0fff0
+(unless window-system
+  (setq frame-background-mode 'dark))
 
 ;; edit
 (setq-default tab-width 4)
+(setq default-major-mode 'text-mode)
+(setq bookmark-save-flag 1)
+;; (fset 'yes-or-no-p 'y-or-n-p)
+(global-auto-revert-mode t)
+;; (setq require-final-newline 'ask)
+(find-function-setup-keys)
+(when (fboundp 'ido-mode)
+  (ido-mode t))
+(icomplete-mode t)
+(show-paren-mode t)
+;; (setq show-paren-style 'mixed)
+(global-cwarn-mode 1)
+(setq compilation-auto-jump-to-first-error t)
+(setq compilation-scroll-output t)
+;; (global-set-key "<" 'skeleton-pair-insert-maybe)
+;; (global-set-key "(" 'skeleton-pair-insert-maybe)
+;; (global-set-key "[" 'skeleton-pair-insert-maybe)
+;; (global-set-key "{" 'skeleton-pair-insert-maybe)
+;; (setq skeleton-pair t)
 (put 'set-goal-column 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-;; emulation
+;; input
 (if (fboundp 'cua-mode)
     (progn
       (cua-mode t)
@@ -73,24 +115,13 @@
 (setq x-select-enable-clipboard t)
 ;; (setq mouse-yank-at-point t)
 
-;; coding system
+;; coding
 (when (eq system-type 'windows-nt)
   (let ((code (or file-name-coding-system default-file-name-coding-system)))
     (setq default-process-coding-system (cons code code))))
+(setq erc-server-coding-system '(utf-8 . utf-8))
 
-;; mode-line
-(column-number-mode t)
-;; (size-indication-mode 1)
-(display-time-mode t)
-(which-function-mode t)
-(setq frame-title-format
-      '((:eval (or buffer-file-name (buffer-name)))
-        (:eval (if (buffer-modified-p) " * " " - "))
-        invocation-name
-        "@"
-        system-name))
-
-;; save information
+;; session
 (require 'saveplace)
 (setq-default save-place t)
 (when (fboundp 'savehist-mode)
@@ -98,19 +129,6 @@
 (recentf-mode t)
 (when (fboundp 'desktop-save-mode)
   (desktop-save-mode (if window-system 1 -1)))
-
-;; whitespace
-;; (setq-default show-trailing-whitespace t) ; use whitespace-mode instead
-(setq whitespace-style '(face trailing lines-tail newline empty tab-mark))
-(when window-system
-  (setq whitespace-style (append whitespace-style '(tabs))))
-;; (global-whitespace-mode t)
-(eval-after-load "whitespace"
-  `(defun whitespace-post-command-hook ()
-     "Hack whitespace, it's very slow in c++-mode."))
-
-;; bookmark
-(setq bookmark-save-flag 1)
 
 ;; backup
 ;; (setq make-backup-files nil)
@@ -120,30 +138,6 @@
 ;; (setq kept-old-versions 2)
 ;; (setq kept-new-versions 5)
 ;; (setq version-control t)
-
-;; compile
-(setq compilation-auto-jump-to-first-error t)
-(setq compilation-scroll-output t)
-
-;; complete
-(when (fboundp 'ido-mode)
-  (ido-mode t))
-(icomplete-mode t)
-
-;; cursor
-;; (setq-default cursor-type 'bar)
-;; (blink-cursor-mode -1)
-(setq x-stretch-cursor t)
-(xterm-mouse-mode (if window-system -1 1))
-;; (mouse-avoidance-mode 'animate)
-
-;; erc
-(setq erc-server-coding-system '(utf-8 . utf-8))
-
-;; program
-(show-paren-mode t)
-;; (setq show-paren-style 'mixed)
-(global-cwarn-mode 1)
 
 ;; highlight
 (when (fboundp 'global-font-lock-mode)
@@ -161,42 +155,31 @@
    mode
    '(("\\<\\(FIXME\\|TODO\\|Todo\\)\\>" 1 font-lock-warning-face prepend)
      ("\\<\\(FIXME\\|TODO\\|Todo\\):" 1 font-lock-warning-face prepend))))
+;; (setq-default show-trailing-whitespace t) ; use whitespace-mode instead
+(setq whitespace-style '(face trailing lines-tail newline empty tab-mark))
+(when window-system
+  (setq whitespace-style (append whitespace-style '(tabs))))
+;; (global-whitespace-mode t)
+(eval-after-load "whitespace"
+  `(defun whitespace-post-command-hook ()
+     "Hack whitespace, it's very slow in c++-mode."))
 
-;; ffap
+;; file
 (ffap-bindings)
 (when (boundp 'ffap-c-path)
   (setq ffap-c-path (append ffap-c-path user-include-dirs)))
-
-;; skeleton
-;; (global-set-key "<" 'skeleton-pair-insert-maybe)
-;; (global-set-key "(" 'skeleton-pair-insert-maybe)
-;; (global-set-key "[" 'skeleton-pair-insert-maybe)
-;; (global-set-key "{" 'skeleton-pair-insert-maybe)
-;; (setq skeleton-pair t)
-
-;; color
-(if window-system
-    (set-background-color "honeydew"))  ; #f0fff0
-(unless window-system
-  (setq frame-background-mode 'dark))
+(eval-after-load "filecache"
+  '(progn (file-cache-add-directory-list load-path)
+          (file-cache-add-directory-list user-include-dirs)
+          (file-cache-add-directory "/usr/include")
+          (file-cache-add-directory-recursively "/usr/include/c++")
+          (file-cache-add-directory-recursively "/usr/local/include")))
 
 ;; misc
-(setq default-major-mode 'text-mode)
-;; (fset 'yes-or-no-p 'y-or-n-p)
 (setq inhibit-startup-message t)        ; for no desktop
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
 (auto-image-file-mode t)
-(global-auto-revert-mode t)
-;; (setq require-final-newline 'ask)
-(setq-default indicate-buffer-boundaries (quote left))
-(when (fboundp 'global-linum-mode)
-  ;; (setq linum-eager nil)
-  (global-linum-mode 1))
-(when (fboundp 'winner-mode)
-  (winner-mode))
-(find-function-setup-keys)
-;; (setq mouse-autoselect-window t)
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"

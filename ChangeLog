@@ -1,3 +1,7 @@
+2011-03-19  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el ("filecache"): Add filecache setting.
+
 2011-03-17  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Let whitespace-style compatible with emacs-23.3
