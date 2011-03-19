@@ -116,9 +116,16 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     (if back
         (semantic-ia-fast-jump-back)
       (semantic-ia-fast-jump (point))))
+  (defun semantic-ia-fast-jump-mouse (ev)
+    "semantic-ia-fast-jump with a mouse click. EV is the mouse event."
+    (interactive "e")
+    (mouse-set-point ev)
+    (semantic-ia-fast-jump (point)))
   (global-set-key [f12] 'semantic-ia-fast-jump-or-back)
   (global-set-key [C-f12] 'semantic-ia-fast-jump-or-back)
   (global-set-key [S-f12] 'semantic-ia-fast-jump-back)
+  (define-key c-mode-base-map [mouse-2] 'semantic-ia-fast-jump-mouse)
+  (define-key c-mode-base-map [mouse-3] 'semantic-ia-fast-jump-back)
   ;; (global-set-key [S-f12] 'pop-global-mark)
   (define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
 

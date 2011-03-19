@@ -911,10 +911,16 @@ the mru bookmark stack."
     (if back
         (semantic-ia-fast-jump-back)
       (semantic-ia-fast-jump (point))))
-
+  (defun semantic-ia-fast-jump-mouse (ev)
+    "semantic-ia-fast-jump with a mouse click. EV is the mouse event."
+    (interactive "e")
+    (mouse-set-point ev)
+    (semantic-ia-fast-jump (point)))
   (define-key semantic-mode-map [f12] 'semantic-ia-fast-jump-or-back)
   (define-key semantic-mode-map [C-f12] 'semantic-ia-fast-jump-or-back)
   (define-key semantic-mode-map [S-f12] 'semantic-ia-fast-jump-back)
+  (define-key semantic-mode-map [mouse-2] 'semantic-ia-fast-jump-mouse)
+  (define-key semantic-mode-map [mouse-3] 'semantic-ia-fast-jump-back)
   ;; (define-key semantic-mode-map [S-f12] 'pop-global-mark)
   (define-key semantic-mode-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
   (define-key semantic-mode-map (kbd "C-c , ,") 'semantic-force-refresh)
