@@ -117,7 +117,8 @@
     (update-tabbar-modified-state))
   (add-hook 'first-change-hook 'update-tabbar-modified-state)
   (add-hook 'after-save-hook 'update-tabbar-modified-state))
-(eval-after-load "tabbar" '(require 'tabbar-ruler nil 'noerror))
+(when window-system
+  (eval-after-load "tabbar" '(require 'tabbar-ruler nil 'noerror)))
 
 ;; window-numbering
 (when (require 'window-numbering nil 'noerror)

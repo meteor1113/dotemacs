@@ -365,7 +365,7 @@ Like eclipse's Ctrl+Alt+F."
 ;;     "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>")))
 (global-set-key (kbd "ESC <C-f6>") (key-binding [C-M-f6]))
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
-(global-set-key [header-line double-mouse-1] 'kill-this-buffer)
+;; (global-set-key [header-line double-mouse-1] 'kill-this-buffer)
 (global-set-key [header-line mouse-3] 'kill-this-buffer)
 (global-set-key (kbd "<left-margin> <mouse-1>") 'mark-current-line-mouse)
 
