@@ -275,6 +275,10 @@
   '(menu-item "display-cn-weather-mode" display-cn-weather-mode
               :enable (fboundp 'display-cn-weather-mode)
               :button (:toggle . display-cn-weather-mode)))
+(define-key minormode-sub-menu [ruler-mode]
+  '(menu-item "ruler-mode" ruler-mode
+              :enable (fboundp 'ruler-mode)
+              :button (:toggle . ruler-mode)))
 (define-key minormode-sub-menu [iimage-mode]
   '(menu-item "iimage-mode" iimage-mode
               :enable (fboundp 'iimage-mode)
