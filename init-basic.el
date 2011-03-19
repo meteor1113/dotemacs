@@ -180,7 +180,7 @@
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
 (auto-image-file-mode t)
-(setq message-log-max t)
+;; (setq message-log-max t)
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"
