@@ -367,6 +367,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 ;; (global-set-key [header-line double-mouse-1] 'kill-this-buffer)
 (global-set-key [header-line mouse-3] 'kill-this-buffer)
+(global-set-key [mouse-3] menu-bar-edit-menu)
 (global-set-key (kbd "<left-margin> <mouse-1>") 'mark-current-line-mouse)
 
 
@@ -429,6 +430,10 @@ Like eclipse's Ctrl+Alt+F."
           (overlay-put ov 'priority (overlay-end ov))
           (overlay-put ov 'keymap hs--overlay-keymap)
           (overlay-put ov 'pointer 'hand))))
+(eval-after-load "hideshow"
+  '(progn (define-key hs-minor-mode-map [(shift mouse-2)] nil)
+          (define-key hs-minor-mode-map (kbd "<left-fringe> <mouse-2>")
+            'hs-mouse-toggle-hiding)))
 ;; (global-set-key (kbd "C-?") 'hs-minor-mode)
 
 (defun program-common-function ()
@@ -920,7 +925,7 @@ the mru bookmark stack."
   (define-key semantic-mode-map [C-f12] 'semantic-ia-fast-jump-or-back)
   (define-key semantic-mode-map [S-f12] 'semantic-ia-fast-jump-back)
   (define-key semantic-mode-map [mouse-2] 'semantic-ia-fast-jump-mouse)
-  (define-key semantic-mode-map [mouse-3] 'semantic-ia-fast-jump-back)
+  (define-key semantic-mode-map [S-mouse-2] 'semantic-ia-fast-jump-back)
   ;; (define-key semantic-mode-map [S-f12] 'pop-global-mark)
   (define-key semantic-mode-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
   (define-key semantic-mode-map (kbd "C-c , ,") 'semantic-force-refresh)
