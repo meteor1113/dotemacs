@@ -368,6 +368,8 @@ Like eclipse's Ctrl+Alt+F."
 ;; (global-set-key [header-line double-mouse-1] 'kill-this-buffer)
 (global-set-key [header-line mouse-3] 'kill-this-buffer)
 (global-set-key [mouse-2] nil)
+(global-set-key [left-fringe mouse-2] nil)
+(global-set-key [left-margin mouse-2] nil)
 (global-set-key [mouse-3] menu-bar-edit-menu)
 (global-set-key (kbd "<left-margin> <mouse-1>") 'mark-current-line-mouse)
 
