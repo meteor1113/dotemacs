@@ -217,11 +217,16 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
 
 ;; scim
 (when (require 'scim-bridge nil 'noerror)
+  (dolist (key '((f6) (f7) (f8) (shift f8) (f9) (f10) (f11) (f12)))
+    (setq scim-common-function-key-list
+          (delete key scim-common-function-key-list)))
   (add-hook 'after-init-hook 'scim-mode-on))
 
 ;; ibus
 (when (require 'ibus nil 'noerror)
+  (dolist (key '((f6) (f7) (f8) (shift f8) (f9) (f10) (f11) (f12)))
+    (setq ibus-common-function-key-list
+          (delete key ibus-common-function-key-list)))
   (add-hook 'after-init-hook 'ibus-mode-on))
-
 
 (provide 'init-site)

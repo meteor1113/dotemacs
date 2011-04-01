@@ -266,11 +266,11 @@ Like eclipse's Ctrl+Alt+F."
             (setq buffers (remq buffer buffers)))))
       (multi-occur buffers regexp))))
 
-(defun moccur-all-buffers (&optional is-prompt)
+(defun moccur-all-buffers (&optional prompt)
   "Run `multi-occur' to find current word in all buffers."
   (interactive "P")
   (let ((word (grep-tag-default)))
-    (when (or is-prompt (= (length word) 0))
+    (when (or prompt (= (length word) 0))
       (setq word (read-regexp "List lines matching regexp" word)))
     (moccur-word-all-buffers word)))
 
@@ -281,14 +281,14 @@ Like eclipse's Ctrl+Alt+F."
    "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>"))
 
 (autoload 'grep-tag-default "grep")
-(defun grep-current-dir (&optional is-prompt wd)
+(defun grep-current-dir (&optional prompt wd)
   "Run `grep' to find current word in current directory."
   (interactive "P")
   (let* ((word (or wd (grep-tag-default)))
          (cmd (concat "grep -inrHIE \"" word "\" ."
                       " | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")))
     (grep-apply-setting 'grep-use-null-device nil)
-    (if (or is-prompt (= (length word) 0))
+    (if (or prompt (= (length word) 0))
         (grep (read-shell-command
                "Run grep (like this): " cmd 'grep-history))
       (if (= 0 (length word))
