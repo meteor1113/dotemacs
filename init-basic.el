@@ -116,6 +116,7 @@
 ;; (setq mouse-yank-at-point t)
 
 ;; coding
+;; (setq system-time-locale "C")
 (when (eq system-type 'windows-nt)
   (let ((code (or file-name-coding-system default-file-name-coding-system)))
     (setq default-process-coding-system (cons code code))))
