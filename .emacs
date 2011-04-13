@@ -25,7 +25,7 @@
 ;; (add-to-list 'load-path "e:/common/note")
 (load "init-note" 'noerror)
 
-;; (load "~/dotemacs/sample-proj")
+;; (load "~/dotemacs/sample-proj" t)
 
 ;; AIX?
 ;; (global-set-key (kbd "C-d") 'backward-delete-char-untabify)
