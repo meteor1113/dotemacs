@@ -1,3 +1,7 @@
+2011-04-14  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-site.el: Only capture (ctrl " ") in ibus-mode.
+
 2011-04-01  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el: Don't capture f6-f12 in ibus-mode.
