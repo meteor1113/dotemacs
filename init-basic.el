@@ -930,6 +930,7 @@ the mru bookmark stack."
   (define-key semantic-mode-map [S-f12] 'semantic-ia-fast-jump-back)
   (define-key semantic-mode-map [mouse-2] 'semantic-ia-fast-jump-mouse)
   (define-key semantic-mode-map [S-mouse-2] 'semantic-ia-fast-jump-back)
+  (define-key semantic-mode-map [double-mouse-2] 'semantic-ia-fast-jump-back)
   ;; (define-key semantic-mode-map [S-f12] 'pop-global-mark)
   (define-key semantic-mode-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
   (define-key semantic-mode-map (kbd "C-c , ,") 'semantic-force-refresh)

@@ -129,6 +129,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
   (define-key c-mode-base-map [S-mouse-2] 'semantic-ia-fast-jump-back)
   (define-key senator-mode-map [mouse-2] 'semantic-ia-fast-jump-mouse)
   (define-key senator-mode-map [S-mouse-2] 'semantic-ia-fast-jump-back)
+  (define-key senator-mode-map [double-mouse-2] 'semantic-ia-fast-jump-back)
   ;; (global-set-key [S-f12] 'pop-global-mark)
 
   (pulse-toggle-integration-advice (if window-system 1 -1))
