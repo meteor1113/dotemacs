@@ -1,3 +1,7 @@
+2011-04-18  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add multi-term.el
+
 2011-04-14  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Bind double-mouse-2 to semantic-ia-fast-jump-back.

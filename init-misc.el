@@ -233,6 +233,10 @@
 (when (> emacs-major-version 21)
   (require 'smart-hl nil 'noerror))
 
+;; multi-term
+(autoload 'multi-term "multi-term"
+  "Managing multiple terminal buffers in Emacs." t)
+
 ;; dired+.el
 (when window-system
   (eval-after-load "dired" '(require 'dired+ nil 'noerror)))
