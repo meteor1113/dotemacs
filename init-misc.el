@@ -457,5 +457,9 @@
 (setq anything-command-map-prefix-key "")
 ;; (require 'anything-config nil 'noerror)
 
+;; (when (require 'winsav nil t)
+;;   (winsav-save-mode 1))
+(autoload 'winsav-save-configuration "winsav" nil t)
+(autoload 'winsav-restore-configuration "winsav" nil t)
 
 (provide 'init-misc)

@@ -153,6 +153,18 @@
 (define-key misc-sub-menu [cn-weather]
   '(menu-item "Display weather" cn-weather
               :enable (fboundp 'cn-weather)))
+(define-key misc-sub-menu [winsav-restore-configuration]
+  '(menu-item "winsav-restore-configuration"
+              (lambda ()
+                (interactive)
+                (winsav-restore-configuration))
+              :enable (fboundp 'winsav-restore-configuration)))
+(define-key misc-sub-menu [winsav-save-configuration]
+  '(menu-item "winsav-save-configuration"
+              (lambda ()
+                (interactive)
+                (winsav-save-configuration))
+              :enable (fboundp 'winsav-save-configuration)))
 (define-key misc-sub-menu [find-dotemacs-file]
   '(menu-item "Open .emacs" find-dotemacs-file
               :enable (fboundp 'find-dotemacs-file)
@@ -198,13 +210,13 @@
 
 (defvar change-encoding-sub-menu (make-sparse-keymap "Change encoding"))
 (define-key change-encoding-sub-menu [encoding-sjis]
-  '(menu-item "Shift-jis" (lambda () (interactive)
+  '(menu-item "SHIFT_JIS" (lambda () (interactive)
                             (set-buffer-file-coding-system 'sjis))))
 (define-key change-encoding-sub-menu [encoding-big5]
-  '(menu-item "Chinese-Big5" (lambda () (interactive)
+  '(menu-item "BIG5" (lambda () (interactive)
                                (set-buffer-file-coding-system 'big5))))
 (define-key change-encoding-sub-menu [encoding-gbk]
-  '(menu-item "Chinese-GBK" (lambda () (interactive)
+  '(menu-item "GBK" (lambda () (interactive)
                               (set-buffer-file-coding-system 'gbk))))
 (define-key change-encoding-sub-menu [encoding-utf-16le-sign]
   '(menu-item "UTF-16-LE(BOM)"
@@ -235,13 +247,13 @@
 
 (defvar revert-encoding-sub-menu (make-sparse-keymap "Revert encoding"))
 (define-key revert-encoding-sub-menu [encoding-sjis]
-  '(menu-item "Shift-jis" (lambda () (interactive)
+  '(menu-item "SHIFT_JIS" (lambda () (interactive)
                             (revert-buffer-with-coding-system 'sjis))))
 (define-key revert-encoding-sub-menu [encoding-big5]
-  '(menu-item "Chinese-Big5" (lambda () (interactive)
+  '(menu-item "BIG5" (lambda () (interactive)
                                (revert-buffer-with-coding-system 'big5))))
 (define-key revert-encoding-sub-menu [encoding-gbk]
-  '(menu-item "Chinese-GBK" (lambda () (interactive)
+  '(menu-item "GBK" (lambda () (interactive)
                               (revert-buffer-with-coding-system 'gbk))))
 (define-key revert-encoding-sub-menu [encoding-utf-16le-sign]
   '(menu-item "UTF-16-LE(BOM)"

@@ -205,6 +205,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
 ;; ecb
 ;; (when (require 'ecb nil 'noerror)
 (autoload 'ecb-activate "ecb" nil t)
+(autoload 'ecb-minor-mode "ecb" nil t)
 (setq ecb-tip-of-the-day nil)
 (setq ecb-auto-compatibility-check nil)
 (setq ecb-source-path (quote ("/")))
