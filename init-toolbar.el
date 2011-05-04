@@ -361,6 +361,27 @@
   '(menu-item "SQL" sql-mode
               :visible (fboundp 'sql-mode)
               :button (:toggle . (eq major-mode 'sql-mode))))
+;; (defvar sql-sub-mode-menu (make-sparse-keymap "SQL"))
+;; (define-key sql-sub-mode-menu [sql-highlight-sybase-keywords]
+;;   '(menu-item "Sybase"
+;;               (lambda ()
+;;                 (interactive)
+;;                 (unless (eq major-mode 'sql-mode)
+;;                   (sql-mode))
+;;                 (sql-highlight-sybase-keywords))
+;;               :button (:toggle . (and (eq major-mode 'sql-mode)
+;;                                       (eq sql-product 'sybase)))))
+;; (define-key sql-sub-mode-menu [sql-highlight-sqlite-keywords]
+;;   '(menu-item "SQLite"
+;;               (lambda ()
+;;                 (interactive)
+;;                 (unless (eq major-mode 'sql-mode)
+;;                   (sql-mode))
+;;                 (sql-highlight-sqlite-keywords))
+;;               :button (:toggle . (and (eq major-mode 'sql-mode)
+;;                                       (eq sql-product 'sqlite)))))
+;; (define-key language-sub-menu [sql]
+;;   (list 'menu-item "SQL" sql-sub-mode-menu))
 (define-key language-sub-menu [sh-mode]
   '(menu-item "Shell" sh-mode
               :visible (fboundp 'sh-mode)
