@@ -441,6 +441,21 @@ Like eclipse's Ctrl+Alt+F."
             'hs-mouse-toggle-hiding)))
 ;; (global-set-key (kbd "C-?") 'hs-minor-mode)
 
+(when (executable-find "chmod")
+  (add-hook 'after-save-hook
+            #'(lambda ()
+                (and (save-excursion
+                       (save-restriction
+                         (widen)
+                         (goto-char (point-min))
+                         (save-match-data
+                           (looking-at "^#!"))))
+                     (not (file-executable-p buffer-file-name))
+                     (shell-command (concat "chmod +x " buffer-file-name))
+                     (kill-buffer "*Shell Command Output*")))))
+                     ;; (message
+                     ;;  (concat "Saved as script: " buffer-file-name))))))
+
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
   ;; (local-set-key (kbd "<return>") 'newline-and-indent)

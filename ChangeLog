@@ -1,6 +1,7 @@
 2011-05-05  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (grep-current-dir): Fix a bug.
+	(executable-find): Auto add executable attribute for script.
 
 2011-05-04  Meteor Liu  <meteor1113@gmail.com>
 

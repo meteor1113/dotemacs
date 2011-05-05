@@ -153,6 +153,9 @@
 (define-key misc-sub-menu [cn-weather]
   '(menu-item "Display weather" cn-weather
               :enable (fboundp 'cn-weather)))
+(define-key misc-sub-menu [proced]
+  '(menu-item "Proced" proced
+              :enable (fboundp 'proced)))
 (define-key misc-sub-menu [winsav-restore-configuration]
   '(menu-item "winsav-restore-configuration"
               (lambda ()
@@ -344,7 +347,7 @@
 (define-key toggle-toolbar-menu [minor-mode]
   (list 'menu-item "Minor mode" minormode-sub-menu))
 
-(defvar language-sub-menu (make-sparse-keymap "Language"))
+(defvar language-sub-menu (make-sparse-keymap "Major mode"))
 (define-key language-sub-menu [xml-mode]
   '(menu-item "XML" nxml-mode
               :visible (fboundp 'nxml-mode)
@@ -561,8 +564,8 @@
   '(menu-item "Ada" ada-mode
               :visible (fboundp 'ada-mode)
               :button (:toggle . (eq major-mode 'ada-mode))))
-(define-key toggle-toolbar-menu [language]
-  (list 'menu-item "Language" language-sub-menu))
+(define-key toggle-toolbar-menu [major-mode]
+  (list 'menu-item "Major mode" language-sub-menu))
 (define-key toggle-toolbar-menu [separatore-encoding]
   '(menu-item "--"))
 
