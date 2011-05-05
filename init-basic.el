@@ -282,6 +282,7 @@ Like eclipse's Ctrl+Alt+F."
    "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>"))
 
 (autoload 'grep-tag-default "grep")
+(autoload 'grep-apply-setting "grep")
 (defun grep-current-dir (&optional prompt wd)
   "Run `grep' to find current word in current directory."
   (interactive "P")
