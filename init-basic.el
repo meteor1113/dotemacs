@@ -453,8 +453,8 @@ Like eclipse's Ctrl+Alt+F."
                      (not (file-executable-p buffer-file-name))
                      (shell-command (concat "chmod +x " buffer-file-name))
                      (kill-buffer "*Shell Command Output*")))))
-                     ;; (message
-                     ;;  (concat "Saved as script: " buffer-file-name))))))
+;; (message
+;;  (concat "Saved as script: " buffer-file-name))))))
 
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
