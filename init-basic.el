@@ -45,8 +45,9 @@
   "Preprocessor symbol files for cedet")
 
 ;; ui
-(tool-bar-mode t)
-(set-scroll-bar-mode 'right)
+(when window-system
+  (tool-bar-mode t)
+  (set-scroll-bar-mode 'right))
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 (column-number-mode t)
