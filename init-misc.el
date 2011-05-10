@@ -118,7 +118,10 @@
   (add-hook 'first-change-hook 'update-tabbar-modified-state)
   (add-hook 'after-save-hook 'update-tabbar-modified-state))
 (when window-system
-  (eval-after-load "tabbar" '(require 'tabbar-ruler nil 'noerror)))
+  (eval-after-load "tabbar"
+    '(when (require 'tabbar-ruler nil 'noerror)
+       (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
+       (setq EmacsPortable-excluded-buffers '()))))
 
 ;; window-numbering
 (when (require 'window-numbering nil 'noerror)
