@@ -168,6 +168,9 @@
                 (interactive)
                 (winsav-save-configuration))
               :enable (fboundp 'winsav-save-configuration)))
+(define-key misc-sub-menu [format-cxx-directory]
+  '(menu-item "Format c++ directory" format-cxx-directory
+              :enable (fboundp 'format-cxx-directory)))
 (define-key misc-sub-menu [find-dotemacs-file]
   '(menu-item "Open .emacs" find-dotemacs-file
               :enable (fboundp 'find-dotemacs-file)

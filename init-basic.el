@@ -257,6 +257,44 @@ Like eclipse's Ctrl+Alt+F."
         (untabify start (point-max))
         (indent-region start (point-max) nil)))))
 
+(defun cxx-file-p (file)
+  (let ((file-extension (file-name-extension file)))
+    (and file-extension
+         (string= file (file-name-sans-versions file))
+         (find file-extension
+               '("h" "hpp" "hxx" "c" "cpp" "cxx")
+               :test 'string=))))
+
+(defun format-cxx-file (file)
+  "Format a c/c++ file."
+  (interactive "F")
+  (if (cxx-file-p file)
+      (let ((buffer (find-file-noselect file))) ;; open buffer
+        (set-buffer buffer)
+        ;; (mark-whole-buffer)
+        (when (fboundp 'whitespace-cleanup)
+          (whitespace-cleanup))
+        (untabify (point-min) (point-max))
+        (indent-region (point-min) (point-max))
+        (save-buffer)
+        (kill-buffer)
+        (message "Formated c++ file:%s" file))
+    (message "%s isn't a c++ file" file)))
+
+(defun format-cxx-directory (dirname)
+  "Format all c/c++ file in a directory."
+  (interactive "D")
+  ;; (message "directory:%s" dirname)
+  (let ((files (directory-files dirname t)))
+    (dolist (x files)
+      (if (not (string= "." (substring (file-name-nondirectory x) 0 1)))
+          (if (file-directory-p x)
+              (format-cxx-directory x)
+            (if (and (file-regular-p x)
+                     (not (file-symlink-p x))
+                     (cxx-file-p x))
+                (format-cxx-file x)))))))
+
 (defun moccur-word-all-buffers (regexp)
   "Run `multi-occur' to find regexp in all buffers."
   (if (= 0 (length regexp))

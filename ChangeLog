@@ -1,3 +1,7 @@
+2011-05-11  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (format-cxx-directory): Add format-cxx-directory.
+
 2011-05-10  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Use tabbar-buffer-groups to group tabbar.
