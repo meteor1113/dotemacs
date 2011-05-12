@@ -753,17 +753,11 @@
                    :enable '(fboundp 'whitespace-mode)
                    :help '(concat "Toggle whitespace minor mode visualization"
                                   (key4cmd 'whitespace-mode)))
-(tool-bar-add-item "ecb"
-                   (lambda ()
-                     (interactive)
-                     (if (and (boundp 'ecb-minor-mode) ecb-minor-mode)
-                         (ecb-deactivate)
-                       (ecb-activate)))
-                   'ecb
+(tool-bar-add-item "ecb" 'ecb-minor-mode 'ecb-minor-mode
                    :visible 'toolbarshow-view
-                   :enable '(fboundp 'ecb-activate)
+                   :enable '(fboundp 'ecb-minor-mode)
                    :help '(concat "Toggle ECB"
-                                  (key4cmd 'ecb-activate)))
+                                  (key4cmd 'ecb-minor-mode)))
 
 ;; program toolbar
 (tool-bar-add-item "separator" nil 'program-toolbar

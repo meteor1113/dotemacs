@@ -203,13 +203,31 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     (define-key c-mode-base-map (kbd "ESC <f12>") 'eassist-switch-h-cpp)))
 
 ;; ecb
-;; (when (require 'ecb nil 'noerror)
-(autoload 'ecb-activate "ecb" nil t)
-(autoload 'ecb-minor-mode "ecb" nil t)
-(setq ecb-tip-of-the-day nil)
-(setq ecb-auto-compatibility-check nil)
-(setq ecb-source-path (quote ("/")))
-(setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1)
+(when (require 'ecb-autoloads nil 'noerror)
+  (setq ecb-tip-of-the-day nil
+        ecb-auto-compatibility-check nil
+        ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1
+        ecb-source-path '("/")
+        ecb-layout-name 'left3
+        ecb-toggle-layout-sequence '("left3"
+                                     "left8"
+                                     "left-analyse"
+                                     "left-symboldef")
+        ecb-compile-window-height 10
+        ecb-compile-window-width 'edit-window
+        ecb-compile-window-temporally-enlarge 'after-selection))
+(eval-after-load "ecb"
+  '(progn
+     (setq ecb-compilation-buffer-names
+           (append ecb-compilation-buffer-names '(("*Process List*")
+                                                  ("*Proced*")
+                                                  ("*Python Output*")
+                                                  ("*Directory"))))
+     (setq ecb-compilation-major-modes
+           (append ecb-compilation-major-modes '(change-log-mode
+                                                 xgtags-select-mode
+                                                 erc-mode
+                                                 gud-mode)))))
 
 ;; jde
 (add-hook 'java-mode-hook

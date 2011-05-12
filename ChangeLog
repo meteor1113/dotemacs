@@ -1,3 +1,7 @@
+2011-05-12  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-site.el: Update ecb setting.
+
 2011-05-11  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (format-cxx-directory): Add format-cxx-directory.
