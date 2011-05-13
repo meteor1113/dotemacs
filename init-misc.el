@@ -83,7 +83,7 @@
       (pulse-momentary-highlight-one-line (point)))))
 
 ;; cursor-chg
-(when (and window-system (require 'cursor-chg nil 'noerror))
+(when (require 'cursor-chg nil 'noerror)
   ;; (toggle-cursor-type-when-idle 1)
   (change-cursor-mode 1))
 
@@ -198,13 +198,12 @@
   (defadvice highlight-symbol-mode (after disable activate)
     "Disable highlight-symbol-mode-post-command."
     (remove-hook 'post-command-hook 'highlight-symbol-mode-post-command t))
-  ;; (when window-system
   (if (fboundp 'global-highlight-symbol-mode)
       (global-highlight-symbol-mode t)
     (add-hook 'find-file-hooks
               (lambda ()
                 (unless (memq major-mode disable-hl-s-modes)
-                  (highlight-symbol-mode 1)))));; )
+                  (highlight-symbol-mode 1)))))
   (setq highlight-symbol-idle-delay 0.5)
   (defun highlight-symbol-next-or-prev (&optional prev)
     (interactive "P")

@@ -45,8 +45,9 @@
   "Preprocessor symbol files for cedet")
 
 ;; ui
-(when window-system
-  (tool-bar-mode t)
+(when (fboundp 'tool-bar-mode)
+  (tool-bar-mode t))
+(when (fboundp 'set-scroll-bar-mode)
   (set-scroll-bar-mode 'right))
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -60,7 +61,7 @@
 ;; (setq-default cursor-type 'bar)
 ;; (blink-cursor-mode -1)
 (setq x-stretch-cursor t)
-(xterm-mouse-mode (if window-system -1 1))
+(xterm-mouse-mode 1)               ; (if window-system -1 1)
 ;; (mouse-avoidance-mode 'animate)
 ;; (setq mouse-autoselect-window t)
 (setq-default indicate-buffer-boundaries (quote left))
@@ -72,10 +73,13 @@
         invocation-name
         "@"
         system-name))
-(if window-system
-    (set-background-color "honeydew"))  ; #f0fff0
-(unless window-system
-  (setq frame-background-mode 'dark))
+(set-background-color "honeydew")       ; #f0fff0
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (with-selected-frame frame
+              (set-background-color "honeydew"))))
+;; (unless window-system
+;;   (setq frame-background-mode 'dark))
 
 ;; edit
 (setq-default tab-width 4)
@@ -108,7 +112,7 @@
     (progn
       (cua-mode t)
       ;; (define-key cua-global-keymap (kbd "<M-RET>") 'cua-set-rectangle-mark)
-      (setq cua-keep-region-after-copy (if window-system t nil)))
+      (setq cua-keep-region-after-copy t))
   (when (fboundp 'pc-selection-mode)
     (setq pc-select-selection-keys-only t)
     (pc-selection-mode)))
@@ -129,8 +133,9 @@
 (when (fboundp 'savehist-mode)
   (savehist-mode t))
 (recentf-mode t)
-(when (fboundp 'desktop-save-mode)
-  (desktop-save-mode (if window-system 1 -1)))
+(and (fboundp 'desktop-save-mode)
+     (not (daemonp))
+     (desktop-save-mode (if window-system 1 -1)))
 
 ;; backup
 ;; (setq make-backup-files nil)
@@ -147,7 +152,7 @@
 (when (fboundp 'transient-mark-mode)
   (transient-mark-mode t))
 (setq hl-line-face 'underline)          ; for highlight-symbol
-(global-hl-line-mode 1);; (if window-system 1 -1))
+(global-hl-line-mode 1)                 ; (if window-system 1 -1)
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 (dolist (mode '(c-mode c++-mode objc-mode java-mode jde-mode
                        perl-mode cperl-mode python-mode ruby-mode
@@ -369,9 +374,8 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key (kbd "<find>") 'move-beginning-of-line) ; putty
 (global-set-key (kbd "<select>") 'move-end-of-line) ; putty
-(when (not window-system)                           ; putty
-  (global-set-key [mouse-4] 'scroll-down)
-  (global-set-key [mouse-5] 'scroll-up))
+(global-set-key [mouse-4] 'scroll-down)             ; putty
+(global-set-key [mouse-5] 'scroll-up)               ; putty
 (global-set-key (kbd "C-=") 'align)
 (global-set-key (kbd "C-S-u") 'upcase-region)
 (global-set-key (kbd "C-S-l") 'downcase-region)
@@ -990,7 +994,7 @@ the mru bookmark stack."
 
   (autoload 'pulse-momentary-highlight-one-line "pulse" "" nil)
   (autoload 'pulse-line-hook-function "pulse" "" nil)
-  (setq pulse-command-advice-flag (if window-system 1 nil))
+  (setq pulse-command-advice-flag t)    ; (if window-system 1 nil)
   (defadvice goto-line (after pulse-advice activate)
     "Cause the line that is `goto'd to pulse when the cursor gets there."
     (when (and pulse-command-advice-flag (interactive-p))

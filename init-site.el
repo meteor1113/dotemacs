@@ -132,7 +132,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
   (define-key senator-mode-map [double-mouse-2] 'semantic-ia-fast-jump-back)
   ;; (global-set-key [S-f12] 'pop-global-mark)
 
-  (pulse-toggle-integration-advice (if window-system 1 -1))
+  (pulse-toggle-integration-advice 1)   ; (if window-system 1 -1)
   (defadvice cua-exchange-point-and-mark (after pulse-advice activate)
     "Cause the line that is `goto'd to pulse when the cursor gets there."
     (when (and pulse-command-advice-flag (interactive-p)
