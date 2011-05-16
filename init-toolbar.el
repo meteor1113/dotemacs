@@ -747,11 +747,6 @@
 (tool-bar-add-item "separator" nil 'view-toolbar
                    :visible 'toolbarshow-view
                    :enable nil)
-(tool-bar-add-item "folding" 'hs-toggle-hiding 'folding
-                   :visible 'toolbarshow-view
-                   :enable '(and hs-minor-mode (fboundp 'hs-toggle-hiding))
-                   :help '(concat "Toggle hiding/showing of a block"
-                                  (key4cmd 'hs-toggle-hiding)))
 ;; (tool-bar-add-item "linum" 'global-linum-mode 'global-linum-mode
 ;;                    :visible 'toolbarshow-view
 ;;                    :enable '(fboundp 'global-linum-mode)
@@ -771,6 +766,11 @@
                    :button '(:toggle . whitespace-mode)
                    :help '(concat "Toggle whitespace minor mode visualization"
                                   (key4cmd 'whitespace-mode)))
+(tool-bar-add-item "folding" 'hs-toggle-hiding 'folding
+                   :visible 'toolbarshow-view
+                   :enable '(and hs-minor-mode (fboundp 'hs-toggle-hiding))
+                   :help '(concat "Toggle hiding/showing of a block"
+                                  (key4cmd 'hs-toggle-hiding)))
 (tool-bar-add-item "ecb" 'ecb-minor-mode 'ecb-minor-mode
                    :visible 'toolbarshow-view
                    :enable '(fboundp 'ecb-minor-mode)
@@ -929,8 +929,7 @@
                    :enable '(and (fboundp 'emms-start)
                                  (fboundp 'emms-stop))
                    :button '(:toggle . emms-player-playing-p)
-                   :help '(concat "Start"
-                                  (key4cmd 'emms-start)))
+                   :help '"Start/Stop")
 (tool-bar-add-item "emms-pause" 'emms-pause 'emms-pause
                    :visible 'toolbarshow-emms
                    :enable '(and (fboundp 'emms-pause)
