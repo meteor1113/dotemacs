@@ -1,3 +1,7 @@
+2011-05-17  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el: Update emms setting.
+
 2011-05-16  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Add line-wrap toolbar item.

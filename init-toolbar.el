@@ -186,22 +186,36 @@
   '(menu-item "Seek forward" emms-seek-forward
               :enable (and (fboundp 'emms-seek-forward)
                            emms-player-playing-p)))
+;; (define-key emms-sub-menu [emms-pause]
+;;   '(menu-item "Pause/Resume" emms-pause
+;;               :enable (and (fboundp 'emms-pause)
+;;                            emms-player-playing-p)))
 (define-key emms-sub-menu [emms-pause]
-  '(menu-item "Pause/Resume" emms-pause
+  '(menu-item (if (and (boundp 'emms-player-paused-p)
+                       emms-player-paused-p)
+                  "Resume"
+                "Pause")
+              emms-pause
               :enable (and (fboundp 'emms-pause)
                            emms-player-playing-p)))
+;; (define-key emms-sub-menu [emms-start]
+;;   '(menu-item "Start/Stop"
+;;               (lambda ()
+;;                 (interactive)
+;;                 (if emms-player-playing-p
+;;                     (emms-stop)
+;;                   (emms-start)))
+;;               :enable (and (fboundp 'emms-start)
+;;                            (fboundp 'emms-stop))))
+(define-key emms-sub-menu [emms-stop]
+  '(menu-item "Stop" emms-stop
+              :enable (fboundp 'emms-stop)
+              :visible emms-player-playing-p))
 (define-key emms-sub-menu [emms-start]
-  '(menu-item "Start/Stop"
-              (lambda ()
-                (interactive)
-                (if emms-player-playing-p
-                    (emms-stop)
-                  (emms-start)))
-              :enable (and (fboundp 'emms-start)
-                           (fboundp 'emms-stop))))
-;; (define-key emms-sub-menu [emms-stop]
-;;   '(menu-item "Stop" emms-stop
-;;               :enable (fboundp 'emms-stop)))
+  '(menu-item "Start" emms-start
+              :enable (fboundp 'emms-start)
+              :visible (or (not (boundp 'emms-player-playing-p))
+                           (not emms-player-playing-p))))
 (define-key emms-sub-menu [emms-seek-backward]
   '(menu-item "Seek backward" emms-seek-backward
               :enable (and (fboundp 'emms-seek-backward)
@@ -753,8 +767,7 @@
 ;;                    :button '(:toggle . global-linum-mode)
 ;;                    :help '(concat "Toggle Global Linum mode"
 ;;                                   (key4cmd 'global-linum-mode)))
-(tool-bar-add-item "line-wrap" 'toggle-truncate-lines
-                   'line-wrap
+(tool-bar-add-item "line-wrap" 'toggle-truncate-lines 'line-wrap
                    :visible 'toolbarshow-view
                    :enable '(not (truncated-partial-width-window-p))
                    :button '(:radio . (and (null truncate-lines)
@@ -913,29 +926,28 @@
                                  emms-player-playing-p)
                    :help '(concat "Seek backward"
                                   (key4cmd 'emms-seek-backward)))
-;; (tool-bar-add-item "emms-stop" 'emms-stop 'emms-stop
-;;                    :visible 'toolbarshow-emms
-;;                    :enable '(fboundp 'emms-stop)
-;;                    :help '(concat "Stop"
-;;                                   (key4cmd 'emms-stop)))
-(tool-bar-add-item "emms-start"
-                   (lambda ()
-                     (interactive)
-                     (if emms-player-playing-p
-                         (emms-stop)
-                       (emms-start)))
-                   'emms-start
-                   :visible 'toolbarshow-emms
-                   :enable '(and (fboundp 'emms-start)
-                                 (fboundp 'emms-stop))
-                   :button '(:toggle . emms-player-playing-p)
-                   :help '"Start/Stop")
+(tool-bar-add-item "emms-start" 'emms-start 'emms-start
+                   :visible '(and toolbarshow-emms
+                                  (or (not (boundp 'emms-player-playing-p))
+                                      (not emms-player-playing-p)))
+                   :enable '(fboundp 'emms-start)
+                   :help '(concat "Start"
+                                  (key4cmd 'emms-start)))
+(tool-bar-add-item "emms-stop" 'emms-stop 'emms-stop
+                   :visible '(and toolbarshow-emms
+                                  emms-player-playing-p)
+                   :enable '(fboundp 'emms-stop)
+                   :help '(concat "Stop"
+                                  (key4cmd 'emms-stop)))
 (tool-bar-add-item "emms-pause" 'emms-pause 'emms-pause
                    :visible 'toolbarshow-emms
                    :enable '(and (fboundp 'emms-pause)
                                  emms-player-playing-p)
                    :button '(:toggle . emms-player-paused-p)
-                   :help '(concat "Pause/Resume"
+                   :help '(concat (if (and (boundp 'emms-player-paused-p)
+                                           emms-player-paused-p)
+                                      "Resume"
+                                    "Pause")
                                   (key4cmd 'emms-pause)))
 (tool-bar-add-item "emms-seek-forward" 'emms-seek-forward 'emms-seek-forward
                    :visible 'toolbarshow-emms
