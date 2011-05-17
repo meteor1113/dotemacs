@@ -455,10 +455,17 @@
           (call-interactively 'emms-play-directory-tree)
         (emms-playlist-mode-go))
     (message "Initial emms failed.")))
-;; (when (and (require 'emms-history nil t)
-;;            (file-exists-p emms-history-file)
-;;            (init-emms))
-;;   (emms-history-load))
+(when (and (require 'emms-history nil t)
+           (file-exists-p emms-history-file)
+           (init-emms))
+  (setq emms-history-start-playing t)
+  (emms-history-load))
+(defadvice emms-history-save (around delete-empty-history activate)
+  "If have not emms playlist, delete emms-history-file."
+  (if (not (emms-playlist-buffer-list))
+      (when (file-exists-p emms-history-file)
+        (delete-file emms-history-file))
+    ad-do-it))
 
 ;; anything
 (autoload 'anything "anything" nil t)

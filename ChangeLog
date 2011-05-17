@@ -1,5 +1,7 @@
 2011-05-17  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Auto save and load emms history.
+
 	* init-toolbar.el: Update emms setting.
 
 2011-05-16  Meteor Liu  <meteor1113@gmail.com>
