@@ -1,3 +1,7 @@
+2011-05-18  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Don't auto load emms history when daemon.
+
 2011-05-17  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Auto save and load emms history.
