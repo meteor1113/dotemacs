@@ -462,10 +462,15 @@
   (emms-history-load))
 (defadvice emms-history-save (around delete-empty-history activate)
   "If have not emms playlist, delete emms-history-file."
-  (if (not (emms-playlist-buffer-list))
-      (when (file-exists-p emms-history-file)
-        (delete-file emms-history-file))
-    ad-do-it))
+  (let (have-playlist)
+    (dolist (buf (emms-playlist-buffer-list))
+      (when (> (buffer-size buf) 0)
+        (setq have-playlist t)))
+    (if (not have-playlist)
+        (when (file-exists-p emms-history-file)
+          (delete-file emms-history-file))
+      (ignore-errors (make-directory (file-name-directory emms-history-file)))
+      ad-do-it)))
 
 ;; anything
 (autoload 'anything "anything" nil t)
