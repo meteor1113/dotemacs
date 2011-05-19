@@ -93,7 +93,10 @@
   (ido-mode t))
 (icomplete-mode t)
 (show-paren-mode t)
-;; (setq show-paren-style 'mixed)
+;; (setq show-paren-style 'expression)
+;; (custom-set-faces
+;;  '(show-paren-match
+;;    ((((class color) (background light)) (:background "azure2")))))
 (global-cwarn-mode 1)
 (setq compilation-auto-jump-to-first-error t)
 (setq compilation-scroll-output t)
@@ -119,6 +122,7 @@
 (setq mouse-drag-copy-region nil)
 (setq x-select-enable-clipboard t)
 ;; (setq mouse-yank-at-point t)
+;; (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; coding
 ;; (setq system-time-locale "C")
