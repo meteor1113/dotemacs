@@ -455,7 +455,7 @@
           (call-interactively 'emms-play-directory-tree)
         (emms-playlist-mode-go))
     (message "Initial emms failed.")))
-(when (and (not (daemonp))
+(when (and window-system
            (require 'emms-history nil t)
            (file-exists-p emms-history-file)
            (init-emms))
