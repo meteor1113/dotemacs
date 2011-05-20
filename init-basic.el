@@ -85,7 +85,7 @@
 (setq-default tab-width 4)
 (setq default-major-mode 'text-mode)
 (setq bookmark-save-flag 1)
-;; (fset 'yes-or-no-p 'y-or-n-p)
+(fset 'yes-or-no-p 'y-or-n-p)
 (global-auto-revert-mode t)
 ;; (setq require-final-newline 'ask)
 (find-function-setup-keys)
