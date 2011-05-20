@@ -160,10 +160,19 @@
 
 ;; highlight-symbol
 (when (require 'highlight-symbol nil 'noerror)
-  (custom-set-faces
-   '(highlight-symbol-face
-     ((((class color) (background dark)) (:background "blue"))
-      (((class color) (background light)) (:background "gray83")))))
+  ;; (custom-set-faces
+  ;;  '(highlight-symbol-face
+  ;;    ((((class color) (background dark)) (:background "blue"))
+  ;;     (((class color) (background light)) (:background "gray83")))))
+  (set-face-background 'highlight-symbol-face
+                       (if window-system "gray83" "blue"))
+  ;; (if (eq frame-background-mode 'dark) "blue" "gray83"))
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (with-selected-frame frame
+                (set-face-background 'highlight-symbol-face
+                                     (if window-system "gray83" "blue")
+                                     frame))))
   (defun highlight-symbol-temp-highlight () ; Hack for emacs-21
     "Highlight the current symbol until a command is executed."
     (when highlight-symbol-mode
