@@ -129,6 +129,11 @@
   (let ((code (or file-name-coding-system default-file-name-coding-system)))
     (setq default-process-coding-system (cons code code))))
 (setq erc-server-coding-system '(utf-8 . utf-8))
+;; (when (daemonp)
+;;   (add-hook 'after-make-frame-functions
+;;             (lambda (frame)
+;;               (with-selected-frame frame
+;;                 (set-locale-environment (getenv "LANG"))))))
 
 ;; session
 (require 'saveplace)
