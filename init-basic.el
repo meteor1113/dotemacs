@@ -187,15 +187,14 @@
           (file-cache-add-directory-recursively "/usr/local/include")))
 
 ;; diary
-;; (setq diary-file "~/emacs.d/diary")
+(setq diary-file "~/.emacs.d/diary")
 ;; (add-hook 'diary-hook 'appt-make-list)
 ;; (setq appt-display-format 'window)
 ;; (setq appt-display-mode-line t)
 ;; (setq appt-display-diary nil)
-(setq appt-display-duration (* 60 60))
+(setq appt-display-duration (* 24 60 60))
 (appt-activate 1)
 ;; (diary 0)
-;; http://www.emacswiki.org/emacs/OrgMode-OSD
 
 ;; misc
 (setq inhibit-startup-message t)        ; for no desktop
