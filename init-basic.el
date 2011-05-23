@@ -85,7 +85,6 @@
 (setq-default tab-width 4)
 (setq default-major-mode 'text-mode)
 (setq bookmark-save-flag 1)
-(fset 'yes-or-no-p 'y-or-n-p)
 (global-auto-revert-mode t)
 ;; (setq require-final-newline 'ask)
 (find-function-setup-keys)
@@ -122,7 +121,7 @@
 (setq mouse-drag-copy-region nil)
 (setq x-select-enable-clipboard t)
 ;; (setq mouse-yank-at-point t)
-;; (defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; coding
 ;; (setq system-time-locale "C")
