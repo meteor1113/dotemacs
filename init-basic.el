@@ -140,6 +140,8 @@
 (setq-default save-place t)
 (when (fboundp 'savehist-mode)
   (savehist-mode t))
+(setq recentf-max-saved-items 100
+      recentf-max-menu-items 30)
 (recentf-mode t)
 (and (fboundp 'desktop-save-mode)
      (not (daemonp))
