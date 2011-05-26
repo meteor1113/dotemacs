@@ -52,7 +52,7 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 (column-number-mode t)
-;; (size-indication-mode 1)
+(size-indication-mode 1)
 (display-time-mode t)
 (which-function-mode t)
 (when (fboundp 'global-linum-mode)

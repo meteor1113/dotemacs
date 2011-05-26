@@ -189,7 +189,7 @@
                   (hi-lock-set-pattern `(,symbol (0 (quote ,color) t))))
               (hi-lock-set-pattern symbol 'highlight-symbol-face)))))))
   (defvar disable-hl-s-modes
-    '(erc-mode occur-mode w3m-mode help-mode)
+    '(erc-mode occur-mode w3m-mode help-mode svn-status-mode)
     "This buffers don't active highlight-symbol-mode.")
   (when (fboundp 'define-global-minor-mode)
     (define-global-minor-mode global-highlight-symbol-mode
