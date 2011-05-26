@@ -1,5 +1,5 @@
 #contributor : Meteor Liu <meteor1113@gmail.com>
-#name : user's full name
+#name : user's email
 #condition: 'force-in-comment
 # --
-`user-full-name`
+`user-mail-address`
