@@ -401,8 +401,8 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "C-=") 'align)
 (global-set-key (kbd "C-S-u") 'upcase-region)
 (global-set-key (kbd "C-S-l") 'downcase-region)
-(global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
-(global-set-key (kbd "ESC M-;") 'comment-or-uncomment-region) ; putty
+;; (global-set-key (kbd "C-M-;") 'comment-or-uncomment-region)
+;; (global-set-key (kbd "ESC M-;") 'comment-or-uncomment-region) ; putty
 (global-set-key [M-f8] 'format-region)
 (global-set-key (kbd "ESC <f8>") 'format-region) ; putty
 (global-set-key (kbd "C-S-f") 'format-region)

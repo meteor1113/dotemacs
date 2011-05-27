@@ -1,3 +1,7 @@
+2011-05-27  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Use comment-dwim instead of comment-or-uncomment-region.
+
 2011-05-23  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Set appt and diary.
