@@ -352,6 +352,7 @@
   (setq ac-modes
         (append ac-modes '(org-mode objc-mode jde-mode sql-mode
                                     change-log-mode text-mode
+                                    tex-mode latex-mode plain-tex-mode
                                     makefile-gmake-mode makefile-bsdmake-mode
                                     autoconf-mode makefile-automake-mode)))
   (let ((ac-path (locate-library "auto-complete")))

@@ -358,6 +358,14 @@
               :enable (fboundp 'flymake-find-file-hook)
               :button
               (:toggle . (memq 'flymake-find-file-hook find-file-hook))))
+(define-key minormode-sub-menu [view-mode]
+  '(menu-item "view-mode" view-mode
+              :enable (fboundp 'view-mode)
+              :button (:toggle . view-mode)))
+(define-key minormode-sub-menu [outline-minor-mode]
+  '(menu-item "outline-minor-mode" outline-minor-mode
+              :enable (fboundp 'outline-minor-mode)
+              :button (:toggle . outline-minor-mode)))
 (define-key minormode-sub-menu [tabbar-mode]
   '(menu-item "tabbar-mode" tabbar-mode
               :enable (fboundp 'tabbar-mode)
@@ -450,6 +458,10 @@
   '(menu-item "Pascal" pascal-mode
               :visible (fboundp 'pascal-mode)
               :button (:toggle . (eq major-mode 'pascal-mode))))
+(define-key language-sub-menu [outline-mode]
+  '(menu-item "Outline" outline-mode
+              :visible (fboundp 'outline-mode)
+              :button (:toggle . (eq major-mode 'outline-mode))))
 (define-key language-sub-menu [org-mode]
   '(menu-item "Org" org-mode
               :visible (fboundp 'org-mode)
