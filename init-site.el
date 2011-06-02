@@ -230,6 +230,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
                                                   ("*Directory"))))
      (setq ecb-compilation-major-modes
            (append ecb-compilation-major-modes '(change-log-mode
+                                                 calendar-mode
                                                  diary-mode
                                                  diary-fancy-display-mode
                                                  xgtags-select-mode
