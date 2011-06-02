@@ -221,7 +221,8 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
      (setq ecb-compilation-buffer-names
            (append ecb-compilation-buffer-names '(("*Process List*")
                                                   ("*Proced*")
-                                                  ;; ("*appt-buf*")
+                                                  ("*appt-buf*")
+                                                  ("*Compile-Log*")
                                                   ("*etags tmp*")
                                                   ("*Python Output*")
                                                   ("*Org Agenda*")
@@ -229,6 +230,8 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
                                                   ("*Directory"))))
      (setq ecb-compilation-major-modes
            (append ecb-compilation-major-modes '(change-log-mode
+                                                 diary-mode
+                                                 diary-fancy-display-mode
                                                  xgtags-select-mode
                                                  erc-mode
                                                  gud-mode)))))
