@@ -358,6 +358,10 @@
               :enable (fboundp 'flymake-find-file-hook)
               :button
               (:toggle . (memq 'flymake-find-file-hook find-file-hook))))
+(define-key minormode-sub-menu [word-count-mode]
+  '(menu-item "word-count-mode" word-count-mode
+              :enable (fboundp 'word-count-mode)
+              :button (:toggle . word-count-mode)))
 (define-key minormode-sub-menu [view-mode]
   '(menu-item "view-mode" view-mode
               :enable (fboundp 'view-mode)

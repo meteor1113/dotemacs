@@ -1,3 +1,7 @@
+2011-06-03  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el (word-count-mode): Add word-count.el
+
 2011-05-27  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Use comment-dwim instead of comment-or-uncomment-region.

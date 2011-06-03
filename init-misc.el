@@ -326,6 +326,11 @@
 (eval-after-load "sql"
   '(require 'sql-indent nil 'noerror))
 
+;; word-count
+(autoload 'word-count-mode "word-count"
+  "Minor mode to count words." t nil)
+(global-set-key "\M-+" 'word-count-mode)
+
 ;; yasnippet
 (when (and (> emacs-major-version 21)
            (or (require 'yasnippet-bundle nil 'noerror)
