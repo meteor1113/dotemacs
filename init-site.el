@@ -210,9 +210,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
 
 ;; ecb
 (when (require 'ecb-autoloads nil 'noerror)
-  (setq ecb-tip-of-the-day nil
-        ecb-auto-compatibility-check nil
-        ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1
+  (setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1
         ecb-source-path '("/")
         ecb-layout-name 'left3
         ecb-toggle-layout-sequence '("left3"
@@ -221,7 +219,10 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
                                      "left-symboldef")
         ecb-compile-window-height 0.2
         ecb-compile-window-width 'edit-window
-        ecb-compile-window-temporally-enlarge 'after-selection))
+        ecb-compile-window-temporally-enlarge 'after-selection
+        ;; ecb-enlarged-compilation-window-max-height 0.8
+        ecb-tip-of-the-day nil
+        ecb-auto-compatibility-check nil))
 (eval-after-load "ecb"
   '(progn
      (setq ecb-compilation-buffer-names
@@ -240,6 +241,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
                                                  diary-mode
                                                  diary-fancy-display-mode
                                                  xgtags-select-mode
+                                                 svn-status-mode
                                                  erc-mode
                                                  gud-mode)))))
 
