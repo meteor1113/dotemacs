@@ -78,6 +78,8 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
   (define-key global-map [(f2)] 'viss-bookmark-next-buffer)
   (define-key global-map [(shift f2)] 'viss-bookmark-prev-buffer)
   (define-key global-map [(control shift f2)] 'viss-bookmark-clear-all-buffer)
+  ;; (global-set-key [left-margin mouse-1] 'viss-bookmark-toggle)
+  ;; (global-set-key [left-margin mouse-3] 'viss-bookmark-next-buffer)
 
   (require 'semantic-c nil 'noerror)
   (when (executable-find "gcc")

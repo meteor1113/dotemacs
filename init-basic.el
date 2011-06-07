@@ -438,7 +438,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [left-fringe mouse-2] nil)
 (global-set-key [left-margin mouse-2] nil)
 (global-set-key [mouse-3] menu-bar-edit-menu)
-(global-set-key (kbd "<left-margin> <mouse-1>") 'mark-current-line-mouse)
+(global-set-key (kbd "<left-margin> <mouse-2>") 'mark-current-line-mouse)
 
 
 ;;; special mode setting
