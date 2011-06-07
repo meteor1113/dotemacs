@@ -231,6 +231,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
                                                   ("*appt-buf*")
                                                   ("*Compile-Log*")
                                                   ("*etags tmp*")
+                                                  (" *svn-process*")
                                                   ("*Python Output*")
                                                   ("*Org Agenda*")
                                                   (" *EMMS Playlist*")
@@ -242,6 +243,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
                                                  diary-fancy-display-mode
                                                  xgtags-select-mode
                                                  svn-status-mode
+                                                 svn-info-mode
                                                  erc-mode
                                                  gud-mode)))))
 
