@@ -1,3 +1,7 @@
+2011-06-07  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-site.el: visual bookmarks support mouse.
+
 2011-06-03  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (word-count-mode): Add word-count.el

@@ -72,14 +72,18 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
   ;; (setq semantic-c-obey-conditional-section-parsing-flag nil) ; ignore #if
 
   (enable-visual-studio-bookmarks)
+  (defun viss-bookmark-toggle-mouse (ev)
+    (interactive "e")
+    (mouse-set-point ev)
+    (viss-bookmark-toggle))
   (define-key global-map [(control f2)] 'viss-bookmark-toggle)
   (define-key global-map [M-f2] 'viss-bookmark-toggle)
   (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-toggle) ; putty
   (define-key global-map [(f2)] 'viss-bookmark-next-buffer)
   (define-key global-map [(shift f2)] 'viss-bookmark-prev-buffer)
   (define-key global-map [(control shift f2)] 'viss-bookmark-clear-all-buffer)
-  ;; (global-set-key [left-margin mouse-1] 'viss-bookmark-toggle)
-  ;; (global-set-key [left-margin mouse-3] 'viss-bookmark-next-buffer)
+  (global-set-key [left-margin mouse-1] 'viss-bookmark-toggle-mouse)
+  (global-set-key [left-margin mouse-3] 'viss-bookmark-next-buffer)
 
   (require 'semantic-c nil 'noerror)
   (when (executable-find "gcc")
