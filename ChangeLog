@@ -1,5 +1,7 @@
 2011-06-07  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el (svn-status): Add psvn.
+
 	* init-site.el: visual bookmarks support mouse.
 
 2011-06-03  Meteor Liu  <meteor1113@gmail.com>

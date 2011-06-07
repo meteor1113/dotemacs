@@ -127,6 +127,9 @@
 (when (require 'window-numbering nil 'noerror)
   (window-numbering-mode 1))
 
+;; psvn
+(autoload 'svn-status "psvn" nil t)
+
 ;; ascii
 (autoload 'ascii-on        "ascii" "Turn on ASCII code display."   t)
 (autoload 'ascii-off       "ascii" "Turn off ASCII code display."  t)
