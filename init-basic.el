@@ -148,10 +148,25 @@
 (defadvice recentf-track-closed-file (after push-beginning activate)
   "Move current buffer to the beginning of the recent list after killed."
   (recentf-track-opened-file))
+(defun undo-kill-buffer (arg)
+  "Re-open the last buffer killed.  With ARG, re-open the nth buffer."
+  (interactive "p")
+  (let ((recently-killed-list (copy-sequence recentf-list))
+        (buffer-files-list
+         (delq nil (mapcar (lambda (buf)
+                             (when (buffer-file-name buf)
+                               (expand-file-name (buffer-file-name buf))))
+                           (buffer-list)))))
+    (mapc
+     (lambda (buf-file)
+       (setq recently-killed-list
+             (delete buf-file recently-killed-list)))
+     buffer-files-list)
+    (find-file (nth (- arg 1) recently-killed-list))))
 (and (fboundp 'desktop-save-mode)
      (not (daemonp))
      (desktop-save-mode (if window-system 1 -1)))
-
+(equal "/home/liuxin/.emacs.d/emms/history" "/home/liuxin/.emacs.d/emms/history")
 ;; backup
 ;; (setq make-backup-files nil)
 ;; (setq backup-by-copying t)
@@ -444,6 +459,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [left-margin mouse-2] nil)
 (global-set-key [mouse-3] menu-bar-edit-menu)
 (global-set-key (kbd "<left-margin> <mouse-2>") 'mark-current-line-mouse)
+(global-set-key (kbd "C-S-t") 'undo-kill-buffer)
 
 
 ;;; special mode setting

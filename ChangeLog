@@ -2,6 +2,7 @@
 
 	* init-basic.el (recentf-track-closed-file): Adviced. Move to
 	beginning of the recent list after killed.
+	(undo-kill-buffer): Add.
 
 2011-06-07  Meteor Liu  <meteor1113@gmail.com>
 

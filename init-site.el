@@ -240,6 +240,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
                                                   ("*Compile-Log*")
                                                   ("*etags tmp*")
                                                   (" *svn-process*")
+                                                  ("*svn-info-output*")
                                                   ("*Python Output*")
                                                   ("*Org Agenda*")
                                                   (" *EMMS Playlist*")
