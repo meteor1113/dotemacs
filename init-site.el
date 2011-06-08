@@ -252,6 +252,9 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
                                                  xgtags-select-mode
                                                  svn-status-mode
                                                  svn-info-mode
+                                                 svn-status-diff-mode
+                                                 svn-log-view-mode
+                                                 svn-log-edit-mode
                                                  erc-mode
                                                  gud-mode)))))
 
