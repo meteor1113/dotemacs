@@ -963,6 +963,14 @@ Use CREATE-TEMP-F for creating temp copy."
     (setq ede-locate-setup-options '(ede-locate-global ede-locate-base)))
   ;; (setq semantic-c-obey-conditional-section-parsing-flag nil) ; ignore #if
 
+  ;; (defun my-semantic-inhibit-func ()
+  ;;   (cond
+  ;;    ((member major-mode '(javascript-mode html-helper-mode html-mode))
+  ;;     ;; to disable semantic, return non-nil.
+  ;;     t)
+  ;;    (t nil)))
+  ;; (add-to-list 'semantic-inhibit-functions 'my-semantic-inhibit-func)
+
   (require 'semantic/bovine/c nil 'noerror)
   (when (executable-find "gcc")
     (semantic-gcc-setup))

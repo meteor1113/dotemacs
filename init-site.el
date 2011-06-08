@@ -71,19 +71,13 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     (setq ede-locate-setup-options '(ede-locate-global ede-locate-base)))
   ;; (setq semantic-c-obey-conditional-section-parsing-flag nil) ; ignore #if
 
-  (enable-visual-studio-bookmarks)
-  (defun viss-bookmark-toggle-mouse (ev)
-    (interactive "e")
-    (mouse-set-point ev)
-    (viss-bookmark-toggle))
-  (define-key global-map [(control f2)] 'viss-bookmark-toggle)
-  (define-key global-map [M-f2] 'viss-bookmark-toggle)
-  (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-toggle) ; putty
-  (define-key global-map [(f2)] 'viss-bookmark-next-buffer)
-  (define-key global-map [(shift f2)] 'viss-bookmark-prev-buffer)
-  (define-key global-map [(control shift f2)] 'viss-bookmark-clear-all-buffer)
-  (global-set-key [left-margin mouse-1] 'viss-bookmark-toggle-mouse)
-  (global-set-key [left-margin mouse-3] 'viss-bookmark-next-buffer)
+  ;; (defun my-semantic-inhibit-func ()
+  ;;   (cond
+  ;;    ((member major-mode '(javascript-mode html-helper-mode html-mode))
+  ;;     ;; to disable semantic, return non-nil.
+  ;;     t)
+  ;;    (t nil)))
+  ;; (add-to-list 'semantic-inhibit-functions 'my-semantic-inhibit-func)
 
   (require 'semantic-c nil 'noerror)
   (when (executable-find "gcc")
@@ -172,6 +166,20 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     "After viss-bookmark-prev-buffer, pulse the line the cursor lands on."
     (when (and pulse-command-advice-flag (interactive-p))
       (pulse-momentary-highlight-one-line (point))))
+
+  (enable-visual-studio-bookmarks)
+  (defun viss-bookmark-toggle-mouse (ev)
+    (interactive "e")
+    (mouse-set-point ev)
+    (viss-bookmark-toggle))
+  (define-key global-map [(control f2)] 'viss-bookmark-toggle)
+  (define-key global-map [M-f2] 'viss-bookmark-toggle)
+  (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-toggle) ; putty
+  (define-key global-map [(f2)] 'viss-bookmark-next-buffer)
+  (define-key global-map [(shift f2)] 'viss-bookmark-prev-buffer)
+  (define-key global-map [(control shift f2)] 'viss-bookmark-clear-all-buffer)
+  (global-set-key [left-margin mouse-1] 'viss-bookmark-toggle-mouse)
+  (global-set-key [left-margin mouse-3] 'viss-bookmark-next-buffer)
 
   (when (and window-system
              (> emacs-major-version 21)
