@@ -655,7 +655,7 @@
                    'toggle-toolbar-menu)
 
 ;; edit toolbar
-(tool-bar-add-item "separator" nil 'edit-toolbar
+(tool-bar-add-item "separator" nil 'separator-edit-toolbar
                    :visible 'toolbarshow-edit
                    :enable nil)
 (tool-bar-add-item "upcase" 'upcase-region 'upcase-region
@@ -668,9 +668,9 @@
                    :enable '(region-active-p)
                    :help '(concat "Convert the region to lower case"
                                   (key4cmd 'downcase-region)))
-(tool-bar-add-item "comment-toggle" 'comment-or-uncomment-region 'comment-toggle
+(tool-bar-add-item "comment-toggle" 'comment-dwim 'comment-dwim
                    :visible 'toolbarshow-edit
-                   :enable '(region-active-p)
+                   ;; :enable '(region-active-p)
                    :help '(concat "Comment or uncomment region"
                                   (key4cmd 'comment-or-uncomment-region)))
 (tool-bar-add-item "format-region" 'format-region 'format-region
@@ -680,7 +680,7 @@
                                   (key4cmd 'format-region)))
 
 ;; search toolbar
-(tool-bar-add-item "separator" nil 'search-toolbar
+(tool-bar-add-item "separator" nil 'separator-search-toolbar
                    :visible 'toolbarshow-search
                    :enable nil)
 (tool-bar-add-item "recent-backward" 'recent-jump-jump-backward
@@ -695,11 +695,11 @@
                    :enable '(fboundp 'recent-jump-jump-forward)
                    :help '(concat "Forward in the history"
                                   (key4cmd 'recent-jump-jump-forward)))
-(tool-bar-add-item "find" 'isearch-forward 'isearch-forward
+(tool-bar-add-item "find" 'isearch-forward 'find
                    :visible 'toolbarshow-search
                    :help '(concat "Forward String..."
                                   (key4cmd 'isearch-forward)))
-(tool-bar-add-item "find-next" 'isearch-repeat-forward 'isearch-repeat-forward
+(tool-bar-add-item "find-next" 'isearch-repeat-forward 'find-next
                    :visible 'toolbarshow-search
                    :help '(concat "Repeat Forward String"
                                   (key4cmd 'isearch-repeat-forward)))
@@ -725,7 +725,7 @@
                                   (key4cmd 'moccur-todo-all-buffers)))
 
 ;; bookmark toolbar
-(tool-bar-add-item "separator" nil 'bookmark-toolbar
+(tool-bar-add-item "separator" nil 'separator-bookmark-toolbar
                    :visible 'toolbarshow-bookmark
                    :enable nil)
 (tool-bar-add-item "bm-toggle"
@@ -774,7 +774,7 @@
                                            'viss-bookmark-clear-all-buffer)))
 
 ;; view toolbar
-(tool-bar-add-item "separator" nil 'view-toolbar
+(tool-bar-add-item "separator" nil 'separator-view-toolbar
                    :visible 'toolbarshow-view
                    :enable nil)
 ;; (tool-bar-add-item "linum" 'global-linum-mode 'global-linum-mode
@@ -808,7 +808,7 @@
                                   (key4cmd 'ecb-minor-mode)))
 
 ;; program toolbar
-(tool-bar-add-item "separator" nil 'program-toolbar
+(tool-bar-add-item "separator" nil 'separator-program-toolbar
                    :visible 'toolbarshow-program
                    :enable nil)
 (tool-bar-add-item "semantic-jump-back" 'semantic-ia-fast-jump-back
@@ -853,7 +853,7 @@
                                   (key4cmd 'gdb)))
 
 ;; flymake toolbar
-(tool-bar-add-item "separator" nil 'flymake-toolbar
+(tool-bar-add-item "separator" nil 'separator-flymake-toolbar
                    :visible 'toolbarshow-flymake
                    :enable nil)
 (tool-bar-add-item "flymake-mode" 'flymake-mode 'flymake-mode
@@ -888,7 +888,7 @@
                                    'flymake-display-err-menu-for-current-line)))
 
 ;; remember toolbar
-(tool-bar-add-item "separator" nil 'remember-toolbar
+(tool-bar-add-item "separator" nil 'separator-remember-toolbar
                    :visible 'toolbarshow-remember
                    :enable nil)
 (tool-bar-add-item "remember" 'remember 'remember
@@ -917,7 +917,7 @@
                                   (key4cmd 'remember-destroy)))
 
 ;; emms toolbar
-(tool-bar-add-item "separator" nil 'emms-toolbar
+(tool-bar-add-item "separator" nil 'separator-emms-toolbar
                    :visible 'toolbarshow-emms
                    :enable nil)
 (tool-bar-add-item "emms"
