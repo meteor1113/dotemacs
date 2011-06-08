@@ -141,9 +141,13 @@
 (setq-default save-place t)
 (when (fboundp 'savehist-mode)
   (savehist-mode t))
-(setq recentf-max-saved-items 100
+(setq recentf-menu-open-all-flag t
+      recentf-max-saved-items 100
       recentf-max-menu-items 30)
 (recentf-mode t)
+(defadvice recentf-track-closed-file (after push-beginning activate)
+  "Move current buffer to the beginning of the recent list after killed."
+  (recentf-track-opened-file))
 (and (fboundp 'desktop-save-mode)
      (not (daemonp))
      (desktop-save-mode (if window-system 1 -1)))
