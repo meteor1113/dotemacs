@@ -1,3 +1,7 @@
+2011-06-09  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add dos-mode.
+
 2011-06-08  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (recentf-track-closed-file): Adviced. Move to
