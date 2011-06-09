@@ -55,6 +55,7 @@
 (size-indication-mode 1)
 (display-time-mode t)
 (which-function-mode t)
+(setq buffers-menu-max-size 30)
 (when (fboundp 'global-linum-mode)
   ;; (setq linum-eager nil)
   (global-linum-mode 1))

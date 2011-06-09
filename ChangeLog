@@ -1,5 +1,7 @@
 2011-06-09  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (buffers-menu-max-size): More buffers menu.
+
 	* init-misc.el: Add dos-mode.
 
 2011-06-08  Meteor Liu  <meteor1113@gmail.com>
