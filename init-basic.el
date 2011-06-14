@@ -167,7 +167,7 @@
 (and (fboundp 'desktop-save-mode)
      (not (daemonp))
      (desktop-save-mode (if window-system 1 -1)))
-(equal "/home/liuxin/.emacs.d/emms/history" "/home/liuxin/.emacs.d/emms/history")
+
 ;; backup
 ;; (setq make-backup-files nil)
 ;; (setq backup-by-copying t)
@@ -540,6 +540,9 @@ Like eclipse's Ctrl+Alt+F."
                      (not (file-executable-p buffer-file-name))
                      (shell-command (concat "chmod +x " buffer-file-name))
                      (kill-buffer "*Shell Command Output*")))))
+
+(eval-after-load "info"
+  '(define-key Info-mode-map [mouse-1] 'Info-mouse-follow-nearest-node))
 
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
@@ -986,7 +989,7 @@ Use CREATE-TEMP-F for creating temp copy."
 
   ;; (defun my-semantic-inhibit-func ()
   ;;   (cond
-  ;;    ((member major-mode '(javascript-mode html-helper-mode html-mode))
+  ;;    ((member major-mode '(Info-mode))
   ;;     ;; to disable semantic, return non-nil.
   ;;     t)
   ;;    (t nil)))
@@ -1003,6 +1006,8 @@ Use CREATE-TEMP-F for creating temp copy."
     (when (file-exists-p file)
       (setq semantic-lex-c-preprocessor-symbol-file
             (append semantic-lex-c-preprocessor-symbol-file (list file)))))
+
+  (require 'semantic/bovine/el nil 'noerror)
 
   (require 'semantic/analyze/refs)      ; for semantic-ia-fast-jump
   (defadvice push-mark (around semantic-mru-bookmark activate)

@@ -1,3 +1,7 @@
+2011-06-14  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Make ecb support emacs-lisp-mode in build in cedet.
+
 2011-06-09  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (buffers-menu-max-size): More buffers menu.
