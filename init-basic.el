@@ -541,8 +541,8 @@ Like eclipse's Ctrl+Alt+F."
                      (shell-command (concat "chmod +x " buffer-file-name))
                      (kill-buffer "*Shell Command Output*")))))
 
-(eval-after-load "info"
-  '(define-key Info-mode-map [mouse-1] 'Info-mouse-follow-nearest-node))
+;; (eval-after-load "info"
+;;   '(define-key Info-mode-map [mouse-1] 'Info-mouse-follow-nearest-node))
 
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
@@ -1042,7 +1042,8 @@ the mru bookmark stack."
   (define-key semantic-mode-map [f12] 'semantic-ia-fast-jump-or-back)
   (define-key semantic-mode-map [C-f12] 'semantic-ia-fast-jump-or-back)
   (define-key semantic-mode-map [S-f12] 'semantic-ia-fast-jump-back)
-  (define-key semantic-mode-map [mouse-2] 'semantic-ia-fast-jump-mouse)
+  (global-set-key [mouse-2] 'semantic-ia-fast-jump-mouse)
+  ;; (define-key semantic-mode-map [mouse-2] 'semantic-ia-fast-jump-mouse)
   (define-key semantic-mode-map [S-mouse-2] 'semantic-ia-fast-jump-back)
   (define-key semantic-mode-map [double-mouse-2] 'semantic-ia-fast-jump-back)
   ;; (define-key semantic-mode-map [S-f12] 'pop-global-mark)
