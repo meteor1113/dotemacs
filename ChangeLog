@@ -1,6 +1,7 @@
 2011-06-15  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (write-file-hooks): time-stamp.
+	(auto-insert-mode): auto-insert setting.
 
 2011-06-14  Meteor Liu  <meteor1113@gmail.com>
 

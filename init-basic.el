@@ -225,6 +225,15 @@
 (appt-activate 1)
 ;; (diary 0)
 
+;; autoinsert
+(auto-insert-mode 1)
+;; (setq auto-insert t)
+(setq auto-insert-query nil)
+(setq auto-insert-directory
+      (file-name-as-directory
+       (expand-file-name "insert" (file-name-directory buffer-file-name))))
+;; (define-auto-insert "\\.\\([Cc]\\|cc\\|cpp\\)\\'" "cpp.tpl")
+
 ;; misc
 (setq inhibit-startup-message t)        ; for no desktop
 (require 'generic-x nil 'noerror)
