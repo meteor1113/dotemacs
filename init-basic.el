@@ -100,6 +100,8 @@
 (global-cwarn-mode 1)
 (setq compilation-auto-jump-to-first-error t)
 (setq compilation-scroll-output t)
+(add-hook 'write-file-hooks 'time-stamp)
+(setq time-stamp-format "%:y-%02m-%02d %02H:%02M:%02S %U")
 ;; (global-set-key "<" 'skeleton-pair-insert-maybe)
 ;; (global-set-key "(" 'skeleton-pair-insert-maybe)
 ;; (global-set-key "[" 'skeleton-pair-insert-maybe)
