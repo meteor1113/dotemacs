@@ -231,7 +231,9 @@
 (setq auto-insert-query nil)
 (setq auto-insert-directory
       (file-name-as-directory
-       (expand-file-name "insert" (file-name-directory buffer-file-name))))
+       (expand-file-name "insert"
+                         (file-name-directory (or buffer-file-name
+                                                  load-file-name)))))
 ;; (define-auto-insert "\\.\\([Cc]\\|cc\\|cpp\\)\\'" "cpp.tpl")
 
 ;; misc
