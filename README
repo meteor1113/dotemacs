@@ -2,7 +2,7 @@
 这是Meteor Liu的emacs配置文件，兼容Linux/Windows/MacOSX下的emacs-21以上版本(emacs-21下有部分功能不可用)，我用emacs主要进行C++开发和用org管理TODO，有时候也写点python。
 lisp目录是第三方elisp插件。
 snippets目录是yasnippet的snippets定义。
-insert目录是autoinsert模板。
+templates目录是autoinsert模板。
 init-basic.el是基本的emacs配置，只需要emacs自身，不依赖第三方插件。
 init-misc.el用于配置lisp目录下的第三方插件。
 init-site.el用于配置不在lisp目录下的其它第三方插件，比如cedet，ecb，jdee，pymacs等，我一般把它存在site-lisp(Windows)或~/.emacs.d(Linux and MacOSX)目录下，主要是因为这些插件比较大，我不愿意把它存在git里。

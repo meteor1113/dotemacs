@@ -231,10 +231,57 @@
 (setq auto-insert-query nil)
 (setq auto-insert-directory
       (file-name-as-directory
-       (expand-file-name "insert"
+       (expand-file-name "templates"
                          (file-name-directory (or buffer-file-name
                                                   load-file-name)))))
-;; (define-auto-insert "\\.\\([Cc]\\|cc\\|cpp\\)\\'" "cpp.tpl")
+(setq auto-insert-expansion-alist
+  '(("(>>>DIR<<<)" . (file-name-directory buffer-file-name))
+    ("(>>>FILE<<<)" . (file-name-nondirectory buffer-file-name))
+    ("(>>>FILE_SANS<<<)" . (file-name-sans-extension
+                            (file-name-nondirectory buffer-file-name)))
+    ("(>>>FILE_UPCASE<<<)" . (upcase
+                              (file-name-sans-extension
+                               (file-name-nondirectory buffer-file-name))))
+    ("(>>>FILE_UPCASE_INIT<<<)" . (upcase-initials
+                                   (file-name-sans-extension
+                                    (file-name-nondirectory buffer-file-name))))
+    ("(>>>FILE_EXT<<<)" . (file-name-extension buffer-file-name))
+    ("(>>>FILE_EXT_UPCASE<<<)" . (upcase (file-name-extension buffer-file-name)))
+    ("(>>>DATE<<<)" . (format-time-string "%d %b %Y"))
+    ("(>>>TIME<<<)" . (format-time-string "%T"))
+    ("(>>>VC_DATE<<<)" . (let ((ret ""))
+                           (set-time-zone-rule "UTC")
+                           (setq ret (format-time-string "%Y/%m/%d %T"))
+                           (set-time-zone-rule nil)
+                           ret))
+    ("(>>>YEAR<<<)" . (format-time-string "%Y"))
+    ("(>>>ISO_DATE<<<)" . (format-time-string "%Y-%m-%d"))
+    ("(>>>AUTHOR<<<)" . (or user-mail-address
+                            (and (fboundp 'user-mail-address)
+                                 (user-mail-address))
+                            (concat (user-login-name) "@" (system-name))))
+    ("(>>>USER_NAME<<<)" . (or (and (boundp 'user-full-name)
+                                    user-full-name)
+                               (user-full-name)))
+    ("(>>>LOGIN_NAME<<<)" . (user-login-name))
+    ("(>>>HOST_ADDR<<<)" . (or (and (boundp 'mail-host-address)
+                                    (stringp mail-host-address)
+                                    mail-host-address)
+                               (system-name)))))
+(defun auto-insert-expand ()
+  (dolist (val auto-insert-expansion-alist)
+    (let ((from (car val))
+          (to (eval (cdr val))))
+      (goto-char (point-min))
+      (replace-string from to))))
+(define-auto-insert "\\.\\([Hh]\\|hh\\|hpp\\)\\'"
+  ["h.tpl" auto-insert-expand])
+(define-auto-insert "\\.\\([Cc]\\|cc\\|cpp\\)\\'"
+  ["cpp.tpl" auto-insert-expand])
+(define-auto-insert "\\.java\\'"
+  ["java.tpl" auto-insert-expand])
+(define-auto-insert "\\.py\\'"
+  ["py.tpl" auto-insert-expand])
 
 ;; misc
 (setq inhibit-startup-message t)        ; for no desktop
