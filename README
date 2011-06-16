@@ -7,8 +7,8 @@ init-basic.el是基本的emacs配置，只需要emacs自身，不依赖第三方
 init-misc.el用于配置lisp目录下的第三方插件。
 init-site.el用于配置不在lisp目录下的其它第三方插件，比如cedet，ecb，jdee，pymacs等，我一般把它存在site-lisp(Windows)或~/.emacs.d(Linux and MacOSX)目录下，主要是因为这些插件比较大，我不愿意把它存在git里。
 init-toolbar.el是我的工具栏配置。
-sample/.emacs是一个dotemacs文件示例。
-sample/proj.el是配置ede-cpp-root-project(参考cedet的ede)项目的示例文件。
+samples/.emacs是一个dotemacs文件示例。
+samples/proj.el是配置ede-cpp-root-project(参考cedet的ede)项目的示例文件。
 
 安装:
 git clone git://github.com/meteor1113/dotemacs.git
