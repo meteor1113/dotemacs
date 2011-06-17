@@ -521,6 +521,14 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [mouse-3] menu-bar-edit-menu)
 (global-set-key (kbd "<left-margin> <mouse-2>") 'mark-current-line-mouse)
 (global-set-key (kbd "C-S-t") 'undo-kill-buffer)
+(when (eq system-type 'aix)
+  (global-set-key (kbd "C-d") 'backward-delete-char-untabify)
+  (eval-after-load "cc-mode"
+    '(progn
+       (define-key c-mode-base-map "\C-d" 'c-electric-backspace)))
+  (eval-after-load "comint"
+    '(progn
+       (define-key comint-mode-map "\C-d" 'delete-backward-char))))
 
 
 ;;; special mode setting
