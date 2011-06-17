@@ -21,6 +21,15 @@
   (let* ((dir (file-name-directory (directory-file-name data-directory)))
          (bin-dir (expand-file-name "bin" dir)))
     (setenv "PATH" (concat bin-dir ";" (getenv "PATH")))))
+(let ((cedet-possible-dirs '("~/.emacs.d/cedet-1.0pre6"
+                             "~/.emacs.d/cedet-1.0pre7"
+                             "~/.emacs.d/cedet-1.0")))
+  (dolist (dir cedet-possible-dirs)
+    (let ((default-directory (expand-file-name dir)))
+      (when (file-exists-p default-directory)
+        (add-to-list 'load-path default-directory)
+        (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+            (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; c/c++ include dir (ffap use mingw dirs)
 (defvar user-include-dirs

@@ -10,7 +10,7 @@
 ;; @URL http://github.com/meteor1113/dotemacs
 
 
-;; load-path
+;; path
 (let ((default-directory (expand-file-name "~/.emacs.d")))
   (when (file-exists-p default-directory)
     (add-to-list 'load-path default-directory)

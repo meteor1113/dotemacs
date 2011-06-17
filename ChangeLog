@@ -1,6 +1,7 @@
 2011-06-17  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: backspace key for aix.
+	(cedet-possible-dirs): if have offical cedet.
 
 2011-06-16  Meteor Liu  <meteor1113@gmail.com>
 

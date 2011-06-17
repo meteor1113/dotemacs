@@ -10,7 +10,7 @@
 ;; @URL http://github.com/meteor1113/dotemacs
 
 
-;; load-path
+;; path
 (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
        (default-directory (expand-file-name "lisp" dir)))
   (when (file-exists-p default-directory)
