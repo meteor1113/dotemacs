@@ -3,17 +3,6 @@
            (equal (file-name-nondirectory load-file-name) "site-start.el"))
   (setenv "HOME" (file-name-directory load-file-name)))
 
-;; if want to use offical cedet
-(let ((cedet-possible-dirs '("~/.emacs.d/cedet-1.0pre6"
-                             "~/.emacs.d/cedet-1.0pre7"
-                             "~/.emacs.d/cedet-1.0")))
-  (dolist (dir cedet-possible-dirs)
-    (let ((default-directory (expand-file-name dir)))
-      (when (file-exists-p default-directory)
-        (add-to-list 'load-path default-directory)
-        (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-            (normal-top-level-add-subdirs-to-load-path))))))
-
 (add-to-list 'load-path "~/.emacs.d/dotemacs")
 ;; (add-to-list 'load-path "e:/common/dotemacs")
 (load "init-basic" 'noerror)
@@ -25,13 +14,4 @@
 ;; (add-to-list 'load-path "e:/common/note")
 (load "init-note" 'noerror)
 
-;; (load "~/dotemacs/sample-proj" t)
-
-;; AIX?
-;; (global-set-key (kbd "C-d") 'backward-delete-char-untabify)
-;; (eval-after-load "cc-mode"
-;;   '(progn
-;;      (define-key c-mode-base-map "\C-d" 'c-electric-backspace)))
-;; (eval-after-load "comint"
-;;   '(progn
-;;      (define-key comint-mode-map "\C-d" 'delete-backward-char)))
+;; (load "~/dotemacs/sample/proj" t)
