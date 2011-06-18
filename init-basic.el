@@ -1069,9 +1069,10 @@ Use CREATE-TEMP-F for creating temp copy."
   ;;    (t nil)))
   ;; (add-to-list 'semantic-inhibit-functions 'my-semantic-inhibit-func)
 
-  (require 'semantic/bovine/c nil 'noerror)
   (when (executable-find "gcc")
-    (semantic-gcc-setup))
+    (require 'semantic/bovine/c nil 'noerror)
+    (and (eq system-type 'windows-nt)
+         (semantic-gcc-setup)))
   (mapc (lambda (dir)
           (semantic-add-system-include dir 'c++-mode)
           (semantic-add-system-include dir 'c-mode))

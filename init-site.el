@@ -79,9 +79,10 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
   ;;    (t nil)))
   ;; (add-to-list 'semantic-inhibit-functions 'my-semantic-inhibit-func)
 
-  (require 'semantic-c nil 'noerror)
   (when (executable-find "gcc")
-    (semantic-gcc-setup))
+    (require 'semantic-c nil 'noerror)
+    (and (eq system-type 'windows-nt)
+         (semantic-gcc-setup)))
   (mapc (lambda (dir)
           (semantic-add-system-include dir 'c++-mode)
           (semantic-add-system-include dir 'c-mode))
@@ -217,7 +218,8 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     (define-key c-mode-base-map (kbd "ESC <f12>") 'eassist-switch-h-cpp)))
 
 ;; ecb
-(when (require 'ecb-autoloads nil 'noerror)
+(require 'ecb-autoloads nil 'noerror)
+(when (fboundp 'ecb-minor-mode)
   (setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1
         ecb-source-path '("/")
         ecb-layout-name 'left3
