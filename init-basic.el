@@ -191,6 +191,7 @@
 ;; highlight
 (when (fboundp 'global-font-lock-mode)
   (global-font-lock-mode t))
+;; (setq jit-lock-defer-time 0.05)         ; Make c mode faster
 (when (fboundp 'transient-mark-mode)
   (transient-mark-mode t))
 (setq hl-line-face 'underline)          ; for highlight-symbol
