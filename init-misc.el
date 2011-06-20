@@ -304,9 +304,9 @@
   "Major mode for editing comma-separated value files." t)
 
 ;; ntcmd
-(autoload 'ntcmd-mode "ntcmd" "Major mode for editing CMD scripts." t)
-(add-to-list 'auto-mode-alist '("\\.bat$" . ntcmd-mode))
-(add-to-list 'auto-mode-alist '("\\.cmd$" . ntcmd-mode))
+;; (autoload 'ntcmd-mode "ntcmd" "Major mode for editing CMD scripts." t)
+;; (add-to-list 'auto-mode-alist '("\\.bat$" . ntcmd-mode))
+;; (add-to-list 'auto-mode-alist '("\\.cmd$" . ntcmd-mode))
 
 ;; csharp-mode
 (autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
