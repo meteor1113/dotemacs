@@ -2,6 +2,7 @@
 
 	* init-misc.el (auto-mode-alist): Use ntcmd-mode instead of dos-mode.
 	Use bat-generic-mode instead of ntcmd-mode.
+	("vc-svn"): Auto load psvn when used vc-svn.
 
 2011-06-18  Meteor Liu  <meteor1113@gmail.com>
 

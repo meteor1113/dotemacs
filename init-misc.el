@@ -135,6 +135,8 @@
 
 ;; psvn
 (autoload 'svn-status "psvn" nil t)
+(eval-after-load "vc-svn"
+  '(require 'psvn nil 'noerror))
 
 ;; ascii
 (autoload 'ascii-on        "ascii" "Turn on ASCII code display."   t)
