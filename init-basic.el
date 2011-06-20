@@ -295,6 +295,8 @@
 
 ;; misc
 (setq inhibit-startup-message t)        ; for no desktop
+(setq generic-define-mswindows-modes t)
+(setq generic-define-unix-modes t)
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)
 (auto-image-file-mode t)

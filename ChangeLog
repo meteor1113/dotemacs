@@ -1,3 +1,7 @@
+2011-06-20  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el (auto-mode-alist): Use ntcmd-mode instead of dos-mode.
+
 2011-06-18  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el (ecb-autoloads): for compatible.

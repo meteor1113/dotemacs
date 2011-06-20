@@ -303,10 +303,10 @@
 (autoload 'csv-mode "csv-mode"
   "Major mode for editing comma-separated value files." t)
 
-;; dos
-(autoload 'dos-mode "dos" "Edit Dos scripts." t)
-(add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
-(add-to-list 'auto-mode-alist '("\\.cmd$" . dos-mode))
+;; ntcmd
+(autoload 'ntcmd-mode "ntcmd" "Major mode for editing CMD scripts." t)
+(add-to-list 'auto-mode-alist '("\\.bat$" . ntcmd-mode))
+(add-to-list 'auto-mode-alist '("\\.cmd$" . ntcmd-mode))
 
 ;; csharp-mode
 (autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
