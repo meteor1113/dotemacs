@@ -19,3 +19,4 @@ git clone git://github.com/meteor1113/dotemacs.git
 如果需要用ropemacs开发python，可以分别从http://rope.sourceforge.net，http://pymacs.progiciels-bpi.ca/pymacs.html，http://rope.sourceforge.net/ropemacs.html下载rope，pymacs，ropemacs并安装，把pymacs编译时生成的pymacs.el文件放在site-lisp或~/.emacs.d目录下。（注意ropemacs需要下载snapshot版，release的版本不能补全）
 
 Email: meteor1113@gmail.com
+
