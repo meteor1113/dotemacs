@@ -1,3 +1,7 @@
+2011-06-21  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add copy menu item to tabbar-popup-menu.
+
 2011-06-20  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (auto-mode-alist): Use ntcmd-mode instead of dos-mode.

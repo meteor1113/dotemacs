@@ -120,12 +120,16 @@
 (when window-system
   (eval-after-load "tabbar"
     '(when (require 'tabbar-ruler nil 'noerror)
-       (defadvice tabbar-popup-menu (after add-undo-menu-item activate)
-         "Add undo menu item to tabbar popup menu."
+       (defadvice tabbar-popup-menu (after add-menu-item activate)
+         "Add customize menu item to tabbar popup menu."
          (when (fboundp 'undo-kill-buffer)
            (setq ad-return-value
                  (append ad-return-value
-                         '("--" ["Undo Close Tab" undo-kill-buffer])))))
+                         '("--"
+                           ["Copy Buffer Name" (kill-new (buffer-name))]
+                           ["Copy File Path" (kill-new buffer-file-name)
+                            :active buffer-file-name]
+                           ["Undo Close Tab" undo-kill-buffer])))))
        (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
        (setq EmacsPortable-excluded-buffers '()))))
 
