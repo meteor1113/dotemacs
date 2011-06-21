@@ -126,9 +126,16 @@
            (setq ad-return-value
                  (append ad-return-value
                          '("--"
-                           ["Copy Buffer Name" (kill-new (buffer-name))]
-                           ["Copy File Path" (kill-new buffer-file-name)
-                            :active buffer-file-name]
+                           ["Copy Buffer Name" (kill-new
+                                                (buffer-name
+                                                 (tabbar-tab-value
+                                                  tabbar-last-tab)))]
+                           ["Copy File Path" (kill-new
+                                              (buffer-file-name
+                                               (tabbar-tab-value
+                                                tabbar-last-tab)))
+                            :active (buffer-file-name
+                                     (tabbar-tab-value tabbar-last-tab))]
                            "--"
                            ["Undo Close Tab" undo-kill-buffer])))))
        (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
