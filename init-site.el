@@ -16,6 +16,12 @@
     (add-to-list 'load-path default-directory)
     (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
         (normal-top-level-add-subdirs-to-load-path))))
+(let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
+       (default-directory (expand-file-name "site-lisp" dir)))
+  (when (file-exists-p default-directory)
+    (add-to-list 'load-path default-directory)
+    (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+        (normal-top-level-add-subdirs-to-load-path))))
 
 (unless (fboundp 'custom-autoload)      ; for emacs-21
   (defun custom-autoload (symbol load &optional noset)

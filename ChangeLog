@@ -1,6 +1,7 @@
 2011-06-24  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Fix tabbar font.
+	Add site-lisp dir.
 
 2011-06-21  Meteor Liu  <meteor1113@gmail.com>
 
