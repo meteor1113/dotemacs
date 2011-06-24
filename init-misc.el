@@ -138,6 +138,8 @@
                                      (tabbar-tab-value tabbar-last-tab))]
                            "--"
                            ["Undo Close Tab" undo-kill-buffer])))))
+       (set-face-attribute 'tabbar-default nil
+                           :family (face-attribute 'default :family))
        (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
        (setq EmacsPortable-excluded-buffers '()))))
 
