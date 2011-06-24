@@ -17,10 +17,14 @@
 (setq user-mail-address "meteor1113@gmail.com")
 
 ;; path
-(when (eq system-type 'windows-nt)
+(when (eq system-type 'windows-nt)      ; for "| grep"
   (let* ((dir (file-name-directory (directory-file-name data-directory)))
          (bin-dir (expand-file-name "bin" dir)))
     (setenv "PATH" (concat bin-dir ";" (getenv "PATH")))))
+;; (let ((dir (expand-file-name "bin"
+;;                              (file-name-directory
+;;                               (or load-file-name (buffer-file-name))))))
+;;   (setq exec-path (append exec-path (list dir))))
 (let ((cedet-possible-dirs '("~/.emacs.d/cedet-1.0pre6"
                              "~/.emacs.d/cedet-1.0pre7"
                              "~/.emacs.d/cedet-1.0")))
@@ -241,7 +245,7 @@
 (setq auto-insert-query nil)
 (setq auto-insert-directory
       (file-name-as-directory
-       (expand-file-name "templates"
+       (expand-file-name "etc/templates"
                          (file-name-directory (or buffer-file-name
                                                   load-file-name)))))
 (setq auto-insert-expansion-alist

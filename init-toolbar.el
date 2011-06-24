@@ -23,7 +23,7 @@
 
 ;; image-load-path
 (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
-       (images-dir (expand-file-name "images" dir)))
+       (images-dir (expand-file-name "etc/images" dir)))
   (if (boundp 'image-load-path)         ; emacs-21 isn't have image-load-path
       (add-to-list 'image-load-path images-dir)
     (add-to-list 'load-path images-dir)))

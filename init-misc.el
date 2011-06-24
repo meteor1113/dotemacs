@@ -370,7 +370,7 @@
   (unless (featurep 'yasnippet-bundle)
     (yas/initialize))
   (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
-         (snippets-dir (expand-file-name "snippets" dir)))
+         (snippets-dir (expand-file-name "etc/snippets" dir)))
     (when (file-exists-p snippets-dir)
       (yas/load-directory snippets-dir)))
   (when (require 'org nil 'noerror)
