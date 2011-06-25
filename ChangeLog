@@ -1,3 +1,7 @@
+2011-06-25  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (grep-current-dir): Fix grep.
+
 2011-06-24  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Fix tabbar font.

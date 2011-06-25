@@ -1,5 +1,5 @@
 ;;; -*- coding: gbk -*-
-;; Copyright (C) 2010 Meteor Liu
+;; Copyright (C) 2010-2011 Meteor Liu
 ;;
 ;; This code has been released into the Public Domain.
 ;; You may do whatever you like with it.

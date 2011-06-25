@@ -1,5 +1,5 @@
 ;;; -*- coding: gbk -*-
-;; Copyright (C) 2008, 2009, 2010 Meteor Liu
+;; Copyright (C) 2008-2011 Meteor Liu
 ;;
 ;; This code has been released into the Public Domain.
 ;; You may do whatever you like with it.
@@ -17,14 +17,15 @@
 (setq user-mail-address "meteor1113@gmail.com")
 
 ;; path
-(when (eq system-type 'windows-nt)      ; for "| grep"
-  (let* ((dir (file-name-directory (directory-file-name data-directory)))
+(when (eq system-type 'windows-nt)
+  ;; (let* ((dir (file-name-directory (directory-file-name data-directory)))
+  ;;        (bin-dir (expand-file-name "bin" dir)))
+  ;;   (setenv "PATH" (concat bin-dir ";" (getenv "PATH")))) ; for "| grep"
+  (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
          (bin-dir (expand-file-name "bin" dir)))
-    (setenv "PATH" (concat bin-dir ";" (getenv "PATH")))))
-;; (let ((dir (expand-file-name "bin"
-;;                              (file-name-directory
-;;                               (or load-file-name (buffer-file-name))))))
-;;   (setq exec-path (append exec-path (list dir))))
+    (setenv "PATH" (concat bin-dir ";" (getenv "PATH")))
+    ;; (setq exec-path (append exec-path (list bin-dir)))
+    (add-to-list 'exec-path bin-dir)))
 (let ((cedet-possible-dirs '("~/.emacs.d/cedet-1.0pre6"
                              "~/.emacs.d/cedet-1.0pre7"
                              "~/.emacs.d/cedet-1.0")))
@@ -448,8 +449,17 @@ Like eclipse's Ctrl+Alt+F."
   "Run `grep' to find current word in current directory."
   (interactive "P")
   (let* ((word (or wd (grep-tag-default)))
-         (cmd (concat "grep -inrHIE \"" word "\" ."
-                      " | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")))
+         ;; (cmd (concat "grep -inrHIE \"" word "\" ."
+         ;;              " | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\""))
+         (cmd (concat "grep -inrHIE"
+                      " --exclude-dir=.svn"
+                      " --exclude-dir=.git"
+                      " --exclude-dir=.hg"
+                      " --exclude-dir=.bzr"
+                      " --exclude-dir=CVS"
+                      " \""
+                      word
+                      "\" .")))
     (grep-apply-setting 'grep-use-null-device nil)
     (if (or prompt (= (length word) 0))
         (grep (read-shell-command
