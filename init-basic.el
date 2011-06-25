@@ -18,14 +18,16 @@
 
 ;; path
 (when (eq system-type 'windows-nt)
-  ;; (let* ((dir (file-name-directory (directory-file-name data-directory)))
-  ;;        (bin-dir (expand-file-name "bin" dir)))
-  ;;   (setenv "PATH" (concat bin-dir ";" (getenv "PATH")))) ; for "| grep"
-  (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
+  (let* ((dir (file-name-directory (directory-file-name data-directory)))
          (bin-dir (expand-file-name "bin" dir)))
-    (setenv "PATH" (concat bin-dir ";" (getenv "PATH")))
-    ;; (setq exec-path (append exec-path (list bin-dir)))
-    (add-to-list 'exec-path bin-dir)))
+    (setenv "PATH" (concat bin-dir ";" (getenv "PATH"))))) ; for "| grep"
+(let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
+       (bin-dir (expand-file-name "bin" dir)))
+  (setenv "PATH" (concat bin-dir
+                         (if (eq system-type 'windows-nt) ";" ":")
+                         (getenv "PATH")))
+  ;; (setq exec-path (append exec-path (list bin-dir)))
+  (add-to-list 'exec-path bin-dir))
 (let ((cedet-possible-dirs '("~/.emacs.d/cedet-1.0pre6"
                              "~/.emacs.d/cedet-1.0pre7"
                              "~/.emacs.d/cedet-1.0")))
