@@ -358,6 +358,10 @@
               :enable (fboundp 'flymake-find-file-hook)
               :button
               (:toggle . (memq 'flymake-find-file-hook find-file-hook))))
+(define-key minormode-sub-menu [goto-address-mode]
+  '(menu-item "goto-address-mode" goto-address-mode
+              :enable (fboundp 'goto-address-mode)
+              :button (:toggle . goto-address-mode)))
 (define-key minormode-sub-menu [word-count-mode]
   '(menu-item "word-count-mode" word-count-mode
               :enable (fboundp 'word-count-mode)

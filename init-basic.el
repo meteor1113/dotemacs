@@ -17,10 +17,10 @@
 (setq user-mail-address "meteor1113@gmail.com")
 
 ;; path
-(when (eq system-type 'windows-nt)
-  (let* ((dir (file-name-directory (directory-file-name data-directory)))
-         (bin-dir (expand-file-name "bin" dir)))
-    (setenv "PATH" (concat bin-dir ";" (getenv "PATH"))))) ; for "| grep"
+;; (when (eq system-type 'windows-nt)
+;;   (let* ((dir (file-name-directory (directory-file-name data-directory)))
+;;          (bin-dir (expand-file-name "bin" dir)))
+;;     (setenv "PATH" (concat bin-dir ";" (getenv "PATH"))))) ; for "| grep"
 (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
        (bin-dir (expand-file-name "bin" dir)))
   (setenv "PATH" (concat bin-dir
@@ -308,6 +308,7 @@
 (setq ring-bell-function 'ignore)
 (auto-image-file-mode t)
 ;; (setq message-log-max t)
+;; (add-hook 'find-file-hook 'goto-address-mode)
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"
