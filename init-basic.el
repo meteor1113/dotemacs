@@ -530,6 +530,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
 (global-set-key (kbd "ESC <f4>") 'kill-this-buffer) ; putty
+(global-set-key [(control ?.)] 'repeat)
 (global-set-key [f6] 'grep-current-dir)
 (global-set-key [C-f6] 'moccur-all-buffers)
 (global-set-key [M-f6] 'grep-todo-current-dir)

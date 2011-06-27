@@ -1,3 +1,7 @@
+2011-06-27  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el: viper-mode menu item.
+
 2011-06-26  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Add minor-mode menu item - goto-address-mode.
