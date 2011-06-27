@@ -1,4 +1,4 @@
-;;; -*- coding: gbk -*-
+;;; -*- mode: emacs-lisp; mode: goto-address; coding: gbk; -*-
 ;; Copyright (C) 2008-2011 Meteor Liu
 ;;
 ;; This code has been released into the Public Domain.
