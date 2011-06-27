@@ -136,6 +136,15 @@
                                                 tabbar-last-tab)))
                             :active (buffer-file-name
                                      (tabbar-tab-value tabbar-last-tab))]
+                           ["Open Dired" (dired
+                                          (let ((file (buffer-file-name
+                                                       (tabbar-tab-value
+                                                        tabbar-last-tab))))
+                                            (if file
+                                                (file-name-directory file)
+                                              default-directory)))
+                            :active (buffer-file-name
+                                     (tabbar-tab-value tabbar-last-tab))]
                            "--"
                            ["Undo Close Tab" undo-kill-buffer])))))
        (unless (eq system-type 'windows-nt)
@@ -152,6 +161,10 @@
 (autoload 'svn-status "psvn" nil t)
 (eval-after-load "vc-svn"
   '(require 'psvn nil 'noerror))
+
+;; vimpulse
+(eval-after-load "viper"
+  '(require 'vimpulse nil 'noerror))
 
 ;; ascii
 (autoload 'ascii-on        "ascii" "Turn on ASCII code display."   t)

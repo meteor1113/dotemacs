@@ -1,5 +1,7 @@
 2011-06-27  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el ("viper"): Use vimpulse.
+
 	* init-toolbar.el: viper-mode menu item.
 
 2011-06-26  Meteor Liu  <meteor1113@gmail.com>
