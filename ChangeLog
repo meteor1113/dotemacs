@@ -1,5 +1,7 @@
 2011-06-28  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-toolbar.el: Fix vimpulse.
+
 	* init-misc.el ("viper"): Fix vimpulse.
 
 2011-06-27  Meteor Liu  <meteor1113@gmail.com>

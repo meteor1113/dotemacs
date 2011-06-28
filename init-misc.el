@@ -163,11 +163,8 @@
   '(require 'psvn nil 'noerror))
 
 ;; vimpulse
-(eval-after-load "viper"
-  '(progn
-     (when (not (featurep 'vimpulse))
-       (setq viper-mode nil)
-       (require 'vimpulse nil 'noerror))))
+;; (eval-after-load "viper"
+;;   '(require 'vimpulse nil 'noerror))
 
 ;; ascii
 (autoload 'ascii-on        "ascii" "Turn on ASCII code display."   t)

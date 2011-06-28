@@ -387,7 +387,13 @@
               :enable (fboundp 'global-linum-mode)
               :button (:toggle . global-linum-mode)))
 (define-key minormode-sub-menu [viper-mode]
-  '(menu-item "viper-mode" toggle-viper-mode
+  '(menu-item "viper-mode"
+              (lambda ()
+                (interactive)
+                (if (featurep 'vimpulse)
+                    (toggle-viper-mode)
+                  (unless (require 'vimpulse nil 'noerror)
+                    (toggle-viper-mode))))
               :enable (fboundp 'toggle-viper-mode)
               :button (:toggle . viper-mode)))
 (define-key toggle-toolbar-menu [minor-mode]
