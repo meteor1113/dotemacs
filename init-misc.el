@@ -164,7 +164,10 @@
 
 ;; vimpulse
 (eval-after-load "viper"
-  '(require 'vimpulse nil 'noerror))
+  '(progn
+     (when (not (featurep 'vimpulse))
+       (setq viper-mode nil)
+       (require 'vimpulse nil 'noerror))))
 
 ;; ascii
 (autoload 'ascii-on        "ascii" "Turn on ASCII code display."   t)
