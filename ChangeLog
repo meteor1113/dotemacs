@@ -1,3 +1,7 @@
+2011-06-30  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Fix grep on aix.
+
 2011-06-28  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Fix vimpulse.

@@ -448,21 +448,28 @@ Like eclipse's Ctrl+Alt+F."
 
 (autoload 'grep-tag-default "grep")
 (autoload 'grep-apply-setting "grep")
+(defvar grep-dir-option (if (eq system-type 'aix) " -inrHE" " -inrHIE"))
+(defvar grep-exclude-dirs (if (eq system-type 'aix)
+                              nil
+                            (concat " --exclude-dir=.svn"
+                                    " --exclude-dir=.git"
+                                    " --exclude-dir=.hg"
+                                    " --exclude-dir=.bzr"
+                                    " --exclude-dir=CVS")))
+(defvar grep-v-option (if (eq system-type 'aix)
+                          " | grep -v \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\""))
+
 (defun grep-current-dir (&optional prompt wd)
   "Run `grep' to find current word in current directory."
   (interactive "P")
   (let* ((word (or wd (grep-tag-default)))
          ;; (cmd (concat "grep -inrHIE \"" word "\" ."
          ;;              " | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\""))
-         (cmd (concat "grep -inrHIE"
-                      " --exclude-dir=.svn"
-                      " --exclude-dir=.git"
-                      " --exclude-dir=.hg"
-                      " --exclude-dir=.bzr"
-                      " --exclude-dir=CVS"
-                      " \""
-                      word
-                      "\" .")))
+         (cmd (concat "grep"
+                      grep-dir-option
+                      grep-exclude-dirs
+                      " \"" word "\" ."
+                      grep-v-option)))
     (grep-apply-setting 'grep-use-null-device nil)
     (if (or prompt (= (length word) 0))
         (grep (read-shell-command
