@@ -558,6 +558,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [mouse-3] menu-bar-edit-menu)
 (global-set-key (kbd "<left-margin> <mouse-2>") 'mark-current-line-mouse)
 (global-set-key (kbd "C-S-t") 'undo-kill-buffer)
+(global-set-key (kbd "C-c C-v") 'view-mode)
 (when (eq system-type 'aix)
   (global-set-key (kbd "C-d") 'backward-delete-char-untabify)
   (eval-after-load "cc-mode"

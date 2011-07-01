@@ -1,3 +1,7 @@
+2011-07-01  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: C-c C-v to toggle view-mode.
+
 2011-06-30  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Fix grep on aix.
