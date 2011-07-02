@@ -8,3 +8,4 @@
 *~
 *.elc
 Thumbs.db
+init-test.el
