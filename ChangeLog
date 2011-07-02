@@ -1,3 +1,7 @@
+2011-07-02  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (grep-current-dir): Fix grep.
+
 2011-07-01  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: C-c C-v to toggle view-mode.
