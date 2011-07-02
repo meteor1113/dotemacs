@@ -421,31 +421,6 @@ Like eclipse's Ctrl+Alt+F."
                      (cxx-file-p x))
                 (format-cxx-file x)))))))
 
-(defun moccur-word-all-buffers (regexp)
-  "Run `multi-occur' to find regexp in all buffers."
-  (if (= 0 (length regexp))
-      (message "Regexp is blank.")
-    (let ((buffers (buffer-list)))
-      (dolist (buffer buffers)
-        (let ((pos (string-match " *\\*" (buffer-name buffer))))
-          (when (and pos (= 0 pos))
-            (setq buffers (remq buffer buffers)))))
-      (multi-occur buffers regexp))))
-
-(defun moccur-all-buffers (&optional prompt)
-  "Run `multi-occur' to find current word in all buffers."
-  (interactive "P")
-  (let ((word (grep-tag-default)))
-    (when (or prompt (= (length word) 0))
-      (setq word (read-regexp "List lines matching regexp" word)))
-    (moccur-word-all-buffers word)))
-
-(defun moccur-todo-all-buffers ()
-  "Run `multi-occur' to find 'TODO' in all buffers."
-  (interactive)
-  (moccur-word-all-buffers
-   "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>"))
-
 (autoload 'grep-tag-default "grep")
 (autoload 'grep-apply-setting "grep")
 (defvar grep-dir-format
@@ -490,6 +465,31 @@ Like eclipse's Ctrl+Alt+F."
   "Run `grep' to find 'TODO' in current directory."
   (interactive)
   (grep-current-dir nil "TODO|FIXME"))
+
+(defun moccur-word-all-buffers (regexp)
+  "Run `multi-occur' to find regexp in all buffers."
+  (if (= 0 (length regexp))
+      (message "Regexp is blank.")
+    (let ((buffers (buffer-list)))
+      (dolist (buffer buffers)
+        (let ((pos (string-match " *\\*" (buffer-name buffer))))
+          (when (and pos (= 0 pos))
+            (setq buffers (remq buffer buffers)))))
+      (multi-occur buffers regexp))))
+
+(defun moccur-all-buffers (&optional prompt)
+  "Run `multi-occur' to find current word in all buffers."
+  (interactive "P")
+  (let ((word (grep-tag-default)))
+    (when (or prompt (= (length word) 0))
+      (setq word (read-regexp "List lines matching regexp" word)))
+    (moccur-word-all-buffers word)))
+
+(defun moccur-todo-all-buffers ()
+  "Run `multi-occur' to find 'TODO' in all buffers."
+  (interactive)
+  (moccur-word-all-buffers
+   "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>"))
 
 (defun switch-to-other-buffer ()
   "Switch to (other-buffer)."
