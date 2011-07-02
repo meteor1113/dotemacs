@@ -1,5 +1,7 @@
 2011-07-02  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el (tabbar-popup-menu): Fix tabbar-ruler.
+
 	* init-basic.el (grep-current-dir): Fix grep.
 
 2011-07-01  Meteor Liu  <meteor1113@gmail.com>

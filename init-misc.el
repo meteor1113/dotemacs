@@ -122,31 +122,31 @@
     '(when (require 'tabbar-ruler nil 'noerror)
        (defadvice tabbar-popup-menu (after add-menu-item activate)
          "Add customize menu item to tabbar popup menu."
-         (when (fboundp 'undo-kill-buffer)
-           (setq ad-return-value
-                 (append ad-return-value
-                         '("--"
-                           ["Copy Buffer Name" (kill-new
-                                                (buffer-name
-                                                 (tabbar-tab-value
-                                                  tabbar-last-tab)))]
-                           ["Copy File Path" (kill-new
-                                              (buffer-file-name
+         (setq ad-return-value
+               (append ad-return-value
+                       '("--"
+                         ["Copy Buffer Name" (kill-new
+                                              (buffer-name
                                                (tabbar-tab-value
-                                                tabbar-last-tab)))
-                            :active (buffer-file-name
-                                     (tabbar-tab-value tabbar-last-tab))]
-                           ["Open Dired" (dired
-                                          (let ((file (buffer-file-name
-                                                       (tabbar-tab-value
-                                                        tabbar-last-tab))))
-                                            (if file
-                                                (file-name-directory file)
-                                              default-directory)))
-                            :active (buffer-file-name
-                                     (tabbar-tab-value tabbar-last-tab))]
-                           "--"
-                           ["Undo Close Tab" undo-kill-buffer])))))
+                                                tabbar-last-tab)))]
+                         ["Copy File Path" (kill-new
+                                            (buffer-file-name
+                                             (tabbar-tab-value
+                                              tabbar-last-tab)))
+                          :active (buffer-file-name
+                                   (tabbar-tab-value tabbar-last-tab))]
+                         ["Open Dired" (dired
+                                        (let ((file (buffer-file-name
+                                                     (tabbar-tab-value
+                                                      tabbar-last-tab))))
+                                          (if file
+                                              (file-name-directory file)
+                                            default-directory)))
+                          :active (buffer-file-name
+                                   (tabbar-tab-value tabbar-last-tab))]
+                         "--"
+                         ["Undo Close Tab" undo-kill-buffer
+                          :active (fboundp 'undo-kill-buffer)]))))
        (unless (eq system-type 'windows-nt)
          (set-face-attribute 'tabbar-default nil
                              :family (face-attribute 'default :family)))
