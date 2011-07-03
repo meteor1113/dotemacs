@@ -1,6 +1,7 @@
 2011-07-03  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el: Keep auto-insert-query 'function
+	(find-dotemacs-file): Fix find-dotemacs-file.
 
 2011-07-02  Meteor Liu  <meteor1113@gmail.com>
 

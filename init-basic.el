@@ -323,18 +323,15 @@
 (defun find-dotemacs-file ()
   "Open .emacs file"
   (interactive)
-  (let* ((homedir (getenv "HOME"))
-         (path1 (expand-file-name ".emacs" homedir))
-         (path2 (expand-file-name "_emacs" homedir))
-         (path3 (expand-file-name "site-start.el" homedir))
-         (dotemacs-path path1))
-    (when (file-exists-p path3)
-      (setq dotemacs-path path3))
-    (when (file-exists-p path2)
-      (setq dotemacs-path path2))
-    (when (file-exists-p path1)
-      (setq dotemacs-path path1))
-    (find-file dotemacs-path)))
+  (let* ((paths '("~/.emacs" "~/.emacs.el" "~/.emacs.d/init.el" "~/_emacs"))
+         (dotemacs-path))
+    (dolist (path paths)
+      (and (not dotemacs-path)
+           (file-exists-p path)
+           (setq dotemacs-path path)))
+    (find-file (or dotemacs-path
+                   (locate-file "site-start.el" load-path)
+                   "~/.emacs"))))
 
 (defun move-line-up (p)
   "Move current line up, copy from crazycool@smth"
