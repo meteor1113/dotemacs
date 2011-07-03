@@ -117,41 +117,62 @@
     (update-tabbar-modified-state))
   (add-hook 'first-change-hook 'update-tabbar-modified-state)
   (add-hook 'after-save-hook 'update-tabbar-modified-state))
-(when window-system
-  (eval-after-load "tabbar"
-    '(when (require 'tabbar-ruler nil 'noerror)
-       (defadvice tabbar-popup-menu (after add-menu-item activate)
-         "Add customize menu item to tabbar popup menu."
-         (setq ad-return-value
-               (append ad-return-value
-                       '("--"
-                         ["Copy Buffer Name" (kill-new
-                                              (buffer-name
-                                               (tabbar-tab-value
-                                                tabbar-last-tab)))]
-                         ["Copy File Path" (kill-new
-                                            (buffer-file-name
+(eval-after-load "tabbar"
+  '(when (require 'tabbar-ruler nil 'noerror)
+     (defadvice tabbar-popup-menu (after add-menu-item activate)
+       "Add customize menu item to tabbar popup menu."
+       (setq ad-return-value
+             (append ad-return-value
+                     '("--"
+                       ["Copy Buffer Name" (kill-new
+                                            (buffer-name
                                              (tabbar-tab-value
-                                              tabbar-last-tab)))
-                          :active (buffer-file-name
-                                   (tabbar-tab-value tabbar-last-tab))]
-                         ["Open Dired" (dired
-                                        (let ((file (buffer-file-name
-                                                     (tabbar-tab-value
-                                                      tabbar-last-tab))))
-                                          (if file
-                                              (file-name-directory file)
-                                            default-directory)))
-                          :active (buffer-file-name
-                                   (tabbar-tab-value tabbar-last-tab))]
-                         "--"
-                         ["Undo Close Tab" undo-kill-buffer
-                          :active (fboundp 'undo-kill-buffer)]))))
-       (unless (eq system-type 'windows-nt)
-         (set-face-attribute 'tabbar-default nil
-                             :family (face-attribute 'default :family)))
-       (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
-       (setq EmacsPortable-excluded-buffers '()))))
+                                              tabbar-last-tab)))]
+                       ["Copy File Path" (kill-new
+                                          (buffer-file-name
+                                           (tabbar-tab-value
+                                            tabbar-last-tab)))
+                        :active (buffer-file-name
+                                 (tabbar-tab-value tabbar-last-tab))]
+                       ["Open Dired" (dired
+                                      (let ((file (buffer-file-name
+                                                   (tabbar-tab-value
+                                                    tabbar-last-tab))))
+                                        (if file
+                                            (file-name-directory file)
+                                          default-directory)))
+                        :active (buffer-file-name
+                                 (tabbar-tab-value tabbar-last-tab))]
+                       "--"
+                       ["Undo Close Tab" undo-kill-buffer
+                        :active (fboundp 'undo-kill-buffer)]))))
+     (defadvice tabbar-line-tab (around window-or-terminal activate)
+       "Fix tabbar-ruler in window-system and terminal"
+       (if window-system
+           ad-do-it
+         (setq ad-return-value
+               (let ((tab (ad-get-arg 0))
+                     (tabbar-separator-value "|"))
+                 (concat (propertize
+                          (if tabbar-tab-label-function
+                              (funcall tabbar-tab-label-function tab)
+                            tab)
+                          'tabbar-tab tab
+                          'local-map (tabbar-make-tab-keymap tab)
+                          'help-echo 'tabbar-help-on-tab
+                          'mouse-face 'tabbar-highlight
+                          'face (if (tabbar-selected-p tab (tabbar-current-tabset))
+                                    'tabbar-selected
+                                  'tabbar-unselected)
+                          'pointer 'hand)
+                         tabbar-separator-value)))))
+     (unless (eq system-type 'windows-nt)
+       (set-face-attribute 'tabbar-default nil
+                           :family (face-attribute 'default :family)))
+     (set-face-attribute 'tabbar-selected nil
+                         :foreground "blue")
+     (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
+     (setq EmacsPortable-excluded-buffers '())))
 
 ;; window-numbering
 (when (require 'window-numbering nil 'noerror)

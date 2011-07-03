@@ -1,5 +1,7 @@
 2011-07-03  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el ("tabbar"): Fix tabbar-ruler in terminal and window-system.
+
 	* init-basic.el: Keep auto-insert-query 'function
 	(find-dotemacs-file): Fix find-dotemacs-file.
 
