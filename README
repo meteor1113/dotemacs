@@ -12,6 +12,8 @@ init-site.el用于配置不在lisp目录下的其它第三方插件，比如cede
 init-toolbar.el是我的工具栏配置。
 sample/.emacs是一个dotemacs文件示例。
 sample/proj.el是配置ede-cpp-root-project(参考cedet的ede)项目的示例文件。
+sample/diary是个diary文件的例子。
+sample/site-start.el是个portable emacs的例子，把这个文件拷贝到site-lisp目录就行。
 
 安装:
 git clone git://github.com/meteor1113/dotemacs.git
