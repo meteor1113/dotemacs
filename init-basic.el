@@ -245,7 +245,7 @@
 ;; autoinsert
 (auto-insert-mode 1)
 ;; (setq auto-insert t)
-(setq auto-insert-query nil)
+;; (setq auto-insert-query nil)
 (setq auto-insert-directory
       (file-name-as-directory
        (expand-file-name "etc/templates"
