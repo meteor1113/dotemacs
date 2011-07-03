@@ -105,9 +105,10 @@
   (tabbar-mode t)
   (defadvice tabbar-buffer-tab-label (after modified-flag activate)
     (setq ad-return-value
-          (if (and (not (featurep 'tabbar-ruler))
-                   (buffer-modified-p (tabbar-tab-value tab))
-                   (buffer-file-name (tabbar-tab-value tab)))
+          (if (and (or (not (featurep 'tabbar-ruler))
+                       (not window-system))
+                   (buffer-modified-p (tabbar-tab-value tab)))
+                   ;; (buffer-file-name (tabbar-tab-value tab))
               (concat ad-return-value "*")
             ad-return-value)))
   (defun update-tabbar-modified-state ()
