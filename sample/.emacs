@@ -1,8 +1,3 @@
-;; portable emacs: copy this file to site-lisp and rename to site-start.el.
-(when (and load-file-name
-           (equal (file-name-nondirectory load-file-name) "site-start.el"))
-  (setenv "HOME" (file-name-directory load-file-name)))
-
 (add-to-list 'load-path "~/.emacs.d/dotemacs")
 ;; (add-to-list 'load-path "e:/common/dotemacs")
 (load "init-basic" 'noerror)
