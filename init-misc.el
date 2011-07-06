@@ -130,7 +130,7 @@
 ;; highlight-symbol
 (when (require 'highlight-symbol nil 'noerror)
   (defvar disable-hl-s-modes
-    '(erc-mode occur-mode w3m-mode)
+    '(erc-mode occur-mode w3m-mode help-mode)
     "This buffers don't active highlight-symbol-mode.")
   (define-global-minor-mode global-highlight-symbol-mode
     highlight-symbol-mode
