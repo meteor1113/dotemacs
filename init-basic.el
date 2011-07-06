@@ -158,7 +158,7 @@
 
 ;; color
 (if window-system
-    (set-background-color "honeydew")) ; #f0fff0? #cce8cf?
+    (set-background-color "honeydew"))  ; #f0fff0
 
 ;; misc
 (setq inhibit-startup-message t)        ; for no desktop

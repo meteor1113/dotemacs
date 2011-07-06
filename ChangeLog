@@ -1,5 +1,7 @@
 2011-07-06  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Bind [C-u f3] to highlight-symbol-prev.
+
 	* init-basic.el (hs-set-up-overlay): Use mode-line face to display hideshow-overlay.
 
 	* init-misc.el: Disable hl-s-mode in help-mode.
