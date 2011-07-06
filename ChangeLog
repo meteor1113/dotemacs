@@ -1,6 +1,7 @@
 2011-07-06  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Bing "ESC ESC <f2>" to bm-previous.
+	: Bind "ESC ESC <f3>" to highlight-symbol-prev.
 
 	* init-basic.el: Bind "ESC ESC <f12>" to semantic-ia-fast-jump-back.
 
