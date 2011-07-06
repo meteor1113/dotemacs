@@ -1,5 +1,7 @@
 2011-07-06  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (hs-set-up-overlay): Use mode-line face to display hideshow-overlay.
+
 	* init-misc.el: Disable hl-s-mode in help-mode.
 
 2010-06-22  Meteor Liu  <meteor1113@gmail.com>

@@ -158,7 +158,7 @@
 
 ;; color
 (if window-system
-    (set-background-color "LightCyan")) ; #E0FFFF
+    (set-background-color "honeydew")) ; #f0fff0? #cce8cf?
 
 ;; misc
 (setq inhibit-startup-message t)        ; for no desktop
@@ -362,7 +362,7 @@ Like eclipse's Ctrl+Alt+F."
                         (format " ... <%d lines>"
                                 (count-lines (overlay-start ov)
                                              (overlay-end ov)))
-                        'face 'highlight))
+                        'face 'mode-line))
           (overlay-put ov 'priority (overlay-end ov))
           (overlay-put ov 'keymap hs--overlay-keymap)
           (overlay-put ov 'pointer 'hand))))
