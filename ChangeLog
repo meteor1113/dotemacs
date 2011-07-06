@@ -1,3 +1,7 @@
+2011-07-06  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Bind "ESC ESC <f12>" to semantic-ia-fast-jump-back.
+
 2011-07-04  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el ("tabbar"): Fix tabbar-ruler' face family.

@@ -131,6 +131,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
   (global-set-key [f12] 'semantic-ia-fast-jump-or-back)
   (global-set-key [C-f12] 'semantic-ia-fast-jump-or-back)
   (global-set-key [S-f12] 'semantic-ia-fast-jump-back)
+  (global-set-key (kbd "ESC ESC <f12>") 'semantic-ia-fast-jump-back)
   ;; (global-set-key [S-f12] 'pop-global-mark)
   (define-key c-mode-base-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
   (define-key c-mode-base-map [mouse-2] 'semantic-ia-fast-jump-mouse)
