@@ -54,6 +54,7 @@
   (global-set-key (kbd "ESC <f2>") 'bm-toggle) ; putty
   (global-set-key (kbd "<f2>")   'bm-next)
   (global-set-key (kbd "<S-f2>") 'bm-previous)
+  (global-set-key (kbd "ESC ESC <f2>") 'bm-previous)
   (global-set-key (kbd "<C-S-f2>") 'bm-remove-all-current-buffer)
   ;; (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
   ;; (global-set-key (kbd "<left-fringe> <mouse-2>") 'bm-toggle-mouse)
