@@ -1,4 +1,4 @@
-;;; -*- mode: emacs-lisp; mode: goto-address; coding: gbk; -*-
+;;; -*- mode: emacs-lisp; mode: goto-address; coding: utf-8; -*-
 ;; Copyright (C) 2008-2011 Meteor Liu
 ;;
 ;; This code has been released into the Public Domain.
@@ -101,7 +101,7 @@
   (change-cursor-mode 1))
 
 ;; cn-weather
-(setq cn-weather-city "´óÁ¬")
+(setq cn-weather-city "å¤§è¿ž")
 (autoload 'display-cn-weather-mode "cn-weather"
   "Display weather information in the mode line." t)
 (autoload 'cn-weather "cn-weather"

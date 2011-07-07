@@ -1,4 +1,4 @@
-;;; -*- mode: emacs-lisp; mode: goto-address; coding: gbk; -*-
+;;; -*- mode: emacs-lisp; mode: goto-address; coding: utf-8; -*-
 ;; Copyright (C) 2008-2011 Meteor Liu
 ;;
 ;; This code has been released into the Public Domain.
@@ -577,8 +577,8 @@ Like eclipse's Ctrl+Alt+F."
 ;;; special mode setting
 
 (defvar text-imenu-generic-expression
-  `((nil ,"^ \\{0,4\\}\\([Ò»¶şÈıËÄÎåÁùÆß°Ë¾ÅÊ®]+[¡¢. )]\\)+ *[^,¡££¬]+?$" 0)
-    (nil ,"^ \\{0,4\\}\\([0-9]+[¡¢. )]\\)+ *[^,¡££¬]+?$" 0)))
+  `((nil ,"^ \\{0,4\\}\\([ä¸€äºŒä¸‰å››äº”å…­ä¸ƒå…«ä¹å]+[ã€. )]\\)+ *[^,ã€‚ï¼Œ]+?$" 0)
+    (nil ,"^ \\{0,4\\}\\([0-9]+[ã€. )]\\)+ *[^,ã€‚ï¼Œ]+?$" 0)))
 (add-hook 'text-mode-hook
           (lambda ()
             (setq imenu-generic-expression text-imenu-generic-expression)
