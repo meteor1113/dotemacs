@@ -1,3 +1,7 @@
+2011-07-07  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Revert C-u f3 to highlight-symbol-prev.
+
 2011-07-06  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Bing "ESC ESC <f2>" to bm-previous.

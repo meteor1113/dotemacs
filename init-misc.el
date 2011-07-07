@@ -283,11 +283,11 @@
                 (unless (memq major-mode disable-hl-s-modes)
                   (highlight-symbol-mode 1)))))
   (setq highlight-symbol-idle-delay 0.5)
-  ;; (defun highlight-symbol-next-or-prev (&optional prev)
-  ;;   (interactive "P")
-  ;;   (if prev
-  ;;       (highlight-symbol-prev)
-  ;;     (highlight-symbol-next)))
+  (defun highlight-symbol-next-or-prev (&optional prev)
+    (interactive "P")
+    (if prev
+        (highlight-symbol-prev)
+      (highlight-symbol-next)))
   (defadvice highlight-symbol-next (after pulse-advice activate)
     "After highlight-symbol-next, pulse the line the cursor lands on."
     (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
@@ -298,16 +298,17 @@
     (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
                (interactive-p))
       (pulse-momentary-highlight-one-line (point))))
-  ;; (defadvice highlight-symbol-next-or-prev (after pulse-advice activate)
-  ;;   "After highlight-symbol-next-or-prev, pulse the line the cursor lands on."
-  ;;   (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
-  ;;              (interactive-p))
-  ;;     (pulse-momentary-highlight-one-line (point))))
+  (defadvice highlight-symbol-next-or-prev (after pulse-advice activate)
+    "After highlight-symbol-next-or-prev, pulse the line the cursor lands on."
+    (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
+               (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
   (global-set-key [(meta f3)] 'highlight-symbol-at-point)
   (global-set-key (kbd "ESC <f3>") 'highlight-symbol-at-point) ; putty
-  (global-set-key [f3] 'highlight-symbol-next)
+  (global-set-key [f3] 'highlight-symbol-next-or-prev)
   (global-set-key [(shift f3)] 'highlight-symbol-prev)
-  (global-set-key (kbd "ESC ESC <f3>") 'highlight-symbol-prev)
+  (global-set-key [f15] 'highlight-symbol-prev) ; linux console
+  ;; (global-set-key (kbd "ESC ESC <f3>") 'highlight-symbol-prev)
   (global-set-key [(control f3)] 'highlight-symbol-query-replace))
 
 ;; smart-hl
