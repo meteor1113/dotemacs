@@ -1,5 +1,5 @@
 说明:
-这是Meteor Liu的emacs配置文件，兼容Linux/Windows/MacOSX下的emacs-21以上版本(emacs-21下有部分功能不可用)，我用emacs主要进行C++开发和用org管理TODO，有时候也写点python。
+这是Meteor Liu的emacs配置文件，兼容Linux/Windows/MacOSX下的emacs-22以上版本，我用emacs主要进行C++开发和用org管理TODO，有时候也写点python。
 lisp目录是第三方elisp插件。
 site-lisp目录是本地elisp目录(不包含在版本库里，用于本地多操作系统共享)。
 bin目录用来存可执行文件，比如win32下默认没有的grep等。
