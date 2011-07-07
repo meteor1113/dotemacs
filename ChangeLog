@@ -1,5 +1,7 @@
 2011-07-07  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Bind C-u f2 to bm-previous.
+
 	* init-site.el: Bind C-u f2 to viss-bookmark-prev-buffer.
 
 	* init-misc.el: Revert C-u f3 to highlight-symbol-prev.

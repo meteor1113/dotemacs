@@ -49,12 +49,18 @@
                                 (bm-repository-save)))
   ;; (add-hook 'after-save-hook 'bm-buffer-save)
   ;; (add-hook 'after-revert-hook 'bm-buffer-restore)
+  (defun bm-next-or-previous (&optional previous)
+    (interactive "P")
+    (if previous
+        (bm-previous)
+      (bm-next)))
   (global-set-key (kbd "<C-f2>") 'bm-toggle)
   (global-set-key [M-f2] 'bm-toggle)
   (global-set-key (kbd "ESC <f2>") 'bm-toggle) ; putty
-  (global-set-key (kbd "<f2>")   'bm-next)
+  (global-set-key (kbd "<f2>")   'bm-next-or-previous)
   (global-set-key (kbd "<S-f2>") 'bm-previous)
-  (global-set-key (kbd "ESC ESC <f2>") 'bm-previous)
+  (global-set-key [f14] 'bm-previous)   ; linux console
+  ;; (global-set-key (kbd "ESC ESC <f2>") 'bm-previous)
   (global-set-key (kbd "<C-S-f2>") 'bm-remove-all-current-buffer)
   ;; (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
   ;; (global-set-key (kbd "<left-fringe> <mouse-2>") 'bm-toggle-mouse)
@@ -72,6 +78,11 @@
     (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
                (interactive-p))
       (pulse-momentary-highlight-one-line (point))))
+  (defadvice bm-next-or-previous (after pulse-advice activate)
+    "After bm-next-or-previous, pulse the line the cursor lands on."
+    (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
+               (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
   (defadvice bm-next-mouse (after pulse-advice activate)
     "After bm-next-mouse, pulse the line the cursor lands on."
     (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
@@ -82,6 +93,7 @@
     (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
                (interactive-p))
       (pulse-momentary-highlight-one-line (point)))))
+
 
 ;; cursor-chg
 (when (require 'cursor-chg nil 'noerror)
