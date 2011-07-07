@@ -4,6 +4,7 @@
 	Remove "ESC ESC <f12>" binding.
 	From now on, don't support emacs-21.
 	([f4]): Bind C-u f4 to previous-error.
+	("gud"): Bind C-u f5 to gud-kill in gud-minor-mode.
 
 	* init-misc.el: Bind C-u f2 to bm-previous.
 	Remove "ESC ESC <f2>" binding.
