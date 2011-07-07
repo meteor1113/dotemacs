@@ -545,7 +545,7 @@ Like eclipse's Ctrl+Alt+F."
                            (previous-error)
                          (next-error))))
 (global-set-key [S-f4] 'previous-error)
-(global-set-key [f16] 'previous-error)
+(global-set-key [f16] 'previous-error)  ; S-f4(linux console)
 (global-set-key [C-f4] 'kill-this-buffer)
 (global-set-key (kbd "ESC <f4>") 'kill-this-buffer) ; putty
 (global-set-key [(control ?.)] 'repeat)
@@ -1073,7 +1073,7 @@ Use CREATE-TEMP-F for creating temp copy."
                                                (gud-kill)
                                              (gud-go))))
      (define-key gud-minor-mode-map [S-f5] 'gud-kill)
-     (define-key gud-minor-mode-map [f17] 'gud-kill)
+     (define-key gud-minor-mode-map [f17] 'gud-kill) ; S-f5(linux console)
      (define-key gud-minor-mode-map [f8] 'gud-print)
      (define-key gud-minor-mode-map [C-f8] 'gud-pstar)
      (define-key gud-minor-mode-map [f9] 'gud-break-or-remove)

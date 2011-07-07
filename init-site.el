@@ -155,7 +155,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
   (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-toggle) ; putty
   (define-key global-map [(f2)] 'viss-bookmark-next-buffer-or-prev)
   (define-key global-map [(shift f2)] 'viss-bookmark-prev-buffer)
-  (define-key global-map [f14] 'viss-bookmark-prev-buffer) ; linux console
+  (define-key global-map [f14] 'viss-bookmark-prev-buffer) ; S-f2(inux console)
   ;; (define-key global-map (kbd "ESC ESC <f2>") 'viss-bookmark-prev-buffer)
   (define-key global-map [(control shift f2)] 'viss-bookmark-clear-all-buffer)
   (global-set-key [left-margin mouse-1] 'viss-bookmark-toggle-mouse)

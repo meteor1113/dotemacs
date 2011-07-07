@@ -59,7 +59,7 @@
   (global-set-key (kbd "ESC <f2>") 'bm-toggle) ; putty
   (global-set-key (kbd "<f2>")   'bm-next-or-previous)
   (global-set-key (kbd "<S-f2>") 'bm-previous)
-  (global-set-key [f14] 'bm-previous)   ; linux console
+  (global-set-key [f14] 'bm-previous)   ; S-f2(linux console)
   ;; (global-set-key (kbd "ESC ESC <f2>") 'bm-previous)
   (global-set-key (kbd "<C-S-f2>") 'bm-remove-all-current-buffer)
   ;; (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
@@ -319,7 +319,7 @@
   (global-set-key (kbd "ESC <f3>") 'highlight-symbol-at-point) ; putty
   (global-set-key [f3] 'highlight-symbol-next-or-prev)
   (global-set-key [(shift f3)] 'highlight-symbol-prev)
-  (global-set-key [f15] 'highlight-symbol-prev) ; linux console
+  (global-set-key [f15] 'highlight-symbol-prev) ; S-f3(linux console)
   ;; (global-set-key (kbd "ESC ESC <f3>") 'highlight-symbol-prev)
   (global-set-key [(control f3)] 'highlight-symbol-query-replace))
 
