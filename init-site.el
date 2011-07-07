@@ -140,6 +140,27 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
   (define-key senator-mode-map [S-mouse-2] 'semantic-ia-fast-jump-back)
   (define-key senator-mode-map [double-mouse-2] 'semantic-ia-fast-jump-back)
 
+  (enable-visual-studio-bookmarks)
+  (defun viss-bookmark-next-buffer-or-prev (&optional prev)
+    (interactive "P")
+    (if prev
+        (viss-bookmark-prev-buffer)
+      (viss-bookmark-next-buffer)))
+  (defun viss-bookmark-toggle-mouse (ev)
+    (interactive "e")
+    (mouse-set-point ev)
+    (viss-bookmark-toggle))
+  (define-key global-map [(control f2)] 'viss-bookmark-toggle)
+  (define-key global-map [M-f2] 'viss-bookmark-toggle)
+  (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-toggle) ; putty
+  (define-key global-map [(f2)] 'viss-bookmark-next-buffer-or-prev)
+  (define-key global-map [(shift f2)] 'viss-bookmark-prev-buffer)
+  (define-key global-map [f14] 'viss-bookmark-prev-buffer) ; linux console
+  ;; (define-key global-map (kbd "ESC ESC <f2>") 'viss-bookmark-prev-buffer)
+  (define-key global-map [(control shift f2)] 'viss-bookmark-clear-all-buffer)
+  (global-set-key [left-margin mouse-1] 'viss-bookmark-toggle-mouse)
+  (global-set-key [left-margin mouse-3] 'viss-bookmark-next-buffer)
+
   (pulse-toggle-integration-advice 1)   ; (if window-system 1 -1)
   (defadvice cua-exchange-point-and-mark (after pulse-advice activate)
     "Cause the line that is `goto'd to pulse when the cursor gets there."
@@ -174,21 +195,11 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     "After viss-bookmark-prev-buffer, pulse the line the cursor lands on."
     (when (and pulse-command-advice-flag (interactive-p))
       (pulse-momentary-highlight-one-line (point))))
-
-  (enable-visual-studio-bookmarks)
-  (defun viss-bookmark-toggle-mouse (ev)
-    (interactive "e")
-    (mouse-set-point ev)
-    (viss-bookmark-toggle))
-  (define-key global-map [(control f2)] 'viss-bookmark-toggle)
-  (define-key global-map [M-f2] 'viss-bookmark-toggle)
-  (define-key global-map (kbd "ESC <f2>") 'viss-bookmark-toggle) ; putty
-  (define-key global-map [(f2)] 'viss-bookmark-next-buffer)
-  (define-key global-map [(shift f2)] 'viss-bookmark-prev-buffer)
-  (define-key global-map (kbd "ESC ESC <f2>") 'viss-bookmark-prev-buffer)
-  (define-key global-map [(control shift f2)] 'viss-bookmark-clear-all-buffer)
-  (global-set-key [left-margin mouse-1] 'viss-bookmark-toggle-mouse)
-  (global-set-key [left-margin mouse-3] 'viss-bookmark-next-buffer)
+  (defadvice viss-bookmark-next-buffer-or-prev (after pulse-advice activate)
+    "After viss-bookmark-next-buffer-or-prev,
+ pulse the line the cursor lands on."
+    (when (and pulse-command-advice-flag (interactive-p))
+      (pulse-momentary-highlight-one-line (point))))
 
   (when (and window-system
              (> emacs-major-version 21)
