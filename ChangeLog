@@ -1,10 +1,15 @@
 2011-07-07  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Bind C-u f12 to semantic-ia-fast-jump-back.
+	Remove "ESC ESC <f12>" binding.
+
 	* init-misc.el: Bind C-u f2 to bm-previous.
+	Remove "ESC ESC <f2>" binding.
 
 	* init-site.el: Bind C-u f2 to viss-bookmark-prev-buffer.
 
 	* init-misc.el: Revert C-u f3 to highlight-symbol-prev.
+	Remove "ESC ESC <f3>" binding.
 
 2011-07-06  Meteor Liu  <meteor1113@gmail.com>
 
