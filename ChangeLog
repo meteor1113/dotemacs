@@ -3,6 +3,7 @@
 	* init-basic.el: Bind C-u f12 to semantic-ia-fast-jump-back.
 	Remove "ESC ESC <f12>" binding.
 	From now on, don't support emacs-21.
+	([f4]): Bind C-u f4 to previous-error.
 
 	* init-misc.el: Bind C-u f2 to bm-previous.
 	Remove "ESC ESC <f2>" binding.

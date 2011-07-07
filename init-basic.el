@@ -538,7 +538,12 @@ Like eclipse's Ctrl+Alt+F."
     (interactive)
     (when (require 'dired-x nil 'noerror)
       (dired-jump))))
-(global-set-key [f4] 'next-error)
+;; (global-set-key [f4] 'next-error)
+(global-set-key [f4] (lambda (&optional previous)
+                       (interactive "P")
+                       (if previous
+                           (previous-error)
+                         (next-error))))
 (global-set-key [S-f4] 'previous-error)
 (global-set-key [C-f4] 'kill-this-buffer)
 (global-set-key (kbd "ESC <f4>") 'kill-this-buffer) ; putty
