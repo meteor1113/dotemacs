@@ -147,14 +147,14 @@
 
 (defvar misc-sub-menu (make-sparse-keymap "Misc"))
 (define-key misc-sub-menu [ascii-display]
-  '(menu-item "Ascii" ascii-display
+  '(menu-item "ascii-display" ascii-display
               :enable (fboundp 'ascii-display)
               :button (:toggle . ascii-display)))
 (define-key misc-sub-menu [cn-weather]
-  '(menu-item "Display weather" cn-weather
+  '(menu-item "cn-weather" cn-weather
               :enable (fboundp 'cn-weather)))
 (define-key misc-sub-menu [proced]
-  '(menu-item "Proced" proced
+  '(menu-item "proced" proced
               :enable (fboundp 'proced)))
 (define-key misc-sub-menu [winsav-restore-configuration]
   '(menu-item "winsav-restore-configuration"
@@ -169,10 +169,10 @@
                 (winsav-save-configuration))
               :enable (fboundp 'winsav-save-configuration)))
 (define-key misc-sub-menu [format-cxx-directory]
-  '(menu-item "Format c++ directory" format-cxx-directory
+  '(menu-item "format-cxx-directory" format-cxx-directory
               :enable (fboundp 'format-cxx-directory)))
 (define-key misc-sub-menu [find-dotemacs-file]
-  '(menu-item "Open .emacs" find-dotemacs-file
+  '(menu-item "find-dotemacs-file" find-dotemacs-file
               :enable (fboundp 'find-dotemacs-file)
               :help "Open .emacs file"))
 (define-key toggle-toolbar-menu [misc]

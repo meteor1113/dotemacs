@@ -232,7 +232,11 @@
           (file-cache-add-directory-recursively "/usr/include/c++")
           (file-cache-add-directory-recursively "/usr/local/include")))
 
-;; diary
+;; calendar
+(setq calendar-chinese-all-holidays-flag t)
+(setq mark-holidays-in-calendar t)
+;; (setq calendar-week-start-day 1)
+;; (setq mark-diary-entries-in-calendar t)
 (setq diary-file "~/.emacs.d/diary")
 ;; (add-hook 'diary-hook 'appt-make-list)
 ;; (setq appt-display-format 'window)
