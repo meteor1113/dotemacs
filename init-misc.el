@@ -253,7 +253,7 @@
            (require 'auto-complete-config nil 'noerror))
   (setq ac-modes
         (append ac-modes '(org-mode objc-mode jde-mode sql-mode
-                                    change-log-mode fundamental-mode
+                                    change-log-mode text-mode
                                     makefile-gmake-mode makefile-bsdmake-mode
                                     autoconf-mode makefile-automake-mode)))
   (let ((ac-path (locate-library "auto-complete")))

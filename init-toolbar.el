@@ -65,123 +65,194 @@
 (define-key toggle-toolbar-menu [xml-mode]
   '(menu-item "XML" nxml-mode
               :visible (fboundp 'nxml-mode)
-              :button (:radio . (eq major-mode 'nxml-mode))))
+              :button (:toggle . (eq major-mode 'nxml-mode))))
 (define-key toggle-toolbar-menu [text-mode]
   '(menu-item "Text" text-mode
               :visible (fboundp 'text-mode)
-              :button (:radio . (eq major-mode 'text-mode))))
+              :button (:toggle . (eq major-mode 'text-mode))))
 (define-key toggle-toolbar-menu [tcl-mode]
   '(menu-item "Tcl" tcl-mode
               :visible (fboundp 'tcl-mode)
-              :button (:radio . (eq major-mode 'tcl-mode))))
+              :button (:toggle . (eq major-mode 'tcl-mode))))
 (define-key toggle-toolbar-menu [sql-mode]
   '(menu-item "SQL" sql-mode
               :visible (fboundp 'sql-mode)
-              :button (:radio . (eq major-mode 'sql-mode))))
+              :button (:toggle . (eq major-mode 'sql-mode))))
 (define-key toggle-toolbar-menu [sh-mode]
   '(menu-item "Shell" sh-mode
               :visible (fboundp 'sh-mode)
-              :button (:radio . (eq major-mode 'sh-mode))))
+              :button (:toggle . (eq major-mode 'sh-mode))))
 (define-key toggle-toolbar-menu [scheme-mode]
   '(menu-item "Scheme" scheme-mode
               :visible (fboundp 'scheme-mode)
-              :button (:radio . (eq major-mode 'scheme-mode))))
+              :button (:toggle . (eq major-mode 'scheme-mode))))
 (define-key toggle-toolbar-menu [ruby-mode]
   '(menu-item "Ruby" ruby-mode
               :visible (fboundp 'ruby-mode)
-              :button (:radio . (eq major-mode 'ruby-mode))))
+              :button (:toggle . (eq major-mode 'ruby-mode))))
 (define-key toggle-toolbar-menu [rst-mode]
   '(menu-item "ReST" rst-mode
               :visible (fboundp 'rst-mode)
-              :button (:radio . (eq major-mode 'rst-mode))))
+              :button (:toggle . (eq major-mode 'rst-mode))))
 (define-key toggle-toolbar-menu [python-mode]
   '(menu-item "Python" python-mode
               :visible (fboundp 'python-mode)
-              :button (:radio . (eq major-mode 'python-mode))))
+              :button (:toggle . (eq major-mode 'python-mode))))
 (define-key toggle-toolbar-menu [php-mode]
   '(menu-item "PHP" php-mode
               :visible (fboundp 'php-mode)
-              :button (:radio . (eq major-mode 'php-mode))))
-(define-key toggle-toolbar-menu [perl-mode]
-  '(menu-item "Perl" cperl-mode
+              :button (:toggle . (eq major-mode 'php-mode))))
+(defvar perl-sub-mode-menu (make-sparse-keymap "Perl"))
+(define-key perl-sub-mode-menu [cperl-mode]
+  '(menu-item "CPerl" cperl-mode
               :visible (fboundp 'cperl-mode)
-              :button (:radio . (eq major-mode 'cperl-mode))))
+              :button (:toggle . (eq major-mode 'cperl-mode))))
+(define-key perl-sub-mode-menu [perl-mode]
+  '(menu-item "Perl" perl-mode
+              :visible (fboundp 'perl-mode)
+              :button (:toggle . (eq major-mode 'perl-mode))))
+(define-key toggle-toolbar-menu [perl]
+       (list 'menu-item "Perl" perl-sub-mode-menu))
 (define-key toggle-toolbar-menu [pascal-mode]
   '(menu-item "Pascal" pascal-mode
               :visible (fboundp 'pascal-mode)
-              :button (:radio . (eq major-mode 'pascal-mode))))
+              :button (:toggle . (eq major-mode 'pascal-mode))))
 (define-key toggle-toolbar-menu [org-mode]
   '(menu-item "Org" org-mode
               :visible (fboundp 'org-mode)
-              :button (:radio . (eq major-mode 'org-mode))))
+              :button (:toggle . (eq major-mode 'org-mode))))
 (define-key toggle-toolbar-menu [objc-mode]
   '(menu-item "ObjC" objc-mode
               :visible (fboundp 'objc-mode)
-              :button (:radio . (eq major-mode 'objc-mode))))
-(define-key toggle-toolbar-menu [makefile-mode]
-  '(menu-item "Makefile" makefile-mode
+              :button (:toggle . (eq major-mode 'objc-mode))))
+(defvar makefile-sub-mode-menu (make-sparse-keymap "Makefile"))
+(define-key makefile-sub-mode-menu [makefile-makepp-mode]
+  '(menu-item "Makepp" makefile-makepp-mode
+              :visible (fboundp 'makefile-makepp-mode)
+              :button (:toggle . (eq major-mode 'makefile-makepp-mode))))
+(define-key makefile-sub-mode-menu [makefile-imake-mode]
+  '(menu-item "Imake" makefile-imake-mode
+              :visible (fboundp 'makefile-imake-mode)
+              :button (:toggle . (eq major-mode 'makefile-imake-mode))))
+(define-key makefile-sub-mode-menu [makefile-mode]
+  '(menu-item "Classic" makefile-mode
               :visible (fboundp 'makefile-mode)
-              :button (:radio . (eq major-mode 'makefile-mode))))
+              :button (:toggle . (eq major-mode 'makefile-mode))))
+(define-key makefile-sub-mode-menu [makefile-bsdmake-mode]
+  '(menu-item "BSD" makefile-bsdmake-mode
+              :visible (fboundp 'makefile-bsdmake-mode)
+              :button (:toggle . (eq major-mode 'makefile-bsdmake-mode))))
+(define-key makefile-sub-mode-menu [makefile-automake-mode]
+  '(menu-item "Automake" makefile-automake-mode
+              :visible (fboundp 'makefile-automake-mode)
+              :button (:toggle . (eq major-mode 'makefile-automake-mode))))
+(define-key makefile-sub-mode-menu [makefile-gmake-mode]
+  '(menu-item "GNU make" makefile-gmake-mode
+              :visible (fboundp 'makefile-gmake-mode)
+              :button (:toggle . (eq major-mode 'makefile-gmake-mode))))
+(define-key toggle-toolbar-menu [makefile]
+       (list 'menu-item "Makefile" makefile-sub-mode-menu))
 (define-key toggle-toolbar-menu [lisp-mode]
   '(menu-item "Lisp" lisp-mode
               :visible (fboundp 'lisp-mode)
-              :button (:radio . (eq major-mode 'lisp-mode))))
+              :button (:toggle . (eq major-mode 'lisp-mode))))
 (define-key toggle-toolbar-menu [latex-mode]
   '(menu-item "LaTeX" latex-mode
               :visible (fboundp 'latex-mode)
-              :button (:radio . (eq major-mode 'latex-mode))))
+              :button (:toggle . (eq major-mode 'latex-mode))))
 (define-key toggle-toolbar-menu [js-mode]
   '(menu-item "Javascript" js-mode
               :visible (fboundp 'js-mode)
-              :button (:radio . (eq major-mode 'js-mode))))
+              :button (:toggle . (eq major-mode 'js-mode))))
 (define-key toggle-toolbar-menu [java-mode]
   '(menu-item "Java" java-mode
               :visible (fboundp 'java-mode)
-              :button (:radio . (eq major-mode 'java-mode))))
+              :button (:toggle . (eq major-mode 'java-mode))))
 (define-key toggle-toolbar-menu [html-mode]
   '(menu-item "HTML" html-mode
               :visible (fboundp 'html-mode)
-              :button (:radio . (eq major-mode 'html-mode))))
-(define-key toggle-toolbar-menu [fortran-mode]
+              :button (:toggle . (eq major-mode 'html-mode))))
+(defvar fortran-sub-mode-menu (make-sparse-keymap "Fortran"))
+(define-key fortran-sub-mode-menu [f90-mode]
+  '(menu-item "F90" f90-mode
+              :visible (fboundp 'f90-mode)
+              :button (:toggle . (eq major-mode 'f90-mode))))
+(define-key fortran-sub-mode-menu [fortran-mode]
   '(menu-item "Fortran" fortran-mode
               :visible (fboundp 'fortran-mode)
-              :button (:radio . (eq major-mode 'fortran-mode))))
+              :button (:toggle . (eq major-mode 'fortran-mode))))
+(define-key toggle-toolbar-menu [fortran]
+       (list 'menu-item "Fortran" fortran-sub-mode-menu))
 (define-key toggle-toolbar-menu [emacs-lisp-mode]
   '(menu-item "Emacs-Lisp" emacs-lisp-mode
               :visible (fboundp 'emacs-lisp-mode)
-              :button (:radio . (eq major-mode 'emacs-lisp-mode))))
+              :button (:toggle . (eq major-mode 'emacs-lisp-mode))))
 (define-key toggle-toolbar-menu [delphi-mode]
   '(menu-item "Delphi" delphi-mode
               :visible (fboundp 'delphi-mode)
-              :button (:radio . (eq major-mode 'delphi-mode))))
+              :button (:toggle . (eq major-mode 'delphi-mode))))
 (define-key toggle-toolbar-menu [css-mode]
   '(menu-item "CSS" css-mode
               :visible (fboundp 'css-mode)
-              :button (:radio . (eq major-mode 'css-mode))))
+              :button (:toggle . (eq major-mode 'css-mode))))
+(defvar conf-sub-mode-menu (make-sparse-keymap "Conf"))
+(define-key conf-sub-mode-menu [conf-windows-mode]
+  '(menu-item "Windows" conf-windows-mode
+              :visible (fboundp 'conf-windows-mode)
+              :button (:toggle . (eq major-mode 'conf-windows-mode))))
+(define-key conf-sub-mode-menu [conf-javaprop-mode]
+  '(menu-item "Java properties" conf-javaprop-mode
+              :visible (fboundp 'conf-javaprop-mode)
+              :button (:toggle . (eq major-mode 'conf-javaprop-mode))))
+(define-key conf-sub-mode-menu [conf-space-mode]
+  '(menu-item "Space keywords" conf-space-mode
+              :visible (fboundp 'conf-space-mode)
+              :button (:toggle . (eq major-mode 'conf-space-mode))))
+(define-key conf-sub-mode-menu [conf-ppd-mode]
+  '(menu-item "PPD" conf-ppd-mode
+              :visible (fboundp 'conf-ppd-mode)
+              :button (:toggle . (eq major-mode 'conf-ppd-mode))))
+(define-key conf-sub-mode-menu [conf-colon-mode]
+  '(menu-item "Colon" conf-colon-mode
+              :visible (fboundp 'conf-colon-mode)
+              :button (:toggle . (eq major-mode 'conf-colon-mode))))
+(define-key conf-sub-mode-menu [conf-unix-mode]
+  '(menu-item "Unix" conf-unix-mode
+              :visible (fboundp 'conf-unix-mode)
+              :button (:toggle . (eq major-mode 'conf-unix-mode))))
+(define-key conf-sub-mode-menu [conf-xdefaults-mode]
+  '(menu-item "Xdefaults" conf-xdefaults-mode
+              :visible (fboundp 'conf-xdefaults-mode)
+              :button (:toggle . (eq major-mode 'conf-xdefaults-mode))))
+(define-key conf-sub-mode-menu [conf-mode]
+  '(menu-item "Auto detect..." conf-mode
+              :visible (fboundp 'conf-mode)))
+(define-key toggle-toolbar-menu [conf]
+       (list 'menu-item "Conf" conf-sub-mode-menu))
 (define-key toggle-toolbar-menu [csharp-mode]
   '(menu-item "C#" csharp-mode
               :visible (fboundp 'csharp-mode)
-              :button (:radio . (eq major-mode 'csharp-mode))))
+              :button (:toggle . (eq major-mode 'csharp-mode))))
 (define-key toggle-toolbar-menu [c++-mode]
   '(menu-item "C++" c++-mode
               :visible (fboundp 'c++-mode)
-              :button (:radio . (eq major-mode 'c++-mode))))
+              :button (:toggle . (eq major-mode 'c++-mode))))
 (define-key toggle-toolbar-menu [c-mode]
   '(menu-item "C" c-mode
               :visible (fboundp 'c-mode)
-              :button (:radio . (eq major-mode 'c-mode))))
+              :button (:toggle . (eq major-mode 'c-mode))))
 (define-key toggle-toolbar-menu [autoconf-mode]
   '(menu-item "Autoconf" autoconf-mode
               :visible (fboundp 'autoconf-mode)
-              :button (:radio . (eq major-mode 'autoconf-mode))))
+              :button (:toggle . (eq major-mode 'autoconf-mode))))
 (define-key toggle-toolbar-menu [asm-mode]
   '(menu-item "Assembler" asm-mode
               :visible (fboundp 'asm-mode)
-              :button (:radio . (eq major-mode 'asm-mode))))
+              :button (:toggle . (eq major-mode 'asm-mode))))
 (define-key toggle-toolbar-menu [ada-mode]
   '(menu-item "Ada" ada-mode
               :visible (fboundp 'ada-mode)
-              :button (:radio . (eq major-mode 'ada-mode))))
+              :button (:toggle . (eq major-mode 'ada-mode))))
 (define-key toggle-toolbar-menu [separatore-major-mode]
   '(menu-item "--"))
 (define-key toggle-toolbar-menu [program-toolbar-toggle]

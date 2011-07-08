@@ -161,6 +161,7 @@
     (set-background-color "honeydew"))  ; #f0fff0
 
 ;; misc
+(setq default-major-mode 'text-mode)
 (setq inhibit-startup-message t)        ; for no desktop
 (require 'generic-x nil 'noerror)
 (setq ring-bell-function 'ignore)

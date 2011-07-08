@@ -1,3 +1,7 @@
+2011-07-08  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Set default-major-mode to text-mode.
+
 2010-06-24  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Add change major-mode menu.
