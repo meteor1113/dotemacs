@@ -100,6 +100,27 @@
   ;; (toggle-cursor-type-when-idle 1)
   (change-cursor-mode 1))
 
+;; cal-china-x
+(eval-after-load "calendar"
+  '(when (require 'cal-china-x nil 'noerror)
+     (setq cal-china-x-priority1-holidays
+           (append cal-china-x-chinese-holidays
+                   '((holiday-fixed 2 14 "情人节")
+                     (holiday-fixed 3 8 "妇女节")
+                     (holiday-fixed 6 1 "儿童节")
+                     (holiday-fixed 9 10 "教师节")
+                     (holiday-lunar 1 15 "元宵节(正月十五)" 0)
+                     (holiday-lunar 9 9  "重阳节(九月初九)"))))
+     (setq cal-china-x-priority2-holidays
+           '((holiday-chinese 8 15 "爸妈生日(1955)")
+             (holiday-fixed 4 9 "老婆生日(1983)")
+             (holiday-fixed 12 8 "阳历生日(1981)")
+             (holiday-chinese 11 13 "阴历生日(1981)")))
+     (setq calendar-holidays
+           (append calendar-holidays
+                   cal-china-x-priority1-holidays
+                   cal-china-x-priority2-holidays))))
+
 ;; cn-weather
 (setq cn-weather-city "大连")
 (autoload 'display-cn-weather-mode "cn-weather"
