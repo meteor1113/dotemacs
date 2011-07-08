@@ -171,6 +171,9 @@
 (define-key misc-sub-menu [format-cxx-directory]
   '(menu-item "format-cxx-directory" format-cxx-directory
               :enable (fboundp 'format-cxx-directory)))
+(define-key misc-sub-menu [cfw:open-calendar-buffer]
+  '(menu-item "cfw:open-calendar-buffer" cfw:open-calendar-buffer
+              :enable (fboundp 'cfw:open-calendar-buffer)))
 (define-key misc-sub-menu [find-dotemacs-file]
   '(menu-item "find-dotemacs-file" find-dotemacs-file
               :enable (fboundp 'find-dotemacs-file)

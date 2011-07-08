@@ -1,6 +1,7 @@
 2011-07-08  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el ("calendar"): Add cal-china-x.
+	("calfw"): Add calfw.
 
 	* init-basic.el (calendar-chinese-all-holidays-flag): Set calendar.
 

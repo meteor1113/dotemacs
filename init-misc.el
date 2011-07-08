@@ -107,10 +107,13 @@
            (append cal-china-x-chinese-holidays
                    '((holiday-fixed 2 14 "情人节")
                      (holiday-fixed 3 8 "妇女节")
+                     (holiday-fixed 3 12 "植树节")
+                     (holiday-fixed 5 4 "青年节")
                      (holiday-fixed 6 1 "儿童节")
                      (holiday-fixed 9 10 "教师节")
                      (holiday-lunar 1 15 "元宵节(正月十五)" 0)
-                     (holiday-lunar 9 9  "重阳节(九月初九)"))))
+                     (holiday-lunar 7 7 "七夕节")
+                     (holiday-lunar 9 9 "重阳节(九月初九)"))))
      (setq cal-china-x-priority2-holidays
            '((holiday-chinese 8 15 "爸妈生日(1955)")
              (holiday-fixed 4 9 "老婆生日(1983)")
@@ -120,6 +123,12 @@
            (append calendar-holidays
                    cal-china-x-priority1-holidays
                    cal-china-x-priority2-holidays))))
+
+;; calfw
+(autoload 'cfw:open-calendar-buffer "calfw" nil t)
+(eval-after-load "calfw"
+  '(when (require 'calfw-org nil 'noerror)
+     (cfw:install-org-schedules)))
 
 ;; cn-weather
 (setq cn-weather-city "大连")
