@@ -1,3 +1,7 @@
+2011-07-12  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (daemonp): Don't enable appt when daemon.
+
 2011-07-08  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el ("calendar"): Add cal-china-x.

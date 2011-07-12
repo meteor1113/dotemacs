@@ -243,7 +243,7 @@
 ;; (setq appt-display-mode-line t)
 ;; (setq appt-display-diary nil)
 (setq appt-display-duration (* 24 60 60))
-(appt-activate 1)
+(unless (daemonp) (appt-activate 1))
 ;; (diary 0)
 
 ;; autoinsert
