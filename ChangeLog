@@ -1,3 +1,7 @@
+2011-07-13  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el (magit-status): Add package magit.
+
 2011-07-12  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (daemonp): Don't enable appt when daemon.

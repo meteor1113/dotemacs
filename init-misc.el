@@ -233,6 +233,9 @@
 (eval-after-load "vc-svn"
   '(require 'psvn nil 'noerror))
 
+;; magit
+(autoload 'magit-status "magit" nil t)
+
 ;; vimpulse
 ;; (eval-after-load "viper"
 ;;   '(require 'vimpulse nil 'noerror))
