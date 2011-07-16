@@ -115,7 +115,8 @@
                      (holiday-lunar 7 7 "七夕节")
                      (holiday-lunar 9 9 "重阳节(九月初九)"))))
      (setq cal-china-x-priority2-holidays
-           '((holiday-chinese 8 15 "爸妈生日(1955)")
+           '((holiday-chinese 6 23 "李浩斌生日")
+             (holiday-chinese 8 15 "爸妈生日(1955)")
              (holiday-fixed 4 9 "老婆生日(1983)")
              (holiday-fixed 12 8 "阳历生日(1981)")
              (holiday-chinese 11 13 "阴历生日(1981)")))
