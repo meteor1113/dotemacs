@@ -118,6 +118,8 @@
            '((holiday-chinese 6 23 "李浩斌生日")
              (holiday-chinese 8 15 "爸妈生日(1955)")
              (holiday-fixed 4 9 "老婆生日(1983)")
+             (holiday-fixed 10 6 "奇奇生日(2010)")
+             (holiday-chinese 8 29 "奇奇阴历生日(2010)")
              (holiday-fixed 12 8 "阳历生日(1981)")
              (holiday-chinese 11 13 "阴历生日(1981)")))
      (setq calendar-holidays
