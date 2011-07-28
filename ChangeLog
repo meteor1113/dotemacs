@@ -1,3 +1,8 @@
+2011-07-28  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (mode-require-final-newline): Disable
+	require-final-newline in text-mode.
+
 2011-07-13  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (magit-status): Add package magit.

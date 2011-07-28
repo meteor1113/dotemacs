@@ -104,6 +104,8 @@
 (setq bookmark-save-flag 1)
 (global-auto-revert-mode t)
 ;; (setq require-final-newline 'ask)
+(setq mode-require-final-newline nil)
+;; (add-hook 'text-mode-hook (lambda () (setq require-final-newline nil)))
 (find-function-setup-keys)
 (when (fboundp 'ido-mode)
   (ido-mode t))
