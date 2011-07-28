@@ -125,6 +125,7 @@
 ;; (global-set-key "[" 'skeleton-pair-insert-maybe)
 ;; (global-set-key "{" 'skeleton-pair-insert-maybe)
 ;; (setq skeleton-pair t)
+;; (setq enable-recursive-minibuffers t)
 (put 'set-goal-column 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -315,6 +316,8 @@
 (auto-image-file-mode t)
 ;; (setq message-log-max t)
 ;; (add-hook 'find-file-hook 'goto-address-mode)
+;; (setq max-specpdl-size 4000)
+;; (setq max-lisp-eval-depth 4000)
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"
