@@ -1,6 +1,7 @@
 2011-07-29  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (comment-column): Set comment-column default to 40.
+	(grep-current-dir): grep-current-dir can support region.
 
 2011-07-28  Meteor Liu  <meteor1113@gmail.com>
 
