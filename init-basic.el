@@ -100,6 +100,7 @@
 
 ;; edit
 (setq-default tab-width 4)
+(setq-default comment-column 40)        ; [C-x ;] (set-comment-column)
 (setq default-major-mode 'text-mode)
 (setq bookmark-save-flag 1)
 (global-auto-revert-mode t)

@@ -1,3 +1,7 @@
+2011-07-29  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (comment-column): Set comment-column default to 40.
+
 2011-07-28  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (mode-require-final-newline): Disable
