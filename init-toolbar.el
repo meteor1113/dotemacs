@@ -168,6 +168,9 @@
                 (interactive)
                 (winsav-save-configuration))
               :enable (fboundp 'winsav-save-configuration)))
+(define-key misc-sub-menu [ielm]
+  '(menu-item "ielm" ielm
+              :enable (fboundp 'ielm)))
 (define-key misc-sub-menu [format-cxx-directory]
   '(menu-item "format-cxx-directory" format-cxx-directory
               :enable (fboundp 'format-cxx-directory)))

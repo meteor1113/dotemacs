@@ -480,6 +480,7 @@
            (require 'auto-complete-config nil 'noerror))
   (setq ac-modes
         (append ac-modes '(org-mode objc-mode jde-mode sql-mode
+                                    inferior-emacs-lisp-mode
                                     change-log-mode text-mode
                                     tex-mode latex-mode plain-tex-mode
                                     makefile-gmake-mode makefile-bsdmake-mode
@@ -495,6 +496,7 @@
   (ac-config-default)
   ;; (global-set-key (kbd "M-n") 'auto-complete)
   (setq ac-disable-faces nil)
+  (add-hook 'inferior-emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
   (defun ac-semantic-setup ()
     ;; (setq ac-sources (append '(ac-source-semantic) ac-sources))
     (local-set-key (kbd "M-n") 'ac-complete-semantic))

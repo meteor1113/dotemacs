@@ -1,3 +1,7 @@
+2011-07-30  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Setup for ielm.
+
 2011-07-29  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (comment-column): Set comment-column default to 40.
