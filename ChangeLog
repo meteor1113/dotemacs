@@ -1,6 +1,7 @@
 2011-07-31  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (goto-match-paren): Setup goto-match-paren.
+	(make-backup-files): Setup auto backup.
 
 	* init-misc.el (undo-tree-mode): Setup undo-tree.
 

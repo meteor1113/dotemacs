@@ -191,9 +191,9 @@
      (desktop-save-mode (if window-system 1 -1)))
 
 ;; backup
-;; (setq make-backup-files nil)
+(setq make-backup-files t)
 ;; (setq backup-by-copying t)
-;; (setq backup-directory-alist '(("." . "~/.backups")))
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 ;; (setq delete-old-versions t)
 ;; (setq kept-old-versions 2)
 ;; (setq kept-new-versions 5)
