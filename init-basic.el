@@ -602,6 +602,9 @@ Like eclipse's Ctrl+Alt+F."
 
 ;;; special mode setting
 
+(add-to-list 'auto-mode-alist
+             '("\\.\\(exe\\|vsd\\|so\\|dll\\)$" . hexl-mode))
+
 (defvar text-imenu-generic-expression
   `((nil ,"^ \\{0,4\\}\\([一二三四五六七八九十]+[、. )]\\)+ *[^,。，]+?$" 0)
     (nil ,"^ \\{0,4\\}\\([0-9]+[、. )]\\)+ *[^,。，]+?$" 0)))

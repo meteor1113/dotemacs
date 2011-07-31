@@ -1,5 +1,7 @@
 2011-07-31  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (auto-mode-alist): Setup auto-mode-alist for hexl-mode.
+
 	* init-toolbar.el (language-sub-menu): Add hexl-mode menu item.
 
 	* init-basic.el (goto-match-paren): Setup goto-match-paren.
