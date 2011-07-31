@@ -388,6 +388,14 @@
   '(menu-item "whitespace-mode" whitespace-mode
               :enable (fboundp 'whitespace-mode)
               :button (:toggle . whitespace-mode)))
+(define-key minormode-sub-menu [undo-tree-mode]
+  '(menu-item "undo-tree-mode" undo-tree-mode
+              :enable (fboundp 'undo-tree-mode)
+              :button (:toggle . undo-tree-mode)))
+(define-key minormode-sub-menu [global-undo-tree-mode]
+  '(menu-item "global-undo-tree-mode" global-undo-tree-mode
+              :enable (fboundp 'global-undo-tree-mode)
+              :button (:toggle . global-undo-tree-mode)))
 (define-key minormode-sub-menu [global-linum-mode]
   '(menu-item "global-linum-mode" global-linum-mode
               :enable (fboundp 'global-linum-mode)

@@ -1,3 +1,7 @@
+2011-07-31  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el (undo-tree-mode): Setup undo-tree.
+
 2011-07-30  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Setup for ielm.

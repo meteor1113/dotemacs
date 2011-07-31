@@ -455,6 +455,10 @@
   "Minor mode to count words." t nil)
 (global-set-key "\M-+" 'word-count-mode)
 
+;; undo-tree
+(autoload 'undo-tree-mode "undo-tree" nil t)
+(autoload 'global-undo-tree-mode "undo-tree" nil t)
+
 ;; yasnippet
 (when (and (> emacs-major-version 21)
            (or (require 'yasnippet-bundle nil 'noerror)
