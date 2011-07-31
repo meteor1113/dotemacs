@@ -512,6 +512,24 @@ Like eclipse's Ctrl+Alt+F."
   (mouse-set-point ev)
   (mark-current-line))
 
+;; (defun goto-match-paren (arg)
+;;   "Go to the matching parenthesis if on parenthesis, otherwise insert %.
+;; vi style of % jumping to matching brace."
+;;   (interactive "p")
+;;   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+;;         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+;;         (t (self-insert-command (or arg 1)))))
+(defun goto-match-paren (arg)
+  "Go to the matching  if on (){}[], similar to vi style of % "
+  (interactive "p")
+  ;; first, check for "outside of bracket" positions expected by forward-sexp, etc.
+  (cond ((looking-at "[\[\(\{]") (forward-sexp))
+        ((looking-back "[\]\)\}]" 1) (backward-sexp))
+        ;; now, try to succeed from inside of a bracket
+        ((looking-at "[\]\)\}]") (forward-char) (backward-sexp))
+        ((looking-back "[\[\(\{]" 1) (backward-char) (forward-sexp))
+        (t nil)))
+
 ;; global key bindings
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
@@ -571,6 +589,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "<left-margin> <mouse-2>") 'mark-current-line-mouse)
 (global-set-key (kbd "C-S-t") 'undo-kill-buffer)
 (global-set-key (kbd "C-c C-v") 'view-mode)
+(global-set-key [(control %)] 'goto-match-paren)
 (when (eq system-type 'aix)
   (global-set-key (kbd "C-d") 'backward-delete-char-untabify)
   (eval-after-load "cc-mode"
