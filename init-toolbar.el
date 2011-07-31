@@ -549,6 +549,10 @@
   '(menu-item "HTML" html-mode
               :visible (fboundp 'html-mode)
               :button (:toggle . (eq major-mode 'html-mode))))
+(define-key language-sub-menu [hexl-mode]
+  '(menu-item "Hex" hexl-mode
+              :visible (fboundp 'hexl-mode)
+              :button (:toggle . (eq major-mode 'hexl-mode))))
 (defvar fortran-sub-mode-menu (make-sparse-keymap "Fortran"))
 (define-key fortran-sub-mode-menu [f90-mode]
   '(menu-item "F90" f90-mode
