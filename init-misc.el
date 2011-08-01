@@ -149,6 +149,8 @@
 ;; tabbar
 (when (require 'tabbar nil 'noerror)
   (tabbar-mode t)
+  (define-key tabbar-mode-map [C-prior] 'tabbar-backward)
+  (define-key tabbar-mode-map [C-next] 'tabbar-forward)
   (defadvice tabbar-buffer-tab-label (after modified-flag activate)
     (setq ad-return-value
           (if (and (or (not (featurep 'tabbar-ruler))
