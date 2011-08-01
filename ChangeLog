@@ -1,5 +1,8 @@
 2011-08-01  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el ([C-next]): Bind Ctrl PageDown to next-buffer.
+	([C-prior]): Bind Ctrl PageUp to previous-buffer.
+
 	* sample/.dir-locals.el: Add.
 
 2011-07-31  Meteor Liu  <meteor1113@gmail.com>

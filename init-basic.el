@@ -547,8 +547,10 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [M-f8] 'format-region)
 (global-set-key (kbd "ESC <f8>") 'format-region) ; putty
 (global-set-key (kbd "C-S-f") 'format-region)
-(global-set-key (kbd "M-P") 'previous-buffer)
-(global-set-key (kbd "M-N") 'next-buffer)
+;; (global-set-key (kbd "M-P") 'previous-buffer)
+;; (global-set-key (kbd "M-N") 'next-buffer)
+(global-set-key [C-prior] 'previous-buffer)
+(global-set-key [C-next] 'next-buffer)
 (global-set-key [(control tab)] 'switch-to-other-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
