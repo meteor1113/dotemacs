@@ -246,6 +246,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
                                      "left8"
                                      "left-analyse"
                                      "left-symboldef")
+        ;; ecb-windows-width 0.25
         ecb-compile-window-height 0.2
         ecb-compile-window-width 'edit-window
         ecb-compile-window-temporally-enlarge 'after-selection
