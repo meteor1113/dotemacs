@@ -452,6 +452,13 @@
 (eval-after-load "sql"
   '(require 'sql-indent nil 'noerror))
 
+;; plsql
+(autoload 'plsql-mode "plsql" nil t)
+(setq auto-mode-alist
+      (append
+       '(("\\.\\(p\\(?:k[bg]\\|ls\\)\\|sql\\|prc\\)\\'" . plsql-mode))
+       auto-mode-alist))
+
 ;; word-count
 (autoload 'word-count-mode "word-count"
   "Minor mode to count words." t nil)
