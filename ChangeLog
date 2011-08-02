@@ -1,3 +1,7 @@
+2011-08-02  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (grep-dir-format): MinGW's grep support ''.
+
 2011-08-01  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (require): Bind Ctrl PageUp/PageDown to tabbar-backward/tabbar-forward.

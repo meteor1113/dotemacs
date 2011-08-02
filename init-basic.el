@@ -435,9 +435,9 @@ Like eclipse's Ctrl+Alt+F."
          "grep -inrH '%s' . | grep -v \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")
         ;; ((eq system-type 'gnu/linux)
         ;;  "grep -inrHI '%s' . | grep -v \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")
-        ((eq system-type 'windows-nt)
-         "grep --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.hg \
---exclude-dir=.bzr --exclude-dir=CVS -inrHI \"%s\" .")
+;;         ((eq system-type 'windows-nt)
+;;          "grep --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.hg \
+;; --exclude-dir=.bzr --exclude-dir=CVS -inrHI \"%s\" .")
         (t
          "grep --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.hg \
 --exclude-dir=.bzr --exclude-dir=CVS -inrHI '%s' .")))
