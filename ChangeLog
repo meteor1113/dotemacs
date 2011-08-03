@@ -1,5 +1,7 @@
 2011-08-03  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (fboundp): Change cua-rectangle-mark-key to [C-M-return].
+
 	* init-misc.el (sqlplus-mode-hook): Fix sqlplus.
 
 2011-08-02  Meteor Liu  <meteor1113@gmail.com>
