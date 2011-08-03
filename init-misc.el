@@ -459,6 +459,20 @@
        '(("\\.\\(p\\(?:k[bg]\\|ls\\)\\|sql\\|prc\\)\\'" . plsql-mode))
        auto-mode-alist))
 
+;; sqlplus
+(if (executable-find "sqlplus")
+    (require 'sqlplus nil t)
+  (autoload 'sqlplus "sqlplus" nil t))
+;; (define-key sqlplus-mode-map [M-return] 'sqlplus-send-current)
+(setq sqlplus-session-cache-dir "~/.emacs.d/sqlplus")
+(add-hook 'sqlplus-mode-hook
+          (lambda ()
+            (when (string-match "chinese" (or (getenv "NLS_LANG") ""))
+              (set-process-coding-system
+               (get-process (sqlplus-get-process-name sqlplus-connect-string))
+               'gbk
+               'gbk))))
+
 ;; word-count
 (autoload 'word-count-mode "word-count"
   "Minor mode to count words." t nil)

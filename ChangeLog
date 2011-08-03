@@ -1,6 +1,7 @@
 2011-08-02  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (plsql-mode): Add plsql.el
+	(sqlplus): Add sqlplus.el
 
 	* init-basic.el (grep-dir-format): MinGW's grep support ''.
 
