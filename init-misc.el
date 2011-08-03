@@ -463,10 +463,19 @@
 (if (executable-find "sqlplus")
     (require 'sqlplus nil t)
   (autoload 'sqlplus "sqlplus" nil t))
-;; (define-key sqlplus-mode-map [M-return] 'sqlplus-send-current)
 (setq sqlplus-session-cache-dir "~/.emacs.d/sqlplus")
 (add-hook 'sqlplus-mode-hook
           (lambda ()
+            ;; (setq minor-mode-overriding-map-alist
+            ;;       (list (cons 'cua-mode
+            ;;                   (let ((map (make-sparse-keymap)))
+            ;;                     (define-key map [C-return]
+            ;;                       'sqlplus-send-current)
+            ;;                     map))))
+            ;; (setq overriding-local-map
+            ;;       (let ((map (make-sparse-keymap)))
+            ;;         (define-key map [C-return] 'sqlplus-send-current)
+            ;;         map))
             (when (string-match "chinese" (or (getenv "NLS_LANG") ""))
               (set-process-coding-system
                (get-process (sqlplus-get-process-name sqlplus-connect-string))

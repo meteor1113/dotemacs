@@ -168,9 +168,9 @@
                 (interactive)
                 (winsav-save-configuration))
               :enable (fboundp 'winsav-save-configuration)))
-(define-key misc-sub-menu [sqlplus]
-  '(menu-item "sqlplus" sqlplus
-              :enable (fboundp 'sqlplus)))
+;; (define-key misc-sub-menu [sqlplus]
+;;   '(menu-item "sqlplus" sqlplus
+;;               :enable (fboundp 'sqlplus)))
 (define-key misc-sub-menu [ielm]
   '(menu-item "ielm" ielm
               :enable (fboundp 'ielm)))
