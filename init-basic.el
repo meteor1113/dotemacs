@@ -65,10 +65,15 @@
   (tool-bar-mode t))
 (when (fboundp 'set-scroll-bar-mode)
   (set-scroll-bar-mode 'right))
+(setq scroll-step 1)
+;; (setq scroll-margin 3)
+;; (setq scroll-conservatively 10000)
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 (column-number-mode t)
 (size-indication-mode 1)
+;; (setq display-time-24hr-format t)
+;; (setq display-time-day-and-date t)
 (display-time-mode t)
 (which-function-mode t)
 (setq buffers-menu-max-size 30)
@@ -707,6 +712,7 @@ Like eclipse's Ctrl+Alt+F."
 (add-hook 'c++-mode-hook
           (lambda ()
             (c-set-style "stroustrup")
+            ;; (c-toggle-auto-hungry-state 1)
             (c-set-offset 'innamespace 0)))
 
 (add-hook 'java-mode-hook (lambda () (c-set-style "java")))

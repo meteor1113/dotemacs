@@ -1,5 +1,7 @@
 2011-08-02  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (scroll-step): set scroll-step to 1.
+
 	* init-misc.el (plsql-mode): Add plsql.el
 	(sqlplus): Add sqlplus.el
 
