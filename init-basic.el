@@ -324,6 +324,7 @@
 ;; (add-hook 'find-file-hook 'goto-address-mode)
 ;; (setq max-specpdl-size 4000)
 ;; (setq max-lisp-eval-depth 4000)
+;; (setq debug-on-error t)
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"
