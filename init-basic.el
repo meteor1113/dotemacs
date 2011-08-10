@@ -88,7 +88,7 @@
 ;; (setq mouse-autoselect-window t)
 (setq-default indicate-buffer-boundaries (quote left))
 (when (fboundp 'winner-mode)
-  (winner-mode))
+  (winner-mode 1))
 (setq frame-title-format
       '((:eval (or buffer-file-name (buffer-name)))
         (:eval (if (buffer-modified-p) " * " " - "))
