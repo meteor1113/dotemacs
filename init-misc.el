@@ -532,7 +532,7 @@
   (ac-config-default)
   ;; (global-set-key (kbd "M-n") 'auto-complete)
   (setq ac-disable-faces nil)
-  (add-hook 'inferior-emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
+  (add-hook 'ielm-mode-hook 'ac-emacs-lisp-mode-setup)
   (defun ac-semantic-setup ()
     ;; (setq ac-sources (append '(ac-source-semantic) ac-sources))
     (local-set-key (kbd "M-n") 'ac-complete-semantic))

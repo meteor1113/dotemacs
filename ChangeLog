@@ -1,3 +1,7 @@
+2011-08-11  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el (and): Fix auto-complete for ielm-mode.
+
 2011-08-10  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (format-cxx-file): Remove warning for set-buffer.
