@@ -727,7 +727,7 @@ Like eclipse's Ctrl+Alt+F."
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
 (add-hook 'objc-mode-hook (lambda () (c-set-style "stroustrup")))
 
-(add-to-list 'auto-mode-alist '("\\.prc\\'" . sql-mode))
+(add-to-list 'auto-mode-alist '("\\.[pP][rR][cC]\\'" . sql-mode))
 (add-hook 'sql-mode-hook
           (lambda ()
             (setq indent-tabs-mode nil)

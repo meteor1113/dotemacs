@@ -417,8 +417,8 @@
 
 ;; ntcmd
 ;; (autoload 'ntcmd-mode "ntcmd" "Major mode for editing CMD scripts." t)
-;; (add-to-list 'auto-mode-alist '("\\.bat$" . ntcmd-mode))
-;; (add-to-list 'auto-mode-alist '("\\.cmd$" . ntcmd-mode))
+;; (add-to-list 'auto-mode-alist '("\\.[bB][aA][tT]\\'" . ntcmd-mode))
+;; (add-to-list 'auto-mode-alist '("\\.[cC][mM][dD]\\'" . ntcmd-mode))
 
 ;; csharp-mode
 (autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
@@ -456,7 +456,8 @@
 (autoload 'plsql-mode "plsql" nil t)
 (setq auto-mode-alist
       (append
-       '(("\\.\\(p\\(?:k[bg]\\|ls\\)\\|sql\\|prc\\)\\'" . plsql-mode))
+       '(("\\.\\(p\\(?:k[bg]\\|ls\\)\\|[sS][qQ][lL]\\|[pP][rR][cC]\\)\\'"
+          . plsql-mode))
        auto-mode-alist))
 
 ;; sqlplus
