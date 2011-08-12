@@ -1,3 +1,7 @@
+2011-08-12  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el (language-sub-menu): Add plsql-mode major-mode.
+
 2011-08-11  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (and): Fix auto-complete for ielm-mode.

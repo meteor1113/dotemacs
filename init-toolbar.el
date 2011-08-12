@@ -474,6 +474,10 @@
   '(menu-item "Python" python-mode
               :visible (fboundp 'python-mode)
               :button (:toggle . (eq major-mode 'python-mode))))
+(define-key language-sub-menu [plsql-mode]
+  '(menu-item "PL/SQL" plsql-mode
+              :visible (fboundp 'plsql-mode)
+              :button (:toggle . (eq major-mode 'plsql-mode))))
 (define-key language-sub-menu [php-mode]
   '(menu-item "PHP" php-mode
               :visible (fboundp 'php-mode)
