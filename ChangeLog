@@ -1,5 +1,7 @@
 2011-08-17  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el (and): Fix ac-modes.
+
 	* init-toolbar.el (misc-sub-menu): Add multi-term menu item.
 
 2011-08-12  Meteor Liu  <meteor1113@gmail.com>

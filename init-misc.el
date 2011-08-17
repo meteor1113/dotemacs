@@ -520,6 +520,26 @@
                                     inferior-emacs-lisp-mode
                                     change-log-mode text-mode
                                     tex-mode latex-mode plain-tex-mode
+                                    conf-unix-mode conf-windows-mode
+                                    conf-colon-mode conf-space-mode
+                                    conf-javaprop-mode
+                                    inetd-conf-generic-mode
+                                    etc-services-generic-mode
+                                    etc-passwd-generic-mode
+                                    etc-fstab-generic-mode
+                                    etc-sudoers-generic-mode
+                                    resolve-conf-generic-mode
+                                    etc-modules-conf-generic-mode
+                                    apache-conf-generic-mode
+                                    apache-log-generic-mode
+                                    samba-generic-mode reg-generic-mode
+                                    fvwm-generic-mode ini-generic-mode
+                                    x-resource-generic-mode
+                                    hosts-generic-mode inf-generic-mode
+                                    bat-generic-mode javascript-generic-mode
+                                    vrml-generic-mode java-manifest-generic-mode
+                                    java-properties-generic-mode
+                                    alias-generic-mode rc-generic-mode
                                     makefile-gmake-mode makefile-bsdmake-mode
                                     autoconf-mode makefile-automake-mode)))
   (let ((ac-path (locate-library "auto-complete")))
