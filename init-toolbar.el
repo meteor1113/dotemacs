@@ -180,6 +180,9 @@
 (define-key misc-sub-menu [cfw:open-calendar-buffer]
   '(menu-item "cfw:open-calendar-buffer" cfw:open-calendar-buffer
               :enable (fboundp 'cfw:open-calendar-buffer)))
+(define-key misc-sub-menu [multi-term]
+  '(menu-item "multi-term" multi-term
+              :enable (fboundp 'multi-term)))
 (define-key misc-sub-menu [find-dotemacs-file]
   '(menu-item "find-dotemacs-file" find-dotemacs-file
               :enable (fboundp 'find-dotemacs-file)
