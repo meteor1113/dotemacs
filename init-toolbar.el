@@ -177,9 +177,9 @@
 (define-key misc-sub-menu [format-cxx-directory]
   '(menu-item "format-cxx-directory" format-cxx-directory
               :enable (fboundp 'format-cxx-directory)))
-(define-key misc-sub-menu [cfw:open-calendar-buffer]
-  '(menu-item "cfw:open-calendar-buffer" cfw:open-calendar-buffer
-              :enable (fboundp 'cfw:open-calendar-buffer)))
+(define-key misc-sub-menu [cfw:open-org-calendar]
+  '(menu-item "cfw:open-org-calendar" cfw:open-org-calendar
+              :enable (fboundp 'cfw:open-org-calendar)))
 (define-key misc-sub-menu [multi-term]
   '(menu-item "multi-term" multi-term
               :enable (fboundp 'multi-term)))

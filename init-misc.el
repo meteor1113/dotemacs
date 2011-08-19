@@ -128,10 +128,11 @@
                    cal-china-x-priority2-holidays))))
 
 ;; calfw
-(autoload 'cfw:open-calendar-buffer "calfw" nil t)
-(eval-after-load "calfw"
-  '(when (require 'calfw-org nil 'noerror)
-     (cfw:install-org-schedules)))
+(autoload 'cfw:open-org-calendar "calfw-org" nil t)
+;; (autoload 'cfw:open-calendar-buffer "calfw" nil t)
+;; (eval-after-load "calfw"
+;;   '(when (require 'calfw-org nil 'noerror)
+;;      (cfw:install-org-schedules)))
 
 ;; cn-weather
 (setq cn-weather-city "大连")

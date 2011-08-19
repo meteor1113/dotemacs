@@ -1,5 +1,7 @@
 2011-08-19  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el (cfw:open-org-calendar): Update calfw to v1.2
+
 	* init-basic.el (chmod+x): Fix chmod+x.
 
 2011-08-17  Meteor Liu  <meteor1113@gmail.com>
