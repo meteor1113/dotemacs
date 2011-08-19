@@ -685,18 +685,18 @@ Like eclipse's Ctrl+Alt+F."
             'hs-mouse-toggle-hiding)))
 ;; (global-set-key (kbd "C-?") 'hs-minor-mode)
 
+(defun chmod+x ()
+  (and (save-excursion
+         (save-restriction
+           (widen)
+           (goto-char (point-min))
+           (save-match-data
+             (looking-at "^#!"))))
+       (not (file-executable-p buffer-file-name))
+       (shell-command (format "chmod +x '%s'" buffer-file-name))
+       (kill-buffer "*Shell Command Output*")))
 (when (executable-find "chmod")
-  (add-hook 'after-save-hook
-            #'(lambda ()
-                (and (save-excursion
-                       (save-restriction
-                         (widen)
-                         (goto-char (point-min))
-                         (save-match-data
-                           (looking-at "^#!"))))
-                     (not (file-executable-p buffer-file-name))
-                     (shell-command (concat "chmod +x " buffer-file-name))
-                     (kill-buffer "*Shell Command Output*")))))
+  (add-hook 'after-save-hook 'chmod+x))
 
 (defun program-common-function ()
   (setq indent-tabs-mode nil)
