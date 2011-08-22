@@ -1,6 +1,7 @@
 2011-08-22  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (nyan-mode): Add nyan-mode.
+	(and): Fix nyan-mode.
 
 2011-08-19  Meteor Liu  <meteor1113@gmail.com>
 

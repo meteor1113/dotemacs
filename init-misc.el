@@ -280,7 +280,7 @@
   (if nyan-mode
         (nyan-start-animation)
     (nyan-stop-animation)))
-(ignore-errors (nyan-mode t))
+(ignore-errors (and window-system (nyan-mode t)))
 
 ;; highlight-parentheses
 ;; (add-hook 'find-file-hooks
