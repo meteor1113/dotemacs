@@ -356,6 +356,10 @@
   '(menu-item "highlight-tail-mode" highlight-tail-mode
               :enable (fboundp 'highlight-tail-mode)
               :button (:toggle . highlight-tail-mode)))
+(define-key minormode-sub-menu [nyan-mode]
+  '(menu-item "nyan-mode" nyan-mode
+              :enable (fboundp 'nyan-mode)
+              :button (:toggle . nyan-mode)))
 (define-key minormode-sub-menu [flymake-mode]
   '(menu-item "flymake-mode" flymake-mode
               :enable (fboundp 'flymake-mode)

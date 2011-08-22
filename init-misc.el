@@ -271,6 +271,17 @@
 (autoload 'highlight-tail-mode "highlight-tail"
   "Draw a \"tail\" while you're typing." t)
 
+;; nyan-mode
+(autoload 'nyan-mode "nyan-mode" nil t)
+(autoload 'nyan-start-animation "nyan-mode" nil t)
+(autoload 'nyan-stop-animation "nyan-mode" nil t)
+(setq nyan-bar-length 8)
+(defadvice nyan-mode (after animation activate)
+  (if nyan-mode
+        (nyan-start-animation)
+    (nyan-stop-animation)))
+(ignore-errors (nyan-mode t))
+
 ;; highlight-parentheses
 ;; (add-hook 'find-file-hooks
 ;;           (lambda ()
