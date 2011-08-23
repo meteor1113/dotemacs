@@ -275,6 +275,7 @@
 (autoload 'nyan-mode "nyan-mode" nil t)
 (autoload 'nyan-start-animation "nyan-mode" nil t)
 (autoload 'nyan-stop-animation "nyan-mode" nil t)
+;; (setq nyan-wavy-trail t)
 (setq nyan-bar-length 8)
 (defadvice nyan-mode (after animation activate)
   (if nyan-mode
