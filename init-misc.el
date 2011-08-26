@@ -234,6 +234,16 @@
 (when (require 'window-numbering nil 'noerror)
   (window-numbering-mode 1))
 
+;; win-switch
+;; (autoload 'win-switch-dispatch "win-switch" nil t)
+;; (global-set-key "\C-xo" 'win-switch-dispatch)
+(global-set-key "\C-xo"
+                (lambda ()
+                  (interactive)
+                  (if (require 'win-switch nil 'noerror)
+                      (win-switch-dispatch)
+                    (other-window 1))))
+
 ;; psvn
 (autoload 'svn-status "psvn" nil t)
 (eval-after-load "vc-svn"
