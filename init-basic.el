@@ -439,9 +439,9 @@ Like eclipse's Ctrl+Alt+F."
 (autoload 'grep-apply-setting "grep")
 (defvar grep-dir-format
   (cond ((eq system-type 'aix)
-         "grep -inrH '%s' . | grep -v \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")
+         "grep -inrH '%s' . | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")
         ;; ((eq system-type 'gnu/linux)
-        ;;  "grep -inrHI '%s' . | grep -v \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")
+        ;;  "grep -inrHI '%s' . | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")
 ;;         ((eq system-type 'windows-nt)
 ;;          "grep --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.hg \
 ;; --exclude-dir=.bzr --exclude-dir=CVS -inrHI \"%s\" .")
