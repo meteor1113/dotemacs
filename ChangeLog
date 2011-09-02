@@ -1,3 +1,7 @@
+2011-09-02  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (dired-dwim-target): dired.
+
 2011-08-30  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (grep-dir-format): Fix grep.
