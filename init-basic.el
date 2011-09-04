@@ -538,6 +538,8 @@ Like eclipse's Ctrl+Alt+F."
         (t nil)))
 
 ;; global key bindings
+(global-set-key (kbd "M-SPC") 'set-mark-command)
+(define-key cua-global-keymap (kbd "M-SPC") 'cua-set-mark)
 (global-set-key (kbd "<M-up>") 'move-line-up)
 (global-set-key (kbd "<M-down>") 'move-line-down)
 (global-set-key (kbd "<find>") 'move-beginning-of-line) ; putty

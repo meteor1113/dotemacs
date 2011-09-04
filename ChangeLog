@@ -1,3 +1,7 @@
+2011-09-04  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (kbd): Bind M-SPC to set-mark-command instead of C-SPC.
+
 2011-09-02  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (dired-dwim-target): dired.
