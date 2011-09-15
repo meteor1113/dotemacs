@@ -540,6 +540,7 @@
            (require 'auto-complete-config nil 'noerror))
   (setq ac-modes
         (append ac-modes '(org-mode objc-mode jde-mode sql-mode
+                                    plsql-mode sqlplus-mode
                                     inferior-emacs-lisp-mode
                                     change-log-mode text-mode
                                     tex-mode latex-mode plain-tex-mode
