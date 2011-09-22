@@ -1,3 +1,7 @@
+2011-09-22  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (my-c-mode-font-lock-if0): comment if0 in c/c++-mode.
+
 2011-09-04  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (kbd): Bind M-SPC to set-mark-command instead of C-SPC.
