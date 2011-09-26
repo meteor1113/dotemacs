@@ -1,3 +1,7 @@
+2011-09-26  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-site.el (boundp): Fix ecb compatible with emacs24, because stack-trace-on-error.
+
 2011-09-22  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (my-c-mode-font-lock-if0): comment if0 in c/c++-mode.
