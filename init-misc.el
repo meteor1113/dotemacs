@@ -216,15 +216,15 @@
                                   'tabbar-unselected)
                           'pointer 'hand)
                          tabbar-separator-value)))))
-     (unless (eq system-type 'windows-nt)
-       (set-face-attribute 'tabbar-default nil
-                           :family (face-attribute 'default :family))
-       (add-hook 'after-make-frame-functions
-                 (lambda (frame)
-                   (with-selected-frame frame
-                     (set-face-attribute 'tabbar-default frame
-                                         :family (face-attribute 'default
-                                                                 :family))))))
+     ;; (unless (eq system-type 'windows-nt)
+     (set-face-attribute 'tabbar-default nil
+                         :family (face-attribute 'default :family))
+     (add-hook 'after-make-frame-functions
+               (lambda (frame)
+                 (with-selected-frame frame
+                   (set-face-attribute 'tabbar-default frame
+                                       :family (face-attribute 'default
+                                                               :family)))));; )
      (set-face-attribute 'tabbar-selected nil
                          :foreground "blue")
      (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)

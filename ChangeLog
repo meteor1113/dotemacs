@@ -1,5 +1,7 @@
 2011-09-26  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el ("tabbar"): Fix tabbar font in win7.
+
 	* init-site.el (boundp): Fix ecb compatible with emacs24, because stack-trace-on-error.
 
 2011-09-22  Meteor Liu  <meteor1113@gmail.com>
