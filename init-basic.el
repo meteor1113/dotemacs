@@ -40,7 +40,8 @@
 
 ;; c/c++ include dir (ffap use mingw dirs)
 (defvar user-include-dirs
-  '(".." "../include" "../inc" "../common" "../public"
+  '("." "./include" "./inc" "./common" "./public"
+    ".." "../include" "../inc" "../common" "../public"
     "../.." "../../include" "../../inc" "../../common" "../../public"
     "C:/MinGW/include"
     "C:/MinGW/include/c++/3.4.5"

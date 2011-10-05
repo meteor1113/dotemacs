@@ -1,3 +1,7 @@
+2011-10-05  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-site.el (user-include-dirs): Fix user-include-dirs.
+
 2011-09-26  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el ("tabbar"): Fix tabbar font in win7.
