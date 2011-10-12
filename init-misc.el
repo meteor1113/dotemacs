@@ -484,9 +484,20 @@
        auto-mode-alist))
 
 ;; sqlplus
+(autoload 'sqlplus "sqlplus" nil t)
+(eval-after-load "sqlplus"
+  '(progn
+     (define-key plsql-mode-map [C-down-mouse-1] nil)
+     (define-key plsql-mode-map [C-mouse-1] nil)
+     (define-key plsql-mode-map [down-mouse-2] 'sqlplus-mouse-select-identifier)
+     (define-key plsql-mode-map [mouse-2] 'sqlplus-file-get-source-mouse)
+     (define-key sqlplus-mode-map [C-down-mouse-1] nil)
+     (define-key sqlplus-mode-map [C-mouse-1] nil)
+     (define-key sqlplus-mode-map [down-mouse-2]
+       'sqlplus-mouse-select-identifier)
+     (define-key sqlplus-mode-map [mouse-2] 'sqlplus-file-get-source-mouse)))
 (if (executable-find "sqlplus")
-    (require 'sqlplus nil t)
-  (autoload 'sqlplus "sqlplus" nil t))
+    (require 'sqlplus nil t))
 (setq sqlplus-session-cache-dir "~/.emacs.d/sqlplus")
 (add-hook 'sqlplus-mode-hook
           (lambda ()

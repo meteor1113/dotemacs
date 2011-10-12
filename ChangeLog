@@ -1,3 +1,7 @@
+2011-10-12  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el ("sqlplus"): Use mouse-2 instead of c-mouse-1.
+
 2011-10-05  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el (user-include-dirs): Fix user-include-dirs.
