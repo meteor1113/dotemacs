@@ -211,7 +211,8 @@
                           'local-map (tabbar-make-tab-keymap tab)
                           'help-echo 'tabbar-help-on-tab
                           'mouse-face 'tabbar-highlight
-                          'face (if (tabbar-selected-p tab (tabbar-current-tabset))
+                          'face (if (tabbar-selected-p tab
+                                                       (tabbar-current-tabset))
                                     'tabbar-selected
                                   'tabbar-unselected)
                           'pointer 'hand)
@@ -549,10 +550,11 @@
 (when (and (> emacs-major-version 21)
            (require 'auto-complete nil 'noerror)
            (require 'auto-complete-config nil 'noerror))
+  (define-key ac-completing-map [return] 'ac-complete)
   (setq ac-modes
         (append ac-modes '(org-mode objc-mode jde-mode sql-mode
                                     plsql-mode sqlplus-mode
-                                    inferior-emacs-lisp-mode
+                                    inferior-emacs-lisp-mode eshell-mode
                                     change-log-mode text-mode
                                     tex-mode latex-mode plain-tex-mode
                                     conf-unix-mode conf-windows-mode
@@ -589,6 +591,7 @@
   ;; (global-set-key (kbd "M-n") 'auto-complete)
   (setq ac-disable-faces nil)
   (add-hook 'ielm-mode-hook 'ac-emacs-lisp-mode-setup)
+  (add-hook 'eshell-mode-hook 'ac-emacs-lisp-mode-setup)
   (defun ac-semantic-setup ()
     ;; (setq ac-sources (append '(ac-source-semantic) ac-sources))
     (local-set-key (kbd "M-n") 'ac-complete-semantic))
