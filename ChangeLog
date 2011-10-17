@@ -1,3 +1,7 @@
+2011-10-17  Meteor Liu  <meteor1113@gmail.com>
+
+	* Update emacs-calfw from v1.2 to v1.3
+
 2011-10-16  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (and): Set auto-complete for eshell.

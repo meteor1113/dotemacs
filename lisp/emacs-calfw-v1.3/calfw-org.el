@@ -58,9 +58,13 @@
   "Jump to the clicked org item."
   (interactive)
   (let ((marker (get-text-property (point) 'org-marker)))
-    (when marker
+    (when (and marker (marker-buffer marker))
       (switch-to-buffer (marker-buffer marker))
-      (goto-char (marker-position marker)))))
+      (widen)
+      (goto-char (marker-position marker))
+      (when (org-mode-p)
+        (org-reveal)))))
+
 
 (defvar cfw:org-text-keymap 
   (let ((map (make-sparse-keymap)))
@@ -90,9 +94,12 @@
          (tags (cfw:org-tp item 'tags))
          (marker (cfw:org-tp item 'org-marker))
          (buffer (and marker (marker-buffer marker)))
-         (text (cfw:org-extract-summary item)))
+         (text (cfw:org-extract-summary item))
+         (props (cfw:extract-text-props item 'face 'keymap)))
     (propertize
-     (concat time-str text " " (and buffer (buffer-name buffer)))
+     (concat 
+      (if time-str (apply 'propertize time-str props)) text " "
+      (and buffer (buffer-name buffer)))
      'keymap cfw:org-text-keymap
      ;; Delete the display property, since displaying images will break our
      ;; table layout.
@@ -148,12 +155,23 @@ TEXT1 < TEXT2."
       (let ((time1 (cfw:org-tp text1 'time-of-day))
             (time2 (cfw:org-tp text2 'time-of-day)))
         (cond
-         ((and time1 time2)
-          (< time1 time2))
+         ((and time1 time2) (< time1 time2))
          (time1 t)   ; time object is moved to upper
          (time2 nil) ; 
-         (t
-          (string-lessp text1 text2))))
+         (t (string-lessp text1 text2))))
+    (error (string-lessp text1 text2))))
+
+(defun cfw:org-schedule-sorter2 (text1 text2)
+  "[internal] Sorting algorithm for org schedule items.
+TEXT1 < TEXT2. This function makes no-time items in front of timed-items."
+  (condition-case err
+      (let ((time1 (cfw:org-tp text1 'time-of-day))
+            (time2 (cfw:org-tp text2 'time-of-day)))
+        (cond
+         ((and time1 time2) (< time1 time2))
+         (time1 nil) ; time object is moved to upper
+         (time2 t)   ; 
+         (t (string-lessp text1 text2))))
     (error (string-lessp text1 text2))))
 
 (defun cfw:org-open-agenda-day ()

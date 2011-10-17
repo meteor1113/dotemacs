@@ -217,6 +217,9 @@
      :background "Blue4"))
   "Face for selection" :group 'calfw)
 
+(defvar cfw:face-item-separator-color "SlateBlue"
+  "Color for the separator line of items in a day.")
+
 
 
 ;;; Utilities
@@ -237,6 +240,19 @@
   (if (< 0 (length text))
     (put-text-property 0 (length text) prop value text))
   text)
+
+(defun cfw:extract-text-props (text &rest excludes)
+  "[internal] Return text properties."
+  (loop with ret = nil
+        with props = (text-properties-at 0 text)
+        for name = (car props)
+        for val = (cadr props)
+        while props
+        do
+        (when (and name (not (memq name excludes)))
+          (setq ret (cons name (cons val ret))))
+        (setq props (cddr props))
+        finally return ret))
 
 (defun cfw:define-keymap (keymap-list)
   "[internal] Key map definition utility.
@@ -489,7 +505,7 @@ white (negative color of `cfw:source-period-bgcolor') is used."
   (lexical-let (ols)
     (cfw:dest-with-region dest
       (cfw:find-all-by-date
-       date
+       dest date
        (lambda (begin end)
          (let ((overlay (make-overlay begin end)))
            (overlay-put overlay 'face
@@ -510,7 +526,7 @@ white (negative color of `cfw:source-period-bgcolor') is used."
   (lexical-let (ols)
     (cfw:dest-with-region dest
       (cfw:find-all-by-date
-       (calendar-current-date)
+       dest (calendar-current-date)
        (lambda (begin end)
          (let ((overlay (make-overlay begin end)))
            (overlay-put overlay 'face
@@ -685,10 +701,10 @@ found at the variable, return nil."
 
 ;; Setter
 
-(defun cfw:cp-move-cursor (date)
+(defun cfw:cp-move-cursor (dest date)
   "[internal] Just move the cursor onto the date. This function
 is called by `cfw:cp-set-selected-date'."
-  (let ((pos (cfw:find-by-date date)))
+  (let ((pos (cfw:find-by-date dest date)))
     (when pos
       (goto-char pos)
       (unless (eql (selected-window) (get-buffer-window (current-buffer)))
@@ -707,7 +723,7 @@ this function updates the view to display the date."
       (cfw:dest-ol-selection-clear dest)
       (cfw:dest-ol-selection-set dest date)
       (cfw:dest-after-update dest)
-      (cfw:cp-move-cursor date)
+      (cfw:cp-move-cursor dest date)
       (unless (equal last date)
         (cfw:cp-fire-selection-change-hooks component)))
      (t
@@ -1064,6 +1080,28 @@ sides with the character PADDING."
          (margin (- width len)))
     (concat cnt (make-string margin padding))))
 
+(defun cfw:render-separator (string)
+  "[internal] Add a separator into the ROWS list."
+  (when (get-text-property 0 'cfw:item-separator string)
+    (let ((last-face (get-text-property 0 'face string)))
+      (cond
+       ((or (null last-face) (listp last-face))
+        (setq last-face (append last-face `(:underline ,cfw:face-item-separator-color)))
+        (put-text-property 0 (length string) 'face last-face string)
+        (put-text-property 0 (length string) 'font-lock-face last-face string))
+       ((symbolp last-face)
+        (let ((attrs (face-all-attributes last-face (selected-frame))))
+          (setq attrs ; transform alist to plist
+                (loop with nattrs = nil
+                      for (n . v) in (append attrs `((:underline . ,cfw:face-item-separator-color)))
+                      do (setq nattrs (cons n (cons v nattrs)))
+                      finally return nattrs))
+          (put-text-property 0 (length string) 'face attrs string)
+          (put-text-property 0 (length string) 'font-lock-face attrs string)))
+       (t
+        (message "DEBUG? CFW: FACE %S / %S" string last-face)))))
+  string)
+
 (defun cfw:render-right (width string &optional padding)
   "[internal] Format STRING, padding on the left with the character PADDING."
   (let* ((padding (or padding ?\ ))
@@ -1235,31 +1273,55 @@ PREV-CMD and NEXT-CMD are the moving view command, such as `cfw:navi-previous(ne
                        (lambda (a b) (< (car a) (car b))))))
       (loop for i from 0 below (car (car stack))
             do (push ; insert blank lines
-                (list i (list nil nil nil))
+                (list i (list nil nil nil nil))
                 stack))
-      (loop for (row (begin end content)) in stack
+      (loop for (row (begin end content props)) in stack
             for beginp = (equal date begin)
             for endp = (equal date end)
             for width = (- cell-width (if beginp 1 0) (if endp 1 0))
-            for title = (if (and content
-                                 (or (equal date begin)
-                                     (eql 1 (calendar-extract-day date))
-                                     (eql week-day calendar-week-start-day)))
-                            (cfw:render-truncate content width t) "")
+            for title = (if content 
+                            (cfw:render-periods-title
+                             date week-day begin end content cell-width))
             collect
             (if content
-                (cfw:rt
-                 (concat
-                  (if beginp "(" "")
-                  (cfw:render-left width title ?-)
-                  (if endp ")" ""))
-                 (cfw:render-get-face-period content 'cfw:face-periods))
+                (apply 'propertize
+                       (concat
+                        (if beginp "(" "")
+                        (cfw:render-left width title ?-)
+                        (if endp ")" ""))
+                       'face (cfw:render-get-face-period content 'cfw:face-periods)
+                       'font-lock-face (cfw:render-get-face-period content 'cfw:face-periods)
+                       'cfw:period t
+                       props)
               "")))))
+
+(defun cfw:render-periods-title (date week-day begin end content cell-width)
+  "[internal] Return a title string."
+  (let* ((week-begin (cfw:date-after date (- week-day)))
+         (month-begin (cfw:date
+                       (calendar-extract-month date)
+                       1 (calendar-extract-year date)))
+         (title-begin-abs
+          (max
+           (calendar-absolute-from-gregorian begin)
+           (calendar-absolute-from-gregorian week-begin)))
+         (title-begin (calendar-gregorian-from-absolute title-begin-abs))
+         (num (- (calendar-absolute-from-gregorian date) title-begin-abs)))
+    (when content
+      (loop with title = (substring content 0)
+            for i from 0 below num
+            for pdate = (calendar-gregorian-from-absolute (+ title-begin-abs i))
+            for chopn = (+ (if (equal begin pdate) 1 0) (if (equal end pdate) 1 0))
+            for del = (truncate-string-to-width title (- cell-width chopn))
+            do
+            (setq title (substring title (length del)))
+            finally return
+            (cfw:render-truncate title width (equal end date))))))
 
 (defun cfw:render-periods-get-min (periods-each-days begin end)
   "[internal] Find the minimum empty row number of the days between
 BEGIN and END from the PERIODS-EACH-DAYS."
-  (loop for row-num from 0 below 10 ; assuming the number of stacked periods is less than 10
+  (loop for row-num from 0 below 30 ; assuming the number of stacked periods is less than 30
         unless
         (loop for d in (cfw:enumerate-days begin end)
               for periods-stack = (cfw:contents-get d periods-each-days)
@@ -1286,12 +1348,13 @@ period-stack -> ((row-num . period) ... )"
   (let* (periods-each-days)
     (loop for period in (cfw:k 'periods model)
           for (begin end content) = period
+          for vperiod = (append period (list (cfw:extract-text-props content 'face)))
           for row = (cfw:render-periods-get-min
                      periods-each-days begin end)
           do
           (setq periods-each-days
                 (cfw:render-periods-place
-                 periods-each-days row period)))
+                 periods-each-days row vperiod)))
     periods-each-days))
 
 (defun cfw:render-columns (day-columns param)
@@ -1301,6 +1364,7 @@ DAY-COLUMNS is a list of columns. A column is a list of following form: (DATE (D
         (cell-height (cfw:k 'cell-height param))
         (EOL (cfw:k 'eol param)) (VL (cfw:k 'vl param))
         (hline (cfw:k 'hline param)) (cline (cfw:k 'cline param)))
+    ;; day title
     (loop for day-rows in day-columns
           for date = (car day-rows)
           for (tday . ant) = (cadr day-rows)
@@ -1314,18 +1378,120 @@ DAY-COLUMNS is a list of columns. A column is a list of following form: (DATE (D
                    'cfw:date date)
                 (cfw:render-left cell-width ""))))
     (insert VL EOL)
-    (loop for i from 2 upto cell-height do
-          (loop for day-rows in day-columns
+    ;; day contents
+    (loop with breaked-day-columns = 
+          (loop for day-rows in day-columns 
+                for (date ants . lines) = day-rows
+                collect
+                (cons date (cfw:render-break-lines 
+                            lines cell-width (1- cell-height))))
+          for i from 1 below cell-height do
+          (loop for day-rows in breaked-day-columns
                 for date = (car day-rows)
                 for row = (nth i day-rows)
                 do
                 (insert
                  VL (cfw:tp
-                     (cfw:render-left cell-width (and row (format "%s" row)))
+                     (cfw:render-separator
+                      (cfw:render-left cell-width (and row (format "%s" row))))
                      'cfw:date date)))
           (insert VL EOL))
     (insert cline)))
 
+(defvar cfw:render-line-breaker 'cfw:render-line-breaker-simple
+  "A function which breaks a long line into some lines.
+Calfw has 3 strategies: none, simple and wordwrap.
+`cfw:render-line-breaker-none' never breaks lines.
+`cfw:render-line-breaker-simple' breaks lines with rigid width (default).
+`cfw:render-line-breaker-wordwrap' breaks lines with the emacs function `fill-region'.
+
+The arguments of a line-breaking function are STRING, LINE-WIDTH and MAX-LINE-NUMBER.")
+
+(defun cfw:render-break-lines (lines cell-width cell-height)
+  "[internal] Return lines those are split into some lines by the
+algorithm defined at `cfw:render-line-breaker'."
+  (and lines
+       (let ((num (/ cell-height (length lines))))
+         (cond
+          ((> 2 num) lines)
+          (t
+           (loop with total-rows = nil
+                 for line in lines
+                 for rows = (funcall cfw:render-line-breaker line cell-width num)
+                 do
+                 (when total-rows
+                   (cfw:render-add-item-separator-sign total-rows))
+                 (setq total-rows (append total-rows rows))
+                 finally return total-rows))))))
+
+(defun cfw:render-add-item-separator-sign (rows)
+  "[internal] Add a separator into the ROWS list."
+  (let ((last-line (car (last rows)))
+        last-face)
+    (unless (get-text-property 0 'cfw:period last-line)
+      (put-text-property 0 (length last-line) 'cfw:item-separator t last-line))
+    rows))
+
+(defun cfw:render-line-breaker-none (line w n)
+  "Line breaking algorithm: Do nothing."
+  (list line))
+
+(defun cfw:render-line-breaker-simple (string line-width max-line-num)
+  "Line breaking algorithm: Just splitting a line with the rigid width."
+  (loop with ret = nil    with linenum = 1
+        with curcol = 0   with lastpos = 0
+        with endpos = (1- (length string))
+        for i from 0 upto endpos
+        for c = (aref string i)
+        for w = (char-width c) 
+        for wsum = (+ curcol w) do
+        (cond
+         ((and (< i endpos) (<= max-line-num linenum))
+          (push (cfw:trim
+                 (replace-regexp-in-string 
+                  "[\n\r]" " " (substring string lastpos))) ret)
+          (setq i endpos))
+         ((= endpos i)
+          (push (substring string lastpos) ret))
+         ((or (= c 13) (= c 10))
+          (push (substring string lastpos i) ret)
+          (setq lastpos (1+ i) curcol 0)
+          (incf linenum))
+         ((= line-width wsum)
+          (push (substring string lastpos (1+ i)) ret)
+          (setq lastpos (1+ i) curcol 0)
+          (incf linenum))
+         ((< line-width wsum)
+          (push (substring string lastpos i) ret)
+          (setq lastpos i curcol w)
+          (incf linenum))
+         (t (incf curcol w)))
+        finally return (or (and ret (nreverse ret)) '(""))))
+
+(defun cfw:render-line-breaker-wordwrap (string line-width max-line-num)
+  "Line breaking algorithm: Simple word wrapping with fill-region."
+  (if (<= (length string) line-width)
+      (list string)
+    (let ((fill-column line-width) (use-hard-newlines t))
+      (with-temp-buffer
+        (insert string)
+        (fill-region (point-min) (point-max))
+        ;; collect lines
+        (goto-char (point-min))
+        (let ((cont t) (last (point)) ps ret)
+          (while cont
+            (setq ps (re-search-forward "\n" nil t))
+            (cond
+             ((null ps) (setq cont nil)
+              (when (not (eobp))
+                (push (buffer-substring last (point-max)) ret)))
+             (t 
+              (push (cfw:trim (buffer-substring last (1- ps))) ret)
+              (when (<= max-line-num (length ret))
+                (setq cont nil))
+              (setq last ps))))
+          (or (and ret (nreverse ret)) '("")))))))
+    
 (defun cfw:render-append-parts (param)
   "[internal] Append rendering parts to PARAM and return a new list."
   (let* ((EOL "\n")
@@ -1377,10 +1543,11 @@ DAY-COLUMNS is a list of columns. A column is a list of following form: (DATE (D
                for raw-contents = (cfw:render-sort-contents
                                    (cfw:model-get-contents-by-date date model)
                                    (cfw:model-get-sorter model))
-               for prs-contents = (append
-                                   (cfw:render-periods
-                                    date week-day raw-periods cell-width)
-                                   (mapcar 'cfw:render-default-content-face raw-contents))
+               for prs-contents = (cfw:render-rows-prop
+                                   (append
+                                    (cfw:render-periods
+                                     date week-day raw-periods cell-width)
+                                    (mapcar 'cfw:render-default-content-face raw-contents)))
                for num-label = (if prs-contents
                                    (format "(%s)"
                                            (+ (length raw-contents)
@@ -1394,6 +1561,15 @@ DAY-COLUMNS is a list of columns. A column is a list of following form: (DATE (D
                collect
                (cons date (cons (cons tday ant) prs-contents)))
          param)))
+
+(defun cfw:render-rows-prop (rows)
+  "[internal] Put a marker as a text property for TAB navigation."
+  (loop with i = 0
+        for line in rows
+        collect
+        (prog1
+            (cfw:tp line 'cfw:row-count i)
+          (if (< 0 (length line)) (incf i)))))
 
 
 
@@ -1801,10 +1977,11 @@ return an alist of rendering parameters."
          for raw-contents = (cfw:render-sort-contents
                              (cfw:model-get-contents-by-date date model)
                              (cfw:model-get-sorter model))
-         for prs-contents = (append
-                             (cfw:render-periods-days
-                              date raw-periods cell-width)
-                             (mapcar 'cfw:render-default-content-face raw-contents))
+         for prs-contents = (cfw:render-rows-prop
+                             (append
+                              (cfw:render-periods-days
+                               date raw-periods cell-width)
+                              (mapcar 'cfw:render-default-content-face raw-contents)))
          for num-label = (if prs-contents
                              (format "(%s)"
                                      (+ (length raw-contents)
@@ -1864,7 +2041,9 @@ function may return nil."
       (let* ((r (lambda () (when (not (eolp)) (forward-char))))
              (l (lambda () (when (not (bolp)) (backward-char))))
              (u (lambda () (when (not (bobp)) (line-move 1))))
-             (d (lambda () (when (not (eobp)) (line-move -1)))) get)
+             (d (lambda () (when (not (eobp)) (line-move -1)))) 
+             (dest (cfw:component-dest (cfw:cp-get-component)))
+             get)
         (setq get (lambda (cmds)
                     (save-excursion
                       (if (null cmds) (cfw:cursor-to-date)
@@ -1877,45 +2056,64 @@ function may return nil."
                   if date return date)
             (cond
              ((> (/ (point-max) 2) (point))
-              (cfw:find-first-date))
-             (t (cfw:find-last-date)))))))
+              (cfw:find-first-date dest))
+             (t (cfw:find-last-date dest)))))))
 
-(defun cfw:find-first-date ()
+(defun cfw:find-first-date (dest)
   "[internal] Return the first date in the current buffer."
-  (let ((pos (next-single-property-change (point-min) 'cfw:date)))
+  (let ((pos (next-single-property-change 
+              (cfw:dest-point-min dest) 'cfw:date)))
     (and pos (cfw:cursor-to-date pos))))
 
-(defun cfw:find-last-date ()
+(defun cfw:find-last-date (dest)
   "[internal] Return the last date in the current buffer."
-  (let ((pos (previous-single-property-change (point-max) 'cfw:date)))
+  (let ((pos (previous-single-property-change
+              (cfw:dest-point-max dest) 'cfw:date)))
     (and pos (cfw:cursor-to-date (1- pos)))))
 
-(defun cfw:find-by-date (date)
+(defun cfw:find-by-date (dest date)
   "[internal] Return a point where the text property `cfw:date'
 is equal to DATE in the current calender view. If DATE is not
 found in the current view, return nil."
-  (let ((pos (point-min)) begin ret text-date)
-    (while (setq begin (next-single-property-change pos 'cfw:date))
-      (setq pos begin
-            text-date (cfw:cursor-to-date begin))
-      (when (and text-date (equal date text-date))
-        (setq ret begin
-              pos (point-max))))
-    ret))
+  (loop with pos = (cfw:dest-point-min dest)
+        with end = (cfw:dest-point-max dest)
+        for next = (next-single-property-change pos 'cfw:date nil end)
+        for text-date = (and next (cfw:cursor-to-date next))
+        while (and next (< next end)) do
+        (if (and text-date (equal date text-date))
+            (return next))
+        (setq pos next)))
 
-(defun cfw:find-all-by-date (date func)
+(defun cfw:find-all-by-date (dest date func)
   "[internal] Call the function FUNC in each regions where the
-text-property `cfw:date' is equal to DATE. The function FUNC
-receives two arguments, begin date and end one. This function is
+text-property `cfw:date' is equal to DATE. The argument function FUNC
+receives two arguments, begin position and end one. This function is
 mainly used at functions for putting overlays."
-  (let ((pos (point-min)) begin text-date)
-    (while (setq begin (next-single-property-change pos 'cfw:date))
-      (setq text-date (cfw:cursor-to-date begin))
-      (when (and text-date (equal date text-date))
-        (let ((end (next-single-property-change
-                    begin 'cfw:date nil (point-max))))
-          (funcall func begin end)))
-      (setq pos begin))))
+  (loop with pos = (cfw:dest-point-min dest)
+        with end = (cfw:dest-point-max dest)
+        for next = (next-single-property-change pos 'cfw:date nil end)
+        for text-date = (and next (cfw:cursor-to-date next))
+        while (and next (< next end)) do
+        (if (and text-date (equal date text-date))
+            (let ((cend (next-single-property-change
+                         next 'cfw:date nil end)))
+              (funcall func next cend)))
+        (setq pos next)))
+
+(defun cfw:find-item (dest date row-count)
+  "[internal] Find the schedule item which has the text properties as
+`cfw:date' = DATE and `cfw:row-count' = ROW-COUNT. If no item is found, 
+this function returns nil."
+  (loop with pos = (cfw:dest-point-min dest)
+        with end = (cfw:dest-point-max dest)
+        for next = (next-single-property-change pos 'cfw:date nil end)
+        for text-date = (and next (cfw:cursor-to-date next))
+        for text-row-count = (and next (get-text-property next 'cfw:row-count))
+        while (and next (< next end)) do
+        (when (and text-date (equal date text-date)
+                   (eql row-count text-row-count))
+          (return next))
+        (setq pos next)))
 
 (defun cfw:navi-goto-date (date)
   "Move the cursor to DATE and put selection. If DATE is not
@@ -1959,6 +2157,8 @@ calendar view."
 
      ("g" . cfw:navi-goto-date-command)
      ("t" . cfw:navi-goto-today-command)
+
+     ("TAB" . cfw:navi-next-item-command)
 
      ("r"   . cfw:refresh-calendar-buffer)
      ("SPC" . cfw:show-details-command)
@@ -2022,6 +2222,17 @@ calendar view."
   (interactive)
   (when (cfw:cp-get-component)
     (cfw:cp-set-view (cfw:cp-get-component) 'day)))
+
+(defun cfw:navi-next-item-command ()
+  "Move the cursor to the next item."
+  (interactive)
+  (let ((cp (cfw:cp-get-component))
+        (date (cfw:cursor-to-date))
+        (count (or (get-text-property (point) 'cfw:row-count) -1)))
+    (when (and cp date)
+      (let ((next (cfw:find-item (cfw:component-dest cp) date (1+ count))))
+        (if next (goto-char next)
+          (cfw:navi-goto-date date))))))
 
 (defun cfw:navi-on-click ()
   "click"
@@ -2093,12 +2304,16 @@ Moves forward if NUM is negative."
 (defun cfw:navi-goto-first-date-command ()
   "Move the cursor to the first day on the current calendar view."
   (interactive)
-  (cfw:navi-goto-date (cfw:find-first-date)))
+  (cfw:navi-goto-date
+   (cfw:find-first-date
+    (cfw:component-dest (cfw:cp-get-component)))))
 
 (defun cfw:navi-goto-last-date-command ()
   "Move the cursor to the last day on the current calendar view."
   (interactive)
-  (cfw:navi-goto-date (cfw:find-last-date)))
+  (cfw:navi-goto-date 
+   (cfw:find-last-date
+    (cfw:component-dest (cfw:cp-get-component)))))
 
 (defun cfw:navi-next-week-command (&optional num)
   "Move the cursor forward NUM weeks. If NUM is nil, 1 is used.
@@ -2180,7 +2395,8 @@ DATE is a date to show. MODEL is model object."
          (periods (cfw:model-get-periods-by-date date model))
          (contents (cfw:render-sort-contents
                     (cfw:model-get-contents-by-date date model)
-                    (cfw:model-get-sorter model))))
+                    (cfw:model-get-sorter model)))
+         (row-count -1))
   (concat
    (cfw:rt (concat "Schedule on " (cfw:strtime date) " (") 'cfw:face-header)
    (cfw:rt (calendar-day-name date)
@@ -2194,25 +2410,32 @@ DATE is a date to show. MODEL is model object."
       EOL))
    HLINE
    (loop for (begin end summary) in periods
-         for prefix = (cfw:rt
+         for prefix = (propertize
                        (concat (cfw:strtime begin) " - " (cfw:strtime end) " : ")
-                       (cfw:render-get-face-period summary 'cfw:face-periods))
+                       'face (cfw:render-get-face-period summary 'cfw:face-periods)
+                       'font-lock-face (cfw:render-get-face-period summary 'cfw:face-periods)
+                       'cfw:row-count (incf row-count))
          concat
          (concat prefix " " summary EOL))
-   (loop for i in contents concat
-         (concat "- " (cfw:rt i (cfw:render-get-face-content i 'cfw:face-default-content))
+   (loop for i in contents 
+         for f = (cfw:render-get-face-content i 'cfw:face-default-content)
+         concat
+         (concat "- " (propertize 
+                       i 'face f 'font-lock-face f
+                       'cfw:row-count (incf row-count))
                  EOL)))))
 
 (defvar cfw:details-mode-map
   (cfw:define-keymap
-   '(("q"   . cfw:details-kill-buffer-command)
-     ("SPC" . cfw:details-kill-buffer-command)
-     ("n"   . cfw:details-navi-next-command)
-     ("f"   . cfw:details-navi-next-command)
-     ("<right>"  . cfw:details-navi-next-command)
-     ("p"   . cfw:details-navi-prev-command)
-     ("b"   . cfw:details-navi-prev-command)
-     ("<left>"   . cfw:details-navi-prev-command)
+   '(("q"       . cfw:details-kill-buffer-command)
+     ("SPC"     . cfw:details-kill-buffer-command)
+     ("n"       . cfw:details-navi-next-command)
+     ("f"       . cfw:details-navi-next-command)
+     ("<right>" . cfw:details-navi-next-command)
+     ("p"       . cfw:details-navi-prev-command)
+     ("b"       . cfw:details-navi-prev-command)
+     ("<left>"  . cfw:details-navi-prev-command)
+     ("TAB"     . cfw:details-navi-next-item-command)
      ))
   "Default key map for the details buffer.")
 
@@ -2256,6 +2479,24 @@ DATE is a date to show. MODEL is model object."
       (cfw:navi-previous-day-command num)
       (cfw:show-details-command))))
 
+(defun cfw:details-navi-next-item-command ()
+  (interactive)
+  (let* ((count (or (get-text-property (point) 'cfw:row-count) -1))
+         (next (cfw:details-find-item (1+ count))))
+    (goto-char (or next (point-min)))))
+
+(defun cfw:details-find-item (row-count)
+  "[internal] Find the schedule item which has the text
+properties as `cfw:row-count' = ROW-COUNT. If no item is found,
+this function returns nil."
+  (loop with pos = (point-min)
+        for next = (next-single-property-change pos 'cfw:row-count)
+        for text-row-count = (and next (get-text-property next 'cfw:row-count))
+        while next do
+        (when (eql row-count text-row-count)
+          (return next))
+        (setq pos next)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; High level API
 
@@ -2270,8 +2511,8 @@ initially.  This function uses the function
   (interactive)
   (let ((cp (cfw:create-calendar-component-buffer
              :date date :buffer buffer :custom-map custom-map
-	     :contents-sources contents-sources
-	     :annotation-sources annotation-sources :view view :sorter sorter)))
+             :contents-sources contents-sources
+             :annotation-sources annotation-sources :view view :sorter sorter)))
     (switch-to-buffer (cfw:cp-get-buffer cp))))
 
 (defun* cfw:create-calendar-component-buffer
@@ -2379,11 +2620,11 @@ DATE is initial focus date. If it is nil, today is selected initially."
            :opt-period-face '(:slant italic)
            :data
            (lambda (b e)
-             '(((1  1 2011) "TEST1")
+             '(((1  1 2011) "A happy new year!")
                ((1 10 2011) "TEST2" "TEST3")
                (periods
-                ((1 8 2011) (1 9 2011) "PERIOD1")
-                ((1 11 2011) (1 12 2011) "Period2")
+                ((1 8 2011) (1 9 2011) "Range1")
+                ((1 11 2011) (1 12 2011) "[Sample]Range2 1/8-1/9")
                 ((1 12 2011) (1 14 2011) "long long title3"))
                ))
            :update
@@ -2393,8 +2634,8 @@ DATE is initial focus date. If it is nil, today is selected initially."
            :name "test2"
            :data
            (lambda (b e)
-             '(((1  2 2011) "PTEST1")
-               ((1 10 2011) "PTEST2" "PTEST3")
+             '(((1  2 2011) "The quick brown fox jumped over the lazy dog. The internationalization and Localization are long words.")
+               ((1 10 2011) "PTEST2 title subject" "PTEST3 multi-line sample")
                (periods
                 ((1 14 2011) (1 15 2011) "Stack")
                 ((1 29 2011) (1 31 2011) "PERIOD W"))
@@ -2420,7 +2661,8 @@ DATE is initial focus date. If it is nil, today is selected initially."
                ((1 28 2011) . "AN4")
                ))))
          (cp (cfw:create-calendar-component-buffer
-              :view 'month
+              :date (cfw:date 1 10 2011)
+              :view 'two-weeks
               :contents-sources (list source1 source2)
               :annotation-sources (list asource1 asource2))))
     (cfw:cp-add-update-hook cp (lambda () (message "CFW: UPDATE HOOK")))
