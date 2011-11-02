@@ -1,3 +1,7 @@
+2011-11-02  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-site.el (fboundp): Change ecb-compile-window-height to 0.15
+
 2011-10-20  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (appt-display-duration): Don't delete appt window.
