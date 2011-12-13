@@ -316,6 +316,7 @@
 
 ;; misc
 (setq inhibit-startup-message t)        ; for no desktop
+(setq inhibit-default-init t)           ; for frame-title-format
 (setq generic-define-mswindows-modes t)
 (setq generic-define-unix-modes t)
 (require 'generic-x nil 'noerror)

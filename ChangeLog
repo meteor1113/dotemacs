@@ -1,3 +1,7 @@
+2011-12-13  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (inhibit-default-init): Disable load the default library.
+
 2011-12-12  Meteor Liu  <meteor1113@gmail.com>
 
 	* README (Email): Update README.
