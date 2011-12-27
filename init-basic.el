@@ -100,7 +100,7 @@
         invocation-name
         "@"
         system-name))
-(set-background-color "honeydew")       ; #f0fff0
+(when window-system (set-background-color "honeydew")) ; #f0fff0
 (add-hook 'after-make-frame-functions
           (lambda (frame)
             (when window-system

@@ -1,5 +1,7 @@
 2011-12-27  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (after-make-frame-functions): Fix background color.
+
 	* init-misc.el (require): Fix highlight-symbol face.
 
 	* init-basic.el (dired-mode-hook): Fix dired key setting(terminal
