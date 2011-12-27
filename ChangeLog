@@ -1,3 +1,8 @@
+2011-12-27  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (dired-mode-hook): Fix dired key setting(terminal
+	can't know [return], only (kbd "RET")).
+
 2011-12-13  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (inhibit-default-init): Disable load the default library.
