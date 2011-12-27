@@ -253,7 +253,9 @@
 ;; (setq appt-display-mode-line t)
 ;; (setq appt-display-diary nil)
 (setq appt-display-duration (* 365 24 60 60))
-(unless (daemonp) (appt-activate 1))
+(unless (daemonp)
+  (appt-activate 1)
+  (delete-other-windows))
 ;; (diary 0)
 
 ;; autoinsert
