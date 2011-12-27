@@ -2,6 +2,7 @@
 
 	* init-basic.el (dired-mode-hook): Fix dired key setting(terminal
 	can't know [return], only (kbd "RET")).
+	: Fix dired's single buffer.
 
 2011-12-13  Meteor Liu  <meteor1113@gmail.com>
 

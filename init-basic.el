@@ -627,11 +627,26 @@ Like eclipse's Ctrl+Alt+F."
             (imenu-add-menubar-index)))
 
 (setq dired-dwim-target t)
-(add-hook 'dired-mode-hook
-          (lambda ()
-            (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
-            (define-key dired-mode-map (kbd "^")
-              (lambda () (interactive) (find-alternate-file "..")))))
+;; (add-hook 'dired-mode-hook
+;;           (lambda ()
+;;             (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+;;             (define-key dired-mode-map (kbd "^")
+;;               (lambda () (interactive) (find-alternate-file "..")))))
+(defadvice dired-find-file (around dired-find-file-single-buffer activate)
+  "Replace current buffer if file is a directory."
+  (interactive)
+  (let ((orig (current-buffer))
+        (filename (dired-get-file-for-visit)))
+    ad-do-it
+    (when (and (file-directory-p filename)
+               (not (eq (current-buffer) orig)))
+      (kill-buffer orig))))
+(defadvice dired-up-directory (around dired-up-directory-single-buffer activate)
+  "Replace current buffer if file is a directory."
+  (interactive)
+  (let ((orig (current-buffer)))
+    ad-do-it
+    (kill-buffer orig)))
 
 (add-hook 'change-log-mode-hook 'turn-on-auto-fill)
 

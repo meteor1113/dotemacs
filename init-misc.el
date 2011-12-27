@@ -397,7 +397,10 @@
 
 ;; dired+.el
 (when window-system
-  (eval-after-load "dired" '(require 'dired+ nil 'noerror)))
+  (eval-after-load "dired"
+    '(when (require 'dired+ nil 'noerror)
+       (define-key dired-mode-map [mouse-2] 'diredp-mouse-find-file)
+       (toggle-dired-find-file-reuse-dir 1))))
 
 ;; browse-kill-ring
 (when (require 'browse-kill-ring nil 'noerror)
