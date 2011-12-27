@@ -85,6 +85,10 @@
 ;; (blink-cursor-mode -1)
 (setq x-stretch-cursor t)
 (xterm-mouse-mode 1)               ; (if window-system -1 1)
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (with-selected-frame frame
+              (xterm-mouse-mode 1))))
 ;; (mouse-avoidance-mode 'animate)
 ;; (setq mouse-autoselect-window t)
 (setq-default indicate-buffer-boundaries (quote left))
@@ -99,8 +103,9 @@
 (set-background-color "honeydew")       ; #f0fff0
 (add-hook 'after-make-frame-functions
           (lambda (frame)
-            (with-selected-frame frame
-              (set-background-color "honeydew"))))
+            (when window-system
+              (with-selected-frame frame
+                (set-background-color "honeydew")))))
 ;; (unless window-system
 ;;   (setq frame-background-mode 'dark))
 
