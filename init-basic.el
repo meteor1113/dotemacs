@@ -103,8 +103,10 @@
 (when window-system (set-background-color "honeydew")) ; #f0fff0
 (add-hook 'after-make-frame-functions
           (lambda (frame)
-            (when window-system
+            (when (and (framep frame)
+                       (not (eq (framep frame) t)))
               (with-selected-frame frame
+                ;; (when window-system
                 (set-background-color "honeydew")))))
 ;; (unless window-system
 ;;   (setq frame-background-mode 'dark))
