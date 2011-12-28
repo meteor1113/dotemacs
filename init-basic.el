@@ -75,7 +75,7 @@
 (size-indication-mode 1)
 ;; (setq display-time-24hr-format t)
 ;; (setq display-time-day-and-date t)
-(display-time-mode t)
+;; (display-time-mode t)
 (which-function-mode t)
 (setq buffers-menu-max-size 30)
 (when (fboundp 'global-linum-mode)

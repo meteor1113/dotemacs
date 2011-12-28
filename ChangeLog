@@ -1,5 +1,7 @@
 2011-12-28  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Disable display time.
+
 	* init-misc.el (init-emms): Update emms modeline setting.
 
 2011-12-27  Meteor Liu  <meteor1113@gmail.com>
