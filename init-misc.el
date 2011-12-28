@@ -707,7 +707,7 @@ a c mode)."
         (emms-default-players)
         (setq emms-repeat-playlist t)
         (setq emms-mode-line-format "[%s]")
-        (defun emms-mode-line--current-nondirectory ()
+        (defun emms-mode-line-playlist-current-nondirectory ()
           "Format the currently playing song."
           (format emms-mode-line-format
                   (file-name-nondirectory
