@@ -706,9 +706,21 @@ a c mode)."
         (emms-standard)
         (emms-default-players)
         (setq emms-repeat-playlist t)
+        (setq emms-mode-line-format "[%s]")
+        (defun emms-mode-line--current-nondirectory ()
+          "Format the currently playing song."
+          (format emms-mode-line-format
+                  (file-name-nondirectory
+                   (emms-track-description
+                    (emms-playlist-current-selected-track)))))
+        (setq emms-mode-line-mode-line-function
+              'emms-mode-line-playlist-current-nondirectory)
+        (setq emms-mode-line-titlebar-function
+              'emms-mode-line-playlist-current-nondirectory)
         (emms-mode-line 1)
         (emms-mode-line-blank)
-        (emms-playing-time 1)
+        ;; (setq emms-playing-time-style 'bar)
+        ;; (emms-playing-time 1)
         t)))
 (defadvice emms (before init-emms activate)
   "Initial emms first."
