@@ -402,6 +402,9 @@
        (define-key dired-mode-map [mouse-2] 'diredp-mouse-find-file)
        (toggle-dired-find-file-reuse-dir 1))))
 
+;; htmlize
+(autoload 'htmlize-buffer "htmlize" nil t)
+
 ;; browse-kill-ring
 (when (require 'browse-kill-ring nil 'noerror)
   (browse-kill-ring-default-keybindings))
