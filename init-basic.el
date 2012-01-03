@@ -202,6 +202,13 @@
 (and (fboundp 'desktop-save-mode)
      (not (daemonp))
      (desktop-save-mode (if window-system 1 -1)))
+(filesets-init)
+(add-to-list 'filesets-data '("~/" (:tree "~/" "^.+\\.*$")))
+(add-to-list 'filesets-data
+             (list "dotemacs/"
+                   (list :tree (file-name-directory
+                                (or load-file-name (buffer-file-name)))
+                         "^.+\\.*$")))
 
 ;; backup
 (setq make-backup-files t)

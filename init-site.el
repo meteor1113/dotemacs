@@ -242,6 +242,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
 (unless (boundp 'stack-trace-on-error)
   (defvar stack-trace-on-error nil))
 (when (fboundp 'ecb-minor-mode)
+  (defvar ecb-minor-mode nil)
   (setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1
         ecb-source-path '("/")
         ecb-layout-name 'left3

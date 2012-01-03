@@ -1,5 +1,7 @@
 2012-01-03  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (filesets-data): Use filesets.
+
 	* init-misc.el (htmlize-buffer): autoload htmlize.
 
 2011-12-28  Meteor Liu  <meteor1113@gmail.com>
