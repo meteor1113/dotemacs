@@ -203,7 +203,18 @@
      (not (daemonp))
      (desktop-save-mode (if window-system 1 -1)))
 (filesets-init)
-(add-to-list 'filesets-data '("~/" (:tree "~/" "^.+\\.*$")))
+;; (add-to-list 'filesets-data '("~/.emacs" (:file "~/.emacs")))
+;; (add-to-list 'filesets-data '("~/" (:pattern "~/" "^.+\\.*[^~]$")))
+(add-to-list 'filesets-data (list "~/" (list :files
+                                             "~/.emacs"
+                                             "~/.emacs.desktop"
+                                             "~/.emacs-places"
+                                             "~/.notes"
+                                             "~/.recentf"
+                                             "~/.profile"
+                                             "~/.bash_profile"
+                                             "~/.bashrc")))
+(add-to-list 'filesets-data '("~/.emacs.d" (:tree "~/.emacs.d/" "^.+\\.*$")))
 (add-to-list 'filesets-data
              (list "dotemacs/"
                    (list :tree (file-name-directory

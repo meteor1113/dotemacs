@@ -1,3 +1,7 @@
+2012-01-04  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (filesets-data): Fix filesets.
+
 2012-01-03  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (filesets-data): Use filesets.

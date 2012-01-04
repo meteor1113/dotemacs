@@ -1,5 +1,5 @@
 (when (fboundp 'ede-cpp-root-project)
-  (ede-cpp-root-project "library"
+  (ede-cpp-root-project "cpp-library"
                         :name "cpp-library"
                         :version "0.2"
                         :file (or load-file-name (buffer-file-name))
@@ -19,3 +19,10 @@
                         ;; :spp-table '(("isUnix" . "")
                         ;;              ("BOOST_TEST_DYN_LINK" . ""))
                         ))
+
+(eval-after-load "filesets"
+  '(add-to-list 'filesets-data
+                (list "[common]library/"
+                      (list :tree (file-name-directory
+                                   (or load-file-name (buffer-file-name)))
+                            "^.+\\.*$"))))
