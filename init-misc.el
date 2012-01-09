@@ -279,6 +279,9 @@
 (autoload 'rainbow-mode "rainbow-mode"
   "Colorize strings that represent colors." t)
 
+;; color-theme
+(require 'color-theme-autoloads nil 'noerror)
+
 ;; highlight-tail
 (autoload 'highlight-tail-mode "highlight-tail"
   "Draw a \"tail\" while you're typing." t)

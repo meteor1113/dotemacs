@@ -1,3 +1,7 @@
+2012-01-09  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add color-theme.
+
 2012-01-04  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (filesets-data): Fix filesets.
