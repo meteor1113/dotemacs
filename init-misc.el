@@ -282,10 +282,6 @@
 ;; color-theme
 (require 'color-theme-autoloads nil 'noerror)
 
-;; highlight-tail
-(autoload 'highlight-tail-mode "highlight-tail"
-  "Draw a \"tail\" while you're typing." t)
-
 ;; nyan-mode
 (autoload 'nyan-mode "nyan-mode" nil t)
 (autoload 'nyan-start-animation "nyan-mode" nil t)
@@ -297,6 +293,14 @@
         (nyan-start-animation)
     (nyan-stop-animation)))
 (ignore-errors (and window-system (nyan-mode t)))
+
+;; volatile-highlights
+(autoload 'volatile-highlights-mode "volatile-highlights" nil t)
+(ignore-errors (volatile-highlights-mode t))
+
+;; highlight-tail
+(autoload 'highlight-tail-mode "highlight-tail"
+  "Draw a \"tail\" while you're typing." t)
 
 ;; highlight-parentheses
 ;; (add-hook 'find-file-hooks

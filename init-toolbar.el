@@ -356,6 +356,10 @@
   '(menu-item "highlight-tail-mode" highlight-tail-mode
               :enable (fboundp 'highlight-tail-mode)
               :button (:toggle . highlight-tail-mode)))
+(define-key minormode-sub-menu [volatile-highlights-mode]
+  '(menu-item "volatile-highlights-mode" volatile-highlights-mode
+              :enable (fboundp 'volatile-highlights-mode)
+              :button (:toggle . volatile-highlights-mode)))
 (define-key minormode-sub-menu [nyan-mode]
   '(menu-item "nyan-mode" nyan-mode
               :enable (fboundp 'nyan-mode)

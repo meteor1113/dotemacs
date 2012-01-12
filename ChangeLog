@@ -1,3 +1,7 @@
+2012-01-12  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add volatile-highlights.
+
 2012-01-09  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add color-theme.
