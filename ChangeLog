@@ -1,5 +1,7 @@
 2012-01-12  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (kbd): Bind Ctrl + mouse wheel to text scale.
+
 	* init-misc.el: Add volatile-highlights.
 
 2012-01-09  Meteor Liu  <meteor1113@gmail.com>
