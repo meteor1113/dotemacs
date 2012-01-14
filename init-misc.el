@@ -715,6 +715,10 @@ a c mode)."
                  (require 'emms-playing-time nil t))
         (emms-standard)
         (emms-default-players)
+        (progn
+          (define-emms-simple-player mpg123 '(file url)
+            (emms-player-simple-regexp "mp3" "mp2") "mpg123")
+          (add-to-list 'emms-player-list 'emms-player-mpg123 'append))
         (setq emms-repeat-playlist t)
         (setq emms-mode-line-format "[%s]")
         (defun emms-mode-line-playlist-current-nondirectory ()
