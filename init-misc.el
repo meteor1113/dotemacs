@@ -269,6 +269,12 @@
   (global-set-key (kbd "<M-S-left>") 'recent-jump-jump-backward)
   (global-set-key (kbd "<M-S-right>") 'recent-jump-jump-forward))
 
+;; ace-jump-mode
+(autoload 'ace-jump-mode "ace-jump-mode" nil t)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(eval-after-load "viper-keym"
+  '(define-key viper-vi-global-user-map (kbd "SPC") 'ace-jump-mode))
+
 ;; drag-stuff
 (autoload 'drag-stuff-global-mode "drag-stuff" "Toggle Drag-Stuff mode." t)
 ;; (when (and (ignore-errors (require 'drag-stuff nil 'noerror))

@@ -354,6 +354,7 @@
 ;; (setq max-specpdl-size 4000)
 ;; (setq max-lisp-eval-depth 4000)
 ;; (setq debug-on-error t)
+(autoload 'zone-when-idle "zone" nil t)
 (zone-when-idle 300)
 
 (defadvice find-tag (before tags-file-name-advice activate)

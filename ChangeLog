@@ -1,5 +1,7 @@
 2012-01-18  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el (ace-jump-mode): Add ace-jump-mode.
+
 	* init-basic.el (300): Setup zone-when-idle.
 
 2012-01-15  Meteor Liu  <meteor1113@gmail.com>
