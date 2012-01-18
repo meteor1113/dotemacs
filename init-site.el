@@ -271,6 +271,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
                                                   ("*Python Output*")
                                                   ("*Org Agenda*")
                                                   (" *EMMS Playlist*")
+                                                  ("*Moccur*")
                                                   ("*Directory"))))
      (setq ecb-compilation-major-modes
            (append ecb-compilation-major-modes '(change-log-mode
