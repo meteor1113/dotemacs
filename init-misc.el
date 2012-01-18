@@ -273,6 +273,8 @@
 ;; ace-jump-mode
 (autoload 'ace-jump-mode "ace-jump-mode" nil t)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(eval-after-load "ace-jump-mode"
+  '(set-face-background 'ace-jump-face-foreground "yellow"))
 (eval-after-load "viper-keym"
   '(define-key viper-vi-global-user-map (kbd "SPC") 'ace-jump-mode))
 
