@@ -1,6 +1,7 @@
 2012-01-18  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el (ace-jump-mode): Add ace-jump-mode.
+	(and): Don't save ac completion history file.
 
 	* init-basic.el (300): Setup zone-when-idle.
 

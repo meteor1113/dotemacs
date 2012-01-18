@@ -596,6 +596,7 @@ a c mode)."
 (when (and (> emacs-major-version 21)
            (require 'auto-complete nil 'noerror)
            (require 'auto-complete-config nil 'noerror))
+  (setq ac-use-comphist nil)
   (define-key ac-completing-map [return] 'ac-complete)
   (setq ac-modes
         (append ac-modes '(org-mode objc-mode jde-mode sql-mode
