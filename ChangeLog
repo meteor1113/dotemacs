@@ -2,6 +2,7 @@
 
 	* init-misc.el (ace-jump-mode): Add ace-jump-mode.
 	(and): Don't save ac completion history file.
+	("viper"): Fix vimpulse setting.
 
 	* init-basic.el (300): Setup zone-when-idle.
 

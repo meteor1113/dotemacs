@@ -255,8 +255,9 @@
 (autoload 'magit-status "magit" nil t)
 
 ;; vimpulse
-;; (eval-after-load "viper"
-;;   '(require 'vimpulse nil 'noerror))
+(setq viper-mode nil)
+(eval-after-load "viper"
+  '(require 'vimpulse nil 'noerror))
 
 ;; ascii
 (autoload 'ascii-on        "ascii" "Turn on ASCII code display."   t)
