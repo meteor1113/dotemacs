@@ -19,9 +19,9 @@ etc/sample/dir-locals.el是.dir-locals.el的例子。
 安装:
 git clone http://github.com/meteor1113/dotemacs.git
 把etc/sample/emacs拷贝到$HOME目录下改名为.emacs，修改load-path为dotemacs的实际路径，根据需要可注释掉部分内容。
-如果需要cedet，可以从[http://cedet.sourceforge.net]下载cedet并安装（Windows我一般直接解压在site-lisp目录下，Linux和MacOSX一般解压到~/.emacs.d目录下）。
-如果需要ecb，可以从[http://ecb.sourceforge.net]下载ecb并安装，安装位置可参考cedet。
-如果需要用jdee开发java，可以从[http://jdee.sourceforge.net]下载jdee并安装，安装位置可参考cedet。
-如果需要用ropemacs开发python，可以分别[从http://rope.sourceforge.net]，[http://pymacs.progiciels-bpi.ca/pymacs.html]，[http://rope.sourceforge.net/ropemacs.html]下载rope，pymacs，ropemacs并安装，把pymacs编译时生成的pymacs.el文件放在site-lisp或~/.emacs.d目录下。（注意ropemacs需要下载snapshot版，release的版本不能补全）
+如果需要cedet，可以从 http://cedet.sourceforge.net 下载cedet并安装（Windows我一般直接解压在site-lisp目录下，Linux和MacOSX一般解压到~/.emacs.d目录下）。
+如果需要ecb，可以从 http://ecb.sourceforge.net 下载ecb并安装，安装位置可参考cedet。
+如果需要用jdee开发java，可以从 http://jdee.sourceforge.net 下载jdee并安装，安装位置可参考cedet。
+如果需要用ropemacs开发python，可以分别从 http://rope.sourceforge.net ， http://pymacs.progiciels-bpi.ca/pymacs.html ， http://rope.sourceforge.net/ropemacs.html 下载rope，pymacs，ropemacs并安装，把pymacs编译时生成的pymacs.el文件放在site-lisp或~/.emacs.d目录下。（注意ropemacs需要下载snapshot版，release的版本不能补全）
 
 Email: meteor1113@gmail.com
