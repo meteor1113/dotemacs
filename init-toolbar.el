@@ -410,6 +410,10 @@
   '(menu-item "global-undo-tree-mode" global-undo-tree-mode
               :enable (fboundp 'global-undo-tree-mode)
               :button (:toggle . global-undo-tree-mode)))
+(define-key minormode-sub-menu [global-auto-complete-mode]
+  '(menu-item "global-auto-complete-mode" global-auto-complete-mode
+              :enable (fboundp 'global-auto-complete-mode)
+              :button (:toggle . global-auto-complete-mode)))
 (define-key minormode-sub-menu [global-linum-mode]
   '(menu-item "global-linum-mode" global-linum-mode
               :enable (fboundp 'global-linum-mode)
