@@ -110,6 +110,8 @@
                 (set-background-color "honeydew")))))
 ;; (unless window-system
 ;;   (setq frame-background-mode 'dark))
+;; (set-frame-parameter (selected-frame) 'alpha (list 85 50)) ; Transparent
+;; (add-to-list 'default-frame-alist (cons 'alpha (list 85 50)))
 
 ;; edit
 (setq-default tab-width 4)
