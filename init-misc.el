@@ -476,6 +476,13 @@
             (setq imenu-generic-expression cc-imenu-java-generic-expression)
             (imenu-add-menubar-index)))
 
+;; php-mode
+(autoload 'php-mode "php-mode" nil t)
+(add-to-list 'auto-mode-alist
+             '("\\.php[34]?\\'\\|\\.phtml\\'" . php-mode))
+(add-to-list 'auto-mode-alist '("\\.module\\'" . php-mode))
+(add-to-list 'auto-mode-alist '("\\.inc\\'" . php-mode))
+
 ;; sourcepair
 (setq sourcepair-source-extensions
       '(".cpp" ".cxx" ".c++" ".CC" ".cc" ".C" ".c" ".mm" ".m"))

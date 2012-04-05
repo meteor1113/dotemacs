@@ -1,0 +1,513 @@
+2008-11-04  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* Makefile (version): Change to 1.5.0 for release.
+
+	* php-mode.el: Update modification date in the header and add
+	ChangeLog entry for new version.
+	(php-mode-version-number, php-mode-modified): Mark as 1.5.0
+	release with today's date.
+
+	* php-mode.texi (version): Change to 1.5.0 for release.
+
+2008-11-03  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-class-key): Use c-lang-const to retrieve value
+	for c-symbol-key.
+	(php-mode): Add underscore (_) to syntax table for
+	font-lock-defaults.
+	(php-font-lock-keywords-1, php-font-lock-keywords-2)
+	(php-font-lock-keywords-3): Change references to \\s_ in regular
+	expressions to just using \\sw.  Remove usage of "[^_$]?" and
+	"[^_]?"  regular expression.
+
+2008-10-27  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el: Removed items in the ChangeLog section.  A
+	ChangeLog file is now included with the source package.  Convert
+	tabs to spaces.  Add form feed characters between sections.
+	Fix indentation levels.  Fix various typos and documentation
+	string errors.  Make in-line comment style consistent.
+	(php-default-face, font-lock-keyword-face)
+	(font-lock-constant-face): Remove conditional bindings and XEmacs
+	code that likely does nothing.
+	
+2008-10-23  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-imenu-generic-expression): Reverse order of
+	expression, since Imenu displays it in reverse.
+	(php-completion-table): Move next to php-complete-function.
+
+2008-10-23  David House <dmhouse-@-gmail.com>
+
+	* php-mode.el (php-font-lock-keywords-1)
+	(php-font-lock-keywords-2): Fix regular expression for
+	highlighting various keywords when they're at the beginning or end
+	of the line.
+
+2008-10-22  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-imenu-generic-expression)
+	(php-beginning-of-defun-regexp): Fix regular expression that is
+	failing to match identifiers in function definitions for Imenu and
+	add-change-log commands.
+	(php-keywords): Remove "private" since its handled like
+	"protected" and "public", not as a generic keyword.
+	(php-font-lock-keywords-1): The use of grouping in the regular
+	expression for php-constants and php-keywords added on 2008-04-12
+	requires referencing the group number to highlight, otherwrise the
+	entire match is highlighted.
+
+	* php-mode.texi: Fix typos and fill long paragraphs.  Add
+	maintainer comment near top of file.  Correct maintainer email
+	address with working address.
+	(Introduction): Add index entry for M-x php-mode-version.
+	(Installation): New section.
+	(Editing): Change concept index entry of fill-column to a variable
+	index entry.
+	(Completion): Add index entry for M-x visit-tags-table, and M-x
+	customize-variable.
+	(Index Menu): Finish maintainer comments on Imenu.  "Functions"
+	sub-menu is now named "All Functions".  Document new sub-menus
+	"Public methods", "Private methods", "Protected methods".  Add
+	index entry for M-x customize-variable.
+	(Customization): Add index entry for M-x customize-group.
+	(Embedded HTML): Add index entry for M-x html-mode and M-x
+	html-mode.
+	(Contributors): Add Dias Badekas.
+	(Concept Index): Add maintainer notes on indexing.
+
+2008-10-21  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-imenu-generic-expression)
+	(php-block-stmt-1-kwds, php-block-stmt-2-kwds)
+	(php-block-stmt-1-key, php-block-stmt-2-key)
+	(php-class-decl-kwds, php-class-key): Move some definitions to
+	earlier in the file to avoid "free variable" warnings on byte
+	compilation.
+	(php-tags-key) Remove eval-when-compile for strange
+	compilation error about void variable php-tags.
+
+2008-10-20  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-check-html-for-indentation): Change regular
+	expression for indentation warning to match only HTML at the
+	beginning of the line.
+	(php-check-html-for-indentation, defun-prompt-regexp)
+	(php-class-key): Make regular expressions consistent for
+	whitespace characters by using "\s-".
+	(php-imenu-generic-expression): Support abstract, final, static,
+	public, private and protected keywords in Imenu.
+
+2008-10-20  Dias Badekas <dbadekas-@-aia.gr>
+
+	* php-mode.el (php-constants): Add date and time constants of PHP.
+
+2008-05-21  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.texi (Indentation): PHP mode's indentation rules are
+	inherited from C mode, not the PEAR coding standards by default.
+	Explain when PEAR indentation is on.
+	(Indentation, Motion, Completion, Embedded HTML): Modify various
+	concept index entries.
+	(Completion, Index Menu): Use "its" when describing the value of a
+	variable.
+
+	* php-mode.el (php-mode): Add "\s *" after "&?" in
+	defun-prompt-regexp, since functions can have an ampersand before
+	the identifier with whitespace added.
+	(php-speedbar-config, php-mode-speedbar-open, php-manual-url)
+	(php-mode-force-pear): Remove backslash that causes continuation
+	of the line in docstrings.
+
+2008-05-02  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.texi (Completion): Give example of making a
+	php-completion-file from the PHP manual HTMl files.
+	(Change Logs): Add index entries to this section.
+	(Customization): Add notes as source code comments about what
+	should be documented in this section.
+
+2008-04-12  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.texi: Insert various comments for maintaining the
+	manual.  Make grammatical fixes throughout document.
+	(Introduction): Add description of intended audience.
+	(Editing): Document mark-defun, narrow-to-defun and widen.
+	(Change Logs): Mention `C-x 4 a' can be run from PHP file or Diff
+	mode buffer.
+	(Contributors): Add Aaron Iba.
+
+	* php-mode.el: Update modification date to today's date.
+	(php-tags, php-tags-key): Move definition to above php-mode to
+	avoid byte compiler warning.  Use eval-when-compile for
+	regexp-opt.
+	(php-font-lock-keywords-1): Use font-lock-preprocessor-face for
+	PHP and ASP tags.
+	(php-mode-modified): Use a string literal rather than a computed
+	value.
+	(php-font-lock-keywords-1, php-font-lock-keywords-2): Add [^_$] to
+	beginning and [^_] to end of font-lock regular expressions to
+	avoid false matches in user variable and function names.  Affects
+	highlighting of self, parent, print, break, case, continue, other
+	keywords and internal constants.
+
+2008-04-09  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-mode): Add commented-out c-lang-defvar
+	statements below commented-out out c-lang-defconst.
+	(php-mode-modified): Resolve setting constant by using
+	format-time-string, but still using eval-when-compile.
+	(php-mode): Turn on c-mode features with c-add-language, including
+	c-symbol-key.
+	(php-mode): Overwrite C-style macros rule to recognize PHP tags
+	instead.
+	(php-tags, php-tags-key): New constants.
+	(php-font-lock-keywords-1): Use php-tags-key for syntax
+	highlighting of PHP tags.
+
+2008-04-07  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-beginning-of-defun-regexp): Support function
+	keywords like public, private per #1892662.
+
+2008-04-06  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el: Change incorrect year, "2007", in "Modified" field
+	at top of file.
+	(php-mode-version-number): Mark as "alpha" release.
+	(php-show-arglist, php-font-lock-keywords-1)
+	(php-font-lock-keywords-2): Replace "\\s-" for "[ \t]" in regular
+	expressions to maintain consistency.
+	(php-imenu-generic-expression): Delete comment explaining Imenu,
+	since it's documented *correctly* in the manual.
+	(php-mode): Remove definition php-mode-syntax-table and XEmacs
+	bits that likely don't even work.
+
+2008-01-25  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* Makefile: File added.
+
+2008-01-03  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el: Release candidate for 1.4.0.  Update copyright.
+	Update version number.
+
+2008-01-02  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-mode-modified): Fix this constant when library
+	is compiled by wrapping in eval-when-compile.
+
+2007-12-26  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-mode): Delete use of php-conditional-key, as
+	reported by Diego 'Flameeyes' Pettenò.
+
+2007-11-24  Lennart Borgman  <lennart.borgman-@-gmail.com>
+
+	* php-mode.el (php-mode): Delete trailing whitespace.  Fix
+	capitalization of t value for font-lock-defaults.
+	(php-constants): Delete trailing whitespace.
+
+2007-11-23  Lennart Borgman  <lennart.borgman-@-gmail.com>
+
+	* php-mode.el: Fix typo in changelog "versoin".  Put occurences of
+	`php-mode' in quotes when in an Emacs Lisp documentation string.
+	* php-mode.el (php-mode-hook): Add period to doc string.
+
+2007-11-06  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el: Update file header for 1.4 beta release.  Release
+	under version 3 of the GNU GPL or later.
+
+2007-11-06  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-mode-version): Rename php-mode-version-number.
+	(php-mode): Use setq rather than c-lang-defconst to support CC
+	Mode version 5.31 in Emacs 22.
+	(php-constants): "decomment" -> "uncomment".
+	(php-conditional-key): Delete constant.
+	(php-block-stmt-1-key, php-block-stmt-2-key): Generate from values
+	of php-block-stmt-1-kwds, php-block-stmt-2-kwds, respectively.
+
+2007-11-05  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.texi (Indentation): Explain CC mode customizations.
+
+2007-10-27  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.texi: Rename manual from "Emacs PHP mode" to "PHP Mode
+	Manual".  Add local variable compile-command.
+	(Top): Add new sections to menu.
+	(Introduction): Add index entries.
+	(Electricity): Add index entries.  Give example electric
+	characters.  Explain how to temporarily shut off electricity.
+	(Motion): Add index entries.
+	(Indentation): Add index entries.  Explain indentation rules.
+	Mention HTML indentation.
+	(Embedded HTML): New appendix section.
+	(Concept Index): Renamed from Index.
+	(Function Index, Keyboard Index): New indexes.
+
+2007-10-26  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-mode-modified): Silence error for
+	re-search-backward.
+	(php-check-html-for-indentation): Fix error "Invalid search
+	bound (wrong side of point)".  Have HTML regexp match opening
+	elements, with attributes.
+
+2007-10-25  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.texi: File added.
+
+	* php-mode.el (php-check-html-for-indentation): Search for HTML
+	tags only on current line.
+	(php-mode): Delete variables that generate compiler warnings.
+	(php-mode-force-pear): Define customization.
+
+2007-10-24  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+	* php-mode.el (php-mode-modified): New constant.
+	(php-speedbar-config): Use boundp for speedbar conditional.
+	(php-mode-version): New function.
+	(php-mode): Specify Javadoc as c-doc-comment-style.
+	(php-imenu-generic-expression): Replace [a-zA-z0-9]
+	with [[:alnum:]].
+
+2007-10-23  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+        * php-mode.el (php-font-lock-keywords-2): Fix by Ian Eure for
+        __CLASS__ constant.
+
+2007-10-22  Aaron S. Hawley  <ashawley-@-sourceforge.net>
+
+        * php-mode.el: Add form feed characters between sections.
+        (php-beginning-of-defun-regexp): New constant.
+        (php-beginning-of-defun, php-end-of-defun): New functions.
+        (php-mode): Call (c-add-language).  Provide local versions
+	of {beginning,end}-of-defun-function, set
+	open-paren-in-column-0-is-defun-start to nil, provide value for
+	defun-prompt-regexp and add-log-current-defun-header-regexp.
+        (php-constants): Add __FUNCTION__, __CLASS__, __METHOD__,
+	E_STRICT, PHP_EOL.  Keep PREG_*, PGSQL_*, and PRINTER_* constants
+	on separate lines.
+        (php-font-lock-keywords-3): Fontify "class::member".  Allow
+	call-by-reference for PHP 5 function declarations.  Use
+	php-default-face everywhere.
+        (php-imenu-generic-expression) Imenu fix by Bill Lovett for
+	functions with visibility declarations (private, public,
+	protected).
+        (php-conditional-key): Rewritten using php-block-stmt-1-kwds and
+	php-block-stmt-2-kwds.
+        (php-block-stmt-1-kwds): New constant.
+        (php-block-stmt-1-kwds): New constant.
+        (php-class-kwds): Removed.
+        (php-class-decl-kwds): New constant.
+        (php-class-key): Don't use php-class-kwds.
+
+2007-04-21  Lennart Borgman  <lennart.borgman-@-gmail.com>
+
+	* php-mode.el: Release separately by Lennart Borgman on 2007-04-21
+	as version 1.3.0.  Documentation changes and fixes of XEmacs
+	conditionals throughout code.
+	(php-default-face): New font-lock face.
+	(php-speedbar-config, php-mode-speedbar-open): Ignore php-file
+	patterns option, by default set to
+	(php-manual-url, php-search-url, php-completion-file)
+	(php-manual-path): Fix documentation strings.
+	(php-mode-user-hook): Renamed to php-mode-hook.
+	(xemacsp): Removed constant.
+	(php-check-html-for-indentation, php-cautious-indent-region)
+	(php-cautious-indent-line, php-warned-bad-indent): Changed the
+	highlighting of the HTML part.  Use or suggest mumamo.
+	(php-mode): Don't use comment-start, comment-end and
+	comment-start-skip.  Changed the definition of # using a tip from
+	Stefan Monnier. This corrected highlighting and indentation.  Let
+	Customization handle Speedbar setting.
+	(php-font-lock-keywords-1): Use php-default-face.
+	(php-font-lock-keywords-3): Improved HTML highlighting.  Use
+	php-default-face. Add warnings for words not fontified.
+	(php-font-lock-syntactic-keywords): Removed constant.
+
+2005-08-02  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release of version 1.2.0.  Fix some keybindings
+	and default settings by Engelke Eschner.
+	(php-manual-url): Add "manual.php".
+	(php-show-arglist) Implemented by Engelke Eschner.  Bound to C-.
+	(php-complete-function) Implemented by Engelke Eschner.  Bound to
+	M-TAB.
+	(php-mode) Re-enabled #-style comment detection in GNU Emacs by
+	Urban Müller.
+
+2004-01-24  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 1.1.0.  Added PHP5 support by
+	Giacomo Tesio (known problem: doesn't highlight after first
+	'implements'.
+	(php-imenu-generic-expression, php-font-lock-keywords-2)
+	(php-font-lock-keywords-3): Better XEmacs compatibility by Ville
+	Skytta -- imenu, regexp, and comments!
+	(php-conditional-key) Improvement to regexp by Eric Mc Sween.
+
+2003-09-28  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 1.0.5.  Add Contributors section.
+	Cleared the Changelog.
+	(php-mode, php-conditional-key): Add "foreach" to conditional
+	introducing keywords by Nils Rennebarth.
+	(php-mode, php-imenu-generic-expression): Incorporated speedbar
+	defs by Gerrit Riessen.
+
+2003-02-26  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 1.0.4.  Removed abbreviation
+	definitions since they cause abbrev-mode to always be enabled.  If
+	you want them, include them in your php-mode-user-hook as
+	described above.
+	(php-font-lock-keywords-3): Fixed unbalanced regexp for "->symbol"
+	match.
+
+2003-02-24  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 1.0.3.
+	(php-keywords): Include ZE 2 keywords (Stig Bakken).
+	(php-superglobals): Highlight superglobals (Stig Bakken)
+	(php-font-lock-keywords-1, php-font-lock-keywords-2)
+	(php-font-lock-keywords-3): Revised regexps to include '_'.
+	(php-font-lock-keywords-3): Removed '_' out of word syntax table
+	as suggested by Gregory Stark.
+	(php-types) Addition of "boolean" to types from Valentin Funk.
+	(php-mode-abbrev-table): Removed abbreviation definitions since
+	they cause abbrev-mode to always be enabled.
+	(php-file-patterns): Autoloaded as submitted by SourceForge user
+	ppercot.
+
+2002-01-22  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 1.0.2.  Highlight HTML tags and
+	entities (see site for more on HTML).
+	Highlight more constants by default.
+	Fixed problem with $-line indenting inside switch (see comments).
+	Fix to show keymap in help mode (Ryan Sammartino).
+	Added .phps to default extensions to match (John Keller)
+
+2001-11-04  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 1.0.1.
+	Fix for some speedbar problems.
+
+2001-10-21  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 1.0.0.
+	Function indentation fix (Craig Andrews).
+	Added option to open speedbar on buffer load.
+	Fixed PEAR filename matching regexps and bug with mmm-mode.
+	Added preference option to always use PEAR standards.
+	Fixed PEAR hook bug with XEmacs.
+	Took out warning for empty parens in "new Object()".
+	Fixed keyword highlighting of 'this' at start of variable.
+	Removed "goto" references.
+	Added 'next' as keyword.
+
+2001-07-13  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 0.9.9.
+	Fixed highlights for targets of gotos and 'default' within a
+	switch.
+	Changed my e-mail and URL to SourceForge.
+	Changed name of hook variable (update your .emacs).
+	Wrapped PEAR standards into a PEAR hook.
+	Disabled coloring non-core constants (see comments to re-enable).
+
+2001-05-29  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 0.9.8.
+	Thanks to Stig Saether Bakken for a patch that:
+	Checks for PEAR before setting indent-tabs-mode to nil
+	Adds some keywords that got lost
+	Highlights function $foo and class::method
+	Removes C++ template from speedbar search expression :)
+	Adds about a thousand constants
+	So many that if you want to recompile php-mode-098.el
+	you'll have to greatly increase max-specpdl-size.
+
+2001-05-23  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 0.97.  This version marks a huge
+	advance and will become 1.0.0 after I wait a bit for possible bug
+	reports. The primary improvement is support for shell-style
+	comments in both GNU Emacs and XEmacs.  Thank for this goes to
+	Fred Yankowski <fred@ontosys.com>.
+	Customization of mode hook (Roland Rosenfeld).
+	Fontifies object references much more intelligently.
+	Added .inc to filename and Speedbar patterns.
+	PEAR coding standards (tabs -> 4 spaces).
+	Fontify ASP-style tag (Fred).
+	Rudimentary coloration of HTML tags (Fred).
+	Buges fixed:
+	Fixed extraneous newline at end of file (Fred).
+	Colored functions within comments.
+	Didn't recognize keywords in caps.
+	Fixed colored functions as variables when referenced by an object.
+
+2001-01-28  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 0.9.6.
+	Keyboard shortcuts for menu functions (Boris Folgmann).
+	Fixed default regexp for detecting PHP files (Mathias Meyer).
+	Changed PHP3 menu to simply PHP.
+
+2001-01-14  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 0.9.5.
+	Been told that problems with XEmacs are no longer.
+	Search documention command actually works.
+	Browse manual customization improved.
+
+2001-01-08  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 0.9.4.
+	Search documentation command.
+	Browse manual function.
+	Simplified file patterns for which to load php-mode.
+	PHP awareness in Speedbar.
+	Customization options for all of the above.
+
+2000-11-12  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 0.9.3.
+	Imenu support for classes and functions (Rex McMaster).
+	Dramatically improved regexps (Kevin Blake).
+	Fix for XEmacs font-lock-pre-idle-hook problem? (Doug Marcey).
+	Progress on PHP3 menu functions (Sean Champ).
+	Added "foreach" to list of keywords (Sean Champ).
+	More file suffixes observed (Vinai Kopp).
+
+2000-03-08  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 0.9.2.
+	Fixed bug with 1-character identifiers.
+	Fixed bug with class declaration coloring.
+	Added coloring for true, false, null.
+	Officially not supporting XEmacs.
+
+2000-02-21  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 0.9.1.
+	Disabled keywords in XEmacs for compatibility
+	Added usage info to comments.
+
+2000-01-09  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Release version 0.9.
+	Clarified bug with XEmacs (Juanjo).
+	Fixed minor bug with comment highlighting (Juanjo).
+	Syntax parsing from PHP3 lexical scanner (Torsten Martinsen).
+	Highlights function and method names now.
+	Highlights "this" as keyword when used as an object in variable
+	names.
+
+1999-05-17  Turadg Aleahmad <turadg-@-users.sourceforge.net>
+
+	* php-mode.el: Initial release, version 0.8.
