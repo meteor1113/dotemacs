@@ -124,7 +124,10 @@
 ;; (add-hook 'text-mode-hook (lambda () (setq require-final-newline nil)))
 (find-function-setup-keys)
 (when (fboundp 'ido-mode)
-  (ido-mode t))
+  (ido-mode t)
+  ;; (ido-everywhere t)                    ; For GUI
+  (setq ido-use-filename-at-point 'guess
+        ido-use-url-at-point t))
 (icomplete-mode t)
 (show-paren-mode t)
 ;; (setq show-paren-style 'expression)
@@ -259,9 +262,14 @@
      "Hack whitespace, it's very slow in c++-mode."))
 
 ;; file
-(ffap-bindings)
-(when (boundp 'ffap-c-path)
-  (setq ffap-c-path (append ffap-c-path user-include-dirs)))
+;; (setq ffap-require-prefix t
+;;       dired-at-point-require-prefix t)
+;; (ffap-bindings)                         ; Use ido to call ffap
+(setq kmacro-call-mouse-event nil)
+(global-set-key [S-mouse-3] 'ffap-at-mouse)
+(global-set-key [C-S-mouse-3] 'ffap-menu)
+(eval-after-load "ffap"
+  '(setq ffap-c-path (append ffap-c-path user-include-dirs)))
 (eval-after-load "filecache"
   '(progn (file-cache-add-directory-list load-path)
           (file-cache-add-directory-list user-include-dirs)

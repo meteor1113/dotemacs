@@ -1,3 +1,7 @@
+2012-04-11  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (fboundp): Fix ido and ffap.
+
 2012-04-05  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add php-mode.
