@@ -207,24 +207,6 @@
 (and (fboundp 'desktop-save-mode)
      (not (daemonp))
      (desktop-save-mode (if window-system 1 -1)))
-(filesets-init)
-;; (add-to-list 'filesets-data '("~/.emacs" (:file "~/.emacs")))
-;; (add-to-list 'filesets-data '("~/" (:pattern "~/" "^.+\\.*[^~]$")))
-(add-to-list 'filesets-data (list "~/" (list :files
-                                             "~/.emacs"
-                                             "~/.emacs.desktop"
-                                             "~/.emacs-places"
-                                             "~/.notes"
-                                             "~/.recentf"
-                                             "~/.profile"
-                                             "~/.bash_profile"
-                                             "~/.bashrc")))
-(add-to-list 'filesets-data '("~/.emacs.d" (:tree "~/.emacs.d/" "^.+\\.*$")))
-(add-to-list 'filesets-data
-             (list "dotemacs/"
-                   (list :tree (file-name-directory
-                                (or load-file-name (buffer-file-name)))
-                         "^.+\\.*$")))
 
 ;; backup
 (setq make-backup-files t)
@@ -276,6 +258,24 @@
           (file-cache-add-directory "/usr/include")
           (file-cache-add-directory-recursively "/usr/include/c++")
           (file-cache-add-directory-recursively "/usr/local/include")))
+(filesets-init)
+;; (add-to-list 'filesets-data '("~/.emacs" (:file "~/.emacs")))
+;; (add-to-list 'filesets-data '("~/" (:pattern "~/" "^.+\\.*[^~]$")))
+(add-to-list 'filesets-data (list "~/" (list :files
+                                             "~/.emacs"
+                                             "~/.emacs.desktop"
+                                             "~/.emacs-places"
+                                             "~/.notes"
+                                             "~/.recentf"
+                                             "~/.profile"
+                                             "~/.bash_profile"
+                                             "~/.bashrc")))
+(add-to-list 'filesets-data '("~/.emacs.d" (:tree "~/.emacs.d/" "^.+\\.*$")))
+(add-to-list 'filesets-data
+             (list "dotemacs/"
+                   (list :tree (file-name-directory
+                                (or load-file-name (buffer-file-name)))
+                         "^.+\\.*$")))
 
 ;; calendar
 (setq calendar-chinese-all-holidays-flag t)
