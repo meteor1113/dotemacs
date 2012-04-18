@@ -30,7 +30,8 @@
   (add-to-list 'exec-path bin-dir))
 (let ((cedet-possible-dirs '("~/.emacs.d/cedet-1.0pre6"
                              "~/.emacs.d/cedet-1.0pre7"
-                             "~/.emacs.d/cedet-1.0")))
+                             "~/.emacs.d/cedet-1.0"
+                             "~/.emacs.d/cedet-1.1")))
   (dolist (dir cedet-possible-dirs)
     (let ((default-directory (expand-file-name dir)))
       (when (file-exists-p default-directory)
