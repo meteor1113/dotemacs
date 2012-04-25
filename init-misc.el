@@ -473,6 +473,7 @@
       (append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
 (add-hook 'csharp-mode-hook
           (lambda ()
+            (c-set-style "c#")
             (setq imenu-generic-expression cc-imenu-java-generic-expression)
             (imenu-add-menubar-index)))
 
@@ -609,7 +610,7 @@ a c mode)."
   (setq ac-use-comphist nil)
   (define-key ac-completing-map [return] 'ac-complete)
   (setq ac-modes
-        (append ac-modes '(org-mode objc-mode jde-mode sql-mode
+        (append ac-modes '(org-mode objc-mode csharp-mode jde-mode sql-mode
                                     plsql-mode sqlplus-mode
                                     inferior-emacs-lisp-mode eshell-mode
                                     change-log-mode text-mode
