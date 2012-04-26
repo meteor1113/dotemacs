@@ -1,3 +1,8 @@
+2012-04-26  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Don't enable linum-mode global, only enable in
+	program mode.
+
 2012-04-25  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Fix csharp-mode setting.

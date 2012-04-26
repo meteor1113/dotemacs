@@ -414,6 +414,10 @@
   '(menu-item "global-auto-complete-mode" global-auto-complete-mode
               :enable (fboundp 'global-auto-complete-mode)
               :button (:toggle . global-auto-complete-mode)))
+(define-key minormode-sub-menu [linum-mode]
+  '(menu-item "linum-mode" linum-mode
+              :enable (fboundp 'linum-mode)
+              :button (:toggle . linum-mode)))
 (define-key minormode-sub-menu [global-linum-mode]
   '(menu-item "global-linum-mode" global-linum-mode
               :enable (fboundp 'global-linum-mode)
