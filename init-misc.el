@@ -96,9 +96,9 @@
 
 
 ;; cursor-chg
-(when (require 'cursor-chg nil 'noerror)
-  ;; (toggle-cursor-type-when-idle 1)
-  (change-cursor-mode 1))
+;; (when (require 'cursor-chg nil 'noerror)
+;;   ;; (toggle-cursor-type-when-idle 1)
+;;   (change-cursor-mode 1))
 
 ;; cal-china-x
 (eval-after-load "calendar"

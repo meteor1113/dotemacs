@@ -1,6 +1,7 @@
 2012-04-26  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Disable nyan-mode default, too slow.
+	Disable change-cursor-mode for performance.
 
 	* init-basic.el: Disable global-hl-line-mode.
 

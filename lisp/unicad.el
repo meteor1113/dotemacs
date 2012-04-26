@@ -4,8 +4,8 @@
 ;; Copyright (C) 2006, 2007, 2008, 2010 Qichen Huang
 ;; $Id$
 ;; Author: Qichen Huang <unicad.el@gmail.com>
-;; Time-stamp: <2010-04-09 12:53:15>
-;; Version: v1.1.5
+;; Time-stamp: <2010-04-21 15:07:12>
+;; Version: v1.1.6-beta
 ;; Keywords: coding-system, auto-coding-functions
 ;; URL: http://code.google.com/p/unicad/
 
@@ -103,6 +103,7 @@
 ;;;}}}
 
 ;;;{{{ Changelog
+;; v1.1.6 do not invoke unicad by file saving.
 ;; v1.1.5 fixed bug in `unicad-char-after' and `unicad-universal-charset-detect' (size calc was wrong)
 ;; v1.1.4 Add function and variable `unicad-version'. small bug fix, correct unicad-eol from unicad-eof.
 ;; v1.1.3 detect dos eol-type
@@ -142,7 +143,7 @@
 (eval-when-compile
   (require 'cl))
 
-(defvar unicad-version "Unicad v1.1.5")
+(defvar unicad-version "Unicad v1.1.6-beta")
 (defvar unicad-global-enable t)
 (defvar unicad-eol nil)
 (defvar unicad-quick-size 500)
@@ -249,7 +250,8 @@ If optional argument HERE is non-nil, insert string at point."
   ;;(goto-char (point-min))
   (when (and  (or (and (numberp unicad-global-enable) (> unicad-global-enable 0))
                   (eq unicad-global-enable t))
-              (not (local-variable-p 'buffer-file-coding-system)))
+              (not (local-variable-p 'buffer-file-coding-system))
+              (not (buffer-modified-p)))
     (let ((buf (current-buffer)))
 ;;       (make-local-variable 'unicad-best-guess)
 ;;       (make-local-variable 'unicad-singlebyte-best-guess)
