@@ -79,8 +79,8 @@
 ;; (display-time-mode t)
 (which-function-mode t)
 (setq buffers-menu-max-size 30)
+(setq linum-eager nil)
 ;; (when (fboundp 'global-linum-mode)
-;;   ;; (setq linum-eager nil)
 ;;   (global-linum-mode 1))
 ;; (setq-default cursor-type 'bar)
 ;; (blink-cursor-mode -1)
@@ -228,8 +228,8 @@
 ;; (global-hl-line-mode 1)                 ; (if window-system 1 -1)
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 (dolist (mode '(c-mode c++-mode objc-mode java-mode jde-mode
-                       perl-mode cperl-mode python-mode ruby-mode
-                       lisp-mode emacs-lisp-mode
+                       perl-mode cperl-mode php-mode python-mode ruby-mode
+                       lisp-mode emacs-lisp-mode xml-mode nxml-mode html-mode
                        lisp-interaction-mode sh-mode sgml-mode))
   (font-lock-add-keywords
    mode
@@ -718,6 +718,9 @@ Like eclipse's Ctrl+Alt+F."
   (setq nxml-bind-meta-tab-to-complete-flag t)
   (add-hook 'nxml-mode-hook
             '(lambda ()
+               (when (fboundp 'whitespace-mode)
+                 (whitespace-mode t))
+               (linum-mode 1)
                (require 'sgml-mode)
                (set-syntax-table sgml-mode-syntax-table))))
 

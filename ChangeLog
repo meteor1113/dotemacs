@@ -1,5 +1,7 @@
 2012-04-26  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Fix.
+
 	* init-misc.el: Disable nyan-mode default, too slow.
 	Disable change-cursor-mode for performance.
 

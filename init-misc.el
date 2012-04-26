@@ -96,6 +96,7 @@
 
 
 ;; cursor-chg
+(autoload 'change-cursor-mode "cursor-chg" nil t)
 ;; (when (require 'cursor-chg nil 'noerror)
 ;;   ;; (toggle-cursor-type-when-idle 1)
 ;;   (change-cursor-mode 1))
@@ -352,9 +353,9 @@
   ;;              org-agenda-mode cfw:calendar-mode)
   ;;   "This modes don't active highlight-symbol-mode.")
   (defvar hl-s-modes
-    '(c-mode cc-mode c++-mode java-mode objc-mode csharp-mode
+    '(c-mode cc-mode c++-mode java-mode jde-mode objc-mode csharp-mode
              python-mode ruby-mode perl-mode cperl-mode php-mode
-             fortran-mode f90-mode ada-mode xml-mode
+             fortran-mode f90-mode ada-mode xml-mode nxml-mode html-mode
              sql-mode emacs-lisp-mode lisp-interaction-mode
              sh-mode javascript-mode js-mode js2-mode)
     "This modes active highlight-symbol-mode.")
@@ -381,7 +382,7 @@
               (lambda ()
                 (when (memq major-mode hl-s-modes)
                   (highlight-symbol-mode 1)))))
-  (setq highlight-symbol-idle-delay 1.0)
+  (setq highlight-symbol-idle-delay 0.5)
   (defun highlight-symbol-next-or-prev (&optional prev)
     (interactive "P")
     (if prev
@@ -621,6 +622,7 @@ a c mode)."
                                     plsql-mode sqlplus-mode
                                     inferior-emacs-lisp-mode eshell-mode
                                     change-log-mode text-mode
+                                    xml-mode nxml-mode html-mode
                                     tex-mode latex-mode plain-tex-mode
                                     conf-unix-mode conf-windows-mode
                                     conf-colon-mode conf-space-mode
