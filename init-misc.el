@@ -301,7 +301,7 @@
   (if nyan-mode
         (nyan-start-animation)
     (nyan-stop-animation)))
-(ignore-errors (and window-system (nyan-mode t)))
+;; (ignore-errors (and window-system (nyan-mode t)))
 
 ;; volatile-highlights
 (autoload 'volatile-highlights-mode "volatile-highlights" nil t)
@@ -381,7 +381,7 @@
               (lambda ()
                 (when (memq major-mode hl-s-modes)
                   (highlight-symbol-mode 1)))))
-  (setq highlight-symbol-idle-delay 0.5)
+  (setq highlight-symbol-idle-delay 1.0)
   (defun highlight-symbol-next-or-prev (&optional prev)
     (interactive "P")
     (if prev

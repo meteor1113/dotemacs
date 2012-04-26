@@ -1,5 +1,7 @@
 2012-04-26  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Disable nyan-mode default, too slow.
+
 	* init-basic.el: Disable global-hl-line-mode.
 
 	* init-misc.el (require): Don't enable highlight-symbol-mode
