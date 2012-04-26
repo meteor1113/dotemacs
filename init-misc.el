@@ -347,15 +347,22 @@
                                (foreground-color . "black"))))
                   (hi-lock-set-pattern `(,symbol (0 (quote ,color) t))))
               (hi-lock-set-pattern symbol 'highlight-symbol-face)))))))
-  (defvar disable-hl-s-modes
-    '(erc-mode occur-mode w3m-mode help-mode svn-status-mode
-               org-agenda-mode cfw:calendar-mode)
-    "This buffers don't active highlight-symbol-mode.")
+  ;; (defvar disable-hl-s-modes
+  ;;   '(erc-mode occur-mode w3m-mode help-mode svn-status-mode
+  ;;              org-agenda-mode cfw:calendar-mode)
+  ;;   "This modes don't active highlight-symbol-mode.")
+  (defvar hl-s-modes
+    '(c-mode cc-mode c++-mode java-mode objc-mode csharp-mode
+             python-mode ruby-mode perl-mode cperl-mode php-mode
+             fortran-mode f90-mode ada-mode xml-mode
+             sql-mode emacs-lisp-mode lisp-interaction-mode
+             sh-mode javascript-mode js-mode js2-mode)
+    "This modes active highlight-symbol-mode.")
   (when (fboundp 'define-global-minor-mode)
     (define-global-minor-mode global-highlight-symbol-mode
       highlight-symbol-mode
       (lambda ()
-        (unless (memq major-mode disable-hl-s-modes)
+        (when (memq major-mode hl-s-modes)
           (highlight-symbol-mode 1)))))
   ;; (defadvice highlight-symbol-mode-post-command
   ;;   (around gud-tooltip-advice activate)
@@ -372,7 +379,7 @@
       (global-highlight-symbol-mode t)
     (add-hook 'find-file-hooks
               (lambda ()
-                (unless (memq major-mode disable-hl-s-modes)
+                (when (memq major-mode hl-s-modes)
                   (highlight-symbol-mode 1)))))
   (setq highlight-symbol-idle-delay 0.5)
   (defun highlight-symbol-next-or-prev (&optional prev)

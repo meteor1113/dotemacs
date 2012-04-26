@@ -1,7 +1,10 @@
 2012-04-26  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el (require): Don't enable highlight-symbol-mode
+	global, only in program modes.
+
 	* init-basic.el: Don't enable linum-mode global, only enable in
-	program mode.
+	program modes.
 
 2012-04-25  Meteor Liu  <meteor1113@gmail.com>
 
