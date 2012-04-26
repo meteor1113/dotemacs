@@ -131,6 +131,7 @@
 
 ;; calfw
 (autoload 'cfw:open-org-calendar "calfw-org" nil t)
+(autoload 'cfw:open-diary-calendar "calfw-cal" nil t)
 ;; (autoload 'cfw:open-calendar-buffer "calfw" nil t)
 ;; (eval-after-load "calfw"
 ;;   '(when (require 'calfw-org nil 'noerror)
