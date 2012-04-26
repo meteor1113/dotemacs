@@ -1,5 +1,7 @@
 2012-04-26  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Disable global-hl-line-mode.
+
 	* init-misc.el (require): Don't enable highlight-symbol-mode
 	global, only in program modes.
 

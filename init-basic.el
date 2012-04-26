@@ -225,7 +225,7 @@
 (when (fboundp 'transient-mark-mode)
   (transient-mark-mode t))
 (setq hl-line-face 'underline)          ; for highlight-symbol
-(global-hl-line-mode 1)                 ; (if window-system 1 -1)
+;; (global-hl-line-mode 1)                 ; (if window-system 1 -1)
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 (dolist (mode '(c-mode c++-mode objc-mode java-mode jde-mode
                        perl-mode cperl-mode python-mode ruby-mode
