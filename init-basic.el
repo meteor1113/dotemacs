@@ -248,6 +248,7 @@
 ;; (setq ffap-require-prefix t
 ;;       dired-at-point-require-prefix t)
 ;; (ffap-bindings)                         ; Use ido to call ffap
+(autoload 'dired-jump "dired-x" nil t)
 (setq kmacro-call-mouse-event nil)
 (global-set-key [S-mouse-3] 'ffap-at-mouse)
 (global-set-key [C-S-mouse-3] 'ffap-menu)
@@ -609,11 +610,7 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [(control tab)] 'switch-to-other-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
-(define-key global-map "\C-x\C-j"
-  (lambda ()
-    (interactive)
-    (when (require 'dired-x nil 'noerror)
-      (dired-jump))))
+(define-key global-map "\C-x\C-j" 'dired-jump)
 ;; (global-set-key [f4] 'next-error)
 (global-set-key [f4] (lambda (&optional previous)
                        (interactive "P")

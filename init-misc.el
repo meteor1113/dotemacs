@@ -187,15 +187,17 @@
                                             tabbar-last-tab)))
                         :active (buffer-file-name
                                  (tabbar-tab-value tabbar-last-tab))]
-                       ["Open Dired" (dired
-                                      (let ((file (buffer-file-name
-                                                   (tabbar-tab-value
-                                                    tabbar-last-tab))))
-                                        (if file
-                                            (file-name-directory file)
-                                          default-directory)))
-                        :active (buffer-file-name
-                                 (tabbar-tab-value tabbar-last-tab))]
+                       ["Open Dired" dired-jump
+                        :active (fboundp 'dired-jump)]
+                       ;; ["Open Dired" (dired
+                       ;;                (let ((file (buffer-file-name
+                       ;;                             (tabbar-tab-value
+                       ;;                              tabbar-last-tab))))
+                       ;;                  (if file
+                       ;;                      (file-name-directory file)
+                       ;;                    default-directory)))
+                       ;;  :active (buffer-file-name
+                       ;;           (tabbar-tab-value tabbar-last-tab))]
                        "--"
                        ["Undo Close Tab" undo-kill-buffer
                         :active (fboundp 'undo-kill-buffer)]))))

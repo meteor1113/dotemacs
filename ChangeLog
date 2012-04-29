@@ -1,5 +1,9 @@
 2012-04-29  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el: Fix dired-jump.
+
+	* init-toolbar.el: Add linum toolbar iterm.
+
 	* init-basic.el: Fix.
 
 	* init-misc.el (require): Fix highlight-symbol-mode.

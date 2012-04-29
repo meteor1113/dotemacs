@@ -118,7 +118,7 @@
   (customize-mark-to-save 'toolbarshow-flymake)
   (custom-save-all))
 
-(defcustom toolbarshow-remember nil
+(defcustom toolbarshow-remember t
   "If show remember toolbar."
   :type 'boolean
   :group 'toolbarshow)
@@ -742,11 +742,11 @@
                    :enable '(region-active-p)
                    :help '(concat "Convert the region to lower case"
                                   (key4cmd 'downcase-region)))
-(tool-bar-add-item "comment-toggle" 'comment-dwim 'comment-dwim
-                   :visible 'toolbarshow-edit
-                   ;; :enable '(region-active-p)
-                   :help '(concat "Call the comment command you want"
-                                  (key4cmd 'comment-dwim)))
+;; (tool-bar-add-item "comment-toggle" 'comment-dwim 'comment-dwim
+;;                    :visible 'toolbarshow-edit
+;;                    ;; :enable '(region-active-p)
+;;                    :help '(concat "Call the comment command you want"
+;;                                   (key4cmd 'comment-dwim)))
 (tool-bar-add-item "format-region" 'format-region 'format-region
                    :visible 'toolbarshow-edit
                    :enable '(fboundp 'format-region)
@@ -851,18 +851,18 @@
 (tool-bar-add-item "separator" nil 'separator-view-toolbar
                    :visible 'toolbarshow-view
                    :enable nil)
-;; (tool-bar-add-item "linum" 'global-linum-mode 'global-linum-mode
-;;                    :visible 'toolbarshow-view
-;;                    :enable '(fboundp 'global-linum-mode)
-;;                    :button '(:toggle . global-linum-mode)
-;;                    :help '(concat "Toggle Global Linum mode"
-;;                                   (key4cmd 'global-linum-mode)))
 (tool-bar-add-item "line-wrap" 'toggle-truncate-lines 'line-wrap
                    :visible 'toolbarshow-view
                    :enable '(not (truncated-partial-width-window-p))
                    :button '(:radio . (and (null truncate-lines)
                                            (not word-wrap)))
                    :help "Line Wrap")
+(tool-bar-add-item "linum" 'linum-mode 'linum-mode
+                   :visible 'toolbarshow-view
+                   :enable '(fboundp 'linum-mode)
+                   :button '(:toggle . linum-mode)
+                   :help '(concat "Toggle Linum mode"
+                                  (key4cmd 'linum-mode)))
 (tool-bar-add-item "whitespace" 'whitespace-mode 'whitespace-mode
                    :visible 'toolbarshow-view
                    :enable '(fboundp 'whitespace-mode)
