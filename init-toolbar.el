@@ -352,14 +352,6 @@
   '(menu-item "change-cursor-mode" change-cursor-mode
               :enable (fboundp 'change-cursor-mode)
               :button (:toggle . change-cursor-mode)))
-(define-key minormode-sub-menu [highlight-tail-mode]
-  '(menu-item "highlight-tail-mode" highlight-tail-mode
-              :enable (fboundp 'highlight-tail-mode)
-              :button (:toggle . highlight-tail-mode)))
-(define-key minormode-sub-menu [volatile-highlights-mode]
-  '(menu-item "volatile-highlights-mode" volatile-highlights-mode
-              :enable (fboundp 'volatile-highlights-mode)
-              :button (:toggle . volatile-highlights-mode)))
 (define-key minormode-sub-menu [nyan-mode]
   '(menu-item "nyan-mode" nyan-mode
               :enable (fboundp 'nyan-mode)
@@ -422,6 +414,26 @@
   '(menu-item "global-linum-mode" global-linum-mode
               :enable (fboundp 'global-linum-mode)
               :button (:toggle . global-linum-mode)))
+(define-key minormode-sub-menu [highlight-tail-mode]
+  '(menu-item "highlight-tail-mode" highlight-tail-mode
+              :enable (fboundp 'highlight-tail-mode)
+              :button (:toggle . highlight-tail-mode)))
+(define-key minormode-sub-menu [volatile-highlights-mode]
+  '(menu-item "volatile-highlights-mode" volatile-highlights-mode
+              :enable (fboundp 'volatile-highlights-mode)
+              :button (:toggle . volatile-highlights-mode)))
+(define-key minormode-sub-menu [highlight-parentheses-mode]
+  '(menu-item "highlight-parentheses-mode" highlight-parentheses-mode
+              :enable (fboundp 'highlight-parentheses-mode)
+              :button (:toggle . highlight-parentheses-mode)))
+(define-key minormode-sub-menu [highlight-symbol-mode]
+  '(menu-item "highlight-symbol-mode" highlight-symbol-mode
+              :enable (fboundp 'highlight-symbol-mode)
+              :button (:toggle . highlight-symbol-mode)))
+(define-key minormode-sub-menu [global-hl-line-mode]
+  '(menu-item "global-hl-line-mode" global-hl-line-mode
+              :enable (fboundp 'global-hl-line-mode)
+              :button (:toggle . global-hl-line-mode)))
 ;; (define-key minormode-sub-menu [viper-mode]
 ;;   '(menu-item "viper-mode"
 ;;               (lambda ()
@@ -733,8 +745,8 @@
 (tool-bar-add-item "comment-toggle" 'comment-dwim 'comment-dwim
                    :visible 'toolbarshow-edit
                    ;; :enable '(region-active-p)
-                   :help '(concat "Comment or uncomment region"
-                                  (key4cmd 'comment-or-uncomment-region)))
+                   :help '(concat "Call the comment command you want"
+                                  (key4cmd 'comment-dwim)))
 (tool-bar-add-item "format-region" 'format-region 'format-region
                    :visible 'toolbarshow-edit
                    :enable '(fboundp 'format-region)

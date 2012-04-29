@@ -314,6 +314,7 @@
   "Draw a \"tail\" while you're typing." t)
 
 ;; highlight-parentheses
+(autoload 'highlight-parentheses-mode "highlight-parentheses" nil t)
 ;; (add-hook 'find-file-hooks
 ;;           (lambda ()
 ;;             (when (require 'highlight-parentheses nil 'noerror)
@@ -349,41 +350,40 @@
                                (foreground-color . "black"))))
                   (hi-lock-set-pattern `(,symbol (0 (quote ,color) t))))
               (hi-lock-set-pattern symbol 'highlight-symbol-face)))))))
+  (defadvice highlight-symbol-mode (after disable activate)
+    "Disable highlight-symbol-mode-post-command."
+    (remove-hook 'post-command-hook 'highlight-symbol-mode-post-command t))
+  (setq highlight-symbol-idle-delay 0.5)
+  (mapc (lambda (hook)
+          (add-hook hook (lambda () (highlight-symbol-mode 1))))
+        '(c-mode-common-hook
+          fortran-mode-hook f90-mode-hook ada-mode-hook
+          python-mode-hook ruby-mode-hook perl-mode-hook cperl-mode-hook
+          emacs-lisp-mode-hook sh-mode-hook js-mode-hook js2-mode-hook
+          nxml-mode-hook sgml-mode-hook sql-mode-hook))
   ;; (defvar disable-hl-s-modes
   ;;   '(erc-mode occur-mode w3m-mode help-mode svn-status-mode
   ;;              org-agenda-mode cfw:calendar-mode)
   ;;   "This modes don't active highlight-symbol-mode.")
-  (defvar hl-s-modes
-    '(c-mode cc-mode c++-mode java-mode jde-mode objc-mode csharp-mode
-             python-mode ruby-mode perl-mode cperl-mode php-mode
-             fortran-mode f90-mode ada-mode xml-mode nxml-mode html-mode
-             sql-mode emacs-lisp-mode lisp-interaction-mode
-             sh-mode javascript-mode js-mode js2-mode)
-    "This modes active highlight-symbol-mode.")
-  (when (fboundp 'define-global-minor-mode)
-    (define-global-minor-mode global-highlight-symbol-mode
-      highlight-symbol-mode
-      (lambda ()
-        (when (memq major-mode hl-s-modes)
-          (highlight-symbol-mode 1)))))
-  ;; (defadvice highlight-symbol-mode-post-command
-  ;;   (around gud-tooltip-advice activate)
-  ;;   "Hack for gud-tooltip-mode."
-  ;;   (unless (eq this-command 'gud-tooltip-mouse-motion)
-  ;;     (let ((symbol (highlight-symbol-get-symbol)))
-  ;;       (unless (or (equal symbol highlight-symbol)
-  ;;                   (member symbol highlight-symbol-list))
-  ;;         ad-do-it))))
-  (defadvice highlight-symbol-mode (after disable activate)
-    "Disable highlight-symbol-mode-post-command."
-    (remove-hook 'post-command-hook 'highlight-symbol-mode-post-command t))
-  (if (fboundp 'global-highlight-symbol-mode)
-      (global-highlight-symbol-mode t)
-    (add-hook 'find-file-hooks
-              (lambda ()
-                (when (memq major-mode hl-s-modes)
-                  (highlight-symbol-mode 1)))))
-  (setq highlight-symbol-idle-delay 0.5)
+  ;; (defvar hl-s-modes
+  ;;   '(c-mode cc-mode c++-mode java-mode jde-mode objc-mode csharp-mode
+  ;;            python-mode ruby-mode perl-mode cperl-mode php-mode
+  ;;            fortran-mode f90-mode ada-mode xml-mode nxml-mode html-mode
+  ;;            sql-mode emacs-lisp-mode lisp-interaction-mode
+  ;;            sh-mode javascript-mode js-mode js2-mode)
+  ;;   "This modes active highlight-symbol-mode.")
+  ;; (when (fboundp 'define-global-minor-mode)
+  ;;   (define-global-minor-mode global-highlight-symbol-mode
+  ;;     highlight-symbol-mode
+  ;;     (lambda ()
+  ;;       (when (memq major-mode hl-s-modes)
+  ;;         (highlight-symbol-mode 1)))))
+  ;; (if (fboundp 'global-highlight-symbol-mode)
+  ;;     (global-highlight-symbol-mode t)
+  ;;   (add-hook 'find-file-hooks
+  ;;             (lambda ()
+  ;;               (when (memq major-mode hl-s-modes)
+  ;;                 (highlight-symbol-mode 1)))))
   (defun highlight-symbol-next-or-prev (&optional prev)
     (interactive "P")
     (if prev

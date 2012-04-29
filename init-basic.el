@@ -79,7 +79,7 @@
 ;; (display-time-mode t)
 (which-function-mode t)
 (setq buffers-menu-max-size 30)
-(setq linum-eager nil)
+;; (setq linum-eager nil)
 ;; (when (fboundp 'global-linum-mode)
 ;;   (global-linum-mode 1))
 ;; (setq-default cursor-type 'bar)
@@ -224,7 +224,7 @@
 ;; (setq jit-lock-defer-time 0.05)         ; Make c mode faster
 (when (fboundp 'transient-mark-mode)
   (transient-mark-mode t))
-(setq hl-line-face 'underline)          ; for highlight-symbol
+;; (setq hl-line-face 'underline)          ; for highlight-symbol
 ;; (global-hl-line-mode 1)                 ; (if window-system 1 -1)
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 (dolist (mode '(c-mode c++-mode objc-mode java-mode jde-mode
@@ -763,7 +763,7 @@ Like eclipse's Ctrl+Alt+F."
 (when (executable-find "chmod")
   (add-hook 'after-save-hook 'chmod+x))
 
-(defun program-common-function ()
+(defun prog-common-function ()
   (setq indent-tabs-mode nil)
   ;; (local-set-key (kbd "<return>") 'newline-and-indent)
   (when (fboundp 'whitespace-mode)
@@ -772,7 +772,7 @@ Like eclipse's Ctrl+Alt+F."
   (hs-minor-mode t)
   (ignore-errors (imenu-add-menubar-index)))
 
-(add-hook 'c-mode-common-hook 'program-common-function)
+(add-hook 'c-mode-common-hook 'prog-common-function)
 (defun my-c-mode-font-lock-if0 (limit)
   (save-restriction
     (widen)
@@ -823,31 +823,34 @@ Like eclipse's Ctrl+Alt+F."
 (add-hook 'objc-mode-hook (lambda () (c-set-style "stroustrup")))
 
 (add-to-list 'auto-mode-alist '("\\.[pP][rR][cC]\\'" . sql-mode))
-(add-hook 'sql-mode-hook
-          (lambda ()
-            (setq indent-tabs-mode nil)
-            (hs-minor-mode t)
-            (ignore-errors (imenu-add-menubar-index))))
+(add-hook 'sql-mode-hook 'prog-common-function)
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
-            (program-common-function)
+            (prog-common-function)
             (turn-on-eldoc-mode)))
 
-(add-hook 'python-mode-hook 'program-common-function)
+(add-hook 'python-mode-hook 'prog-common-function)
 
-(add-hook 'sh-mode-hook 'program-common-function)
+(add-hook 'sh-mode-hook 'prog-common-function)
 
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
-(add-hook 'makefile-mode-hook 'imenu-add-menubar-index)
+(add-hook 'makefile-mode-hook
+          (lambda ()
+            (when (fboundp 'whitespace-mode)
+              (whitespace-mode t))
+            (linum-mode 1)
+            (imenu-add-menubar-index)))
 
-(when (fboundp 'whitespace-mode)
-  (add-hook 'makefile-mode-hook (lambda () (whitespace-mode 1)))
-  (add-hook 'autoconf-mode-hook (lambda () (whitespace-mode 1))))
+(add-hook 'autoconf-mode-hook
+          (lambda ()
+            (when (fboundp 'whitespace-mode)
+              (whitespace-mode t))
+            (linum-mode 1)))
 
-(add-hook 'perl-mode-hook 'program-common-function)
+(add-hook 'perl-mode-hook 'prog-common-function)
 (add-to-list 'auto-mode-alist
              '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
 (add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
@@ -855,7 +858,7 @@ Like eclipse's Ctrl+Alt+F."
 (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
 (add-hook 'cperl-mode-hook
           '(lambda ()
-             (program-common-function)
+             (prog-common-function)
              (cperl-set-style "PerlStyle")
              (setq cperl-continued-brace-offset -4)
              (abbrev-mode t)))
