@@ -11,7 +11,7 @@
 
 
 ;; Remove the some buttons in the tool bar.
-(defvar need-delete-toolbar-buttons '(print-buffer))
+(defvar need-delete-toolbar-buttons '(print-buffer write-file customize help))
 (when (boundp 'tool-bar-map)
   (let ((need-delete-btns))
     (dolist (button tool-bar-map)

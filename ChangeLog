@@ -1,5 +1,7 @@
 2012-04-29  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-toolbar.el: Remove some toolbar item like emacs-24.
+
 	* init-basic.el: Fix dired-jump.
 
 	* init-toolbar.el: Add linum toolbar iterm.
