@@ -1,3 +1,8 @@
+2012-05-03  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el ([header-line double-mouse-1]): Bind [header-line
+	double-mouse-1] to create new buffer.
+
 2012-04-29  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-toolbar.el: Remove some toolbar item like emacs-24.

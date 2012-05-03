@@ -635,6 +635,17 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key (kbd "ESC <C-f6>") (key-binding [C-M-f6]))
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
 ;; (global-set-key [header-line double-mouse-1] 'kill-this-buffer)
+(global-set-key [header-line double-mouse-1]
+                '(lambda ()
+                   (interactive)
+                   (let* ((i 1)
+                          (name (format "new %d" i)))
+                     (while (get-buffer name)
+                       (setq i (1+ i))
+                       (setq name (format "new %d" i)))
+                     (switch-to-buffer name))))
+;; (global-set-key [header-line double-mouse-1]
+;;                 '(lambda () (interactive) (switch-to-buffer "new")))
 (global-set-key [header-line mouse-3] 'kill-this-buffer)
 (global-set-key [mouse-2] nil)
 (global-set-key [left-fringe mouse-2] nil)
