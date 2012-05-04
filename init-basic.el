@@ -278,6 +278,7 @@
                    (list :tree (file-name-directory
                                 (or load-file-name (buffer-file-name)))
                          "^.+\\.*$")))
+(add-to-list 'filesets-data (list "temp" (list :files)))
 
 ;; calendar
 (setq calendar-chinese-all-holidays-flag t)
