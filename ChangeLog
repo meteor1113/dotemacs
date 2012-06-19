@@ -1,3 +1,7 @@
+2012-06-19  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-toolbar.el: Add electric-pair-mode menu item.
+
 2012-05-03  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el ([header-line double-mouse-1]): Bind [header-line

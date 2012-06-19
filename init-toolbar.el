@@ -434,6 +434,10 @@
   '(menu-item "global-hl-line-mode" global-hl-line-mode
               :enable (fboundp 'global-hl-line-mode)
               :button (:toggle . global-hl-line-mode)))
+(define-key minormode-sub-menu [electric-pair-mode]
+  '(menu-item "electric-pair-mode" electric-pair-mode
+              :enable (fboundp 'electric-pair-mode)
+              :button (:toggle . electric-pair-mode)))
 ;; (define-key minormode-sub-menu [viper-mode]
 ;;   '(menu-item "viper-mode"
 ;;               (lambda ()
