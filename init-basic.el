@@ -706,6 +706,7 @@ Like eclipse's Ctrl+Alt+F."
 (setq org-log-done 'time)
 (setq org-export-with-archived-trees t)
 (setq org-startup-truncated nil)
+(setq org-src-fontify-natively t)
 (add-hook 'org-mode-hook
           (lambda ()
             (setq comment-start nil)
