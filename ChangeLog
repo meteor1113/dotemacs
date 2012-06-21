@@ -1,3 +1,7 @@
+2012-06-21  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el	(zone-programs): Fix zone.
+
 2012-06-19  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (org-src-fontify-natively): set
