@@ -1,3 +1,7 @@
+2012-07-12  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Disable whitespace-mode in xml.
+
 2012-06-21  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el	(zone-programs): Fix zone.

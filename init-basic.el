@@ -732,8 +732,8 @@ Like eclipse's Ctrl+Alt+F."
   (setq nxml-bind-meta-tab-to-complete-flag t)
   (add-hook 'nxml-mode-hook
             '(lambda ()
-               (when (fboundp 'whitespace-mode)
-                 (whitespace-mode t))
+               ;; (when (fboundp 'whitespace-mode)
+               ;;   (whitespace-mode t))
                (linum-mode 1)
                (require 'sgml-mode)
                (set-syntax-table sgml-mode-syntax-table))))
