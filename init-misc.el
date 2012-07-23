@@ -258,6 +258,9 @@
 ;; magit
 (autoload 'magit-status "magit" nil t)
 
+;; fci-mode
+(autoload 'fci-mode "fill-column-indicator" nil t)
+
 ;; vimpulse
 (setq viper-mode nil)
 (eval-after-load "viper"
