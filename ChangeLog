@@ -1,5 +1,7 @@
 2012-07-26  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-misc.el: Add mark-multiple.
+
 	* init-basic.el ([f11]): Bind f11 to toggle-fullscreen.
 
 2012-07-23  Meteor Liu  <meteor1113@gmail.com>
