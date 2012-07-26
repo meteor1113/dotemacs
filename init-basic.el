@@ -585,6 +585,15 @@ Like eclipse's Ctrl+Alt+F."
         ((looking-back "[\[\(\{]" 1) (backward-char) (forward-sexp))
         (t nil)))
 
+(defun toggle-fullscreen (&optional f)
+  (interactive)
+  (let ((current-value (frame-parameter nil 'fullscreen)))
+    (set-frame-parameter nil 'fullscreen
+                         (if (equal 'fullboth current-value)
+                             (if (boundp 'old-fullscreen) old-fullscreen nil)
+                           (progn (setq old-fullscreen current-value)
+                                  'fullboth)))))
+
 ;; global key bindings
 (global-set-key (kbd "M-SPC") 'set-mark-command)
 (define-key cua-global-keymap (kbd "M-SPC") 'cua-set-mark)
@@ -639,6 +648,7 @@ Like eclipse's Ctrl+Alt+F."
 ;;     "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>")))
 (global-set-key (kbd "ESC <C-f6>") (key-binding [C-M-f6]))
 (global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
+(global-set-key [f11] 'toggle-fullscreen)
 ;; (global-set-key [header-line double-mouse-1] 'kill-this-buffer)
 (global-set-key [header-line double-mouse-1]
                 '(lambda ()
