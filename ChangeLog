@@ -1,3 +1,7 @@
+2012-11-06  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el: Add format-xml.
+
 2012-08-24  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el (fboundp): setq ecb-windows-width to 0.25
