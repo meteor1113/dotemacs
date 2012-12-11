@@ -310,6 +310,9 @@
     (nyan-stop-animation)))
 ;; (ignore-errors (and window-system (nyan-mode t)))
 
+;; vlf
+(autoload 'vlf "vlf" "View a Large File in Emacs." t)
+
 ;; volatile-highlights
 (autoload 'volatile-highlights-mode "volatile-highlights" nil t)
 (ignore-errors (volatile-highlights-mode t))
