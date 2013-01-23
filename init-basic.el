@@ -261,24 +261,30 @@
           (file-cache-add-directory-recursively "/usr/include/c++")
           (file-cache-add-directory-recursively "/usr/local/include")))
 (filesets-init)
-;; (add-to-list 'filesets-data '("~/.emacs" (:file "~/.emacs")))
-;; (add-to-list 'filesets-data '("~/" (:pattern "~/" "^.+\\.*[^~]$")))
-(add-to-list 'filesets-data (list "~/" (list :files
-                                             "~/.emacs"
-                                             "~/.emacs.desktop"
-                                             "~/.emacs-places"
-                                             "~/.notes"
-                                             "~/.recentf"
-                                             "~/.profile"
-                                             "~/.bash_profile"
-                                             "~/.bashrc")))
-(add-to-list 'filesets-data '("~/.emacs.d" (:tree "~/.emacs.d/" "^.+\\.*$")))
+(add-to-list 'filesets-data
+             (list "~/"
+                   (list :files
+                         "~/.emacs"
+                         "~/.emacs.desktop"
+                         "~/.emacs-places"
+                         "~/.notes"
+                         "~/.recentf"
+                         "~/.profile"
+                         "~/.bash_profile"
+                         "~/.bashrc")))
+(add-to-list 'filesets-data
+             '("~/.emacs.d" (:tree "~/.emacs.d/" "^.+\\.*$")))
 (add-to-list 'filesets-data
              (list "dotemacs/"
-                   (list :tree (file-name-directory
-                                (or load-file-name (buffer-file-name)))
+                   (list :tree
+                         (file-name-directory (or load-file-name
+                                                  (buffer-file-name)))
                          "^.+\\.*$")))
-(add-to-list 'filesets-data (list "temp" (list :files)))
+(add-to-list 'filesets-data
+             (list "temp"
+                   (list :files
+                         "C:/WINDOWS/system32/drivers/etc/hosts"
+                         "C:/boot.ini")))
 
 ;; calendar
 (setq calendar-chinese-all-holidays-flag t)
