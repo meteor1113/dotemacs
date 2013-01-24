@@ -281,10 +281,19 @@
                                                   (buffer-file-name)))
                          "^.+\\.*$")))
 (add-to-list 'filesets-data
-             (list "temp"
+             (list "windows"
                    (list :files
                          "C:/WINDOWS/system32/drivers/etc/hosts"
                          "C:/boot.ini")))
+(add-to-list 'filesets-data
+             (list "linux"
+                   (list :files
+                         "/etc/hosts"
+                         "/etc/fstab"
+                         "/etc/passwd"
+                         "/etc/group"
+                         "/boot/grub2/grub.cfg")))
+(add-to-list 'filesets-data (list "temp" (list :files)))
 
 ;; calendar
 (setq calendar-chinese-all-holidays-flag t)
