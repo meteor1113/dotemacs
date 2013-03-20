@@ -259,6 +259,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
         ecb-auto-compatibility-check nil))
 (eval-after-load "ecb"
   '(progn
+     (setq ecb-cedet-required-version-max '(2 0 4 9))
      (setq ecb-compilation-buffer-names
            (append ecb-compilation-buffer-names '(("*Process List*")
                                                   ("*Proced*")

@@ -1,5 +1,7 @@
 2013-03-20  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-site.el ("ecb"): Fix ecb for cedet-2.0
+
 	* init-misc.el ("tabbar"): Fix tabbar-ruler for emacs-24.3(ucs-insert)
 
 2012-11-06  Meteor Liu  <meteor1113@gmail.com>
