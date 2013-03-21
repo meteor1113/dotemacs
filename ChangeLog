@@ -1,3 +1,7 @@
+2013-03-21  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el ("tabbar"): Update tabbar-ruler.el to 0.25
+
 2013-03-20  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el ("ecb"): Fix ecb for cedet-2.0

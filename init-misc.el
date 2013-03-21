@@ -153,6 +153,10 @@
 ;; tabbar
 (when (require 'tabbar nil 'noerror)
   (tabbar-mode t)
+  (setq tabbar-home-button-enabled-image-orig tabbar-home-button-enabled-image
+        tabbar-home-button-disabled-image-orig tabbar-home-button-disabled-image
+        tabbar-scroll-left-button-enabled-image-orig tabbar-scroll-left-button-enabled-image
+        tabbar-scroll-right-button-enabled-image-orig tabbar-scroll-right-button-enabled-image)
   (define-key tabbar-mode-map [C-prior] 'tabbar-backward)
   (define-key tabbar-mode-map [C-next] 'tabbar-forward)
   (defadvice tabbar-buffer-tab-label (after modified-flag activate)
@@ -170,8 +174,27 @@
     (update-tabbar-modified-state))
   (add-hook 'first-change-hook 'update-tabbar-modified-state)
   (add-hook 'after-save-hook 'update-tabbar-modified-state))
+
+(setq tabbar-ruler-invert-deselected nil)
 (eval-after-load "tabbar"
   '(when (require 'tabbar-ruler nil 'noerror)
+     ;; restore original button image
+     (setq tabbar-home-button-enabled-image tabbar-home-button-enabled-image-orig
+           tabbar-home-button-disabled-image tabbar-home-button-disabled-image-orig
+           tabbar-scroll-left-button-enabled-image tabbar-scroll-left-button-enabled-image-orig
+           tabbar-scroll-right-button-enabled-image tabbar-scroll-right-button-enabled-image-orig)
+     (setq tabbar-home-button
+           (cons (cons "[o]" tabbar-home-button-enabled-image)
+                 (cons "[x]" tabbar-home-button-disabled-image)))
+     (setq tabbar-buffer-home-button
+           (cons (cons "[+]" tabbar-home-button-enabled-image)
+                 (cons "[-]" tabbar-home-button-disabled-image)))
+     (setq tabbar-scroll-left-button
+           (cons (cons " <" tabbar-scroll-left-button-enabled-image)
+                 (cons " =" nil)))
+     (setq tabbar-scroll-right-button
+           (cons (cons " >" tabbar-scroll-right-button-enabled-image)
+                 (cons " =" nil)))
      (defadvice tabbar-popup-menu (after add-menu-item activate)
        "Add customize menu item to tabbar popup menu."
        (setq ad-return-value
@@ -201,57 +224,6 @@
                        "--"
                        ["Undo Close Tab" undo-kill-buffer
                         :active (fboundp 'undo-kill-buffer)]))))
-     (defsubst tabbar-line-tab (tab)
-       "Return the display representation of tab TAB.
-That is, a propertized string used as an `header-line-format' template
-element.
-Call `tabbar-tab-label-function' to obtain a label for TAB."
-       (let* ( (selected-p (tabbar-selected-p tab (tabbar-current-tabset)))
-               (modified-p (buffer-modified-p (tabbar-tab-value tab)))
-               (close-button-image (tabbar-find-image 
-                                    `((:type xpm :data ,(tabbar-ruler-image :type 'close :disabled (not modified-p))))))
-               (face (if selected-p
-                         (if modified-p
-                             'tabbar-selected-modified
-                           'tabbar-selected
-                           )
-                       (if modified-p
-                           'tabbar-unselected-modified
-                         'tabbar-unselected
-                         ))))
-         (concat
-          (propertize "[x]"
-                      'display (tabbar-normalize-image close-button-image 0)
-                      'face face
-                      'pointer 'hand
-                      'tabbar-tab tab
-                      'local-map (tabbar-make-tab-keymap tab)
-                      'tabbar-action 'close-tab
-                      )
-          (propertize " " 'face face
-                      'tabbar-tab tab
-                      'local-map (tabbar-make-tab-keymap tab)
-                      'help-echo 'tabbar-help-on-tab
-                      'face face
-                      'pointer 'hand
-                      )
-          (propertize 
-           (if tabbar-tab-label-function
-               (funcall tabbar-tab-label-function tab)
-             tab)
-           'tabbar-tab tab
-           'local-map (tabbar-make-tab-keymap tab)
-           'help-echo 'tabbar-help-on-tab
-           'mouse-face 'tabbar-highlight
-           'face face
-           'pointer 'hand)
-          (propertize (if modified-p (with-temp-buffer (insert "*") (insert " ") (buffer-substring (point-min) (point-max))) " ") 'face face
-                      'tabbar-tab tab
-                      'local-map (tabbar-make-tab-keymap tab)
-                      'help-echo 'tabbar-help-on-tab
-                      'face face
-                      'pointer 'hand)
-          tabbar-separator-value)))
      (defadvice tabbar-line-tab (around window-or-terminal activate)
        "Fix tabbar-ruler in window-system and terminal"
        (if window-system
@@ -285,7 +257,7 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
      (set-face-attribute 'tabbar-selected nil
                          :foreground "blue")
      (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
-     (setq EmacsPortable-excluded-buffers '())))
+     (setq tabbar-ruler-excluded-buffers '())))
 
 ;; window-numbering
 (when (require 'window-numbering nil 'noerror)
