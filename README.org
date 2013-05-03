@@ -26,7 +26,6 @@
 
 ** Screenshot
 [[./etc/screenshots/cpp.png]]
-[[https://github.com/meteor1113/dotemacs/raw/master/etc/screenshots/cpp.png]]
 
 ** Email
 - meteor1113@gmail.com
