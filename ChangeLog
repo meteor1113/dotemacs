@@ -1,3 +1,7 @@
+2013-05-08  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el (>=): Add js2-mode
+
 2013-03-21  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el ("tabbar"): Update tabbar-ruler.el to 0.25

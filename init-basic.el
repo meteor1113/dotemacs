@@ -821,6 +821,7 @@ by using nxml's indentation rules."
           (overlay-put ov 'pointer 'hand))))
 (eval-after-load "hideshow"
   '(progn (define-key hs-minor-mode-map [(shift mouse-2)] nil)
+          (define-key hs-minor-mode-map (kbd "C-+") 'hs-toggle-hiding)
           (define-key hs-minor-mode-map (kbd "<left-fringe> <mouse-2>")
             'hs-mouse-toggle-hiding)))
 ;; (global-set-key (kbd "C-?") 'hs-minor-mode)

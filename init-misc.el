@@ -510,6 +510,9 @@
               (when (require 'xgtags nil 'noerror)
                 (xgtags-mode 1)))))
 
+;; hideshowvis
+(autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions" t)
+
 ;; csv-mode
 (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
 (autoload 'csv-mode "csv-mode"
@@ -536,6 +539,20 @@
              '("\\.php[34]?\\'\\|\\.phtml\\'" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.module\\'" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.inc\\'" . php-mode))
+
+;; js2-mode
+(when (>= emacs-major-version 24)
+  (autoload 'js2-mode "js2-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (setq js2-strict-missing-semi-warning nil)
+  (add-hook 'js2-mode-hook
+            (lambda ()
+              (linum-mode 1)
+              (hs-minor-mode t)))
+  (eval-after-load 'js2-mode
+    '(progn
+       (require 'js2-imenu-extras)
+       (js2-imenu-extras-setup))))
 
 ;; sourcepair
 (setq sourcepair-source-extensions
