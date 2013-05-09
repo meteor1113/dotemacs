@@ -273,7 +273,7 @@
                          "~/.bash_profile"
                          "~/.bashrc")))
 (add-to-list 'filesets-data
-             '("~/.emacs.d" (:tree "~/.emacs.d/" "^.+\\.*$")))
+             '("~/.emacs.d/" (:tree "~/.emacs.d/" "^.+\\.*$")))
 (add-to-list 'filesets-data
              (list "dotemacs/"
                    (list :tree

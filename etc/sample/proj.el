@@ -1,6 +1,6 @@
 (when (fboundp 'ede-cpp-root-project)
-  (ede-cpp-root-project "cpp-library"
-                        :name "cpp-library"
+  (ede-cpp-root-project "common/library/cpp"
+                        :name "common/library/cpp"
                         :version "0.2"
                         :file (or load-file-name (buffer-file-name))
                         :include-path '("/"
@@ -22,7 +22,7 @@
 
 (eval-after-load "filesets"
   '(add-to-list 'filesets-data
-                (list "[common]library/"
+                (list "common/library/cpp/"
                       (list :tree (file-name-directory
                                    (or load-file-name (buffer-file-name)))
                             "^.+\\.*$"))))
