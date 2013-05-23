@@ -1,5 +1,3 @@
-(setq emacs-load-start-time (current-time))
-
 (add-to-list 'load-path "~/.emacs.d/dotemacs")
 (add-to-list 'load-path "d:/common/dotemacs")
 (add-to-list 'load-path "e:/common/dotemacs")
@@ -14,6 +12,3 @@
 (load "init-note" 'noerror)
 
 ;; (load "~/dotemacs/sample/proj" t)
-
-(message "Emacs startup time: %g seconds."
-         (float-time (time-since emacs-load-start-time)))
