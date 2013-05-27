@@ -388,6 +388,9 @@
 (setq zone-programs (append zone-programs nil))
 (setq zone-programs (remq 'zone-pgm-stress zone-programs))
 (setq zone-programs (remq 'zone-pgm-stress-destress zone-programs))
+(add-hook 'after-init-hook
+          (lambda ()
+            (message "emacs-init-time: %s" (emacs-init-time))))
 
 (defadvice find-tag (before tags-file-name-advice activate)
   "Find TAGS file in ./ or ../ or ../../ dirs"
