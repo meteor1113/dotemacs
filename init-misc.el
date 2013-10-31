@@ -605,11 +605,11 @@ a c mode)."
 
 ;; plsql
 (autoload 'plsql-mode "plsql" nil t)
-(setq auto-mode-alist
-      (append
-       '(("\\.\\(p\\(?:k[bg]\\|ls\\)\\|[sS][qQ][lL]\\|[pP][rR][cC]\\)\\'"
-          . plsql-mode))
-       auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (append
+;;        '(("\\.\\(p\\(?:k[bg]\\|ls\\)\\|[sS][qQ][lL]\\|[pP][rR][cC]\\)\\'"
+;;           . plsql-mode))
+;;        auto-mode-alist))
 
 ;; sqlplus
 (autoload 'sqlplus "sqlplus" nil t)
