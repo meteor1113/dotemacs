@@ -1,3 +1,7 @@
+2013-11-06  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el : Disable semantic for python when python is not found.
+
 2013-10-31  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: default use sql-mode for .sql files.

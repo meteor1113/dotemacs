@@ -1324,13 +1324,17 @@ Use CREATE-TEMP-F for creating temp copy."
     (setq ede-locate-setup-options '(ede-locate-global ede-locate-base)))
   ;; (setq semantic-c-obey-conditional-section-parsing-flag nil) ; ignore #if
 
-  ;; (defun my-semantic-inhibit-func ()
-  ;;   (cond
-  ;;    ((member major-mode '(Info-mode))
-  ;;     ;; to disable semantic, return non-nil.
-  ;;     t)
-  ;;    (t nil)))
-  ;; (add-to-list 'semantic-inhibit-functions 'my-semantic-inhibit-func)
+  (unless (executable-find "python")
+    (remove-hook 'python-mode-hook 'wisent-python-default-setup)
+    (setq semantic-new-buffer-setup-functions
+          (delete (assq 'python-mode semantic-new-buffer-setup-functions)
+                  semantic-new-buffer-setup-functions)))
+  ;; (add-to-list 'semantic-inhibit-functions
+  ;;              (lambda () (cond
+  ;;                          ((member major-mode '(Info-mode python-mode))
+  ;;                           ;; to disable semantic, return non-nil.
+  ;;                           t)
+  ;;                          (t nil))))
 
   (when (executable-find "gcc")
     (require 'semantic/bovine/c nil 'noerror)
