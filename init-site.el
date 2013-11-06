@@ -78,13 +78,12 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     (setq ede-locate-setup-options '(ede-locate-global ede-locate-base)))
   ;; (setq semantic-c-obey-conditional-section-parsing-flag nil) ; ignore #if
 
-  ;; (defun my-semantic-inhibit-func ()
-  ;;   (cond
-  ;;    ((member major-mode '(javascript-mode html-helper-mode html-mode))
-  ;;     ;; to disable semantic, return non-nil.
-  ;;     t)
-  ;;    (t nil)))
-  ;; (add-to-list 'semantic-inhibit-functions 'my-semantic-inhibit-func)
+  ;; (add-to-list 'semantic-inhibit-functions
+  ;;              (lambda () (cond
+  ;;                          ((member major-mode '(Info-mode python-mode))
+  ;;                           ;; to disable semantic, return non-nil.
+  ;;                           t)
+  ;;                          (t nil))))
 
   (when (executable-find "gcc")
     (require 'semantic-c nil 'noerror)
