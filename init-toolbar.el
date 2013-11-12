@@ -414,6 +414,10 @@
   '(menu-item "global-linum-mode" global-linum-mode
               :enable (fboundp 'global-linum-mode)
               :button (:toggle . global-linum-mode)))
+(define-key minormode-sub-menu [global-diff-hl-mode]
+  '(menu-item "global-diff-hl-mode" global-diff-hl-mode
+              :enable (fboundp 'global-diff-hl-mode)
+              :button (:toggle . global-diff-hl-mode)))
 (define-key minormode-sub-menu [highlight-tail-mode]
   '(menu-item "highlight-tail-mode" highlight-tail-mode
               :enable (fboundp 'highlight-tail-mode)
