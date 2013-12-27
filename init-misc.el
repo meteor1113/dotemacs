@@ -471,6 +471,14 @@
 (when (> emacs-major-version 21)
   (require 'smart-hl nil 'noerror))
 
+;; hl-defined
+(autoload 'hdefd-highlight-mode "hl-defined" nil t)
+(add-hook 'emacs-lisp-mode-hook
+          '(lambda ()
+             (when (require 'hl-defined nil 'noerror)
+               (hdefd-highlight-mode 1)))
+          'APPEND)
+
 ;; multi-term
 (autoload 'multi-term "multi-term"
   "Managing multiple terminal buffers in Emacs." t)

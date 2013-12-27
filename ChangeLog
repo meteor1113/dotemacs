@@ -1,3 +1,7 @@
+2013-12-27  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add hl-defined.
+
 2013-11-12  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add diff-hl.
