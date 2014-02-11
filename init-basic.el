@@ -372,7 +372,7 @@
   ["py.tpl" auto-insert-expand])
 
 ;; server
-(unless (daemonp)
+(when (and window-system (not (daemonp)))
   (require 'server)
   (unless (server-running-p)
     (server-start)))
