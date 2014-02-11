@@ -371,6 +371,12 @@
 (define-auto-insert "\\.py\\'"
   ["py.tpl" auto-insert-expand])
 
+;; server
+(unless (daemonp)
+  (require 'server)
+  (unless (server-running-p)
+    (server-start)))
+
 ;; misc
 (setq inhibit-startup-message t)        ; for no desktop
 (setq inhibit-default-init t)           ; for frame-title-format
