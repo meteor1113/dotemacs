@@ -205,6 +205,8 @@
              (delete buf-file recently-killed-list)))
      buffer-files-list)
     (find-file (nth (- arg 1) recently-killed-list))))
+(setq desktop-load-locked-desktop nil
+      desktop-not-loaded-hook (quote (desktop-save-mode-off)))
 (and (fboundp 'desktop-save-mode)
      (not (daemonp))
      (desktop-save-mode (if window-system 1 -1)))
