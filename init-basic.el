@@ -323,39 +323,39 @@
                          (file-name-directory (or buffer-file-name
                                                   load-file-name)))))
 (setq auto-insert-expansion-alist
-  '(("(>>>DIR<<<)" . (file-name-directory buffer-file-name))
-    ("(>>>FILE<<<)" . (file-name-nondirectory buffer-file-name))
-    ("(>>>FILE_SANS<<<)" . (file-name-sans-extension
-                            (file-name-nondirectory buffer-file-name)))
-    ("(>>>FILE_UPCASE<<<)" . (upcase
-                              (file-name-sans-extension
-                               (file-name-nondirectory buffer-file-name))))
-    ("(>>>FILE_UPCASE_INIT<<<)" . (upcase-initials
-                                   (file-name-sans-extension
-                                    (file-name-nondirectory buffer-file-name))))
-    ("(>>>FILE_EXT<<<)" . (file-name-extension buffer-file-name))
-    ("(>>>FILE_EXT_UPCASE<<<)" . (upcase (file-name-extension buffer-file-name)))
-    ("(>>>DATE<<<)" . (format-time-string "%d %b %Y"))
-    ("(>>>TIME<<<)" . (format-time-string "%T"))
-    ("(>>>VC_DATE<<<)" . (let ((ret ""))
-                           (set-time-zone-rule "UTC")
-                           (setq ret (format-time-string "%Y/%m/%d %T"))
-                           (set-time-zone-rule nil)
-                           ret))
-    ("(>>>YEAR<<<)" . (format-time-string "%Y"))
-    ("(>>>ISO_DATE<<<)" . (format-time-string "%Y-%m-%d"))
-    ("(>>>AUTHOR<<<)" . (or user-mail-address
-                            (and (fboundp 'user-mail-address)
-                                 (user-mail-address))
-                            (concat (user-login-name) "@" (system-name))))
-    ("(>>>USER_NAME<<<)" . (or (and (boundp 'user-full-name)
-                                    user-full-name)
-                               (user-full-name)))
-    ("(>>>LOGIN_NAME<<<)" . (user-login-name))
-    ("(>>>HOST_ADDR<<<)" . (or (and (boundp 'mail-host-address)
-                                    (stringp mail-host-address)
-                                    mail-host-address)
-                               (system-name)))))
+      '(("(>>>DIR<<<)" . (file-name-directory buffer-file-name))
+        ("(>>>FILE<<<)" . (file-name-nondirectory buffer-file-name))
+        ("(>>>FILE_SANS<<<)" . (file-name-sans-extension
+                                (file-name-nondirectory buffer-file-name)))
+        ("(>>>FILE_UPCASE<<<)" . (upcase
+                                  (file-name-sans-extension
+                                   (file-name-nondirectory buffer-file-name))))
+        ("(>>>FILE_UPCASE_INIT<<<)" . (upcase-initials
+                                       (file-name-sans-extension
+                                        (file-name-nondirectory buffer-file-name))))
+        ("(>>>FILE_EXT<<<)" . (file-name-extension buffer-file-name))
+        ("(>>>FILE_EXT_UPCASE<<<)" . (upcase (file-name-extension buffer-file-name)))
+        ("(>>>DATE<<<)" . (format-time-string "%d %b %Y"))
+        ("(>>>TIME<<<)" . (format-time-string "%T"))
+        ("(>>>VC_DATE<<<)" . (let ((ret ""))
+                               (set-time-zone-rule "UTC")
+                               (setq ret (format-time-string "%Y/%m/%d %T"))
+                               (set-time-zone-rule nil)
+                               ret))
+        ("(>>>YEAR<<<)" . (format-time-string "%Y"))
+        ("(>>>ISO_DATE<<<)" . (format-time-string "%Y-%m-%d"))
+        ("(>>>AUTHOR<<<)" . (or user-mail-address
+                                (and (fboundp 'user-mail-address)
+                                     (user-mail-address))
+                                (concat (user-login-name) "@" (system-name))))
+        ("(>>>USER_NAME<<<)" . (or (and (boundp 'user-full-name)
+                                        user-full-name)
+                                   (user-full-name)))
+        ("(>>>LOGIN_NAME<<<)" . (user-login-name))
+        ("(>>>HOST_ADDR<<<)" . (or (and (boundp 'mail-host-address)
+                                        (stringp mail-host-address)
+                                        mail-host-address)
+                                   (system-name)))))
 (defun auto-insert-expand ()
   (dolist (val auto-insert-expansion-alist)
     (let ((from (car val))
@@ -374,6 +374,9 @@
 ;; server
 (when (and window-system (not (daemonp)))
   (require 'server)
+  (when (and (>= emacs-major-version 23)
+             (equal window-system 'w32))
+    (defun server-ensure-safe-dir (dir) "Noop" t))
   (unless (server-running-p)
     (server-start)))
 
@@ -516,9 +519,9 @@ Like eclipse's Ctrl+Alt+F."
          "grep -inrH '%s' . | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")
         ;; ((eq system-type 'gnu/linux)
         ;;  "grep -inrHI '%s' . | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")
-;;         ((eq system-type 'windows-nt)
-;;          "grep --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.hg \
-;; --exclude-dir=.bzr --exclude-dir=CVS -inrHI \"%s\" .")
+        ;; ((eq system-type 'windows-nt)
+        ;;  "grep --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.hg \
+        ;;   --exclude-dir=.bzr --exclude-dir=CVS -inrHI \"%s\" .")
         (t
          "grep --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.hg \
 --exclude-dir=.bzr --exclude-dir=CVS -inrHI '%s' .")))

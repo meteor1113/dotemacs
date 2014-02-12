@@ -1,3 +1,7 @@
+2014-02-12  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (and): Suppress error "directory ~/.emacs.d/server is unsafe" on windows.
+
 2014-02-11  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (desktop-load-locked-desktop): Fix desktop-save-mode.
