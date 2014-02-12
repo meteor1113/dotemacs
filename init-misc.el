@@ -348,12 +348,13 @@
 (autoload 'diff-hl-mode "diff-hl" nil t)
 (autoload 'global-diff-hl-mode "diff-hl" nil t)
 (autoload 'diff-hl-dired-mode "diff-hl-dired" nil t)
-(add-hook 'dired-mode-hook
-          '(lambda ()
-             (when (require 'diff-hl-dired nil 'noerror)
-               (diff-hl-dired-mode 1))))
-(when (require 'diff-hl nil 'noerror)
-  (global-diff-hl-mode 1))
+(when (locate-library "cl-lib")
+  (add-hook 'dired-mode-hook
+            '(lambda ()
+               (when (require 'diff-hl-dired nil 'noerror)
+                 (diff-hl-dired-mode 1))))
+  (when (require 'diff-hl nil 'noerror)
+    (global-diff-hl-mode 1)))
 
 ;; highlight-parentheses
 (autoload 'highlight-parentheses-mode "highlight-parentheses" nil t)
