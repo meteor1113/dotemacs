@@ -1,5 +1,7 @@
 2014-02-22  Meteor Liu  <meteor1113@gmail.com>
 
+	* init-basic.el (frame-title-format): Display encoding in title.
+
 	* init-misc.el (require): Fix: when encoding changed, tabbar's
 	status is not update.
 

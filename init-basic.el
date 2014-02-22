@@ -97,6 +97,9 @@
   (winner-mode 1))
 (setq frame-title-format
       '((:eval (or buffer-file-name (buffer-name)))
+        " ["
+        (:eval (format "%s" buffer-file-coding-system))
+        "]"
         (:eval (if (buffer-modified-p) " * " " - "))
         invocation-name
         "@"
