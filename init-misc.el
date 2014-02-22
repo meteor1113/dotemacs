@@ -172,6 +172,8 @@
     (tabbar-display-update))
   (defadvice undo (after update-tabbar-tab-label activate)
     (update-tabbar-modified-state))
+  (defadvice set-buffer-file-coding-system (after update-tabbar-tab-label activate)
+    (update-tabbar-modified-state))
   (add-hook 'first-change-hook 'update-tabbar-modified-state)
   (add-hook 'after-save-hook 'update-tabbar-modified-state))
 
