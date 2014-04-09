@@ -397,7 +397,7 @@
 ;; (setq max-lisp-eval-depth 4000)
 ;; (setq debug-on-error t)
 (autoload 'zone-when-idle "zone" nil t)
-(zone-when-idle 600)
+(zone-when-idle (* 60  30))
 ;; zone-pgm-stress will destroy the clipboard
 (setq zone-programs (append zone-programs nil))
 (setq zone-programs (remq 'zone-pgm-stress zone-programs))
