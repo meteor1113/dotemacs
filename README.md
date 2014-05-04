@@ -1,4 +1,4 @@
-## Readme ##
+# Readme #
 
 - 这是Meteor Liu的emacs配置文件，兼容Linux/Windows/MacOSX下的emacs-22以上版本，我用emacs主要进行C++开发和用org管理TODO，有时候也写点python。
 - init-basic.el是基本的emacs配置，只需要emacs自身，不依赖第三方插件。
@@ -17,7 +17,7 @@
 - etc/sample/site-start.el是portable emacs的例子，把这个文件拷贝到site-lisp目录就行。
 - etc/sample/.dir-locals.el是.dir-locals.el的例子。
 
-## Install ##
+# Install #
 
 - git clone http://github.com/meteor1113/dotemacs.git
 - 把etc/sample/.emacs拷贝到$HOME目录下，修改load-path为dotemacs的实际路径，根据需要可注释掉部分内容。
@@ -26,12 +26,10 @@
 - 如果需要用jdee开发java，可以从 http://jdee.sourceforge.net 下载jdee并安装，安装位置可参考cedet。
 - 如果需要用ropemacs开发python，可以分别从 http://rope.sourceforge.net ， http://pymacs.progiciels-bpi.ca/pymacs.html ， http://rope.sourceforge.net/ropemacs.html 下载rope，pymacs，ropemacs并安装，把pymacs编译时生成的pymacs.el文件放在site-lisp或~/.emacs.d目录下。（注意ropemacs需要下载snapshot版，release的版本不能补全）
 
-Screenshot
-----------
+# Screenshot #
 
-![][./etc/screenshots/cpp.png]
 ![](./etc/screenshots/cpp.png)
-Email
------
+
+# Email #
 
 - meteor1113@gmail.com
