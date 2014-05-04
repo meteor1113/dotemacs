@@ -29,7 +29,7 @@
 Screenshot
 ----------
 
-![./etc/screenshots/cpp.png][]
+![][./etc/screenshots/cpp.png]
 
 Email
 -----
