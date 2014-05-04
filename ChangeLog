@@ -1,3 +1,7 @@
+2014-05-04  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el: Add markdown-mode.
+
 2014-04-09  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (*): Change zone idle from 600 to 1800.

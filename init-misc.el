@@ -540,6 +540,13 @@
 (autoload 'csv-mode "csv-mode"
   "Major mode for editing comma-separated value files." t)
 
+;; markdown-mode
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
 ;; ntcmd
 ;; (autoload 'ntcmd-mode "ntcmd" "Major mode for editing CMD scripts." t)
 ;; (add-to-list 'auto-mode-alist '("\\.[bB][aA][tT]\\'" . ntcmd-mode))
