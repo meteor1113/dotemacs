@@ -1,3 +1,7 @@
+2014-09-30  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el ("tabbar"): Add "Open in Windows Explorer" to tabbar's menu.
+
 2014-08-20  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-basic.el (appt-message-warning-time): set
