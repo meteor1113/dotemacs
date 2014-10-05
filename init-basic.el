@@ -379,6 +379,8 @@
   (require 'server)
   (when (and (>= emacs-major-version 23)
              (equal window-system 'w32))
+    (unless (file-exists-p server-auth-dir)
+      (make-directory server-auth-dir))
     (defun server-ensure-safe-dir (dir) "Noop" t))
   (unless (server-running-p)
     (server-start)))

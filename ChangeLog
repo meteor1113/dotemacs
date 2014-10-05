@@ -1,3 +1,7 @@
+2014-10-05  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (and): fix for server-ensure-safe-dir.
+
 2014-05-04  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add markdown-mode.
