@@ -2,6 +2,15 @@
 
 	* init-basic.el (and): fix for server-ensure-safe-dir.
 
+2014-09-30  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-misc.el ("tabbar"): Add "Open in Windows Explorer" to tabbar's menu.
+
+2014-08-20  Meteor Liu  <meteor1113@gmail.com>
+
+	* init-basic.el (appt-message-warning-time): set
+	appt-message-warning-time to 0.
+
 2014-05-04  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-misc.el: Add markdown-mode.

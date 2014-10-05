@@ -214,6 +214,10 @@
                                  (tabbar-tab-value tabbar-last-tab))]
                        ["Open Dired" dired-jump
                         :active (fboundp 'dired-jump)]
+                       ["Open in Windows Explorer" (w32explore buffer-file-name)
+                        :active (and buffer-file-name
+                                     (eq system-type 'windows-nt)
+                                     (require 'w32-browser nil 'noerror))]
                        ;; ["Open Dired" (dired
                        ;;                (let ((file (buffer-file-name
                        ;;                             (tabbar-tab-value

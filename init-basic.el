@@ -310,6 +310,7 @@
 ;; (setq appt-display-format 'window)
 ;; (setq appt-display-mode-line t)
 ;; (setq appt-display-diary nil)
+(setq appt-message-warning-time 0)
 (setq appt-display-duration (* 365 24 60 60))
 (unless (daemonp)
   (appt-activate 1)
