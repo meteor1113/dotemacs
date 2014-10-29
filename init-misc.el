@@ -180,6 +180,9 @@
 (setq tabbar-ruler-invert-deselected nil)
 (eval-after-load "tabbar"
   '(when (require 'tabbar-ruler nil 'noerror)
+     (add-hook 'desktop-after-read-hook
+               '(lambda ()
+                  (modify-frame-parameters nil `((tabbar-cache . nil)))))
      ;; restore original button image
      (setq tabbar-home-button-enabled-image tabbar-home-button-enabled-image-orig
            tabbar-home-button-disabled-image tabbar-home-button-disabled-image-orig

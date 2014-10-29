@@ -11,7 +11,7 @@
 
 
 ;; path
-(let ((default-directory (expand-file-name "~/.emacs.d")))
+(let ((default-directory (expand-file-name "~/.emacs.d/lisp")))
   (when (file-exists-p default-directory)
     (add-to-list 'load-path default-directory)
     (if (fboundp 'normal-top-level-add-subdirs-to-load-path)

@@ -1,11 +1,11 @@
-;;; tabbar-ruler.el --- Setup tabbar to look pretty...
+;;; tabbar-ruler.el --- Pretty tabbar, autohide, use both tabbar/ruler
 ;;
 ;; Filename: tabbar-ruler.el
 ;; Description: Changes tabbar setup to be similar to Aquaemacs.
 ;; Author: Matthew Fidler, Nathaniel Cunningham
 ;; Maintainer: Matthew L. Fidler
 ;; Created: Mon Oct 18 17:06:07 2010 (-0500)
-;; Version: 0.25
+;; Version: 0.40
 ;; Last-Updated: Sat Dec 15 15:44:34 2012 (+0800)
 ;;           By: Matthew L. Fidler
 ;;     Update #: 663
@@ -35,15 +35,45 @@
 ;; To use this, put the library in your load path and use
 ;; 
 ;; 
-;;   (setq tabbar-ruler-global-tabbar 't) ; If you want tabbar
-;;   (setq tabbar-ruler-global-ruler 't) ; if you want a global ruler
-;;   (setq tabbar-ruler-popup-menu 't) ; If you want a popup menu.
-;;   (setq tabbar-ruler-popup-toolbar 't) ; If you want a popup toolbar
-;;   
+;;   (setq tabbar-ruler-global-tabbar t) ; If you want tabbar
+;;   (setq tabbar-ruler-global-ruler t) ; if you want a global ruler
+;;   (setq tabbar-ruler-popup-menu t) ; If you want a popup menu.
+;;   (setq tabbar-ruler-popup-toolbar t) ; If you want a popup toolbar
+;;   (setq tabbar-ruler-popup-scrollbar t) ; If you want to only show the
+;;                                         ; scroll bar when your mouse is moving.
 ;;   (require 'tabbar-ruler)
 ;;   
 ;; 
 ;; 
+;; 
+;; * Changing how tabbar groups files/buffers
+;; The default behavior for tabbar-ruler is to group the tabs by frame.
+;; You can change this back to the old-behavior by:
+;; 
+;;   (tabbar-ruler-group-buffer-groups)
+;; 
+;; or by issuing the following code:
+;; 
+;; 
+;;   (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
+;; 
+;; 
+;; In addition, you can also group by projectile project easily by:
+;; 
+;; 
+;;   (tabbar-ruler-group-by-projectile-project)
+;; 
+;; * Adding key-bindings to tabbar-ruler
+;; You can add key-bindings to change the current tab.  The easiest way
+;; to add the bindings is to add a key like:
+;; 
+;; 
+;;   (global-set-key (kbd "C-c t") 'tabbar-ruler-move)
+;; 
+;; 
+;; After that, all you would need to press is Control+c t and then the
+;; arrow keys will allow you to change the buffer quite easily.  To exit
+;; the buffer movement you can press enter or space.
 ;; 
 ;; * Known issues
 ;; the left arrow is text instead of an image.
@@ -51,6 +81,60 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Change Log:
+;; 1-Jul-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Fix variable misspecification
+;; 28-Jun-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Fixed strange org-readme issue
+;; 28-Jun-2013    Matthew L. Fidler  
+;;    Last-Updated: Tue Oct 19 15:37:53 2010 (-0500) (us041375) #663 (Matthew L. Fidler)
+;;    Added popup scrollbarbar 
+;; 27-Jun-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Added autoload for tabbar-install-faces.  That way ergoemacs and other
+;;    packages can load the tabbar-ruler by just calling (tabbar-install-faces)
+;; 6-Jun-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Added left-char and right char to tabbar-ruler-move-keymap so that
+;;    keybindings in emacs 24.3 work correctly.
+;; 6-Jun-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Changed movement commands.  The movement commands are simpler (in my opinion)
+;; 4-Jun-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Change package description.  Fixed the documentation to actually
+;;    change to the old tabbar method of grouping buffers.
+;; 4-Jun-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Turn off ruler mode in the next buffer (if necessary)
+;; 4-Jun-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Add movement keys.  Also add toggles for different groupings.
+;; 1-May-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Try to address issue #4
+;; 1-May-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Changed the modified font to italics.  Made the modified symbol
+;;    customizable, but off by default.  Should address issue #5.
+;; 5-Apr-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Trying to update upstream sources.
+;; 5-Apr-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Fixed speed issues on windows.  It wasn't a redraw that was causing
+;;    the speed issues, it was the constant recreation of the right-click
+;;    menus... 
+;; 27-Mar-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Fixed typo to fix issue #2.
+;; 27-Mar-2013    Matthew L. Fidler  
+;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
+;;    Attempt to fix issue #2.  Whenever the color is not a string, assume
+;;    that it should be transparent.  I'm unsure if the mac osx puts the
+;;    translated color to a string.  However, it seems that the undefined
+;;    should be the same as transparent.  Therefore, this fix *should* work...
 ;; 20-Mar-2013    Matthew L. Fidler  
 ;;    Last-Updated: Sat Dec 15 15:44:34 2012 (+0800) #663 (Matthew L. Fidler)
 ;;    Add inverse video option for unselected tabbar.  Made it the default.
@@ -338,6 +422,8 @@
   "Gets the hexadecimal value of a color"
   (let ((ret color))
     (cond
+     ((not (eq (type-of color) 'string))
+      (setq ret "None"))
      ((string= "#" (substring color 0 1))
       (setq ret (upcase ret)))
      ((color-defined-p color)
@@ -349,16 +435,42 @@
      (t (setq ret "None")))
     (symbol-value 'ret)))
 
+(defcustom tabbar-ruler-swap-faces nil
+  "Swap the selected / unselected tab colors"
+  :type 'boolean
+  :group 'tabbar-ruler)
+
 (defcustom tabbar-ruler-invert-deselected t
   "Invert deselected tabs"
   :type 'boolean
   :group 'tabbar-ruler)
 
+(defcustom tabbar-ruler-modified-symbol nil
+  "Add modified symbol in addition to changing the face."
+  :type 'boolean
+  :type 'tabbar-ruler)
+
+;;;###autoload
 (defun tabbar-install-faces (&optional frame)
   "Installs faces for a frame."
   (interactive)
-  
   (copy-face 'mode-line 'tabbar-default frame)
+  (if tabbar-ruler-swap-faces
+      (progn
+        (copy-face 'default 'tabbar-selected frame)
+        (copy-face 'shadow 'tabbar-unselected frame)
+        (if tabbar-ruler-invert-deselected
+            (progn
+              (copy-face 'tabbar-selected 'tabbar-unselected)
+              (set-face-attribute 'tabbar-selected frame
+                                  :box nil)
+              (invert-face 'tabbar-selected))
+          (set-face-attribute 'tabbar-selected frame
+                              :inherit 'mode-line-buffer-id
+                              :background (face-attribute 'mode-line-inactive :background)
+                              :box nil))
+        (copy-face 'mode-line-buffer-id 'tabbar-unselected-highlight frame)
+        (copy-face 'mode-line-inactive 'tabbar-selected-highlight frame))
   (copy-face 'default 'tabbar-selected frame)
   (copy-face 'shadow 'tabbar-unselected frame)
   
@@ -375,7 +487,7 @@
   
   
   (copy-face 'mode-line-buffer-id 'tabbar-selected-highlight frame)
-  (copy-face 'mode-line-inactive 'tabbar-unselected-highlight frame)
+  (copy-face 'mode-line-inactive 'tabbar-unselected-highlight frame))
   
   (set-face-attribute 'tabbar-separator frame
                       :inherit 'tabbar-default
@@ -386,7 +498,7 @@
                       :box nil))
 
 (add-hook 'after-make-frame-functions 'tabbar-install-faces)
-
+(add-hook 'emacs-startup-hook 'tabbar-install-faces)
 (tabbar-install-faces)
 
 
@@ -693,20 +805,64 @@ Optional argument TYPE is a mouse click event type (see the function
   "Reset memoized functions."
   (interactive)
   (tabbar-memoize 'tabbar-ruler-tab-separator-image)
+  (tabbar-memoize 'tabbar-make-tab-keymap)
   (tabbar-memoize 'tabbar-ruler-image))
 (tabbar-reset)
 
+(defsubst tabbar-drag-p (event)
+  "Return non-nil if EVENT is a mouse drag event."
+  (memq 'drag (event-modifiers event)))
 
 (defun tabbar-select-tab-callback (event)
   "Handle a mouse EVENT on a tab.
 Pass mouse click events on a tab to `tabbar-click-on-tab'."
   (interactive "@e")
-  (when (tabbar-click-p event)
-    (let ((target (posn-string (event-start event))))
-      (tabbar-click-on-tab
-       (get-text-property (cdr target) 'tabbar-tab (car target))
-       event
-       (get-text-property (cdr target) 'tabbar-action (car target))))))
+  (cond 
+    ((tabbar-click-p event)
+      (let ((target (posn-string (event-start event))))
+        (tabbar-click-on-tab
+          (get-text-property (cdr target) 'tabbar-tab (car target))
+          event
+          (get-text-property (cdr target) 'tabbar-action (car target)))))
+    ((tabbar-drag-p event)
+      (let ((start-target (posn-string (event-start event)))
+            (end-target (posn-string (event-end event))))
+        (tabbar-drag-tab
+          (get-text-property (cdr start-target) 'tabbar-tab (car start-target))
+          (get-text-property (cdr end-target) 'tabbar-tab (car end-target))
+          event)))
+  ))
+
+(defun tabbar-drag-tab (dragged-tab dropped-tab event)
+  "Handle DRAGGED-TAB dragged-and-dropped onto DROPPED-TAB.
+   Include full mouse EVENT from drag-and-drop action."
+  (let ((start-tabset (tabbar-tab-tabset dragged-tab)))
+    (when (and (eq start-tabset (tabbar-tab-tabset dropped-tab))
+           (not (eq dragged-tab dropped-tab)))
+      (let* ((tabs (tabbar-tabs start-tabset))
+         (drop-tail-length (length (memq dropped-tab tabs)))
+         (drag-tail-length (length (memq dragged-tab tabs)))
+         (dragdrop-pair (list dragged-tab dropped-tab))
+         new-tablist)
+    (when (> drag-tail-length drop-tail-length)
+      (setq dragdrop-pair (reverse dragdrop-pair)))
+    (dolist (thistab (reverse tabs))
+      ;; build list of tabs.  When we hit dragged-tab, don't append it.
+      ;; When we hit dropped-tab, append dragdrop-pair
+      (cond
+        ((eq thistab dragged-tab))
+        ((eq thistab dropped-tab)
+         (setq new-tablist (append dragdrop-pair new-tablist)))
+        (t (add-to-list 'new-tablist thistab))
+      ))
+    (set start-tabset new-tablist)
+    ;; (setq tabbar-window-cache nil)  ;; didn't help
+    (tabbar-set-template start-tabset nil)
+    ;; open the dragged tab
+    (funcall tabbar-select-tab-function
+             (tabbar-make-mouse-event event) dragged-tab)
+    (tabbar-display-update)
+    ))))
 
 (defsubst tabbar-line-tab (tab &optional not-last sel)
   "Return the display representation of tab TAB.
@@ -720,6 +876,7 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
                                                                        :color (if (eq tab sel)
                                                                                   (face-attribute 'default :foreground)
                                                                                 "gray10"))))))
+          (keymap (tabbar-make-tab-keymap tab))
           (separator-image (if tabbar-ruler-fancy-tab-separator
                                (tabbar-find-image
                                 `((:type xpm :data
@@ -746,7 +903,7 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
     (concat
      (propertize " " 'face face
                  'tabbar-tab tab
-                 'local-map (tabbar-make-tab-keymap tab)
+                 'local-map keymap
                  'help-echo 'tabbar-help-on-tab
                  'face face
                  'pointer 'hand)
@@ -755,12 +912,12 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
           (funcall tabbar-tab-label-function tab)
         tab)
       'tabbar-tab tab
-      'local-map (tabbar-make-tab-keymap tab)
+      'local-map keymap
       'help-echo 'tabbar-help-on-tab
       'mouse-face 'tabbar-highlight
       'face face
       'pointer 'hand)
-     (propertize (if modified-p
+     (propertize (if (and modified-p tabbar-ruler-modified-symbol)
                      (with-temp-buffer
                        (condition-case err
                            (ucs-insert "207A")
@@ -772,7 +929,7 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
                        (buffer-substring (point-min) (point-max))) " ")
                  'face face
                  'tabbar-tab tab
-                 'local-map (tabbar-make-tab-keymap tab)
+                 'local-map keymap
                  'help-echo 'tabbar-help-on-tab
                  'face face
                  'pointer 'hand)
@@ -789,7 +946,7 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
                      'face face
                      'pointer 'hand
                      'tabbar-tab tab
-                     'local-map (tabbar-make-tab-keymap tab)
+                     'local-map keymap
                      'tabbar-action 'close-tab)
        (propertize
         (with-temp-buffer
@@ -803,7 +960,7 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
         'face face
         'pointer 'hand
         'tabbar-tab tab
-        'local-map (tabbar-make-tab-keymap tab)
+        'local-map keymap
         'tabbar-action 'close-tab))
      (if tabbar-ruler-fancy-tab-separator
          (propertize "|"
@@ -902,37 +1059,17 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
 (defface tabbar-selected-modified
   '((t
      :inherit tabbar-selected
+     :foreground "DarkOrange3"
      :weight bold))
-  "Face used for unselected tabs."
+   "Face used for selected tabs."
   :group 'tabbar)
 
 (defface tabbar-unselected-modified
   '((t
      :inherit tabbar-unselected
+     :foreground "DarkOrange3"
      :weight bold))
-  "Face used for unselected tabs."
-  :group 'tabbar)
-
-(defface tabbar-key-binding '((t
-                               :foreground "white"))
-  "Face for unselected, highlighted tabs."
-  :group 'tabbar)
-
-
-
-(defface tabbar-selected-modified
-  '((t
-     :inherit tabbar-selected
-     :weight bold))
-  "Face used for unselected tabs."
-  :group 'tabbar)
-
-(defface tabbar-unselected-modified
-  '((t
-     :inherit tabbar-unselected
-     :weight bold
-     ))
-  "Face used for unselected tabs."
+   "Face used for unselected tabs."
   :group 'tabbar)
 
 (defface tabbar-key-binding '((t
@@ -968,6 +1105,12 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
   "Should tabbar-ruler have a popup toolbar.  As mouse moves toward top of window, the toolbar pops up."
   :type 'boolean
   :group 'tabbar-ruler)
+
+(defcustom tabbar-ruler-popup-scrollbar nil
+  "Should tabbas-ruler have popup scrollbar.  As mouse moves, the scroll-bar pops up.  Otherwise the sroll-bar is turned off."
+  :type 'boolean
+  :group 'tabbar-ruler)
+
 (defcustom tabbar-ruler-popup-menu-min-y 5 ;
   "Minimum number of pixels from the top before a menu/toolbar pops up."
   :type 'integer
@@ -1027,6 +1170,8 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
     cua-scroll-up
     cua-paste
     cua-paste-pop
+    scroll-up
+    scroll-down
     autopair-newline
     autopair-insert-opening
     autopair-skip-close-maybe
@@ -1044,7 +1189,10 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
       (progn
         (cond
          ((minibufferp)
-           nil)
+          nil)
+         (tabbar-ruler-keep-tabbar
+          (setq tabbar-ruler-keep-tabbar nil)
+          nil)
          ((and (save-match-data (string-match "^[*]Org Src " (buffer-name))))
           nil)
          ((member major-mode tabbar-ruler-fight-igore-modes)
@@ -1055,8 +1203,9 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
            (tabbar-ruler-mouse-movement))
          ( (and tabbar-ruler-global-ruler tabbar-ruler-global-tabbar)
            (cond
-            
             ( (memq last-command tabbar-ruler-ruler-display-commands)
+              (when tabbar-ruler-popup-scrollbar
+                (scroll-bar-mode -1))
               (when tabbar-ruler-ruler-off
                 (ruler-mode 1)
                 (setq tabbar-ruler-ruler-off nil))
@@ -1083,6 +1232,8 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
                   (setq tabbar-ruler-tabbar-off nil))))
             ( 't
               (when (or initialize (and tabbar-ruler-ruler-off tabbar-ruler-tabbar-off))
+                (when tabbar-ruler-popup-scrollbar
+                  (scroll-bar-mode -1))
                 (when tabbar-ruler-ruler-off
                   (ruler-mode 1)
                   (setq tabbar-ruler-ruler-off nil))
@@ -1109,7 +1260,7 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
   "Mouse Movement function"
   (interactive)
   (when tabbar-ruler-movement-timer
-    (cancel-timer tabbar-ruler-movement-timer))
+    (cancel-timer tabbar-ruler-movement-timer))  
   (let* ((y-pos (cddr (mouse-pixel-position)))
          (x-pos (cadr (mouse-pixel-position))))
     (unless y-pos
@@ -1123,6 +1274,8 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
                      (= tabbar-ruler-movement-x x-pos)
                      (= tabbar-ruler-movement-y y-pos)))))
       (when (and x-pos y-pos)
+        (when tabbar-ruler-popup-scrollbar
+          (scroll-bar-mode 1))
         (setq tabbar-ruler-movement-x x-pos)
         (setq tabbar-ruler-movement-y y-pos)
         (unless tabbar-ruler-ruler-off
@@ -1197,7 +1350,7 @@ Return a list of one element based on major mode."
            "Files"
            ))))
   (symbol-value 'last-tabbar-ruler-tabbar-buffer-groups))
-(setq tabbar-buffer-groups-function 'tabbar-ruler-tabbar-buffer-groups)
+
 
 (defun tabbar-ruler-tabbar-buffer-list ()
   "Return the list of buffers to show in tabs.
@@ -1215,7 +1368,212 @@ visiting a file.  The current buffer is always included."
                      ;;((char-equal ?* (aref (buffer-name b) 0)) nil)
                      ((buffer-live-p b) b)))
                 (buffer-list))))
-(setq tabbar-buffer-list-function 'tabbar-ruler-tabbar-buffer-list)
+
+(defvar tabbar-ruler-projectile-tabbar-buffer-group-calc nil
+  "Buffer group for projectile.  Should be buffer local and speed up calculation of buffer groups.")
+(defun tabbar-ruler-projectile-tabbar-buffer-groups ()
+  "Return the list of group names BUFFER belongs to.
+    Return only one group for each buffer."
+  
+  (if tabbar-ruler-projectile-tabbar-buffer-group-calc
+      (symbol-value 'tabbar-ruler-projectile-tabbar-buffer-group-calc)
+    (set (make-local-variable 'tabbar-ruler-projectile-tabbar-buffer-group-calc)
+         
+         (cond
+          ((or (get-buffer-process (current-buffer)) (memq major-mode '(comint-mode compilation-mode))) '("Term"))
+          ((string-equal "*" (substring (buffer-name) 0 1)) '("Misc"))
+          ((condition-case err
+               (projectile-project-root)
+             (error nil)) (list (projectile-project-name)))
+          ((memq major-mode '(emacs-lisp-mode python-mode emacs-lisp-mode c-mode c++-mode makefile-mode lua-mode vala-mode)) '("Coding"))
+          ((memq major-mode '(javascript-mode js-mode nxhtml-mode html-mode css-mode)) '("HTML"))
+          ((memq major-mode '(org-mode calendar-mode diary-mode)) '("Org"))
+          ((memq major-mode '(dired-mode)) '("Dir"))
+          (t '("Main"))))
+    (symbol-value 'tabbar-ruler-projectile-tabbar-buffer-group-calc)))
+
+(defun tabbar-ruler-group-by-projectile-project()
+  "Group by projectile project."
+  (interactive)
+  (setq tabbar-buffer-groups-function 'tabbar-ruler-projectile-tabbar-buffer-groups))
+
+(defun tabbar-ruler-group-user-buffers-helper ()
+   ;; customize tabbar to have only 2 groups: emacs's and user's buffers
+   ;; all normal files will be shown in group user's buffers
+   (list (cond ((string-equal "*" (substring (buffer-name) 0 1)) "emacs's buffers")
+               ((eq major-mode 'dired-mode) "emacs's buffers")
+               (t "user's buffers"))))
+
+(defun tabbar-ruler-group-user-buffers ()
+   (interactive)
+   (setq tabbar-buffer-groups-function 'tabbar-ruler-group-user-buffers-helper))
+
+(defun tabbar-ruler-group-buffer-groups ()
+  "Use tabbar's major-mode grouping of buffers."
+  (interactive)
+  (setq tabbar-buffer-groups-function 'tabbar-buffer-groups))
+
+;; default group mode
+(tabbar-ruler-group-user-buffers)
+
+;;; Adapted from auto-hide in EmacsWiki
+
+(defvar tabbar-display-functions
+  '(tabbar-press-home
+    tabbar-backward
+    tabbar-forward
+    tabbar-backward-tab
+    tabbar-forward-tab
+    tabbar-backward-group
+    tabbar-forward-group
+    tabbar-press-scroll-left
+    tabbar-press-scroll-right)
+  "Tabbar movement functions")
+
+(defvar tabbar-ruler-keep-tabbar nil)
+
+(mapc
+ (lambda(x)
+   (eval `(defun ,(intern (concat "tabbar-ruler-" (symbol-name x))) (&optional arg)
+            ,(concat "Turn on tabbar before running `" (symbol-name x) "'")
+            (interactive "p")
+            (setq tabbar-ruler-keep-tabbar t)
+            (unless tabbar-ruler-ruler-off
+              (ruler-mode -1)
+              (setq tabbar-ruler-ruler-off 't))
+            (when tabbar-ruler-tabbar-off
+              (tabbar-mode 1)
+              (setq tabbar-ruler-tabbar-off nil))
+            (setq current-prefix-arg current-prefix-arg)
+            (call-interactively ',x)
+            (setq tabbar-ruler-keep-tabbar t)
+            (unless tabbar-ruler-ruler-off
+              (ruler-mode -1)
+              (setq tabbar-ruler-ruler-off 't))
+            (when tabbar-ruler-tabbar-off
+              (tabbar-mode 1)
+              (setq tabbar-ruler-tabbar-off nil)))))
+ tabbar-display-functions)
+
+;;;###autoload
+(defun tabbar-ruler-up (&optional arg)
+  "Tabbar press up key."
+  (interactive "p")
+  (setq current-prefix-arg current-prefix-arg)
+  (call-interactively 'tabbar-ruler-tabbar-press-home))
+
+;;;###autoload
+(defun tabbar-ruler-forward (&optional arg)
+  "Forward ruler. Takes into consideration if the home-key was pressed.
+This is based on the variable `tabbar--buffer-show-groups'"
+  (interactive "p")
+  (cond
+   (tabbar--buffer-show-groups
+    (setq current-prefix-arg current-prefix-arg)
+    (call-interactively 'tabbar-ruler-tabbar-forward-group)
+    (tabbar-ruler-tabbar-press-home))
+   (t
+    (setq current-prefix-arg current-prefix-arg)
+    (call-interactively 'tabbar-ruler-tabbar-forward-tab))))
+
+;;;###autoload
+(defun tabbar-ruler-backward (&optional arg)
+  "Backward ruler.  Takes into consideration if the home-key was pressed."
+  (interactive "p")
+  (cond
+   (tabbar--buffer-show-groups
+    (setq current-prefix-arg current-prefix-arg)
+    (call-interactively 'tabbar-ruler-tabbar-backward-group)
+    (tabbar-ruler-tabbar-press-home))
+   (t
+    (setq current-prefix-arg current-prefix-arg)
+    (call-interactively 'tabbar-ruler-tabbar-backward-tab))))
+
+(when (not (fboundp 'set-temporary-overlay-map))
+  ;; Backport this function from newer emacs versions
+  (defun set-temporary-overlay-map (map &optional keep-pred)
+    "Set a new keymap that will only exist for a short period of time.
+The new keymap to use must be given in the MAP variable. When to
+remove the keymap depends on user input and KEEP-PRED:
+
+- if KEEP-PRED is nil (the default), the keymap disappears as
+  soon as any key is pressed, whether or not the key is in MAP;
+
+- if KEEP-PRED is t, the keymap disappears as soon as a key *not*
+ i in MAP is pressed;
+
+- otherwise, KEEP-PRED must be a 0-arguments predicate that will
+  decide if the keymap should be removed (if predicate returns
+  nil) or kept (otherwise). The predicate will be called after
+  each key sequence."
+    
+    (let* ((clearfunsym (make-symbol "clear-temporary-overlay-map"))
+           (overlaysym (make-symbol "t"))
+           (alist (list (cons overlaysym map)))
+           (clearfun
+            `(lambda ()
+               (unless ,(cond ((null keep-pred) nil)
+                              ((eq t keep-pred)
+                               `(eq this-command
+                                    (lookup-key ',map
+                                                (this-command-keys-vector))))
+                              (t `(funcall ',keep-pred)))
+                 (remove-hook 'pre-command-hook ',clearfunsym)
+                 (setq emulation-mode-map-alists
+                       (delq ',alist emulation-mode-map-alists))))))
+      (set overlaysym overlaysym)
+      (fset clearfunsym clearfun)
+      (add-hook 'pre-command-hook clearfunsym)
+      
+      (push alist emulation-mode-map-alists))))
+
+(defvar tabbar-ruler-move-keymap (make-sparse-keymap)
+  "Keymap for tabbar-ruler movement")
+
+(define-key tabbar-ruler-move-keymap [remap previous-line] 'tabbar-ruler-up)
+(define-key tabbar-ruler-move-keymap [remap next-line] 'tabbar-ruler-up)
+(define-key tabbar-ruler-move-keymap [remap backward-char] 'tabbar-ruler-backward)
+(define-key tabbar-ruler-move-keymap [remap forward-char] 'tabbar-ruler-forward)
+(define-key tabbar-ruler-move-keymap [remap left-char] 'tabbar-ruler-backward)
+(define-key tabbar-ruler-move-keymap [remap right-char] 'tabbar-ruler-forward)
+(define-key tabbar-ruler-move-keymap (kbd "SPC") (lambda() (interactive) (message "Exited tabbar-movement")))
+(define-key tabbar-ruler-move-keymap (kbd "<return>") (lambda() (interactive) (message "Exited tabbar-movement")))
+
+(defun tabbar-ruler-move-pred ()
+  "Determines if emacs should keep the temporary keymap
+  `tabbar-ruler-move-keymap' when running `tabbar-ruler-move'."
+  (memq this-command '(tabbar-ruler-up tabbar-ruler-backward tabbar-ruler-forward)))
+
+;;;###autoload
+(defun tabbar-ruler-move ()
+  "Start the movement for the tabbar"
+  (interactive)
+  (setq tabbar-ruler-keep-tabbar t)
+  (unless tabbar-ruler-ruler-off
+    (ruler-mode -1)
+    (setq tabbar-ruler-ruler-off 't))
+  (when tabbar-ruler-tabbar-off
+    (tabbar-mode 1)
+    (setq tabbar-ruler-tabbar-off nil))
+  (message "Use arrow keys to change buffers (or line movement commands).  Exit with space/return or any other key.")
+  (set-temporary-overlay-map tabbar-ruler-move-keymap 'tabbar-ruler-move-pred))
+
+;; Hook save and change events to show modified buffers in tabbar
+(defun on-saving-buffer ()
+  (tabbar-set-template tabbar-current-tabset nil)
+  (tabbar-display-update))
+(defun on-modifying-buffer ()
+  (set-buffer-modified-p (buffer-modified-p))
+  (tabbar-set-template tabbar-current-tabset nil)
+  (tabbar-display-update))
+(defun after-modifying-buffer (begin end length)
+  (set-buffer-modified-p (buffer-modified-p))
+  (tabbar-set-template tabbar-current-tabset nil)
+  (tabbar-display-update))
+(add-hook 'after-save-hook 'on-saving-buffer)
+(add-hook 'first-change-hook 'on-modifying-buffer)
+(add-hook 'after-change-functions 'after-modifying-buffer)
+
 (provide 'tabbar-ruler)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; tabbar-ruler.el ends here
