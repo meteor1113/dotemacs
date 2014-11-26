@@ -263,6 +263,7 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
            (append ecb-compilation-buffer-names '(("*Process List*")
                                                   ("*Proced*")
                                                   (".notes")
+                                                  ("notes")
                                                   ("*appt-buf*")
                                                   ("*Compile-Log*")
                                                   ("*etags tmp*")
