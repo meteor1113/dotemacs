@@ -1,5 +1,5 @@
 ;;; -*- mode: emacs-lisp; mode: goto-address; coding: utf-8; -*-
-;; Copyright (C) 2010-2011 Meteor Liu
+;; Copyright (C) 2010-2014 Meteor Liu
 ;;
 ;; This code has been released into the Public Domain.
 ;; You may do whatever you like with it.
@@ -7,7 +7,7 @@
 ;; @file
 ;; @author Meteor Liu <meteor1113@gmail.com>
 ;; @date 2010-05-29
-;; @URL http://github.com/meteor1113/dotemacs
+;; @URL http://git.oschina.net/meteor1113/dotemacs
 
 
 ;; Remove the some buttons in the tool bar.
