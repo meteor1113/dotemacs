@@ -12,10 +12,6 @@
 
 ;;; global setting
 
-;; user information
-(setq user-full-name "Liu Xin")
-(setq user-mail-address "meteor1113@gmail.com")
-
 ;; path
 ;; (when (eq system-type 'windows-nt)
 ;;   (let* ((dir (file-name-directory (directory-file-name data-directory)))

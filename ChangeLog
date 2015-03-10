@@ -1,3 +1,7 @@
+2015-03-10  Liu Xin  <meteor1113@gmail.com>
+
+	* init-custom.el: Add init-custom.el
+
 2014-10-29  Meteor Liu  <meteor1113@gmail.com>
 
 	* init-site.el (default-directory): update for emacs-24.4

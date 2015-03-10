@@ -7,7 +7,7 @@
 (load "init-site" 'noerror)
 (load "init-misc" 'noerror)
 (load "init-toolbar" 'noerror)
-(load "init-test" t)
+(load "init-custom" t)
 
 (add-to-list 'load-path "d:/common/note")
 (add-to-list 'load-path "e:/common/note")

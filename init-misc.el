@@ -115,19 +115,9 @@
                      (holiday-lunar 1 15 "元宵节(正月十五)" 0)
                      (holiday-lunar 7 7 "七夕节")
                      (holiday-lunar 9 9 "重阳节(九月初九)"))))
-     (setq cal-china-x-priority2-holidays
-           '((holiday-chinese 6 23 "李浩斌生日")
-             (holiday-fixed 10 16 "李可生日(1981)")
-             (holiday-chinese 8 15 "爸妈生日(1955)")
-             (holiday-fixed 4 9 "戚生日(1983)")
-             (holiday-fixed 10 6 "奇奇阳历生日(2010)")
-             (holiday-chinese 8 29 "奇奇阴历生日(2010)")
-             (holiday-fixed 12 8 "刘阳历生日(1981)")
-             (holiday-chinese 11 13 "刘阴历生日(1981)")))
      (setq calendar-holidays
            (append calendar-holidays
-                   cal-china-x-priority1-holidays
-                   cal-china-x-priority2-holidays))))
+                   cal-china-x-priority1-holidays))))
 
 ;; calfw
 (autoload 'cfw:open-org-calendar "calfw-org" nil t)
@@ -138,7 +128,7 @@
 ;;      (cfw:install-org-schedules)))
 
 ;; cn-weather
-(setq cn-weather-city "大连")
+;; (setq cn-weather-city "大连")
 (autoload 'display-cn-weather-mode "cn-weather"
   "Display weather information in the mode line." t)
 (autoload 'cn-weather "cn-weather"
