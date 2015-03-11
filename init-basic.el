@@ -297,6 +297,17 @@
 (add-to-list 'filesets-data (list "temp" (list :files)))
 
 ;; calendar
+(setq holiday-local-holidays '((holiday-fixed 2 14 "情人节")
+                               (holiday-fixed 3 8 "妇女节")
+                               (holiday-fixed 3 12 "植树节")
+                               (holiday-fixed 5 4 "青年节")
+                               (holiday-float 5 0 2 "母亲节")   ;5月的第二个星期天
+                               (holiday-float 6 0 3 "父亲节")
+                               (holiday-fixed 6 1 "儿童节")
+                               (holiday-fixed 9 10 "教师节")
+                               (holiday-chinese 1 15 "元宵节(正月十五)")
+                               (holiday-chinese 7 7 "七夕节")
+                               (holiday-chinese 9 9 "重阳节(九月初九)")))
 (setq calendar-chinese-all-holidays-flag t)
 (setq mark-holidays-in-calendar t)
 ;; (setq calendar-week-start-day 1)
@@ -309,8 +320,10 @@
 (setq appt-message-warning-time 0)
 (setq appt-display-duration (* 365 24 60 60))
 (unless (daemonp)
-  (appt-activate 1)
-  (delete-other-windows))
+  (add-hook 'after-init-hook
+            (lambda ()
+              (appt-activate 1)
+              (delete-other-windows))))
 ;; (diary 0)
 
 ;; autoinsert

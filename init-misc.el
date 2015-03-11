@@ -105,19 +105,13 @@
 (eval-after-load "calendar"
   '(when (require 'cal-china-x nil 'noerror)
      (setq cal-china-x-priority1-holidays
-           (append cal-china-x-chinese-holidays
-                   '((holiday-fixed 2 14 "情人节")
-                     (holiday-fixed 3 8 "妇女节")
-                     (holiday-fixed 3 12 "植树节")
-                     (holiday-fixed 5 4 "青年节")
-                     (holiday-fixed 6 1 "儿童节")
-                     (holiday-fixed 9 10 "教师节")
-                     (holiday-lunar 1 15 "元宵节(正月十五)" 0)
-                     (holiday-lunar 7 7 "七夕节")
-                     (holiday-lunar 9 9 "重阳节(九月初九)"))))
+           (append holiday-local-holidays
+                   cal-china-x-chinese-holidays
+                   cal-china-x-japanese-holidays))
      (setq calendar-holidays
            (append calendar-holidays
-                   cal-china-x-priority1-holidays))))
+                   cal-china-x-chinese-holidays
+                   cal-china-x-japanese-holidays))))
 
 ;; calfw
 (autoload 'cfw:open-org-calendar "calfw-org" nil t)
@@ -691,13 +685,13 @@ a c mode)."
          (snippets-dir (expand-file-name "etc/snippets" dir)))
     (when (file-exists-p snippets-dir)
       (yas/load-directory snippets-dir)))
-  (when (require 'org nil 'noerror)
-    (add-hook 'org-mode-hook
-              (let ((original-command (lookup-key org-mode-map [tab])))
-                `(lambda ()
-                   (setq yas/fallback-behavior
-                         '(apply ,original-command))
-                   (local-set-key [tab] 'yas/expand))))))
+  (eval-after-load "org"
+    '(add-hook 'org-mode-hook
+               (let ((original-command (lookup-key org-mode-map [tab])))
+                 `(lambda ()
+                    (setq yas/fallback-behavior
+                          '(apply ,original-command))
+                    (local-set-key [tab] 'yas/expand))))))
 
 ;; auto-complete
 (when (and (> emacs-major-version 21)

@@ -1,5 +1,11 @@
 2015-03-11  Liu Xin  <meteor1113@gmail.com>
 
+	* init-custom.el (holiday-other-holidays): set calendar
+
+	* init-misc.el ("calendar"): set cal-china-x
+
+	* init-basic.el (holiday-local-holidays): set calendar
+
 	* init-site.el (fboundp): set ecb-source-path
 
 2015-03-10  Liu Xin  <meteor1113@gmail.com>
