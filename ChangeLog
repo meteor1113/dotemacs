@@ -1,3 +1,7 @@
+2015-03-11  Liu Xin  <meteor1113@gmail.com>
+
+	* init-site.el (fboundp): set ecb-source-path
+
 2015-03-10  Liu Xin  <meteor1113@gmail.com>
 
 	* init-custom.el: Add init-custom.el
