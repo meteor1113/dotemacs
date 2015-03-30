@@ -96,9 +96,7 @@
         (:eval (or buffer-file-name (buffer-name)))
         "[" (:eval (format "%s" buffer-file-coding-system)) "]"
         (:eval (if (buffer-modified-p) " * " " - "))
-        invocation-name
-        "@"
-        system-name))
+        invocation-name "@" system-name))
 (when window-system (set-background-color "honeydew")) ; #f0fff0
 (add-hook 'after-make-frame-functions
           (lambda (frame)
