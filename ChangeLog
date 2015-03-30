@@ -1,3 +1,7 @@
+2015-03-30  Liu Xin  <meteor1113@gmail.com>
+
+	* init-misc.el (projectile-mode): Add projectile.
+
 2015-03-11  Liu Xin  <meteor1113@gmail.com>
 
 	* init-custom.el (holiday-other-holidays): set calendar

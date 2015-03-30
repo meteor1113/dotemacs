@@ -887,4 +887,8 @@ a c mode)."
 (autoload 'winsav-save-configuration "winsav" nil t)
 (autoload 'winsav-restore-configuration "winsav" nil t)
 
+;; projectile
+(autoload 'projectile-mode "projectile" nil t)
+(autoload 'projectile-global-mode "projectile" nil t)
+
 (provide 'init-misc)

@@ -456,6 +456,14 @@
   '(menu-item "viper-mode" toggle-viper-mode
               :enable (fboundp 'toggle-viper-mode)
               :button (:toggle . viper-mode)))
+(define-key minormode-sub-menu [projectile-mode]
+  '(menu-item "projectile-mode" projectile-mode
+              :enable (fboundp 'projectile-mode)
+              :button (:toggle . projectile-mode)))
+(define-key minormode-sub-menu [projectile-global-mode]
+  '(menu-item "projectile-global-mode" projectile-global-mode
+              :enable (fboundp 'projectile-global-mode)
+              :button (:toggle . projectile-global-mode)))
 (define-key toggle-toolbar-menu [minor-mode]
   (list 'menu-item "Minor mode" minormode-sub-menu))
 
