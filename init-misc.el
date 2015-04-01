@@ -890,6 +890,6 @@ a c mode)."
 ;; projectile
 (autoload 'projectile-mode "projectile" nil t)
 (autoload 'projectile-global-mode "projectile" nil t)
-(ignore-errors (projectile-global-mode))
+(ignore-errors (projectile-global-mode 1))
 
 (provide 'init-misc)
