@@ -236,58 +236,6 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     (define-key c-mode-base-map [M-f12] 'eassist-switch-h-cpp)
     (define-key c-mode-base-map (kbd "ESC <f12>") 'eassist-switch-h-cpp)))
 
-;; ecb
-(require 'ecb-autoloads nil 'noerror)
-(unless (boundp 'stack-trace-on-error)
-  (defvar stack-trace-on-error nil))
-(when (fboundp 'ecb-minor-mode)
-  (defvar ecb-minor-mode nil)
-  (setq ecb-primary-secondary-mouse-buttons 'mouse-1--C-mouse-1
-        ecb-source-path (quote ("/" ("c:" "c:")))
-        ecb-layout-name 'left3
-        ecb-toggle-layout-sequence '("left3"
-                                     "left8"
-                                     "left-analyse"
-                                     "left-symboldef")
-        ecb-windows-width 0.25
-        ecb-compile-window-height 0.15
-        ecb-compile-window-width 'edit-window
-        ecb-compile-window-temporally-enlarge 'after-selection
-        ;; ecb-enlarged-compilation-window-max-height 0.8
-        ecb-tip-of-the-day nil
-        ecb-auto-compatibility-check nil))
-(eval-after-load "ecb"
-  '(progn
-     (setq ecb-cedet-required-version-max '(2 0 4 9))
-     (setq ecb-compilation-buffer-names
-           (append ecb-compilation-buffer-names '(("*Process List*")
-                                                  ("*Proced*")
-                                                  (".notes")
-                                                  ("notes")
-                                                  ("*appt-buf*")
-                                                  ("*Compile-Log*")
-                                                  ("*etags tmp*")
-                                                  (" *svn-process*")
-                                                  ("*svn-info-output*")
-                                                  ("*Python Output*")
-                                                  ("*Org Agenda*")
-                                                  (" *EMMS Playlist*")
-                                                  ("*Moccur*")
-                                                  ("*Directory"))))
-     (setq ecb-compilation-major-modes
-           (append ecb-compilation-major-modes '(change-log-mode
-                                                 calendar-mode
-                                                 diary-mode
-                                                 diary-fancy-display-mode
-                                                 xgtags-select-mode
-                                                 svn-status-mode
-                                                 svn-info-mode
-                                                 svn-status-diff-mode
-                                                 svn-log-view-mode
-                                                 svn-log-edit-mode
-                                                 erc-mode
-                                                 gud-mode)))))
-
 ;; jde
 (add-hook 'java-mode-hook
           '(lambda ()

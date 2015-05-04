@@ -1,0 +1,1539 @@
+This is ecb.info, produced by makeinfo version 5.2 from ecb.texi.
+
+INFO-DIR-SECTION GNU Emacs Lisp
+START-INFO-DIR-ENTRY
+* ECB: (ecb).           Emacs Code Browser
+END-INFO-DIR-ENTRY
+
+
+File: ecb.info,  Node: Possible layout-outlines,  Next: The layout-engine API,  Prev: Programming special windows,  Up: The layout-engine
+
+11.5.3 The wide range of possible layout-outlines
+-------------------------------------------------
+
+In the two previous sections *note Programming a new layout:: and *note
+Programming special windows:: we have explained in detail how to program
+new layouts and how to program new special windows/buffers and adding
+them to a new layout.
+
+The intention of this section is to be a summary what are the real
+restrictions for a new layout-outline programmed with
+'ecb-layout-define'.  This is necessary because until now we just
+programmed "obvious" layouts, means layout which are in principle very
+similar to the standard ones which means one big edit-window and some
+special windows "around" this edit-window.  This section will show you
+that a layout can have also very different outlines.
+
+OK, here are the real restrictions and conditions for a layout
+programmed with 'ecb-layout-define':
+  1. It must have exactly one edit-window regardless of its size.  The
+     user of this layout can later split this edit-window in as many
+     edit-windows as he like.
+
+  2. All other windows created within the CREATE-CODE body of
+     'ecb-layout-define' (*note Programming a new layout::) must be
+     dedicated to their buffers.
+
+  3. All the dedicated windows must (exclusive!)  either reside on the
+     left, right, top or left-and-right side of the edit-window.  This
+     will be defined with the TYPE-argument of 'ecb-layout-define'
+     (*note Programming a new layout::).
+
+You see, there are only three restrictions/conditions.  These and only
+these must be fulfilled at layout-programming.
+
+Demonstrating what this really means and how flexible the layout-engine
+of ECB really is, can be done best with some "pathological"
+layout-outlines.  All the following are correct layouts (working code is
+added below each layout):
+
+The following is a top layout with three vertical layered special
+windows.
+
+     ------------------------------------------------------------------
+     |                                                                |
+     |                 Upper special window (a tree-buffer)           |
+     |                                                                |
+     |----------------------------------------------------------------|
+     |                                                                |
+     |                 Middle special window (no tree-buffer)         |
+     |                                                                |
+     |----------------------------------------------------------------|
+     |                                                                |
+     |                 Lower special window (a tree-buffer)           |
+     |                                                                |
+     |================================================================|
+     |                                                                |
+     |                         Edit-area                              |
+     |      (can be splitted by the user in several edit-windows)     |
+     ------------------------------------------------------------------
+     |                                                                |
+     |                 Compilation-window (optional)                  |
+     |                                                                |
+     ------------------------------------------------------------------
+
+Here is the code for that top layout (all buffers are dummy-buffers):
+
+
+     ;; The "window dedicator to buffer" functions:
+
+     (defecb-window-dedicator-to-ecb-buffer ecb-set-usw-buffer
+        upper-special-window-buffer-name t
+       (switch-to-buffer (get-buffer-create "Upper special window")))
+
+     (defecb-window-dedicator-to-ecb-buffer ecb-set-msw-buffer
+        middle-special-window-buffer-name nil
+       (switch-to-buffer (get-buffer-create "Middle special window")))
+
+     (defecb-window-dedicator-to-ecb-buffer ecb-set-lsw-buffer
+        lower-special-window-buffer-name t
+       (switch-to-buffer (get-buffer-create "Lower special window")))
+
+     ;; The layout itself:
+
+     (ecb-layout-define "example-layout3" top
+       nil
+
+       ;; here we have an edit-window and above one top window which we can
+       ;; now split in several other windows. Dependent on the value of
+       ;; `ecb-compile-window-height' we have also a compile-window at the
+       ;; bottom.
+
+       (ecb-set-usw-buffer)
+       (ecb-split-ver 0.33)
+       (ecb-set-msw-buffer)
+       (ecb-split-ver 0.5)
+       (ecb-set-lsw-buffer)
+
+       ;; select the edit-window.
+       (select-window (next-window)))
+
+The following is a left-right layout which has six special windows in
+the left-"column" and one big special window in the right-"column".  For
+left-right layouts the left-"column" and the right-"column" have always
+the same width.
+
+     ------------------------------------------------------------------
+     |             |       |                   |                      |
+     | Left1       | Left5 |                   |                      |
+     |             |       |                   |                      |
+     |-------------|       |                   |                      |
+     |      |      |       |                   |                      |
+     |      |      |       |                   |                      |
+     |      |      |       |                   |                      |
+     | Left2| Left3|-------|     Edit-area     |   Right1             |
+     |      |      |       | (can be splitted  |                      |
+     |      |      |       |  in several edit- |                      |
+     |      |      |       |      windows)     |                      |
+     |-------------|       |                   |                      |
+     |             |       |                   |                      |
+     | Left4       | Left6 |                   |                      |
+     |             |       |                   |                      |
+     ------------------------------------------------------------------
+     |                                                                |
+     |                 Compilation-window (optional)                  |
+     |                                                                |
+     ------------------------------------------------------------------
+
+Here is the code for that left-right layout, again with dummy-buffers
+(depending to your screen-resolution you will need a quite big value for
+'ecb-windows-width', e.g.  0.4):
+
+Here is one of the "window dedicator for buffer"-functions(1):
+
+     (defvar buffer-name-left1 "left1")
+
+     ;; Note that the third argument muts be not nil if the ecb-window should
+     ;; display an ecb-buffer of type tree-buffer!
+     (defecb-window-dedicator-to-ecb-buffer ecb-set-left1-buffer buffer-name-left1 nil
+       (switch-to-buffer (get-buffer-create "Left1")))
+
+Here is the layout-definition itself:
+
+     (ecb-layout-define "example-layout2" left-right
+       nil
+
+       ;; here we have an edit-window and left and right two windows each
+       ;; with width `ecb-windows-width'. Dependent to the value of
+       ;; `ecb-compile-window-height' we have also a compile-window at the
+       ;; bottom.
+
+       (ecb-set-left1-buffer)
+       (ecb-split-hor 0.66 t)
+       (ecb-split-ver 0.75)
+       (ecb-set-left4-buffer)
+       (select-window (previous-window (selected-window) 0))
+       (ecb-split-ver 0.25 nil t)
+       (ecb-set-left2-buffer)
+       (ecb-split-hor 0.5)
+       (ecb-set-left3-buffer)
+       (select-window (next-window (next-window)))
+       (ecb-set-left5-buffer)
+       (ecb-split-ver 0.5)
+       (ecb-set-left6-buffer)
+       (select-window (next-window (next-window)))
+       (ecb-set-right1-buffer))
+
+       ;; select the edit-window
+       (select-window (previous-window (selected-window) 0)))
+
+Especially the last example should demonstrate that even very
+complicated layouts are easy to program with 'ecb-layout-define'.  If
+such layouts are senseful is another topic ;-)
+
+   ---------- Footnotes ----------
+
+   (1) The "window dedicators" for all these ecb-windows/buffers are not
+explicitly described - they look all like 'ecb-set-left1-buffer' - of
+course with different buffer-names!
+
+
+File: ecb.info,  Node: The layout-engine API,  Prev: Possible layout-outlines,  Up: The layout-engine
+
+11.5.4 The complete layout-engine API of ECB
+--------------------------------------------
+
+This section lists all functions, macros, variables and user-options the
+layout-engine API of ECB offers foreign packages.  Call
+'describe-function' rsp.  'describe-variable' to get a detailed
+description.
+
+Functions and macros for programming with layouts and special
+ecb-windows:
+   - 'defecb-window-dedicator-to-ecb-buffer'
+   - 'ecb-available-layouts-member-p'
+   - 'ecb-canonical-ecb-windows-list'
+   - 'ecb-canonical-edit-windows-list'
+   - 'ecb-compile-window-live-p'
+   - 'ecb-compile-window-state'
+   - 'ecb-do-if-buffer-visible-in-ecb-frame'
+   - 'ecb-exec-in-window'
+   - 'ecb-get-current-visible-ecb-buffers'
+   - 'ecb-layout-define'
+   - 'ecb-layout-switch'
+   - 'ecb-layout-undefine'
+   - 'ecb-point-in-compile-window'
+   - 'ecb-point-in-ecb-window-number'
+   - 'ecb-point-in-edit-window-number'
+   - 'ecb-select-edit-window'
+   - 'ecb-split-hor'
+   - 'ecb-split-ver'
+   - 'ecb-where-is-point'
+   - 'ecb-with-dedicated-window'(1)
+
+Utility functions/macros:
+   - 'ecb-display-one-ecb-buffer'
+   - 'ecb-enlarge-window'
+   - 'ecb-fix-filename'
+   - 'ecb-goto-ecb-window'
+   - 'ecb-window-live-p'
+   - 'ecb-with-readonly-buffer'
+
+Some other maybe useful functions/macros:
+   - 'ecb-with-adviced-functions'
+   - 'ecb-with-original-functions'
+   - 'ecb-with-some-adviced-functions'
+
+Some useful *READONLY* variables:
+   - 'ecb-compile-window'
+   - 'ecb-last-edit-window-with-point'
+   - 'ecb-last-source-buffer'
+
+*Caution*: DO NOT USE THE VARIABLE 'ecb-edit-window' IN YOUR PROGRAMS!
+
+User-options and hooks related to the layout-engine API:
+   - 'ecb-basic-buffer-sync-hook'
+   - 'ecb-hide-ecb-windows-after-hook'
+   - 'ecb-hide-ecb-windows-before-hook'
+   - 'ecb-redraw-layout-after-hook'
+   - 'ecb-redraw-layout-before-hook'
+   - 'ecb-show-ecb-windows-after-hook'
+   - 'ecb-show-ecb-windows-before-hook'
+   - 'ecb-windows-height'
+   - 'ecb-windows-width'
+   - 'ecb-compile-window-height'
+
+   ---------- Footnotes ----------
+
+   (1) Normally not needed because
+'defecb-window-dedicator-to-ecb-buffer' does all necessary.
+
+
+File: ecb.info,  Node: Conflicts and bugs,  Next: FAQ,  Prev: Elisp programming,  Up: Top
+
+12 Conflicts and bugs of ECB
+****************************
+
+This chapter describes what to do when there are conflicts with other
+packages and also the known (and currently unfixed) bugs of ECB. If
+possible (and in most cases it is possible ;-) then a practicable
+solution or workaround is described.
+
+* Menu:
+
+* Conflicts::                   Conflicts with other packages
+* Bugs::                        Known bugs
+
+
+File: ecb.info,  Node: Conflicts,  Next: Bugs,  Prev: Conflicts and bugs,  Up: Conflicts and bugs
+
+12.1 Conflicts with other packages
+==================================
+
+This chapter contains a list of already known conflict between ECB and
+other packages and how to solve them - in most cases ECB already
+contains a suitable workaround.
+
+That is followed by a general recipe what you can do when you have
+detected a conflict between ECB and a package is not listed in the
+know-conflicts-section.
+
+12.1.1 Proved workarounds or recommendations for other packages
+---------------------------------------------------------------
+
+Here is a list of packages which are proved to work properly with ECB
+and if not (i.e.  there are conflicts) then helpful
+solutions/hints/workarounds are offered:
+
+12.1.1.1 Package bs.el
+......................
+
+The package bs.el offers a nifty buffer-selection buffer.  The main
+command of this package is 'bs-show'.  With ECB < 2.20 this command does
+not really working well within activated ECB. But as of version 2.20 of
+ECB there should be no problems using this package.
+
+If you add "*buffer-selection*" as buffer-name to the option
+'ecb-compilation-buffer-names' then ECB will always display the
+buffer-selection buffer of bs in the compile-window (if there is one).
+Otherwise bs will use the edit-area to do its job.
+
+12.1.1.2 Package BBDB
+.....................
+
+As of ECB 2.21 there should be no conflicts between BBDB and ECB, so
+BBDB can be used even when the ECB-windows are visible.
+
+But if you encounter problems then it is recommened to use one of the
+window-managers escreen.el or winring.el (*note Window-managers and
+ECB::).  With such a window-manager ECB and BBDB should work together
+very well under all circumstances!
+
+12.1.1.3 Package calendar.el
+............................
+
+With activated ECB 'calendar' does not shrink it´s window to the small
+size but splits the window equally.  But if you add this to your
+'.emacs' it works:
+
+     (add-hook 'initial-calendar-window-hook
+               (function (lambda ()
+                           (when (and ecb-minor-mode
+                                      (ecb-point-in-edit-window))
+                             ;; if no horizontal split then nothing
+                             ;; special to do
+                             (or (= (frame-width) (window-width))
+                                 (shrink-window (- (window-height) 9))))
+                          )))
+
+12.1.1.4 Package cygwin-mount.el
+................................
+
+There can be a conflict between ECB and cygwin-mount.el if the following
+conditions are true:
+
+   - You are working with cygwin-mount.el (sounds clear :-)
+   - You have set 'cygwin-mount-build-mount-table-asynch' to not nil
+   - ECB is automatically started after starting Emacs (e.g.  with
+     'ecb-auto-activate' or calling 'ecb-activate' in
+     'window-setup-hook')
+   - Your Emacs-setup contains a call of 'cygwin-mount-activate'.
+
+Under these circumstances Emacs 21.X sometimes eats up the whole CPU (at
+least with Windows XP) and the cygwin-mount-table is never build.
+
+But there is an easy work-around: Call 'cygwin-mount-activate' first
+*AFTER* ECB is activated.  This can be done with the hook
+'ecb-activate-hook':
+
+     (add-hook 'ecb-activate-hook
+               (function (lambda ()
+                           (require 'cygwin-mount)
+                           (setq cygwin-mount-build-mount-table-asynch t)
+                           (cygwin-mount-activate))))
+
+
+12.1.1.5 Package desktop.el
+...........................
+
+ECB works perfectly with the desktop-saver desktop.el.  Normally there
+should be nothing to do for you.
+
+But if you encounter problems (e.g.  that desktop tries to activate ECB
+for each buffer it loads) then you should add the following entry to the
+option 'desktop-minor-mode-table':
+
+     (ecb-minor-mode nil)
+
+If you still encounter problems then you should add entries for all the
+minor-mode of the semantic-package to 'desktop-minor-mode-table', so for
+example add also:
+
+     (semantic-decoration-mode nil)
+     (semantic-idle-completions-mode nil)
+     (semantic-idle-tag-highlight-mode nil)
+     (semantic-idle-summary-mode nil)
+     (semantic-idle-scheduler-mode nil)
+     (senator-isearch-semantic-mode nil)
+     (senator-minor-mode nil)
+     (semantic-highlight-func-mode nil)
+     (semantic-stickyfunc-mode nil)
+     (semantic-show-parser-state-mode nil)
+     (semantic-show-unmatched-syntax-mode nil
+     (semantic-highlight-edits-mode nil
+
+Normally this should not be necessary, because semantic is already
+prepared to work perfectly with desktop.el.  But if there are problems
+it's worth a try.  Which modes you have to add depends on which modes of
+semantic you use.  But to get sure you should add all minor-modes of the
+semantic-package because these modes are normally activated by the
+related "global" command (e.g.
+'global-semantic-show-unmatched-syntax-mode') or by adding the
+minor-mode to the related major-mode-hook.
+
+It has also been reported that just disabling the Tip-Of-The-Day
+(option: 'ecb-tip-of-the-day') fixes the compatibility-problems with
+desktop.el.  Just try it out!
+
+12.1.1.6 Package edebug (Lisp Debugger)
+.......................................
+
+It is strongly recommended to run edebug only when the ECB-windows are
+hidden.  With visible ECB-windows there will probably serious conflicts
+between the ECB-layout and the edebug-window-manager.
+
+12.1.1.7 Package ediff.el
+.........................
+
+In most cases ECB works very well with ediff (see option
+'ecb-run-ediff-in-ecb-frame').  But currently suspending ediff with
+'ediff-suspend' and restoring the ediff-session (e.g.  with command
+'eregistry') does confuse the window-management of ECB.
+
+If you often use ediff in a scenario where you suspend ediff and
+reactivate it later then it is recommended to exit ECB first
+('ecb-deactivate' or 'ecb-minor-mode')!
+
+12.1.1.8 Package func-menu.el
+.............................
+
+This package has been reported to produce some conflicts under some
+circumstances when ECB is activated.  Some of them could be reproduced
+by the ECB-maintainer.  So the recommendation is to disable
+func-menu-support when using ECB. Normally using func-menu makes no
+sense in combination with ECB because ECB provides the same and even
+more informations as func-menu - so func-menu is redundant ;-)
+
+12.1.1.9 Package Gnus (Newsreader)
+..................................
+
+As of ECB 2.21 there should be no conflicts between Gnus and ECB, so
+Gnus can be used even when the ECB-windows are visible.
+
+But if you encounter problems then it is recommened to use one of the
+window-managers escreen.el or winring.el (*note Window-managers and
+ECB::).  With such a window-manager ECB and Gnus should work together
+very well under all circumstances!
+
+12.1.1.10 Package JDEE (Java Development Environment)
+.....................................................
+
+JDEE has a lot of "dialogs" where the user can select among several
+choices.  An example is importing classes via the command
+'jde-import-find-and-import'.  These dialogs are strongly designed to
+work in an environment where a new temporary window is created, the
+contents of the dialog are displayed in the new window, the user select
+his choice and hits [OK]. After that the new window is deleted and the
+selection is performed (for example the chosen import statement are
+inserted in the source-buffer.
+
+*Caution*: ECB can work very well with this dialogs but only if the
+buffer-name of these dialog-buffers (normally "Dialog") is not contained
+in the option 'ecb-compilation-buffer-names'.  So do not add the string
+"Dialog" to this option!
+
+*Please Note*: Regardless if a persistent compile-window is used (i.e.
+'ecb-compile-window-height' is not nil) or not, these JDEE-dialogs will
+always being displayed by splitting the edit-window of ECB and not
+within the compile-window.
+
+12.1.1.11 Package scroll-all.el (scroll-all-mode)
+.................................................
+
+ECB advices 'scroll-all-mode' so it is working correct during running
+ECB. This means if point stays in an edit-window and the edit-window is
+splitted then all edit-windows are scrolled by 'scroll-all-mode' and no
+other window!  If point stays in any other window just this selected
+window is scrolled.  This is the only senseful behavior of
+'scroll-all-mode' with ECB.
+
+12.1.1.12 Package VC (Version Control)
+......................................
+
+The variable 'vc-delete-logbuf-window' must be set to nil during active
+ECB. This can be done with the hooks mentioned in *note Elisp
+programming::.
+
+12.1.1.13 Package VM (Emacs Mail-Client)
+........................................
+
+As of ECB 2.21 there should be no conflicts between VM and ECB, so VM
+can be used even when the ECB-windows are visible.
+
+But if you encounter problems then it is recommened to use one of the
+window-managers escreen.el or winring.el (*note Window-managers and
+ECB::).  With such a window-manager ECB and VM should work together very
+well under all circumstances!
+
+12.1.1.14 Package winner.el (winner-mode)
+.........................................
+
+'winner-mode' is autom.  disabled as long as ECB is running.  ECB has
+its own window-management which is completely incompatible with
+'winner-mode'!  But 'winner-mode' makes also not really sense with ECB.
+
+12.1.1.15 Package wb-line-number.el
+...................................
+
+Do not use the package wb-line-number.el in combination with ECB - it
+will not work and it will not work under any circumstances and there is
+no way to make it work together and there will be no way in the future!
+
+The reason behind that is: wb-line-number.el uses additional dedicated
+windows to display the line-numbers.  And ECB can not work if there
+there are additional dedicated windows - additional to that ones created
+by ECB.
+
+12.1.1.16 Application xrefactory
+................................
+
+Xrefactory (also known as Xref, X-ref and Xref-Speller), the refactoring
+browser for (X)Emacs(1), can be used during running ECB regardless if
+the ECB-windows are visible or not.  There should be no conflicts as of
+ECB versions >= 2.21.
+
+If there are conflicts with the Xref-browser then the most recommended
+way is to use one of the window-manager escreen.el or winring.el (and
+then use different escreens or window-configurations for ECB and
+Xrefactory-browsing - *note Window-managers and ECB::).
+
+12.1.2 What to do for unknown conflicts with other packages
+-----------------------------------------------------------
+
+As of version 2.20 the layout-engine of ECB is so flexible that normally
+there should be no conflicts with other packages unless these packages
+have their own complete window-layout-management (e.g.  Gnus, BBDB,
+Xrefactory).  But these packages can and should be handled very well
+with the window-manager-support of ECB (*note Window-managers and
+ECB::).
+
+So if you detect an unknown (i.e.  not listed in the conflicts-list in
+the next subsection) conflict with a small package and some of its
+commands and you have installed an ECB-version < 2.20 the first task you
+have to do is to upgrade to a version >= 2.20!
+
+If this doesn't solve the problem a very probable reason for the
+conflict is that the command fails if called from another window than an
+edit-window of the ecb-frame.  So please check if the problem disappears
+if you call the failing command from an edit-window of ECB. If this is
+true then you you can add the following code to your .emacs (and of
+course replace the XXX with the failing command):
+
+     (defecb-advice XXX before ecb-compatibility-advices
+       "Ensures `XXX' works well when called from another window
+     as an edit-window. Does nothing if called in another frame
+     as the `ecb-frame'."
+       (when (equal (selected-frame) ecb-frame)
+         (unless (ecb-point-in-edit-window)
+           (ecb-select-edit-window))))
+
+This before-advice runs before the command XXX and ensures that the XXX
+is called from within an edit-window if the current selected window is
+not an edit-window.  It does nothing if called for another frame as the
+ecb-frame.
+
+*Please note*: You have to define such compatibility advices exactly as
+demonstrated in the example above, i.e.  you must use the macro
+'defecb-advice' and you have to use the advice-set
+'ecb-compatibility-advices' (see the documentation of this macro)!  The
+advice-class is not necessary 'before', it can be 'after' or 'around'
+too.  Never use 'defadvice' for ECB-advices!
+
+If such an advice solves the problem then please send a note with the
+solution to the ECB-mailing-list or direct to the ECB-maintainer so the
+solution can be integrated in the next ECB-release
+
+If calling from an edit-window fails too then please file a complete
+bug-report to the ECB-mailing-list (*note Submitting problem report::).
+This report should contain a detailed description which command of which
+package fails under which circumstances!
+
+   ---------- Footnotes ----------
+
+   (1) Xrefactory is available at <http://www.xref-tech.com>
+
+
+File: ecb.info,  Node: Bugs,  Prev: Conflicts,  Up: Conflicts and bugs
+
+12.2 Known bugs
+===============
+
+This section describes all currently known bugs of ECB. The maintainers
+of ECB try to fix these bugs as soon as possible.
+
+12.2.1 Extra history-entries for JDEE source-buffers
+----------------------------------------------------
+
+ECB on occasions creates an extra edit buffer for entries in the history
+window.  For example, let say there are three entries in the history
+window:
+
+     Test1
+     Test2
+     Test3
+
+In the edit window Test1 file is edited.  When clicked on Test2 entry in
+history, on occasion instead of switching to the existing buffer for
+Test2, a new edit buffer is opened for Test2 file.  At this point, there
+are four entries in the history as follows:
+
+     Test2
+     Test2<2>
+     Test1
+     Test3
+
+
+File: ecb.info,  Node: FAQ,  Next: Command Index,  Prev: Conflicts and bugs,  Up: Top
+
+13 Frequently asked questions
+*****************************
+
+This is the Emacs Code Browser FAQ.
+
+QUESTION                        ANSWER
+                                
+                                
+What is the first step i        Read carefully the related sections of
+should do if i have             the online-help of ECB.
+problems with ECB?              
+                                
+What should i do, if a have     Send a problem-report to the
+a problem which can not be      ECB-mailing-list with the command
+solved even after reading       'ecb-submit-problem-report'.
+the online-help?                See *note Submitting problem report::.
+                                
+                                
+What should i do, if            Take a look into *note Conflicts::.  If
+another package seems not       your package is not listed there then
+to work correct with ECB?       submit a problem-report.
+                                
+                                
+Can ECB parse and display       Yes, in all version >= 1.94.  ECB can
+source-contents not             now parse and display all
+supported by semantic?          source-contents supported by semantic,
+                                imenu or etags - same as speedbar.  See
+                                *note Non-semantic sources::.
+                                
+                                
+Why are the lines in the        Check the variable
+ECB-, temp- and                 'truncate-partial-width-windows' and set
+compilation-buffers not         it to nil.
+wrapped but truncated?          
+                                
+Why doesn't ECB work            The variable 'vc-delete-logbuf-window'
+correct with VC?                must be set to nil during active ECB.
+                                This can be done with the hooks of ECB.
+                                
+                                
+Does ECB support C++ as         In general C++ is supported very well.
+well as Java?                   But it depends on the used
+                                cedet-version, but cedet-version >=
+                                1.0pre6 support C++ really well.
+                                
+                                
+Does ECB support Perl?          If perl can be parsed either by imenu,
+                                etags or semantic then ECB supports
+                                perl.  Of course ECB would support perl
+                                best if perl is supported by semantic.
+                                
+                                
+Does ECB support language       See question "Does ECB support Perl?"
+XYZ?                            and replace "Perl" with "XYZ" in the
+                                answer.
+                                
+                                
+How to add new languages to     Add the language XYZ to semantic
+ECB?                            (perform all necessary steps described
+                                in the semantic-manual) and ECB will
+                                automatically support language XYZ!
+                                There is nothing to do in ECB itself!
+                                Same when you write an imenu- or
+                                etags-support for language XYZ.
+                                
+                                
+Why does ECB not recognize      Your C++-files have probably an
+my source-files for C++?        extension which is not mapped to
+                                c++-mode in 'auto-mode-alist' and/or
+                                your own Emacs-setup has "destroyed" the
+                                correct value of the hook-variable
+                                'c++-mode-hook'.
+                                See *note Setting up Emacs::.
+                                
+                                
+Is it possible to make the      You can use the library "desktop.el"
+history of ECB persistent?      which works very well with ECB. Then all
+                                files of your recent Emacs-session will
+                                be opened automatically after next
+                                Emacs-start and will be added
+                                automatically to the ECB-history after
+                                ECB-start.
+                                
+                                
+Is there an                     For Java the JDEE(1) has this feature
+"Intellisense"-mechanism        and for all other languages semantic
+like with other IDEs?           offer something similar, see
+                                <http://cedet.sourceforge.net/intellisense.shtml>
+                                
+                                
+Can i use ECB in                You can, but for ECB-versions < 1.96 it
+combination with Gnus           is not recommended because each of them
+within one frame?               has it's own window-management and
+                                probably there will be conflicts, so use
+                                different frames for ECB and Gnus!  But
+                                beginning with ECB 1.96 you can use
+                                either escreen.el or winring.el as
+                                "window-manager" which allows you in
+                                consequence to use ECB and applications
+                                like Gnus in one frame!
+                                *Note Window-managers and ECB::.
+                                
+                                
+Can i speed up displaying       Yes, see the option
+the contents of big-size        'ecb-cache-directory-contents'.  Read
+directories?                    the section
+                                *note Large directories::.
+                                
+                                
+Is it possible to               Yes.  *note Creating a new ECB-layout::
+create/use other layouts        and
+than the built-in ones?         *note The layout-engine:: are the
+                                relevant sections.  The former one
+                                describes how to create interactively
+                                new layouts where the latter one is for
+                                Elisp-programmers.
+                                
+                                
+Can i use speedbar as           Yes, see *note Integrating speedbar::.
+directory-browser within        
+ECB?
+                                
+Can i exclude                   Yes, see *note Grepping directories::.
+subdirectories from the         
+recursive grep in the
+directories buffer?
+                                
+How can i prevent               Set 'semanticdb-default-save-directory'
+contaminating each              to a directory.
+directory with a file           
+'semantic-cache'?
+                                
+Why ECB displays large          This comes from semantic;
+portions of current             see *note Setting up Emacs::.
+source-file with dark           
+background?
+                                
+Why ECB underlines some         This comes from semantic;
+parts of current                see *note Setting up Emacs::.
+source-file?                    
+                                
+Can i add my own commands       Yes, see *note Using the mouse::.
+to the popup-menus of           
+tree-buffers?
+                                
+Can ECB display the             Yes, see *note Common use-cases::.
+compile-window "on demand"?     
+                                
+Which buffers are treated       See the docstring of the function
+as compilation-buffers by       'ecb-compilation-buffer-p'.
+ECB?                            
+                                
+How can i change the            You can change it with the options
+modeline of an                  'ecb-mode-line-prefixes',
+ECB-tree-buffer?                'ecb-mode-line-data' and
+                                'ecb-mode-line-display-window-number'.
+                                
+                                
+Can the tree-buffers being      Yes, see option
+selected faster than with       'ecb-mode-line-display-window-number'.
+the standard-keybindings of     
+ECB?
+                                
+Can ECB display the             Yes, see option
+window-number in the            'ecb-mode-line-display-window-number'.
+modeline of the special         
+windows?
+                                
+How can i change the            You can do this with option
+keybindings of ECB?             'ecb-key-map' (*note ecb-general::).
+                                
+                                
+What can i do if                Either the current 'major-modes' is not
+hiding/showing from the         supported by hideshow or you have to add
+methods-buffer does not         an entry to 'hs-special-modes-alist'
+work?                           (*note Hide-show::).
+                                
+                                
+Can i maximize one of the       Yes, see *note Maximizing the ECB
+ECB-windows for better          windows::.
+overlook?                       
+                                
+Can i hide the ECB-windows      Yes, see *note Hiding the ECB windows::.
+for getting more                
+editing-space?
+                                
+Can i define the actions        Yes, see *note Visiting tags::.
+ECB performs after visiting     
+a tag?
+                                
+Buffers are not displayed       See *note Problems with the compile
+correctly in the                window::.
+compile-window?                 
+                                
+Can ECB work together with      Yes, see *note Window-managers and
+window-managers like            ECB::.
+escreen.el?                     
+                                
+Can i remove these "ugly"       Yes, see option 'ecb-tree-buffer-style'.
+vertical lines from a           
+tree-buffer?
+                                
+ECB does not display images     Customize 'ecb-tree-buffer-style' and
+in the tree-buffers - what      restart ECB. But note: GNU Emacs <=
+can i do?                       21.3.X for Windows does not support
+                                image-display so ECB uses always
+                                ascii-guide-lines even when here the
+                                image-style is set in
+                                'ecb-tree-buffer-style'.
+                                
+                                
+Do                              Yes, see
+'special-display-function'      *note Using special-display with ECB::.
+et.  al.  work with ECB.        
+                                
+Can i activate the              Yes, see *note Using popup-menus::.
+popup-menu of a tree-buffer     
+from keyboard?
+                                
+Can i display the               Yes, see *note Using popup-menus::.
+popup-menu of a tree-buffer     
+with tmm?
+                                
+Does ECB disable all            "Nes"(2), see remarks in the
+advices after deactivation?     documentation of the option
+                                'ecb-split-edit-window-after-start'.
+                                
+                                
+Can ECB preserve the full       Yes, see the option
+state of ECB between            'ecb-split-edit-window-after-start'.
+deactivation and next           
+activation?
+                                
+Can i change the behavior       Yes, see *note The other window::.
+how ECB chooses another         
+window for selecting it or
+scrolling it.
+                                
+Can i increase the allowed      Yes, see the docstring of the option
+depth of nested submenus.       'ecb-directories-menu-user-extension'.
+                                
+                                
+Can i apply some filters to     Yes, see *note Filtering the
+the Tree-buffers.               tree-buffers::
+                                
+                                
+With XEmacs i get sometimes     Disable the func-menu support in your
+an error "Wrong number of       XEmacs-setup.  See *note Conflicts::.
+arguments: widen (1)".          
+What can i do?
+                                
+Can i use desktop.el in         Yes, see *note Conflicts::.
+combination with ECB?           
+                                
+Opening directories takes a     Read *note Large directories::.
+long time - what can i do?      
+                                
+ECB seems to be blocked         ECB performs some stealthy tasks when
+sometimes - what is the         idle - this can cause sometimes a
+reason?                         blocked Emacs but this tasks will be
+                                immetiatelly interrupted by any
+                                user-event so there should be normally
+                                no problems.  But especially for mounted
+                                net-drives some of the stealthy tasks
+                                can take time up to some seconds for
+                                each file - and during one
+                                file-operation it can not be
+                                interrupted.  See also
+                                'ecb-stealthy-tasks-delay'.
+                                
+                                
+Can i exclude certain           Yes, see option
+directories from being          'ecb-prescan-directories-exclude-regexps'.
+checked for emptyness?          
+                                
+Can i exclude certain           Yes, see option
+directories from checking       'ecb-vc-directory-exclude-regexps'.
+the VC-state of the             
+contained sources?
+                                
+Can i exclude certain           Yes, see option
+directories from checking       'ecb-read-only-check-exclude-regexps'.
+the read-only-state of the      
+contained sources?
+                                
+ECB ignores the                 Maybe you have to check the option
+remote-paths i have added       'ecb-ping-options'.  Ensure that this
+to 'ecb-source-path'.           option contains a value suitable for
+                                your ping-program (see
+                                'ecb-ping-program').
+                                See also *note Remote directories::.
+                                
+                                
+ECB seems to be blocked a       Maybe you use cygwin-XEmacs.  Then
+long time.                      either the empty-dir-check (see option
+                                'ecb-prescan-directories-for-emptyness')
+                                or the VC-support (see
+                                'ecb-vc-enable-support') can block ECB.
+                                For the latter one see *note Known
+                                VC-problems::.
+                                
+                                
+ECB seems to be blocked         Maybe the root repository for the
+during the VC-state update      current directory is a
+in the tree-windows.            remote-repository.  This can result in a
+                                long lasting check-time per file.
+                                See also *note Version-control support::
+                                for hints what you can do.
+                                
+                                
+I have encountered some         See also *note Version-control support::
+problems with the display       for hints what you can do.
+of the VC-state in the          
+tree-buffers.
+                                
+The state of the files          The option 'ecb-vc-supported-backends'
+under version control seems     offers now also a accurate
+to be not accurate.  What       recompute-state function.  This is by
+is the reason and what can      offering 'ecb-vc-recompute-state' as an
+i do?                           alias to the function
+                                'vc-recompute-state' as state-check
+                                function for this option.  See also
+                                *note Version-control support::
+                                
+                                
+With Emacs 23 ECB shows a       Check the values of the options
+odd split-behavior when         'split-width-threshold' and
+calling help or displaying      'split-height-threshold'.  ECBs
+completion-output or            split-behavior depends fully on the
+compilation- or                 Emacs-logic and that one depends mainly
+grep-output.  What is the       on these two options.  So adjust them to
+reason.                         match (at least nearly) the sizes of the
+                                edit-area of ECB.
+                                
+                                
+When using a layout with        This comes from the idle-mechanism
+the special ecb-window for      ECB/semantic uses to offer some
+the semantic analyzer then      intellisense like displaying possible
+Emacs seems to be blocked       completions and local variables
+when typing pauses.  What       depending on current context (ie.
+is the reason and what can      location of point).  So if point stays
+i do?                           on a location within your code where
+                                hundreds (or even thousands) of
+                                completions are possible then parsing
+                                and displaying them can last annoying
+                                time.  But in general a keypress
+                                interupts.  If not then you have to
+                                possibilities offered by the options
+                                'ecb-analyse-buffer-sync' and
+                                'ecb-analyse-buffer-sync-delay': You can
+                                increase the delay of the latter one so
+                                parsing current context starts later
+                                after Emacs goes idle (ie.  after you
+                                pause typing).  Or you can disable the
+                                automatic synchronizing the
+                                analyser-window with the former one -
+                                see the docstring.  Then you have to
+                                synchronize (ie.  start parsing context)
+                                on demand via the command
+                                'ecb-analyse-buffer-sync'(3).
+                                
+                                
+How can i change the            Either via popup context-menu (right
+bucketizing method of the       mouse-button) or with the option
+history-window?                 'ecb-history-make-buckets'.
+                                
+                                
+How can i disable this grey     See the option
+headerline in the               'ecb-tree-make-parent-node-sticky'.
+tree-buffers?                   
+                                
+When clicking onto a            ECB uses completely the smartness of the
+parent-node in the              semanticdb and the semantic-analyzer.
+methods-window then ECB         So if you have customized semantic
+doesn't jump to the             accordingly to the needs of your project
+definition of this              (ie.  mainly setting up all so semantic
+parent-type.                    can find files in your
+                                directory-structure) then ECB will find
+                                the parent-definition and also jump to
+                                it.  See *note ECB Methods-window:: and
+                                the subsection "Jumping to the
+                                definition of external tags" and see the
+                                option
+                                'ecb-find-external-tag-functions'.
+                                
+
+   ---------- Footnotes ----------
+
+   (1) <http://jdee.sunsite.dk/>
+
+   (2) Nes is a combination of No and Yes :-)
+
+   (3) Yes, both the option and the command have the same name
+
+
+File: ecb.info,  Node: Command Index,  Next: Option Index,  Prev: FAQ,  Up: Top
+
+Command Index
+*************
+
+This index contains all user commands of ECB.
+
+*Please note*: The commands in this index are listed without the prefix
+"ecb-" (e.g.  the command 'ecb-activate' is listed with name
+"activate").
+
+ [index ]
+* Menu:
+
+* activate:                              Interactive ECB commands.
+                                                              (line  23)
+* add-all-buffers-to-history:            Interactive ECB commands.
+                                                              (line  29)
+* analyse-buffer-sync:                   Interactive ECB commands.
+                                                              (line  39)
+* balance-windows:                       The edit-area.       (line 257)
+* change-layout:                         Interactive ECB commands.
+                                                              (line  43)
+* clear-history:                         Interactive ECB commands.
+                                                              (line  52)
+* create-new-layout:                     Interactive ECB commands.
+                                                              (line  61)
+* customize:                             Interactive ECB commands.
+                                                              (line  55)
+* customize-most-important:              Interactive ECB commands.
+                                                              (line  58)
+* cycle-maximized-ecb-buffers:           Interactive ECB commands.
+                                                              (line  65)
+* cycle-through-compilation-buffers:     Interactive ECB commands.
+                                                              (line  69)
+* deactivate:                            Interactive ECB commands.
+                                                              (line  80)
+* delete-new-layout:                     Interactive ECB commands.
+                                                              (line  83)
+* delete-other-windows:                  The edit-area.       (line  91)
+* delete-window:                         The edit-area.       (line  62)
+* delete-windows-on:                     The edit-area.       (line 131)
+* display-buffer:                        The edit-area.       (line 168)
+* display-news-for-upgrade:              Interactive ECB commands.
+                                                              (line  89)
+* display-upgraded-options:              Interactive ECB commands.
+                                                              (line  97)
+* dump-semantic-toplevel:                Interactive ECB commands.
+                                                              (line 153)
+* eshell-current-buffer-sync:            Interactive ECB commands.
+                                                              (line 156)
+* eshell-recenter:                       Interactive ECB commands.
+                                                              (line 162)
+* expand-directory-nodes:                Interactive ECB commands.
+                                                              (line 165)
+* expand-methods-nodes:                  Interactive ECB commands.
+                                                              (line 117)
+* goto-window-analyse:                   Interactive ECB commands.
+                                                              (line 173)
+* goto-window-compilation:               Interactive ECB commands.
+                                                              (line 176)
+* goto-window-directories:               Interactive ECB commands.
+                                                              (line 179)
+* goto-window-ecb-by-smart-selection:    Interactive ECB commands.
+                                                              (line 184)
+* goto-window-edit-by-smart-selection:   Interactive ECB commands.
+                                                              (line 208)
+* goto-window-edit-last:                 Interactive ECB commands.
+                                                              (line 238)
+* goto-window-edit1:                     Interactive ECB commands.
+                                                              (line 231)
+* goto-window-edit2:                     Interactive ECB commands.
+                                                              (line 234)
+* goto-window-history:                   Interactive ECB commands.
+                                                              (line 243)
+* goto-window-methods:                   Interactive ECB commands.
+                                                              (line 246)
+* goto-window-sources:                   Interactive ECB commands.
+                                                              (line 251)
+* history-filter:                        Interactive ECB commands.
+                                                              (line 256)
+* jde-display-class-at-point:            Interactive ECB commands.
+                                                              (line 270)
+* layout-define:                         Programming a new layout.
+                                                              (line  24)
+* layout-undefine:                       Programming a new layout.
+                                                              (line 128)
+* maximize-window-analyse:               Interactive ECB commands.
+                                                              (line 283)
+* maximize-window-directories:           Interactive ECB commands.
+                                                              (line 289)
+* maximize-window-history:               Interactive ECB commands.
+                                                              (line 307)
+* maximize-window-methods:               Interactive ECB commands.
+                                                              (line 301)
+* maximize-window-sources:               Interactive ECB commands.
+                                                              (line 295)
+* maximize-window-speedbar:              Interactive ECB commands.
+                                                              (line 313)
+* methods-filter:                        Interactive ECB commands.
+                                                              (line 319)
+* methods-filter-current-type:           Interactive ECB commands.
+                                                              (line 393)
+* methods-filter-delete-last:            Interactive ECB commands.
+                                                              (line 397)
+* methods-filter-function:               Interactive ECB commands.
+                                                              (line 401)
+* methods-filter-nofilter:               Interactive ECB commands.
+                                                              (line 406)
+* methods-filter-protection:             Interactive ECB commands.
+                                                              (line 410)
+* methods-filter-regexp:                 Interactive ECB commands.
+                                                              (line 415)
+* methods-filter-tagclass:               Interactive ECB commands.
+                                                              (line 420)
+* minor-mode:                            Interactive ECB commands.
+                                                              (line 425)
+* nav-goto-next:                         Interactive ECB commands.
+                                                              (line 434)
+* nav-goto-previous:                     Interactive ECB commands.
+                                                              (line 430)
+* other-window:                          The edit-area.       (line  56)
+* other-window-for-scrolling:            The edit-area.       (line 243)
+* rebuild-methods-buffer:                Interactive ECB commands.
+                                                              (line 438)
+* redraw-layout:                         Interactive ECB commands.
+                                                              (line 470)
+* restore-default-window-sizes:          Interactive ECB commands.
+                                                              (line 510)
+* restore-window-sizes:                  Interactive ECB commands.
+                                                              (line 513)
+* select-ecb-frame:                      Interactive ECB commands.
+                                                              (line 518)
+* show-help:                             Interactive ECB commands.
+                                                              (line 522)
+* show-layout-help:                      Interactive ECB commands.
+                                                              (line 534)
+* show-tip-of-the-day:                   Interactive ECB commands.
+                                                              (line 540)
+* sources-filter:                        Interactive ECB commands.
+                                                              (line 544)
+* split-window:                          The edit-area.       (line 139)
+* split-window-horizontally:             The edit-area.       (line 150)
+* split-window-vertically:               The edit-area.       (line 159)
+* store-window-sizes:                    Interactive ECB commands.
+                                                              (line 563)
+* submit-problem-report:                 Interactive ECB commands.
+                                                              (line 583)
+* switch-to-buffer:                      The edit-area.       (line 196)
+* switch-to-buffer-other-window:         The edit-area.       (line 215)
+* toggle-auto-expand-tag-tree:           Interactive ECB commands.
+                                                              (line 592)
+* toggle-compile-window:                 Interactive ECB commands.
+                                                              (line 599)
+* toggle-compile-window-height:          Interactive ECB commands.
+                                                              (line 610)
+* toggle-ecb-windows:                    Interactive ECB commands.
+                                                              (line 618)
+* toggle-layout:                         Interactive ECB commands.
+                                                              (line 624)
+* toggle-scroll-other-window-scrolls-compile: Interactive ECB commands.
+                                                              (line 638)
+* update-directories-buffer:             Interactive ECB commands.
+                                                              (line 645)
+* upgrade-options:                       Interactive ECB commands.
+                                                              (line 648)
+* window-sync:                           Interactive ECB commands.
+                                                              (line 655)
+
+
+File: ecb.info,  Node: Option Index,  Next: Concept Index,  Prev: Command Index,  Up: Top
+
+Option Index
+************
+
+This index contains all customizable options of ECB.
+
+*Please note*: All options in this index are listed without the prefix
+"ecb-" (e.g.  the option 'ecb-layout-name' is listed with name
+"layout-name").
+
+ [index ]
+* Menu:
+
+* activate-before-layout-draw-hook:      ecb-general.         (line   8)
+* activate-before-new-frame-created-hook: ecb-layout.         (line   8)
+* activate-hook:                         ecb-general.         (line  35)
+* activation-selects-ecb-frame-if-already-active: ecb-general.
+                                                              (line  42)
+* add-path-for-not-matching-files:       ecb-directories.     (line   8)
+* advice-window-functions-signal-error:  ecb-layout.          (line  13)
+* after-directory-change-hook:           ecb-directories.     (line  43)
+* analyse-bucket-element-face:           ecb-analyse.         (line   6)
+* analyse-bucket-node-face:              ecb-analyse.         (line  14)
+* analyse-buffer-after-create-hook:      ecb-analyse.         (line  21)
+* analyse-buffer-name:                   ecb-analyse.         (line  29)
+* analyse-buffer-sync:                   ecb-analyse.         (line  41)
+* analyse-buffer-sync-delay:             ecb-analyse.         (line  60)
+* analyse-buffer-sync-hook:              ecb-analyse.         (line  75)
+* analyse-collapsed-buckets:             ecb-analyse.         (line 103)
+* analyse-face:                          ecb-analyse.         (line 143)
+* analyse-fontified-buckets:             ecb-analyse.         (line 151)
+* analyse-gen-tag-info-fn:               ecb-analyse.         (line 169)
+* analyse-general-face:                  ecb-analyse.         (line 180)
+* analyse-show-node-info:                ecb-analyse.         (line 189)
+* analyse-show-tag-info-fn:              ecb-analyse.         (line 204)
+* auto-activate:                         ecb-general.         (line  48)
+* auto-compatibility-check:              ecb-general.         (line  52)
+* auto-expand-directory-tree:            ecb-directories.     (line  35)
+* auto-expand-tag-tree:                  ecb-methods.         (line   8)
+* auto-expand-tag-tree-collapse-other:   ecb-methods.         (line  26)
+* auto-save-before-etags-methods-rebuild: ecb-non-semantic.   (line   9)
+* auto-update-methods-after-save:        ecb-methods.         (line  43)
+* basic-buffer-sync:                     ecb-tree-buffer.     (line   8)
+* basic-buffer-sync-delay:               ecb-tree-buffer.     (line  37)
+* basic-buffer-sync-hook:                ecb-tree-buffer.     (line  45)
+* before-activate-hook:                  ecb-general.         (line  67)
+* before-deactivate-hook:                ecb-general.         (line  79)
+* bucket-node-display:                   ecb-general.         (line  86)
+* bucket-node-display <1>:               ecb-tree-buffer.     (line  70)
+* cache-directory-contents:              ecb-directories.     (line  65)
+* cache-directory-contents-not:          ecb-directories.     (line 118)
+* change-layout-preserves-compwin-state: ecb-compilation.     (line 165)
+* clear-caches-before-activate:          ecb-general.         (line 105)
+* common-tree-buffer-after-create-hook:  ecb-tree-buffer.     (line  89)
+* compilation-buffer-names:              ecb-compilation.     (line   8)
+* compilation-major-modes:               ecb-compilation.     (line  23)
+* compilation-predicates:                ecb-compilation.     (line  33)
+* compile-window-height:                 ecb-compilation.     (line  49)
+* compile-window-prevent-shrink-below-height: ecb-compilation.
+                                                              (line  85)
+* compile-window-temporally-enlarge:     ecb-compilation.     (line  98)
+* compile-window-width:                  ecb-compilation.     (line 126)
+* create-layout-file:                    ecb-create-layout.   (line   8)
+* deactivate-hook:                       ecb-general.         (line 120)
+* debug-mode:                            ecb-general.         (line 124)
+* default-tag-filter:                    ecb-methods.         (line  46)
+* directories-buffer-after-create-hook:  ecb-directories.     (line 144)
+* directories-buffer-name:               ecb-directories.     (line 155)
+* directories-general-face:              ecb-face-options.    (line   8)
+* directories-menu-sorter:               ecb-directories.     (line 167)
+* directories-menu-user-extension:       ecb-directories.     (line 183)
+* directories-menu-user-extension-function: ecb-directories.  (line 228)
+* directories-show-node-info:            ecb-directories.     (line 243)
+* directory-face:                        ecb-face-options.    (line  17)
+* directory-not-accessible-face:         ecb-face-options.    (line  25)
+* disable-semantic-threshold-alist:      ecb-methods.         (line  67)
+* display-default-dir-after-start:       ecb-directories.     (line 267)
+* display-image-icons-for-semantic-tags: ecb-methods.         (line  95)
+* ecb-create-layout-frame-height:        ecb-create-layout.   (line  12)
+* ecb-create-layout-frame-width:         ecb-create-layout.   (line  15)
+* enlarged-compilation-window-max-height: ecb-compilation.    (line 171)
+* eshell-auto-activate:                  ecb-eshell.          (line   8)
+* eshell-buffer-sync:                    ecb-eshell.          (line  13)
+* eshell-buffer-sync-delay:              ecb-eshell.          (line  31)
+* eshell-enlarge-when-eshell:            ecb-eshell.          (line  42)
+* eshell-fit-window-to-command-output:   ecb-eshell.          (line  46)
+* exclude-parents-regexp:                ecb-methods.         (line 100)
+* excluded-directories-regexps:          ecb-directories.     (line 286)
+* expand-methods-switch-off-auto-expand: ecb-methods.         (line 108)
+* find-external-tag-functions:           ecb-methods.         (line 124)
+* fix-window-size:                       ecb-layout.          (line  29)
+* font-lock-tags:                        ecb-methods.         (line 207)
+* grep-function:                         ecb-general.         (line 134)
+* grep-recursive-function:               ecb-general.         (line 147)
+* help-html-path:                        ecb-help.            (line   8)
+* help-info-path:                        ecb-help.            (line  24)
+* hide-ecb-windows-after-hook:           ecb-layout.          (line  61)
+* hide-ecb-windows-before-hook:          ecb-layout.          (line  72)
+* highlight-tag-with-point:              ecb-methods.         (line 213)
+* highlight-tag-with-point-delay:        ecb-methods.         (line 229)
+* history-bucket-node-dir-soure-path-face: ecb-face-options.  (line  28)
+* history-bucket-node-face:              ecb-face-options.    (line  37)
+* history-buffer-after-create-hook:      ecb-history.         (line   8)
+* history-buffer-name:                   ecb-history.         (line  16)
+* history-dead-buffer-face:              ecb-face-options.    (line  45)
+* history-exclude-file-regexps:          ecb-history.         (line  28)
+* history-face:                          ecb-face-options.    (line  50)
+* history-general-face:                  ecb-face-options.    (line  58)
+* history-indirect-buffer-face:          ecb-face-options.    (line  67)
+* history-item-name:                     ecb-history.         (line  34)
+* history-make-buckets:                  ecb-history.         (line  37)
+* history-menu-sorter:                   ecb-history.         (line  76)
+* history-menu-user-extension:           ecb-history.         (line  89)
+* history-menu-user-extension-function:  ecb-history.         (line 109)
+* history-show-node-info:                ecb-history.         (line 123)
+* history-sort-ignore-case:              ecb-history.         (line 138)
+* history-sort-method:                   ecb-history.         (line 142)
+* history-stick-indirect-buffers-to-basebuffer: ecb-history.  (line 155)
+* host-accessible-check-valid-time:      ecb-directories.     (line 325)
+* ignore-display-buffer-function:        ecb-layout.          (line  84)
+* ignore-pop-up-frames:                  ecb-layout.          (line 103)
+* ignore-special-display:                ecb-layout.          (line 113)
+* key-map:                               ecb-general.         (line 152)
+* kill-buffer-clears-history:            ecb-history.         (line 171)
+* layout-always-operate-in-edit-window:  ecb-layout.          (line 129)
+* layout-debug-mode:                     ecb-layout.          (line 149)
+* layout-name:                           ecb-layout.          (line 168)
+* layout-window-sizes:                   ecb-layout.          (line 194)
+* major-modes-show-or-hide:              ecb-general.         (line 214)
+* maximize-ecb-window-after-selection:   ecb-layout.          (line 223)
+* maximize-next-after-maximized-select:  ecb-layout.          (line 231)
+* maximize-next-after-maximized-select <1>: ecb-layout.       (line 273)
+* method-face:                           ecb-face-options.    (line  72)
+* method-non-semantic-face:              ecb-face-options.    (line  80)
+* methods-buffer-after-create-hook:      ecb-methods.         (line 242)
+* methods-buffer-name:                   ecb-methods.         (line 250)
+* methods-filter-replace-existing:       ecb-methods.         (line 262)
+* methods-general-face:                  ecb-face-options.    (line  86)
+* methods-menu-sorter:                   ecb-methods.         (line 280)
+* methods-menu-user-extension:           ecb-methods.         (line 293)
+* methods-menu-user-extension-function:  ecb-methods.         (line 305)
+* methods-nodes-collapse-spec:           ecb-methods.         (line 321)
+* methods-nodes-expand-spec:             ecb-methods.         (line 328)
+* methods-separate-prototypes:           ecb-methods.         (line 352)
+* methods-show-node-info:                ecb-methods.         (line 367)
+* minor-mode-text:                       ecb-general.         (line 223)
+* mode-line-data:                        ecb-mode-line.       (line   8)
+* mode-line-data-face:                   ecb-mode-line.       (line  39)
+* mode-line-display-window-number:       ecb-mode-line.       (line  44)
+* mode-line-prefix-face:                 ecb-mode-line.       (line  95)
+* mode-line-prefixes:                    ecb-mode-line.       (line  63)
+* mode-line-win-nr-face:                 ecb-mode-line.       (line 100)
+* mouse-click-destination:               ecb-tree-buffer.     (line 101)
+* new-ecb-frame:                         ecb-layout.          (line 301)
+* non-semantic-exclude-modes:            ecb-non-semantic.    (line  26)
+* non-semantic-methods-initial-expand:   ecb-non-semantic.    (line  39)
+* non-semantic-parsing-function:         ecb-non-semantic.    (line  45)
+* other-window-behavior:                 ecb-layout.          (line 304)
+* ping-options:                          ecb-directories.     (line 345)
+* ping-program:                          ecb-directories.     (line 351)
+* post-process-semantic-taglist:         ecb-methods.         (line 383)
+* prescan-directories-exclude-regexps:   ecb-directories.     (line 355)
+* prescan-directories-for-emptyness:     ecb-directories.     (line 290)
+* primary-secondary-mouse-buttons:       ecb-tree-buffer.     (line 130)
+* process-non-semantic-files:            ecb-non-semantic.    (line  74)
+* read-only-check-exclude-regexps:       ecb-sources.         (line   8)
+* rebuild-non-semantic-methods-before-hook: ecb-non-semantic. (line  78)
+* redraw-layout-after-hook:              ecb-layout.          (line 395)
+* redraw-layout-before-hook:             ecb-layout.          (line 400)
+* redraw-layout-quickly:                 ecb-layout.          (line 404)
+* run-ediff-in-ecb-frame:                ecb-general.         (line 232)
+* scroll-other-window-scrolls-compile-window: ecb-compilation.
+                                                              (line 199)
+* select-edit-window-on-redraw:          ecb-layout.          (line 408)
+* show-ecb-windows-after-hook:           ecb-layout.          (line 411)
+* show-ecb-windows-before-hook:          ecb-layout.          (line 428)
+* show-help-format:                      ecb-help.            (line  39)
+* show-only-positioned-tags:             ecb-methods.         (line 407)
+* show-source-file-extension:            ecb-sources.         (line  15)
+* show-sources-in-directories-buffer:    ecb-directories.     (line 361)
+* show-tags:                             ecb-methods.         (line 420)
+* source-face:                           ecb-face-options.    (line  95)
+* source-file-regexps:                   ecb-sources.         (line  18)
+* source-in-directories-buffer-face:     ecb-face-options.    (line 103)
+* source-path:                           ecb-directories.     (line 364)
+* source-read-only-face:                 ecb-face-options.    (line 115)
+* sources-buffer-after-create-hook:      ecb-sources.         (line  63)
+* sources-buffer-name:                   ecb-sources.         (line  71)
+* sources-exclude-cvsignore:             ecb-sources.         (line  83)
+* sources-general-face:                  ecb-face-options.    (line 106)
+* sources-menu-sorter:                   ecb-sources.         (line  97)
+* sources-menu-user-extension:           ecb-sources.         (line 110)
+* sources-menu-user-extension-function:  ecb-sources.         (line 124)
+* sources-perform-read-only-check:       ecb-sources.         (line 138)
+* sources-show-node-info:                ecb-sources.         (line 155)
+* sources-sort-ignore-case:              ecb-sources.         (line 170)
+* sources-sort-method:                   ecb-sources.         (line 174)
+* speedbar-before-activate-hook:         ecb-speedbar.        (line   6)
+* speedbar-buffer-sync:                  ecb-speedbar.        (line  14)
+* speedbar-buffer-sync-delay:            ecb-speedbar.        (line  29)
+* speedbar-buffer-sync-hook:             ecb-speedbar.        (line  40)
+* split-edit-window-after-start:         ecb-layout.          (line 445)
+* stealthy-tasks-delay:                  ecb-general.         (line 241)
+* symboldef-buffer-name:                 ecb-symboldef.       (line   6)
+* symboldef-buffer-sync:                 ecb-symboldef.       (line  18)
+* symboldef-buffer-sync-delay:           ecb-symboldef.       (line  33)
+* symboldef-buffer-sync-hook:            ecb-symboldef.       (line  44)
+* symboldef-find-functions:              ecb-symboldef.       (line  72)
+* symboldef-minimum-symbol-length:       ecb-symboldef.       (line 103)
+* symboldef-prototype-face:              ecb-face-options.    (line 118)
+* symboldef-symbol-face:                 ecb-face-options.    (line 126)
+* tag-display-function:                  ecb-methods.         (line 479)
+* tag-header-face:                       ecb-face-options.    (line 136)
+* tag-jump-sets-mark:                    ecb-methods.         (line 546)
+* tag-visit-post-actions:                ecb-methods.         (line 550)
+* tip-of-the-day:                        ecb-general.         (line 264)
+* tip-of-the-day-file:                   ecb-general.         (line 267)
+* toggle-layout-sequence:                ecb-layout.          (line 492)
+* tree-buffer-style:                     ecb-tree-buffer.     (line 182)
+* tree-do-not-leave-window-after-select: ecb-tree-buffer.     (line 232)
+* tree-easy-hor-scroll:                  ecb-tree-buffer.     (line 265)
+* tree-expand-symbol-before:             ecb-tree-buffer.     (line 289)
+* tree-image-icons-directories:          ecb-tree-buffer.     (line 315)
+* tree-incremental-search:               ecb-tree-buffer.     (line 347)
+* tree-indent:                           ecb-tree-buffer.     (line 353)
+* tree-make-parent-node-sticky:          ecb-tree-buffer.     (line 358)
+* tree-mouse-action-trigger:             ecb-tree-buffer.     (line 373)
+* tree-navigation-by-arrow:              ecb-tree-buffer.     (line 383)
+* tree-stickynode-indent-string:         ecb-tree-buffer.     (line 401)
+* tree-truncate-lines:                   ecb-tree-buffer.     (line 415)
+* truncate-long-names:                   ecb-tree-buffer.     (line 431)
+* type-tag-display:                      ecb-methods.         (line 580)
+* type-tag-expansion:                    ecb-methods.         (line 649)
+* use-recursive-edit:                    ecb-general.         (line 270)
+* use-speedbar-instead-native-tree-buffer: ecb-directories.   (line 379)
+* vc-directory-exclude-regexps:          ecb-version-control. (line   8)
+* vc-enable-support:                     ecb-version-control. (line  14)
+* vc-state-mapping:                      ecb-version-control. (line  38)
+* vc-supported-backends:                 ecb-version-control. (line  91)
+* version-check:                         ecb-general.         (line 274)
+* windows-height:                        ecb-layout.          (line 520)
+* windows-width:                         ecb-layout.          (line 525)
+* winman-escreen-number:                 ecb-winman.          (line   8)
+* winman-winring-name:                   ecb-winman.          (line  14)
+
+
+File: ecb.info,  Node: Concept Index,  Prev: Option Index,  Up: Top
+
+Concept Index
+*************
+
+ [index ]
+* Menu:
+
+* Activation hook-sequence:              Standard activation. (line  14)
+* Adviced functions:                     The edit-area.       (line  10)
+* Analyse:                               Semantic analyser.   (line   6)
+* Analyze:                               Semantic analyser.   (line   6)
+* Automatic activation:                  Automatic activation.
+                                                              (line   6)
+* Automatic deactivation:                Automatic activation.
+                                                              (line   6)
+* BBDB:                                  Conflicts.           (line  37)
+* bs package:                            Conflicts.           (line  24)
+* bs-show:                               Conflicts.           (line  24)
+* Bug report:                            Submitting problem report.
+                                                              (line   6)
+* calendar package:                      Conflicts.           (line  48)
+* collapsing:                            Navigation/Selection.
+                                                              (line   6)
+* compilation buffers:                   Temp- and compile-buffers.
+                                                              (line   6)
+* Creating new layouts:                  Creating a new ECB-layout.
+                                                              (line   6)
+* cygwin-mount package:                  Conflicts.           (line  65)
+* Deactivation hook-sequence:            Standard activation. (line  23)
+* desktop:                               Conflicts.           (line  92)
+* Directories:                           ECB Directories-window.
+                                                              (line   6)
+* Download:                              Downloading new versions.
+                                                              (line   6)
+* ECB-layout:                            The ECB-layout.      (line   6)
+* ECB-windows:                           Overview.            (line   6)
+* edebug:                                Conflicts.           (line 134)
+* ediff:                                 Conflicts.           (line 141)
+* edit-window:                           The edit-area.       (line   6)
+* escreen:                               Window-managers and ECB.
+                                                              (line   6)
+* eshell:                                Using eshell.        (line   6)
+* expanding:                             Navigation/Selection.
+                                                              (line   6)
+* Faces:                                 Changing faces.      (line   6)
+* Filter:                                Filtering the tree-buffers.
+                                                              (line   6)
+* func-menu package:                     Conflicts.           (line 153)
+* Gnus:                                  Conflicts.           (line 163)
+* grep buffers:                          Temp- and compile-buffers.
+                                                              (line   6)
+* help buffers:                          Temp- and compile-buffers.
+                                                              (line   6)
+* Hide windows:                          Hiding the ECB windows.
+                                                              (line   6)
+* History:                               ECB History-window.  (line   6)
+* Hooks:                                 List of hooks.       (line   8)
+* Incremental search:                    Incremental search.  (line   6)
+* JDEE:                                  Conflicts.           (line 174)
+* layout:                                The ECB-layout.      (line   6)
+* Methods:                               ECB Methods-window.  (line   6)
+* minor mode:                            Standard activation. (line  11)
+* mouse button:                          Using the mouse.     (line   6)
+* New layouts:                           Creating a new ECB-layout.
+                                                              (line   6)
+* non-semantic-sources:                  The Methods window.  (line  19)
+* other window:                          The other window.    (line   6)
+* POWER-click:                           Using the mouse.     (line  39)
+* primary button:                        Using the mouse.     (line   6)
+* Problem report:                        Submitting problem report.
+                                                              (line   6)
+* Redraw:                                Redrawing the ECB-layout.
+                                                              (line   6)
+* RETURN key:                            Navigation/Selection.
+                                                              (line   6)
+* scroll-all:                            Conflicts.           (line 196)
+* scroll-all-mode:                       Conflicts.           (line 196)
+* secondary button:                      Using the mouse.     (line   6)
+* semantic tag:                          Customizing the display.
+                                                              (line   6)
+* semantic-sources:                      The Methods window.  (line  12)
+* SHIFT-click:                           Using the mouse.     (line  39)
+* Show windows:                          Hiding the ECB windows.
+                                                              (line   6)
+* Small screen:                          Small screens.       (line   6)
+* Sources:                               ECB Sources-window.  (line   6)
+* special-display:                       Temp- and compile-buffers.
+                                                              (line 120)
+* Speedbar:                              Simulating speedbar. (line   6)
+* TAB key:                               Navigation/Selection.
+                                                              (line   6)
+* tag:                                   Customizing the display.
+                                                              (line   6)
+* temporary buffers:                     Temp- and compile-buffers.
+                                                              (line   6)
+* tmm:                                   Using popup-menus.   (line   6)
+* tree-buffer:                           Overview.            (line   6)
+* VC package:                            Conflicts.           (line 206)
+* Version control:                       Conflicts.           (line 206)
+* VM package:                            Conflicts.           (line 213)
+* wb-line-number:                        Conflicts.           (line 231)
+* window-manager:                        Window-managers and ECB.
+                                                              (line   6)
+* winner:                                Conflicts.           (line 224)
+* winner-mode:                           Conflicts.           (line 224)
+* winring:                               Window-managers and ECB.
+                                                              (line   6)
+* xrefactory:                            Conflicts.           (line 243)
+
