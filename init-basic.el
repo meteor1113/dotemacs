@@ -5,7 +5,7 @@
 ;; You may do whatever you like with it.
 ;;
 ;; @file
-;; @author Liu Xin <meteor1113@gmail.com>
+;; @author Liu Xin <meteor1113@qq.com>
 ;; @date 2009-08-08
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 

@@ -27,11 +27,25 @@
   (dolist (elt package-alist)
     (package--compile (car (cdr elt)))))
 
+;; ace-jump-mode
+;; (autoload 'ace-jump-mode "ace-jump-mode" nil t)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(eval-after-load "ace-jump-mode"
+  '(set-face-background 'ace-jump-face-foreground "yellow"))
+(eval-after-load "viper-keym"
+  '(define-key viper-vi-global-user-map (kbd "SPC") 'ace-jump-mode))
+
 ;; anything
 ;; (autoload 'anything "anything" nil t)
 (setq anything-command-map-prefix-key "")
 ;; (eval-after-load "anything"
 ;;   '(require 'anything-config nil 'noerror))
+
+;; ascii
+;; (autoload 'ascii-on        "ascii" "Turn on ASCII code display."   t)
+;; (autoload 'ascii-off       "ascii" "Turn off ASCII code display."  t)
+;; (autoload 'ascii-display   "ascii" "Toggle ASCII code display."    t)
+;; (autoload 'ascii-customize "ascii" "Customize ASCII code display." t)
 
 ;; auto-complete
 (setq ac-use-comphist nil)
@@ -180,6 +194,18 @@
 ;; browse-kill-ring
 (add-hook 'after-init-hook
           '(lambda () (ignore-errors (browse-kill-ring-default-keybindings))))
+
+;; cal-china-x
+(eval-after-load "calendar"
+  '(when (require 'cal-china-x nil 'noerror)
+     (setq cal-china-x-priority1-holidays
+           (append holiday-local-holidays
+                   cal-china-x-chinese-holidays
+                   cal-china-x-japanese-holidays))
+     (setq calendar-holidays
+           (append calendar-holidays
+                   cal-china-x-chinese-holidays
+                   cal-china-x-japanese-holidays))))
 
 ;; calfw
 (autoload 'cfw:open-org-calendar "calfw-org" nil t)
@@ -449,6 +475,14 @@
 
 ;; highlight-tail
 ;; (autoload 'highlight-tail-mode "highlight-tail" nil t)
+
+;; hl-defined
+(autoload 'hdefd-highlight-mode "hl-defined" nil t)
+(add-hook 'emacs-lisp-mode-hook
+          '(lambda ()
+             (when (require 'hl-defined nil 'noerror)
+               (hdefd-highlight-mode 1)))
+          'APPEND)
 
 ;; htmlize
 ;; (autoload 'htmlize-buffer "htmlize" nil t)
