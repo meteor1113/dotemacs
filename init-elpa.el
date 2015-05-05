@@ -379,9 +379,6 @@
 
 ;; highlight-symbol
 (setq highlight-symbol-idle-delay 0.5)
-(defadvice highlight-symbol-mode (after disable activate)
-  "Disable highlight-symbol-mode-post-command."
-  (remove-hook 'post-command-hook 'highlight-symbol-mode-post-command t))
 (mapc (lambda (hook)
         (add-hook hook (lambda () (ignore-errors (highlight-symbol-mode 1)))))
       '(c-mode-common-hook
@@ -403,6 +400,9 @@
 (global-set-key [(control f3)] 'highlight-symbol-query-replace)
 (eval-after-load "highlight-symbol"
   '(progn
+     (defadvice highlight-symbol-mode (after disable activate)
+       "Disable highlight-symbol-mode-post-command."
+       (remove-hook 'post-command-hook 'highlight-symbol-mode-post-command t))
      ;; (custom-set-faces
      ;;  '(highlight-symbol-face
      ;;    ((((class color) (background dark)) (:background "magenta"))
@@ -417,20 +417,20 @@
                        (set-face-background 'highlight-symbol-face
                                             (if window-system "gray83" "magenta")
                                             frame)))))
-     (defun highlight-symbol-temp-highlight () ; Hack for emacs-21
-       "Highlight the current symbol until a command is executed."
-       (when highlight-symbol-mode
-         (let ((symbol (highlight-symbol-get-symbol)))
-           (unless (or (equal symbol highlight-symbol)
-                       (member symbol highlight-symbol-list))
-             (highlight-symbol-mode-remove-temp)
-             (when symbol
-               (setq highlight-symbol symbol)
-               (if (< emacs-major-version 22)
-                   (let ((color `((background-color . ,"grey")
-                                  (foreground-color . "black"))))
-                     (hi-lock-set-pattern `(,symbol (0 (quote ,color) t))))
-                 (hi-lock-set-pattern symbol 'highlight-symbol-face)))))))
+     ;; (defun highlight-symbol-temp-highlight () ; Hack for emacs-21
+     ;;   "Highlight the current symbol until a command is executed."
+     ;;   (when highlight-symbol-mode
+     ;;     (let ((symbol (highlight-symbol-get-symbol)))
+     ;;       (unless (or (equal symbol highlight-symbol)
+     ;;                   (member symbol highlight-symbol-list))
+     ;;         (highlight-symbol-mode-remove-temp)
+     ;;         (when symbol
+     ;;           (setq highlight-symbol symbol)
+     ;;           (if (< emacs-major-version 22)
+     ;;               (let ((color `((background-color . ,"grey")
+     ;;                              (foreground-color . "black"))))
+     ;;                 (hi-lock-set-pattern `(,symbol (0 (quote ,color) t))))
+     ;;             (hi-lock-set-pattern symbol 'highlight-symbol-face)))))))
      (defadvice highlight-symbol-next (after pulse-advice activate)
        "After highlight-symbol-next, pulse the line the cursor lands on."
        (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
@@ -579,9 +579,13 @@
                'gbk))))
 
 ;; tabbar
-(add-hook 'after-init-hook '(lambda () (ignore-errors (tabbar-mode t))))
+(add-hook 'after-init-hook
+          '(lambda ()
+             (unless (locate-library "tabbar-ruler")
+               (ignore-errors (tabbar-mode 1))) 'append))
 (eval-after-load "tabbar"
   '(progn
+     ;; backup tabbar.el's button image
      (setq tabbar-home-button-enabled-image-orig tabbar-home-button-enabled-image
            tabbar-home-button-disabled-image-orig tabbar-home-button-disabled-image
            tabbar-scroll-left-button-enabled-image-orig tabbar-scroll-left-button-enabled-image
@@ -608,12 +612,12 @@
 
 ;; tabbar-ruler
 (setq tabbar-ruler-invert-deselected nil)
-(eval-after-load "tabbar"
-  '(when (require 'tabbar-ruler nil 'noerror)
-     (add-hook 'desktop-after-read-hook
-               '(lambda ()
-                  (modify-frame-parameters nil `((tabbar-cache . nil)))))
-     ;; restore original button image
+(setq tabbar-ruler-movement-timer-delay 10000)
+(add-hook 'after-init-hook '(lambda () (require 'tabbar-ruler nil 'noerror)) t)
+(eval-after-load "tabbar-ruler"
+  '(progn
+     (tabbar-ruler-remove-caches)
+     ;; restore tabbar.el's button image
      (setq tabbar-home-button-enabled-image tabbar-home-button-enabled-image-orig
            tabbar-home-button-disabled-image tabbar-home-button-disabled-image-orig
            tabbar-scroll-left-button-enabled-image tabbar-scroll-left-button-enabled-image-orig
@@ -733,7 +737,7 @@
                    'cscope-mouse-select-entry-other-window)))))
 
 ;; yasnippet
-(setq yas/wrap-around-region t)
+(setq yas-wrap-around-region t)
 (add-hook 'after-init-hook '(lambda () (ignore-errors (yas-global-mode 1))))
 (defvar custom-yas-snippet-dir
   (expand-file-name "etc/snippets"
@@ -742,10 +746,6 @@
 (eval-after-load "yasnippet"
   '(progn
      (add-to-list 'yas-snippet-dirs custom-yas-snippet-dir)))
-;; (let* ((dir (file-name-directory (or load-file-name (buffer-file-name))))
-;;        (snippets-dir (expand-file-name "etc/snippets" dir)))
-;;   (when (file-exists-p snippets-dir)
-;;     (yas/load-directory snippets-dir)))
 (eval-after-load "org"
   '(add-hook 'org-mode-hook
              (let ((original-command (lookup-key org-mode-map [tab])))
