@@ -8,4 +8,4 @@
 *~
 *.elc
 Thumbs.db
-init-test.el
+elpa/*.txt
