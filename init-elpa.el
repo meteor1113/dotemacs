@@ -750,8 +750,8 @@
   '(add-hook 'org-mode-hook
              (let ((original-command (lookup-key org-mode-map [tab])))
                `(lambda ()
-                  (setq yas/fallback-behavior
+                  (setq yas-fallback-behavior
                         '(apply ,original-command))
-                  (local-set-key [tab] 'yas/expand)))))
+                  (local-set-key [tab] 'yas-expand)))))
 
 (provide 'init-elpa)

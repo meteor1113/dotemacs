@@ -1,6 +1,7 @@
 2015-05-05  Liu Xin  <meteor1113@qq.com>
 
 	* init-elpa.el: Fix.
+	("org"): Fix yasnippet setting.
 
 2015-05-04  Liu Xin  <meteor1113@qq.com>
 
