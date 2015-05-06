@@ -131,14 +131,14 @@
 		      ((:keywords "abbrev" "convenience" "matching")
 		       (:url . "https://github.com/company-mode/company-statistics"))])
  (context-coloring .
-		   [(6 2 0)
+		   [(6 2 1)
 		    ((emacs
 		      (24))
 		     (js2-mode
 		      (20150126)))
-		    "Syntax highlighting, except not for syntax." single
-		    ((:url . "https://github.com/jacksonrayhamilton/context-coloring")
-		     (:keywords "context" "coloring" "syntax" "highlighting"))])
+		    "Highlight by scope" single
+		    ((:url . "http://elpa.gnu.org/packages/context-coloring.html")
+		     (:keywords "convenience" "faces" "tools"))])
  (crisp .
 	[(1 3 4)
 	 nil "CRiSP/Brief Emacs emulator" single

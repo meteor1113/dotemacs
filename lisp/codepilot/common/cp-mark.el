@@ -1,11 +1,28 @@
+;; Copyright (C) 2010  Brian Jiang
+
+;; Author: Brian Jiang <brianjcj@gmail.com>
+;; Keywords: Programming
+;; Version: 0.1
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (defvar codepilot-mark-tag 'codepilot-mark)
 
 (defface codepilot-mark-face
   '((default (:inherit region))
     (((class color) (background light)) (:background "lawn green"))
-    (((class color) (background dark)) (:background "green" :foreground "black"))
-    )
+    (((class color) (background dark)) (:background "green" :foreground "black")))
   "*Font used by mymark."
   :group 'codepilot)
 
@@ -14,20 +31,17 @@
 (defun codepilot-mark-region (b e)
   (let ((ov (make-overlay b e)))
     (overlay-put ov 'face codepilot-mark-face-var)
-    (overlay-put ov 'tag codepilot-mark-tag)
-    ))
+    (overlay-put ov 'tag codepilot-mark-tag)))
 
 (defun codepilot-mark-line ()
   (interactive)
-  (codepilot-mark-region (line-beginning-position) (line-end-position))
-  )
+  (codepilot-mark-region (line-beginning-position) (line-end-position)))
 
 (defun codepilot-unmark-line ()
   (interactive)
   (dolist (o (overlays-in (line-beginning-position) (line-end-position)))
     (when (eq (overlay-get o 'tag) codepilot-mark-tag)
-      (delete-overlay o))
-    ))
+      (delete-overlay o))))
 
 (defun codepilot-mark-regexp (regexp)
   (interactive "sRegexp:")
@@ -37,9 +51,7 @@
         (widen)
         (goto-char (point-min))
         (while (re-search-forward regexp nil t)
-          (codepilot-mark-region (match-beginning 0) (match-end 0))
-          ))
-      )))
+          (codepilot-mark-region (match-beginning 0) (match-end 0)))))))
 
 (defun codepilot-mark-words (wd)
   (interactive
@@ -48,8 +60,7 @@
       (read-string
        (concat "Word" (if cur (concat " (default " cur ")") "") ": ")
        nil nil cur))))
-  (codepilot-mark-regexp (concat "\\_<" wd "\\_>"))
-  )
+  (codepilot-mark-regexp (concat "\\_<" wd "\\_>")))
 
 (defun codepilot-mark-words-1 (wd)
   (interactive
@@ -64,9 +75,7 @@
         (widen)
         (goto-char (point-min))
         (while (word-search-forward wd nil t)
-          (codepilot-mark-region (match-beginning 0) (match-end 0))
-          ))
-      )))
+          (codepilot-mark-region (match-beginning 0) (match-end 0)))))))
 
 (defun codepilot-mark-string (str)
   (interactive
@@ -81,9 +90,7 @@
         (widen)
         (goto-char (point-min))
         (while (search-forward str nil t)
-          (codepilot-mark-region (match-beginning 0) (match-end 0))
-          ))
-      )))
+          (codepilot-mark-region (match-beginning 0) (match-end 0)))))))
 
 (defun codepilot-unmark-all ()
   (interactive)
@@ -92,8 +99,7 @@
       (widen)
       (dolist (o (overlays-in (point-min) (point-max)))
         (when (eq (overlay-get o 'tag) codepilot-mark-tag)
-          (delete-overlay o))
-        ))))
+          (delete-overlay o))))))
 
 (defun codepilot-unmark-all-in-region (from to)
   (interactive)
@@ -102,16 +108,14 @@
       (widen)
       (dolist (o (overlays-in from to))
         (when (eq (overlay-get o 'tag) codepilot-mark-tag)
-          (delete-overlay o))
-        ))))
+          (delete-overlay o))))))
 
 
 (defface codepilot-mark-hl-text-face
   '((default (:inherit region))
     (((class color) (background light)) (:background "DarkOliveGreen2"))
     ;; (((class color) (background dark)) (:background "DarkOliveGreen2" :foreground "black"))
-    (((class color) (background dark)) (:background "SeaGreen" :foreground "white"))
-    )
+    (((class color) (background dark)) (:background "SeaGreen" :foreground "white")))
   "*Font used by folding overlay."
   :group 'codepilot)
 
@@ -123,8 +127,7 @@
   (setq codepilot-highlight-one-line
 	(make-overlay (line-beginning-position) (line-end-position)))
   (overlay-put codepilot-highlight-one-line 'face 'codepilot-mark-hl-text-face)
-  (add-hook 'pre-command-hook 'codepilot-unhighlight-one-line)
-  )
+  (add-hook 'pre-command-hook 'codepilot-unhighlight-one-line))
 
 (defun codepilot-unhighlight-one-line ()
   "Unhighlight the currently highlighted line."

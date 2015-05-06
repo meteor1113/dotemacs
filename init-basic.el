@@ -92,7 +92,7 @@
 (when (fboundp 'winner-mode)
   (winner-mode 1))
 (setq frame-title-format
-      '("[" (:eval (projectile-project-name)) "]"
+      '("[" (:eval (ignore-errors (projectile-project-name))) "]"
         (:eval (or buffer-file-name (buffer-name)))
         "[" (:eval (format "%s" buffer-file-coding-system)) "]"
         (:eval (if (buffer-modified-p) " * " " - "))
