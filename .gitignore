@@ -9,3 +9,4 @@
 *.elc
 Thumbs.db
 elpa/*.txt
+elpa/archives
