@@ -355,7 +355,7 @@
               :enable (fboundp 'view-mode)
               :button (:toggle . view-mode)))
 (define-key minormode-sub-menu [global-undo-tree-mode]
-  '(menu-item "global-undo-tree-mode" global-undo-tree-mode
+  '(menu-item "undo-tree-mode (global)" global-undo-tree-mode
               :enable (fboundp 'global-undo-tree-mode)
               :button (:toggle . global-undo-tree-mode)))
 (define-key minormode-sub-menu [undo-tree-mode]
@@ -375,7 +375,7 @@
               :enable (fboundp 'rainbow-mode)
               :button (:toggle . rainbow-mode)))
 (define-key minormode-sub-menu [projectile-global-mode]
-  '(menu-item "projectile-global-mode" projectile-global-mode
+  '(menu-item "projectile-mode (global)" projectile-global-mode
               :enable (fboundp 'projectile-global-mode)
               :button (:toggle . projectile-global-mode)))
 (define-key minormode-sub-menu [projectile-mode]
@@ -391,7 +391,7 @@
               :enable (fboundp 'nyan-mode)
               :button (:toggle . nyan-mode)))
 (define-key minormode-sub-menu [global-linum-mode]
-  '(menu-item "global-linum-mode" global-linum-mode
+  '(menu-item "linum-mode (global)" global-linum-mode
               :enable (fboundp 'global-linum-mode)
               :button (:toggle . global-linum-mode)))
 (define-key minormode-sub-menu [linum-mode]
@@ -403,7 +403,7 @@
               :enable (fboundp 'iimage-mode)
               :button (:toggle . iimage-mode)))
 (define-key minormode-sub-menu [global-hl-line-mode]
-  '(menu-item "global-hl-line-mode" global-hl-line-mode
+  '(menu-item "hl-line-mode (global)" global-hl-line-mode
               :enable (fboundp 'global-hl-line-mode)
               :button (:toggle . global-hl-line-mode)))
 (define-key minormode-sub-menu [highlight-tail-mode]
@@ -445,11 +445,11 @@
               :enable (fboundp 'display-cn-weather-mode)
               :button (:toggle . display-cn-weather-mode)))
 (define-key minormode-sub-menu [drag-stuff-global-mode]
-  '(menu-item "drag-stuff-global-mode" drag-stuff-global-mode
+  '(menu-item "drag-stuff-mode (global)" drag-stuff-global-mode
               :enable (fboundp 'drag-stuff-global-mode)
               :button (:toggle . drag-stuff-global-mode)))
 (define-key minormode-sub-menu [global-diff-hl-mode]
-  '(menu-item "global-diff-hl-mode" global-diff-hl-mode
+  '(menu-item "diff-hl-mode (global)" global-diff-hl-mode
               :enable (fboundp 'global-diff-hl-mode)
               :button (:toggle . global-diff-hl-mode)))
 (define-key minormode-sub-menu [change-cursor-mode]
@@ -457,7 +457,7 @@
               :enable (fboundp 'change-cursor-mode)
               :button (:toggle . change-cursor-mode)))
 (define-key minormode-sub-menu [global-auto-complete-mode]
-  '(menu-item "global-auto-complete-mode" global-auto-complete-mode
+  '(menu-item "auto-complete-mode (global)" global-auto-complete-mode
               :enable (fboundp 'global-auto-complete-mode)
               :button (:toggle . global-auto-complete-mode)))
 (define-key minormode-sub-menu [artist-mode]
