@@ -324,124 +324,18 @@
   (list 'menu-item "Revert with encoding" revert-encoding-sub-menu))
 
 (defvar minormode-sub-menu (make-sparse-keymap "Minor mode"))
-(define-key minormode-sub-menu [display-cn-weather-mode]
-  '(menu-item "display-cn-weather-mode" display-cn-weather-mode
-              :enable (fboundp 'display-cn-weather-mode)
-              :button (:toggle . display-cn-weather-mode)))
-(define-key minormode-sub-menu [ruler-mode]
-  '(menu-item "ruler-mode" ruler-mode
-              :enable (fboundp 'ruler-mode)
-              :button (:toggle . ruler-mode)))
-(define-key minormode-sub-menu [iimage-mode]
-  '(menu-item "iimage-mode" iimage-mode
-              :enable (fboundp 'iimage-mode)
-              :button (:toggle . iimage-mode)))
-(define-key minormode-sub-menu [artist-mode]
-  '(menu-item "artist-mode" artist-mode
-              :enable (fboundp 'artist-mode)
-              :button (:toggle . artist-mode)))
-(define-key minormode-sub-menu [rainbow-mode]
-  '(menu-item "rainbow-mode" rainbow-mode
-              :enable (fboundp 'rainbow-mode)
-              :button (:toggle . rainbow-mode)))
-(define-key minormode-sub-menu [drag-stuff-global-mode]
-  '(menu-item "drag-stuff-global-mode" drag-stuff-global-mode
-              :enable (fboundp 'drag-stuff-global-mode)
-              :button (:toggle . drag-stuff-global-mode)))
-(define-key minormode-sub-menu [change-cursor-mode]
-  '(menu-item "change-cursor-mode" change-cursor-mode
-              :enable (fboundp 'change-cursor-mode)
-              :button (:toggle . change-cursor-mode)))
-(define-key minormode-sub-menu [nyan-mode]
-  '(menu-item "nyan-mode" nyan-mode
-              :enable (fboundp 'nyan-mode)
-              :button (:toggle . nyan-mode)))
-(define-key minormode-sub-menu [flymake-mode]
-  '(menu-item "flymake-mode" flymake-mode
-              :enable (fboundp 'flymake-mode)
-              :button (:toggle . flymake-mode)))
-(define-key minormode-sub-menu [flymake-find-file-hook]
-  '(menu-item "flymake-find-file-hook"
-              (lambda ()
-                (interactive)
-                (if (memq 'flymake-find-file-hook find-file-hook)
-                    (remove-hook 'find-file-hook 'flymake-find-file-hook)
-                  (add-hook 'find-file-hook 'flymake-find-file-hook)))
-              :enable (fboundp 'flymake-find-file-hook)
-              :button
-              (:toggle . (memq 'flymake-find-file-hook find-file-hook))))
-(define-key minormode-sub-menu [goto-address-mode]
-  '(menu-item "goto-address-mode" goto-address-mode
-              :enable (fboundp 'goto-address-mode)
-              :button (:toggle . goto-address-mode)))
 (define-key minormode-sub-menu [word-count-mode]
   '(menu-item "word-count-mode" word-count-mode
               :enable (fboundp 'word-count-mode)
               :button (:toggle . word-count-mode)))
-(define-key minormode-sub-menu [view-mode]
-  '(menu-item "view-mode" view-mode
-              :enable (fboundp 'view-mode)
-              :button (:toggle . view-mode)))
-(define-key minormode-sub-menu [outline-minor-mode]
-  '(menu-item "outline-minor-mode" outline-minor-mode
-              :enable (fboundp 'outline-minor-mode)
-              :button (:toggle . outline-minor-mode)))
-(define-key minormode-sub-menu [tabbar-mode]
-  '(menu-item "tabbar-mode" tabbar-mode
-              :enable (fboundp 'tabbar-mode)
-              :button (:toggle . tabbar-mode)))
 (define-key minormode-sub-menu [whitespace-mode]
   '(menu-item "whitespace-mode" whitespace-mode
               :enable (fboundp 'whitespace-mode)
               :button (:toggle . whitespace-mode)))
-(define-key minormode-sub-menu [undo-tree-mode]
-  '(menu-item "undo-tree-mode" undo-tree-mode
-              :enable (fboundp 'undo-tree-mode)
-              :button (:toggle . undo-tree-mode)))
-(define-key minormode-sub-menu [global-undo-tree-mode]
-  '(menu-item "global-undo-tree-mode" global-undo-tree-mode
-              :enable (fboundp 'global-undo-tree-mode)
-              :button (:toggle . global-undo-tree-mode)))
-(define-key minormode-sub-menu [global-auto-complete-mode]
-  '(menu-item "global-auto-complete-mode" global-auto-complete-mode
-              :enable (fboundp 'global-auto-complete-mode)
-              :button (:toggle . global-auto-complete-mode)))
-(define-key minormode-sub-menu [linum-mode]
-  '(menu-item "linum-mode" linum-mode
-              :enable (fboundp 'linum-mode)
-              :button (:toggle . linum-mode)))
-(define-key minormode-sub-menu [global-linum-mode]
-  '(menu-item "global-linum-mode" global-linum-mode
-              :enable (fboundp 'global-linum-mode)
-              :button (:toggle . global-linum-mode)))
-(define-key minormode-sub-menu [global-diff-hl-mode]
-  '(menu-item "global-diff-hl-mode" global-diff-hl-mode
-              :enable (fboundp 'global-diff-hl-mode)
-              :button (:toggle . global-diff-hl-mode)))
-(define-key minormode-sub-menu [highlight-tail-mode]
-  '(menu-item "highlight-tail-mode" highlight-tail-mode
-              :enable (fboundp 'highlight-tail-mode)
-              :button (:toggle . highlight-tail-mode)))
 (define-key minormode-sub-menu [volatile-highlights-mode]
   '(menu-item "volatile-highlights-mode" volatile-highlights-mode
               :enable (fboundp 'volatile-highlights-mode)
               :button (:toggle . volatile-highlights-mode)))
-(define-key minormode-sub-menu [highlight-parentheses-mode]
-  '(menu-item "highlight-parentheses-mode" highlight-parentheses-mode
-              :enable (fboundp 'highlight-parentheses-mode)
-              :button (:toggle . highlight-parentheses-mode)))
-(define-key minormode-sub-menu [highlight-symbol-mode]
-  '(menu-item "highlight-symbol-mode" highlight-symbol-mode
-              :enable (fboundp 'highlight-symbol-mode)
-              :button (:toggle . highlight-symbol-mode)))
-(define-key minormode-sub-menu [global-hl-line-mode]
-  '(menu-item "global-hl-line-mode" global-hl-line-mode
-              :enable (fboundp 'global-hl-line-mode)
-              :button (:toggle . global-hl-line-mode)))
-(define-key minormode-sub-menu [electric-pair-mode]
-  '(menu-item "electric-pair-mode" electric-pair-mode
-              :enable (fboundp 'electric-pair-mode)
-              :button (:toggle . electric-pair-mode)))
 ;; (define-key minormode-sub-menu [viper-mode]
 ;;   '(menu-item "viper-mode"
 ;;               (lambda ()
@@ -456,14 +350,120 @@
   '(menu-item "viper-mode" toggle-viper-mode
               :enable (fboundp 'toggle-viper-mode)
               :button (:toggle . viper-mode)))
-(define-key minormode-sub-menu [projectile-mode]
-  '(menu-item "projectile-mode" projectile-mode
-              :enable (fboundp 'projectile-mode)
-              :button (:toggle . projectile-mode)))
+(define-key minormode-sub-menu [view-mode]
+  '(menu-item "view-mode" view-mode
+              :enable (fboundp 'view-mode)
+              :button (:toggle . view-mode)))
+(define-key minormode-sub-menu [global-undo-tree-mode]
+  '(menu-item "global-undo-tree-mode" global-undo-tree-mode
+              :enable (fboundp 'global-undo-tree-mode)
+              :button (:toggle . global-undo-tree-mode)))
+(define-key minormode-sub-menu [undo-tree-mode]
+  '(menu-item "undo-tree-mode" undo-tree-mode
+              :enable (fboundp 'undo-tree-mode)
+              :button (:toggle . undo-tree-mode)))
+(define-key minormode-sub-menu [tabbar-mode]
+  '(menu-item "tabbar-mode" tabbar-mode
+              :enable (fboundp 'tabbar-mode)
+              :button (:toggle . tabbar-mode)))
+(define-key minormode-sub-menu [ruler-mode]
+  '(menu-item "ruler-mode" ruler-mode
+              :enable (fboundp 'ruler-mode)
+              :button (:toggle . ruler-mode)))
+(define-key minormode-sub-menu [rainbow-mode]
+  '(menu-item "rainbow-mode" rainbow-mode
+              :enable (fboundp 'rainbow-mode)
+              :button (:toggle . rainbow-mode)))
 (define-key minormode-sub-menu [projectile-global-mode]
   '(menu-item "projectile-global-mode" projectile-global-mode
               :enable (fboundp 'projectile-global-mode)
               :button (:toggle . projectile-global-mode)))
+(define-key minormode-sub-menu [projectile-mode]
+  '(menu-item "projectile-mode" projectile-mode
+              :enable (fboundp 'projectile-mode)
+              :button (:toggle . projectile-mode)))
+(define-key minormode-sub-menu [outline-minor-mode]
+  '(menu-item "outline-minor-mode" outline-minor-mode
+              :enable (fboundp 'outline-minor-mode)
+              :button (:toggle . outline-minor-mode)))
+(define-key minormode-sub-menu [nyan-mode]
+  '(menu-item "nyan-mode" nyan-mode
+              :enable (fboundp 'nyan-mode)
+              :button (:toggle . nyan-mode)))
+(define-key minormode-sub-menu [global-linum-mode]
+  '(menu-item "global-linum-mode" global-linum-mode
+              :enable (fboundp 'global-linum-mode)
+              :button (:toggle . global-linum-mode)))
+(define-key minormode-sub-menu [linum-mode]
+  '(menu-item "linum-mode" linum-mode
+              :enable (fboundp 'linum-mode)
+              :button (:toggle . linum-mode)))
+(define-key minormode-sub-menu [iimage-mode]
+  '(menu-item "iimage-mode" iimage-mode
+              :enable (fboundp 'iimage-mode)
+              :button (:toggle . iimage-mode)))
+(define-key minormode-sub-menu [global-hl-line-mode]
+  '(menu-item "global-hl-line-mode" global-hl-line-mode
+              :enable (fboundp 'global-hl-line-mode)
+              :button (:toggle . global-hl-line-mode)))
+(define-key minormode-sub-menu [highlight-tail-mode]
+  '(menu-item "highlight-tail-mode" highlight-tail-mode
+              :enable (fboundp 'highlight-tail-mode)
+              :button (:toggle . highlight-tail-mode)))
+(define-key minormode-sub-menu [highlight-symbol-mode]
+  '(menu-item "highlight-symbol-mode" highlight-symbol-mode
+              :enable (fboundp 'highlight-symbol-mode)
+              :button (:toggle . highlight-symbol-mode)))
+(define-key minormode-sub-menu [highlight-parentheses-mode]
+  '(menu-item "highlight-parentheses-mode" highlight-parentheses-mode
+              :enable (fboundp 'highlight-parentheses-mode)
+              :button (:toggle . highlight-parentheses-mode)))
+(define-key minormode-sub-menu [goto-address-mode]
+  '(menu-item "goto-address-mode" goto-address-mode
+              :enable (fboundp 'goto-address-mode)
+              :button (:toggle . goto-address-mode)))
+(define-key minormode-sub-menu [flymake-find-file-hook]
+  '(menu-item "flymake-find-file-hook"
+              (lambda ()
+                (interactive)
+                (if (memq 'flymake-find-file-hook find-file-hook)
+                    (remove-hook 'find-file-hook 'flymake-find-file-hook)
+                  (add-hook 'find-file-hook 'flymake-find-file-hook)))
+              :enable (fboundp 'flymake-find-file-hook)
+              :button
+              (:toggle . (memq 'flymake-find-file-hook find-file-hook))))
+(define-key minormode-sub-menu [flymake-mode]
+  '(menu-item "flymake-mode" flymake-mode
+              :enable (fboundp 'flymake-mode)
+              :button (:toggle . flymake-mode)))
+(define-key minormode-sub-menu [electric-pair-mode]
+  '(menu-item "electric-pair-mode" electric-pair-mode
+              :enable (fboundp 'electric-pair-mode)
+              :button (:toggle . electric-pair-mode)))
+(define-key minormode-sub-menu [display-cn-weather-mode]
+  '(menu-item "display-cn-weather-mode" display-cn-weather-mode
+              :enable (fboundp 'display-cn-weather-mode)
+              :button (:toggle . display-cn-weather-mode)))
+(define-key minormode-sub-menu [drag-stuff-global-mode]
+  '(menu-item "drag-stuff-global-mode" drag-stuff-global-mode
+              :enable (fboundp 'drag-stuff-global-mode)
+              :button (:toggle . drag-stuff-global-mode)))
+(define-key minormode-sub-menu [global-diff-hl-mode]
+  '(menu-item "global-diff-hl-mode" global-diff-hl-mode
+              :enable (fboundp 'global-diff-hl-mode)
+              :button (:toggle . global-diff-hl-mode)))
+(define-key minormode-sub-menu [change-cursor-mode]
+  '(menu-item "change-cursor-mode" change-cursor-mode
+              :enable (fboundp 'change-cursor-mode)
+              :button (:toggle . change-cursor-mode)))
+(define-key minormode-sub-menu [global-auto-complete-mode]
+  '(menu-item "global-auto-complete-mode" global-auto-complete-mode
+              :enable (fboundp 'global-auto-complete-mode)
+              :button (:toggle . global-auto-complete-mode)))
+(define-key minormode-sub-menu [artist-mode]
+  '(menu-item "artist-mode" artist-mode
+              :enable (fboundp 'artist-mode)
+              :button (:toggle . artist-mode)))
 (define-key toggle-toolbar-menu [minor-mode]
   (list 'menu-item "Minor mode" minormode-sub-menu))
 

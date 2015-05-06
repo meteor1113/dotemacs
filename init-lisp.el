@@ -366,12 +366,6 @@ a c mode)."
     (define-key c-mode-base-map [M-f12] 'eassist-switch-h-cpp)
     (define-key c-mode-base-map (kbd "ESC <f12>") 'eassist-switch-h-cpp)))
 
-;; jde
-(add-hook 'java-mode-hook
-          '(lambda ()
-             (when (require 'jde nil 'noerror)
-               (setq jde-enable-abbrev-mode t))))
-
 ;; ibus
 (when (require 'ibus nil 'noerror)
   ;; (dolist (key '((f6) (f7) (f8) (shift f8) (f9) (f10) (f11) (f12)))
@@ -379,6 +373,12 @@ a c mode)."
   ;;         (delete key ibus-common-function-key-list)))
   (setq ibus-common-function-key-list '((control " ")))
   (add-hook 'after-init-hook 'ibus-mode-on))
+
+;; jde
+(add-hook 'java-mode-hook
+          '(lambda ()
+             (when (require 'jde nil 'noerror)
+               (setq jde-enable-abbrev-mode t))))
 
 ;; scim
 (when (require 'scim-bridge nil 'noerror)
