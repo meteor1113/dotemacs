@@ -643,6 +643,7 @@ Like eclipse's Ctrl+Alt+F."
                'maximized)))))))
 
 ;; global key bindings
+(global-set-key (kbd "C-a") 'mark-whole-buffer)
 (global-set-key (kbd "M-SPC") 'set-mark-command)
 (define-key cua-global-keymap (kbd "M-SPC") 'cua-set-mark)
 (global-set-key (kbd "<M-up>") 'move-line-up)
