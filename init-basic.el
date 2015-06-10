@@ -508,7 +508,7 @@ Like eclipse's Ctrl+Alt+F."
           (indent-region (point-min) (point-max))
           (save-buffer)
           (kill-buffer)
-          (message "Formated c++ file:%s" file)))
+          (message "Formated file:%s" file)))
     (message "%s isn't a c++ file" file)))
 
 (defun format-cxx-directory (dirname)
@@ -524,6 +524,41 @@ Like eclipse's Ctrl+Alt+F."
                      (not (file-symlink-p x))
                      (cxx-file-p x))
                 (format-cxx-file x)))))))
+
+(defun xml-file-p (file)
+  (let ((file-extension (file-name-extension file)))
+    (and file-extension
+         (string= file (file-name-sans-versions file))
+         (find file-extension
+               '("xml")
+               :test 'string=))))
+
+(defun format-xml-file (file)
+  "Format a xml file."
+  (interactive "F")
+  (if (xml-file-p file)
+      (let ((buffer (find-file-noselect file))) ;; open buffer
+        (save-excursion
+          (set-buffer buffer)
+          (format-xml)
+          (save-buffer)
+          (kill-buffer)
+          (message "Formated file:%s" file)))
+    (message "%s isn't a xml file" file)))
+
+(defun format-xml-directory (dirname)
+  "Format all xml file in a directory."
+  (interactive "D")
+  ;; (message "directory:%s" dirname)
+  (let ((files (directory-files dirname t)))
+    (dolist (x files)
+      (if (not (string= "." (substring (file-name-nondirectory x) 0 1)))
+          (if (file-directory-p x)
+              (format-xml-directory x)
+            (if (and (file-regular-p x)
+                     (not (file-symlink-p x))
+                     (xml-file-p x))
+                (format-xml-file x)))))))
 
 (autoload 'grep-tag-default "grep")
 (autoload 'grep-apply-setting "grep")

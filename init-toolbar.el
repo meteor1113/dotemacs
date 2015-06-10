@@ -174,6 +174,9 @@
 (define-key misc-sub-menu [ielm]
   '(menu-item "ielm" ielm
               :enable (fboundp 'ielm)))
+(define-key misc-sub-menu [format-xml-directory]
+  '(menu-item "format-xml-directory" format-xml-directory
+              :enable (fboundp 'format-xml-directory)))
 (define-key misc-sub-menu [format-cxx-directory]
   '(menu-item "format-cxx-directory" format-cxx-directory
               :enable (fboundp 'format-cxx-directory)))
