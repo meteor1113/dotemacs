@@ -515,7 +515,8 @@ Like eclipse's Ctrl+Alt+F."
   "Format all c/c++ file in a directory."
   (interactive "D")
   ;; (message "directory:%s" dirname)
-  (let ((files (directory-files dirname t)))
+  (let ((files (directory-files dirname t))
+        (make-backup-files nil))
     (dolist (x files)
       (if (not (string= "." (substring (file-name-nondirectory x) 0 1)))
           (if (file-directory-p x)
@@ -550,7 +551,8 @@ Like eclipse's Ctrl+Alt+F."
   "Format all xml file in a directory."
   (interactive "D")
   ;; (message "directory:%s" dirname)
-  (let ((files (directory-files dirname t)))
+  (let ((files (directory-files dirname t))
+        (make-backup-files nil))
     (dolist (x files)
       (if (not (string= "." (substring (file-name-nondirectory x) 0 1)))
           (if (file-directory-p x)
