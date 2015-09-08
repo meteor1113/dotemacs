@@ -1,3 +1,8 @@
+2015-09-08  Liu Xin  <meteor1113@qq.com>
+
+	* init-elpa.el (ecb-symboldef-find-tag-by-etags): Disable etags's
+	'Visit tags tagle' dialog when ecb's symboldef is actived.
+
 2015-06-10  Liu Xin  <meteor1113@qq.com>
 
 	* init-basic.el (format-xml-directory): Add function format-xml-directory.

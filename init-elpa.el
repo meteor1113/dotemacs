@@ -293,6 +293,10 @@
   (defvar stack-trace-on-error nil))
 (when (fboundp 'ecb-minor-mode)
   (defvar ecb-minor-mode nil))
+(defadvice ecb-symboldef-find-tag-by-etags (around no-prompt-etags activate)
+  "Disable etags's 'Visit tags table' dialog."
+  (when tags-file-name
+    ad-do-it))
 (eval-after-load "ecb-compilation"
   '(progn
      (setq ecb-compilation-buffer-names
