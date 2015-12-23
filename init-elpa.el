@@ -27,6 +27,16 @@
   (dolist (elt package-alist)
     (package--compile (car (cdr elt)))))
 
+;; ac-racer
+(when (fboundp 'ac-racer-setup)
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  ;; (define-key racer-mode-map (kbd "M-n") 'ac-complete-racer)
+  (add-hook 'racer-mode-hook
+            '(lambda ()
+               (ac-racer-setup)
+               (local-set-key (kbd "M-n") 'ac-complete-racer))))
+
 ;; ace-jump-mode
 ;; (autoload 'ace-jump-mode "ace-jump-mode" nil t)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)

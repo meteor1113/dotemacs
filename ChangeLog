@@ -1,3 +1,7 @@
+2015-12-23  Liu Xin  <meteor1113@qq.com>
+
+	* init-elpa.el: Add rust-mode, rustfmt, racer, ac-racer.
+
 2015-09-08  Liu Xin  <meteor1113@qq.com>
 
 	* init-elpa.el (ecb-symboldef-find-tag-by-etags): Disable etags's
