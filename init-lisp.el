@@ -138,11 +138,6 @@ a c mode)."
 ;; unicad
 (require 'unicad nil 'noerror)
 
-;; vimpulse
-(setq viper-mode nil)
-(eval-after-load "viper"
-  '(require 'vimpulse nil 'noerror))
-
 ;; offical cedet
 ;; (semantic-gcc-setup) will add mingw dirs if found gcc.
 (defvar user-include-dirs
