@@ -14,9 +14,6 @@
 (setq user-full-name "Liu Xin")
 (setq user-mail-address "meteor1113@qq.com")
 
-;; cn-weather
-(setq cn-weather-city "大连")
-
 ;; calendar
 (setq holiday-other-holidays '((holiday-chinese 6 23 "李浩斌生日")
                                (holiday-fixed 10 16 "李可生日(1981)")
