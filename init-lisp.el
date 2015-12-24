@@ -143,11 +143,6 @@ a c mode)."
 (eval-after-load "viper"
   '(require 'vimpulse nil 'noerror))
 
-;; (when (require 'winsav nil t)
-;;   (winsav-save-mode 1))
-(autoload 'winsav-save-configuration "winsav" nil t)
-(autoload 'winsav-restore-configuration "winsav" nil t)
-
 ;; word-count
 (autoload 'word-count-mode "word-count"
   "Minor mode to count words." t nil)
