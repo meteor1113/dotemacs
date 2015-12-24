@@ -27,12 +27,6 @@
   (dolist (elt package-alist)
     (package--compile (car (cdr elt)))))
 
-;; ac-racer
-(add-hook 'racer-mode-hook
-          '(lambda ()
-             (ac-racer-setup)
-             (local-set-key (kbd "M-n") 'ac-complete-racer)))
-
 ;; ace-jump-mode
 ;; (autoload 'ace-jump-mode "ace-jump-mode" nil t)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
@@ -40,6 +34,12 @@
   '(set-face-background 'ace-jump-face-foreground "yellow"))
 (eval-after-load "viper-keym"
   '(define-key viper-vi-global-user-map (kbd "SPC") 'ace-jump-mode))
+
+;; ac-racer
+(add-hook 'racer-mode-hook
+          '(lambda ()
+             (ac-racer-setup)
+             (local-set-key (kbd "M-n") 'ac-complete-racer)))
 
 ;; anything
 ;; (autoload 'anything "anything" nil t)
@@ -403,7 +403,7 @@
 ;;   (setq emms-history-start-playing t)
 ;;   (emms-history-load))
 
-;; fci-mode
+;; fill-column-indicator
 ;; (autoload 'fci-mode "fill-column-indicator" nil t)
 
 ;; hideshowvis
@@ -582,14 +582,14 @@
 ;; rainbow-mode
 ;; (autoload 'rainbow-mode "rainbow-mode" nil t)
 
-;; rust-mode
-
 ;; rustfmt
 (eval-after-load "rust-mode"
   '(progn
      (define-key rust-mode-map (kbd "C-c C-f") #'rustfmt-format-buffer)
      (define-key rust-mode-map [M-f8] #'rustfmt-format-buffer)))
 (add-hook 'rust-mode-hook #'rustfmt-enable-on-save)
+
+;; rust-mode
 
 ;; smart-compile
 ;; (autoload 'smart-compile "smart-compile" nil t)
