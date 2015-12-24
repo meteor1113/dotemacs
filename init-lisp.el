@@ -81,32 +81,6 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
 (autoload 'cn-weather-forecast "cn-weather"
   "Print future two days' weather info in minibuffer." t)
 
-;; code-imports
-(autoload 'code-imports-grab-import "code-imports" nil t)
-(autoload 'code-imports-add-grabbed-imports "code-imports" nil t)
-(autoload 'code-imports-organize-imports "code-imports" nil t)
-(setq code-imports-project-directory ".")
-(global-set-key (kbd "C-S-o") 'code-imports-organize-imports)
-(eval-after-load "code-imports"
-  '(defun code-imports--import-in-group-p (import-line
-                                           group
-                                           &optional self-file)
-     "Returns t if IMPORT-LINE is in GROUP.
-GROUP is one of the elements of the ordering such as
-`code-imports-c++-ordering'. SELF-FILE is the .h file
-corresponding to the file being modified (or nil if we're not in
-a c mode)."
-     (cond ((eq group 'self)
-            ;; right now self can only refer to c/c++ mode.
-            (string-match (regexp-quote (file-name-sans-extension self-file))
-                          import-line))
-           ;; Ignore the t group for these kinds of matches, otherwise
-           ;; it won't match just things not matched by other groups.
-           ;; t-matching will happen elsewhere.
-           ((eq group t)
-            nil)
-           (t (string-match group import-line)))))
-
 ;; recent-jump
 (when (require 'recent-jump nil 'noerror)
   (global-set-key (kbd "<M-S-left>") 'recent-jump-jump-backward)
