@@ -7,6 +7,7 @@
 	Remove ifdef.
 	Remove code-imports.
 	Remove cn-weather.
+	Remove doxymacs and doc-mode.
 
 	* init-elpa.el ("rust-mode"): Config rustfmt, racer, ac-racer.
 	(rust-mode-hook): Add cargo.

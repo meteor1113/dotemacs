@@ -44,18 +44,6 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
 (when (> emacs-major-version 21)
   (require 'smart-hl nil 'noerror))
 
-;; doxymacs-mode/doc-mode
-(unless (locate-library "url")
-  (provide 'url))                       ; emacs-21 doesn't have url
-(add-hook 'c-mode-common-hook
-          '(lambda ()
-             (if (and (featurep 'semantic)
-                      (require 'doc-mode nil 'noerror))
-                 (doc-mode t)
-               (when (require 'doxymacs nil 'noerror)
-                 (doxymacs-mode t)
-                 (doxymacs-font-lock)))))
-
 ;; eim
 ;; (when (<= emacs-major-version 21)
 ;;   (provide 'help-mode)
