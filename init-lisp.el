@@ -72,15 +72,6 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
   `(when (require 'eim-extra nil 'noerror)
      (global-set-key ";" 'eim-insert-ascii)))
 
-;; cn-weather
-;; (setq cn-weather-city "大连")
-(autoload 'display-cn-weather-mode "cn-weather"
-  "Display weather information in the mode line." t)
-(autoload 'cn-weather "cn-weather"
-  "Print Now today's and realtime weather in the echo area." t)
-(autoload 'cn-weather-forecast "cn-weather"
-  "Print future two days' weather info in minibuffer." t)
-
 ;; recent-jump
 (when (require 'recent-jump nil 'noerror)
   (global-set-key (kbd "<M-S-left>") 'recent-jump-jump-backward)
