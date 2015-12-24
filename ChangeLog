@@ -2,6 +2,7 @@
 
 	* init-elpa.el ("rust-mode"): Config rustfmt, racer, ac-racer.
 	(rust-mode-hook): Add cargo.
+	Add go-mode, go-autocomplete, go-doc, go-snippets.
 
 2015-12-23  Liu Xin  <meteor1113@qq.com>
 

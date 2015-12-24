@@ -406,6 +406,24 @@
 ;; fill-column-indicator
 ;; (autoload 'fci-mode "fill-column-indicator" nil t)
 
+;; go-autocomplete
+(add-hook 'go-mode-hook
+          '(lambda ()
+             (when (require 'go-autocomplete nil 'noerror)
+               (local-set-key (kbd "M-n") 'ac-complete-go))))
+
+;; go-doc
+(add-hook 'go-mode-hook 'go-eldoc-setup)
+
+;; go-mode
+(add-hook 'go-mode-hook
+          '(lambda ()
+             (add-hook 'before-save-hook #'gofmt-before-save)
+             (local-set-key (kbd "M-.") #'godef-jump)
+             (local-set-key (kbd "M-,") #'pop-tag-mark)))
+
+;; go-snippets
+
 ;; hideshowvis
 ;; (autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions" t)
 
