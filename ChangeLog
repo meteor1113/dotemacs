@@ -1,9 +1,12 @@
 2015-12-24  Liu Xin  <meteor1113@qq.com>
 
+	* init-lisp.el: Remove xgtags.
+
 	* init-elpa.el ("rust-mode"): Config rustfmt, racer, ac-racer.
 	(rust-mode-hook): Add cargo.
 	Add go-mode, go-autocomplete, go-doc, go-snippets.
 	: Add ac-clang, Remove auto-complete-clang.
+	: Add ggtags.
 
 2015-12-23  Liu Xin  <meteor1113@qq.com>
 

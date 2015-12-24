@@ -153,13 +153,6 @@ a c mode)."
   "Minor mode to count words." t nil)
 (global-set-key "\M-+" 'word-count-mode)
 
-;; xgtags
-(when (executable-find "global")
-  (add-hook 'c-mode-common-hook
-            (lambda ()
-              (when (require 'xgtags nil 'noerror)
-                (xgtags-mode 1)))))
-
 ;; offical cedet
 ;; (semantic-gcc-setup) will add mingw dirs if found gcc.
 (defvar user-include-dirs

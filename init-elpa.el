@@ -417,6 +417,13 @@
 ;; fill-column-indicator
 ;; (autoload 'fci-mode "fill-column-indicator" nil t)
 
+;; ggtags
+(when (executable-find "global")
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+                (ggtags-mode 1)))))
+
 ;; go-autocomplete
 (add-hook 'go-mode-hook
           '(lambda ()

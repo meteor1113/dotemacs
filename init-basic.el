@@ -917,7 +917,7 @@ by using nxml's indentation rules."
   (when (fboundp 'whitespace-mode)
     (whitespace-mode t))
   (linum-mode 1)
-  (hs-minor-mode t)
+  ;; (hs-minor-mode t)
   (ignore-errors (imenu-add-menubar-index)))
 
 (add-hook 'c-mode-common-hook 'prog-common-function)
