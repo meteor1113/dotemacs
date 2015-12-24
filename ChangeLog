@@ -1,6 +1,7 @@
 2015-12-24  Liu Xin  <meteor1113@qq.com>
 
 	* init-elpa.el ("rust-mode"): Config rustfmt, racer, ac-racer.
+	(rust-mode-hook): Add cargo.
 
 2015-12-23  Liu Xin  <meteor1113@qq.com>
 

@@ -221,6 +221,9 @@
 ;;   '(when (require 'calfw-org nil 'noerror)
 ;;      (cfw:install-org-schedules)))
 
+;; cargo
+(add-hook 'rust-mode-hook #'cargo-minor-mode)
+
 ;; color-theme
 ;; (require 'color-theme-autoloads nil 'noerror)
 
