@@ -27,6 +27,37 @@
   (dolist (elt package-alist)
     (package--compile (car (cdr elt)))))
 
+;; ac-clang
+(defvar my-ac-clang-cflags '("-I.." "-I../include" "-I../inc"
+                             "-I../common" "-I../public"
+                             "-I../.." "-I../../include" "-I../../inc"
+                             "-I../../common" "-I../../public"))
+(when (fboundp 'semantic-gcc-get-include-paths)
+  (let ((dirs (semantic-gcc-get-include-paths "c++")))
+    (dolist (dir dirs)
+      (add-to-list 'my-ac-clang-cflags (concat "-I" dir)))))
+(setq w32-pipe-read-delay 0)
+(add-hook 'c-mode-common-hook
+          '(lambda ()
+             (if (and (require 'ac-clang nil 'noerror)
+                      (or ac-clang--server-executable
+                          (executable-find
+                           (or (plist-get ac-clang--server-binaries
+                                          ac-clang-server-type) "")))
+                      (ac-clang-initialize))
+                 (progn
+                   (setq ac-clang-cflags my-ac-clang-cflags)
+                   (ac-clang-activate-after-modify)
+                   (local-set-key (kbd "M-n") 'ac-complete-clang))
+               ;; (setq ac-sources (append '(ac-source-semantic) ac-sources))
+               (local-set-key (kbd "M-n") 'ac-complete-semantic))))
+
+;; ac-racer
+(add-hook 'racer-mode-hook
+          '(lambda ()
+             (ac-racer-setup)
+             (local-set-key (kbd "M-n") 'ac-complete-racer)))
+
 ;; ace-jump-mode
 ;; (autoload 'ace-jump-mode "ace-jump-mode" nil t)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
@@ -34,12 +65,6 @@
   '(set-face-background 'ace-jump-face-foreground "yellow"))
 (eval-after-load "viper-keym"
   '(define-key viper-vi-global-user-map (kbd "SPC") 'ace-jump-mode))
-
-;; ac-racer
-(add-hook 'racer-mode-hook
-          '(lambda ()
-             (ac-racer-setup)
-             (local-set-key (kbd "M-n") 'ac-complete-racer)))
 
 ;; anything
 ;; (autoload 'anything "anything" nil t)
@@ -94,22 +119,11 @@
   '(progn
      (add-hook 'ielm-mode-hook 'ac-emacs-lisp-mode-setup)
      (add-hook 'eshell-mode-hook 'ac-emacs-lisp-mode-setup)
-     (defun ac-semantic-setup ()
-       ;; (setq ac-sources (append '(ac-source-semantic) ac-sources))
-       (local-set-key (kbd "M-n") 'ac-complete-semantic))
-     (add-hook 'c-mode-common-hook 'ac-semantic-setup)
-     (when (require 'auto-complete-clang nil 'noerror)
-       (setq ac-clang-flags
-             '("-I.." "-I../include" "-I../inc" "-I../common" "-I../public"
-               "-I../.." "-I../../include" "-I../../inc" "-I../../common"
-               "-I../../public"))
-       (when (fboundp 'semantic-gcc-get-include-paths)
-         (let ((dirs (semantic-gcc-get-include-paths "c++")))
-           (dolist (dir dirs)
-             (add-to-list 'ac-clang-flags (concat "-I" dir)))))
-       (defun ac-clang-setup ()
-         (local-set-key (kbd "M-p") 'ac-complete-clang))
-       (add-hook 'c-mode-common-hook 'ac-clang-setup))
+     (add-hook 'auto-complete-mode-hook
+               '(lambda ()
+                  (add-to-list 'ac-sources 'ac-source-yasnippet)))))
+(eval-after-load "auto-complete-config"
+  '(progn
      (setq ac-source-ropemacs              ; Redefine ac-source-ropemacs
            '((candidates . (lambda ()
                              (setq ac-ropemacs-completions-cache
@@ -128,10 +142,7 @@
          (ac-ropemacs-require)
          ;; (setq ac-sources (append (list 'ac-source-ropemacs) ac-sources))
          (local-set-key (kbd "M-n") 'ac-complete-ropemacs)))
-     (ac-ropemacs-initialize)
-     (defun ac-yasnippet-setup ()
-       (add-to-list 'ac-sources 'ac-source-yasnippet))
-     (add-hook 'auto-complete-mode-hook 'ac-yasnippet-setup)))
+     (ac-ropemacs-initialize)))
 
 ;; bm
 (setq bm-restore-repository-on-load t)
