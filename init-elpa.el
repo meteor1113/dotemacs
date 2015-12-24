@@ -28,14 +28,10 @@
     (package--compile (car (cdr elt)))))
 
 ;; ac-racer
-(when (fboundp 'ac-racer-setup)
-  (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
-  ;; (define-key racer-mode-map (kbd "M-n") 'ac-complete-racer)
-  (add-hook 'racer-mode-hook
-            '(lambda ()
-               (ac-racer-setup)
-               (local-set-key (kbd "M-n") 'ac-complete-racer))))
+(add-hook 'racer-mode-hook
+          '(lambda ()
+             (ac-racer-setup)
+             (local-set-key (kbd "M-n") 'ac-complete-racer)))
 
 ;; ace-jump-mode
 ;; (autoload 'ace-jump-mode "ace-jump-mode" nil t)
@@ -576,8 +572,21 @@
 (eval-after-load "vc-svn"
   '(require 'psvn nil 'noerror))
 
+;; racer
+(add-hook 'rust-mode-hook #'racer-mode)
+(add-hook 'racer-mode-hook #'eldoc-mode)
+
 ;; rainbow-mode
 ;; (autoload 'rainbow-mode "rainbow-mode" nil t)
+
+;; rust-mode
+
+;; rustfmt
+(eval-after-load "rust-mode"
+  '(progn
+     (define-key rust-mode-map (kbd "C-c C-f") #'rustfmt-format-buffer)
+     (define-key rust-mode-map [M-f8] #'rustfmt-format-buffer)))
+(add-hook 'rust-mode-hook #'rustfmt-enable-on-save)
 
 ;; smart-compile
 ;; (autoload 'smart-compile "smart-compile" nil t)

@@ -1,3 +1,7 @@
+2015-12-24  Liu Xin  <meteor1113@qq.com>
+
+	* init-elpa.el ("rust-mode"): Config rustfmt, racer, ac-racer.
+
 2015-12-23  Liu Xin  <meteor1113@qq.com>
 
 	* init-elpa.el: Add rust-mode, rustfmt, racer, ac-racer.
