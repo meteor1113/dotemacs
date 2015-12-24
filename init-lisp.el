@@ -107,13 +107,6 @@ a c mode)."
             nil)
            (t (string-match group import-line)))))
 
-;; ifdef
-(add-hook 'c-mode-common-hook
-          '(lambda ()
-             (when (require 'ifdef nil 'noerror)
-               (define-key c-mode-base-map [?\C-c ?\C-i] 'mark-ifdef)
-               (mark-ifdef))))
-
 ;; recent-jump
 (when (require 'recent-jump nil 'noerror)
   (global-set-key (kbd "<M-S-left>") 'recent-jump-jump-backward)
