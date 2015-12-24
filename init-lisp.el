@@ -143,11 +143,6 @@ a c mode)."
 (eval-after-load "viper"
   '(require 'vimpulse nil 'noerror))
 
-;; word-count
-(autoload 'word-count-mode "word-count"
-  "Minor mode to count words." t nil)
-(global-set-key "\M-+" 'word-count-mode)
-
 ;; offical cedet
 ;; (semantic-gcc-setup) will add mingw dirs if found gcc.
 (defvar user-include-dirs
