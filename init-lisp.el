@@ -40,22 +40,6 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     (put symbol 'custom-autoload (if noset 'noset t))
     (custom-add-load symbol load)))
 
-;; eim
-;; (when (<= emacs-major-version 21)
-;;   (provide 'help-mode)
-;;   (defalias 'locate-file 'locate-library)
-;;   (defvar emacs-basic-display nil))
-(autoload 'eim-use-package "eim" "The eim input method" t)
-(register-input-method
- "eim-wb" "euc-cn" 'eim-use-package "eim-wb" "eim-wb" "wb.txt")
-(register-input-method
- "eim-py" "euc-cn" 'eim-use-package "eim-py" "eim-py" "py.txt")
-(setq default-input-method "eim-wb")
-;; (setq eim-use-tooltip nil)
-(eval-after-load "eim"
-  `(when (require 'eim-extra nil 'noerror)
-     (global-set-key ";" 'eim-insert-ascii)))
-
 ;; recent-jump
 (when (require 'recent-jump nil 'noerror)
   (global-set-key (kbd "<M-S-left>") 'recent-jump-jump-backward)

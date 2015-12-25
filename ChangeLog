@@ -1,5 +1,7 @@
 2015-12-25  Liu Xin  <meteor1113@qq.com>
 
+	* init-lisp.el: Remove eim.
+
 	* init-elpa.el: Remove anything.
 	("chinese-wbim"): Add chinese-wbim.
 
