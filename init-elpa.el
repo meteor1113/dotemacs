@@ -229,6 +229,18 @@
 ;; cargo
 (add-hook 'rust-mode-hook #'cargo-minor-mode)
 
+;; chinese-wbim
+(autoload 'chinese-wbim-use-package "chinese-wbim" nil t)
+(setq chinese-wbim-use-tooltip nil)
+(eval-after-load "chinese-wbim"
+  '(progn
+     (require 'chinese-wbim-extra)
+     (global-set-key ";" 'chinese-wbim-insert-ascii)))
+(register-input-method
+ "chinese-wbim" "euc-cn" 'chinese-wbim-use-package
+ "五笔" "汉字五笔输入法" "wb.txt")
+(setq default-input-method 'chinese-wbim)
+
 ;; color-theme
 ;; (require 'color-theme-autoloads nil 'noerror)
 
