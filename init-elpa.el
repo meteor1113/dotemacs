@@ -1,5 +1,5 @@
 ;;; -*- mode: emacs-lisp; mode: goto-address; coding: utf-8; -*-
-;; Copyright (C) 2008-2015 Liu Xin
+;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
 ;; You may do whatever you like with it.
