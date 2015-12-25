@@ -66,12 +66,6 @@
 (eval-after-load "viper-keym"
   '(define-key viper-vi-global-user-map (kbd "SPC") 'ace-jump-mode))
 
-;; anything
-;; (autoload 'anything "anything" nil t)
-(setq anything-command-map-prefix-key "")
-;; (eval-after-load "anything"
-;;   '(require 'anything-config nil 'noerror))
-
 ;; ascii
 ;; (autoload 'ascii-on        "ascii" "Turn on ASCII code display."   t)
 ;; (autoload 'ascii-off       "ascii" "Turn off ASCII code display."  t)
