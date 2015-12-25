@@ -59,10 +59,8 @@
   "Preprocessor symbol files for cedet")
 
 ;; ui
-(when (fboundp 'tool-bar-mode)
-  (tool-bar-mode t))
-(when (fboundp 'set-scroll-bar-mode)
-  (set-scroll-bar-mode 'right))
+(ignore-errors (tool-bar-mode t))
+(ignore-errors (set-scroll-bar-mode 'right))
 (setq scroll-step 1)
 ;; (setq scroll-margin 3)
 ;; (setq scroll-conservatively 10000)
@@ -89,8 +87,7 @@
 ;; (mouse-avoidance-mode 'animate)
 ;; (setq mouse-autoselect-window t)
 (setq-default indicate-buffer-boundaries (quote left))
-(when (fboundp 'winner-mode)
-  (winner-mode 1))
+(ignore-errors (winner-mode 1))
 (setq frame-title-format
       '("[" (:eval (ignore-errors (projectile-project-name))) "]"
         (:eval (or buffer-file-name (buffer-name)))
@@ -134,8 +131,8 @@
 (global-cwarn-mode 1)
 (setq compilation-auto-jump-to-first-error t)
 (setq compilation-scroll-output t)
-(add-hook 'write-file-hooks 'time-stamp)
 (setq time-stamp-format "%:y-%02m-%02d %02H:%02M:%02S %U")
+(add-hook 'write-file-hooks 'time-stamp)
 ;; (global-set-key "<" 'skeleton-pair-insert-maybe)
 ;; (global-set-key "(" 'skeleton-pair-insert-maybe)
 ;; (global-set-key "[" 'skeleton-pair-insert-maybe)
@@ -178,8 +175,7 @@
 ;; session
 (require 'saveplace)
 (setq-default save-place t)
-(when (fboundp 'savehist-mode)
-  (savehist-mode t))
+(ignore-errors (savehist-mode t))
 (setq recentf-menu-open-all-flag t
       recentf-max-saved-items 100
       recentf-max-menu-items 30)
@@ -218,11 +214,9 @@
 ;; (setq version-control t)
 
 ;; highlight
-(when (fboundp 'global-font-lock-mode)
-  (global-font-lock-mode t))
+(ignore-errors (global-font-lock-mode t))
 ;; (setq jit-lock-defer-time 0.05)         ; Make c mode faster
-(when (fboundp 'transient-mark-mode)
-  (transient-mark-mode t))
+(ignore-errors (transient-mark-mode t))
 ;; (setq hl-line-face 'underline)          ; for highlight-symbol
 ;; (global-hl-line-mode 1)                 ; (if window-system 1 -1)
 ;; (global-highlight-changes-mode t)       ; use cedet instead
