@@ -1,5 +1,7 @@
 2015-12-25  Liu Xin  <meteor1113@qq.com>
 
+	* init-lisp.el: Remove codepilot.
+
 	* init-basic.el (highlight-text): Add highlight-text. Remove smart-hl.
 
 2015-12-24  Liu Xin  <meteor1113@qq.com>

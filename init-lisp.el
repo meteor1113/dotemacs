@@ -40,10 +40,6 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
     (put symbol 'custom-autoload (if noset 'noset t))
     (custom-add-load symbol load)))
 
-;; codepilot
-(when (> emacs-major-version 21)
-  (require 'smart-hl nil 'noerror))
-
 ;; eim
 ;; (when (<= emacs-major-version 21)
 ;;   (provide 'help-mode)
