@@ -45,22 +45,6 @@ If NOSET is non-nil, don't bother autoloading LOAD when setting the variable."
   (global-set-key (kbd "<M-S-left>") 'recent-jump-jump-backward)
   (global-set-key (kbd "<M-S-right>") 'recent-jump-jump-forward))
 
-;; sourcepair
-(setq sourcepair-source-extensions
-      '(".cpp" ".cxx" ".c++" ".CC" ".cc" ".C" ".c" ".mm" ".m"))
-(setq sourcepair-header-extensions
-      '(".hpp" ".hxx" ".h++" ".HH" ".hh" ".H" ".h"))
-(setq sourcepair-header-path '("." "include" ".." "../include" "../inc"
-                               "../../include" "../../inc" "../*"))
-(setq sourcepair-source-path '("." "src" ".." "../src" "../*"))
-(setq sourcepair-recurse-ignore '("CVS" ".svn" ".hg" ".git" ".bzr"
-                                  "Obj" "Debug" "Release" "bin" "lib"))
-(add-hook 'c-mode-common-hook
-          '(lambda ()
-             (when (require 'sourcepair nil 'noerror)
-               (define-key c-mode-base-map (kbd "ESC <f12>") 'sourcepair-load)
-               (define-key c-mode-base-map [M-f12] 'sourcepair-load))))
-
 ;; unicad
 (require 'unicad nil 'noerror)
 
