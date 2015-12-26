@@ -1,3 +1,7 @@
+2015-12-26  Liu Xin  <meteor1113@qq.com>
+
+	* init-basic.el (c-mode-common-hook): Setup ff-find-other-file.
+
 2015-12-25  Liu Xin  <meteor1113@qq.com>
 
 	* init-lisp.el: Remove eim.

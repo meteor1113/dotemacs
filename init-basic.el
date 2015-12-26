@@ -676,7 +676,7 @@ Like eclipse's Ctrl+Alt+F."
 ;; double click highlight
 (defface hl-double-click
   '((default (:inherit region))
-    (((class color) (background light)) (:background "green"))
+    (((class color) (background light)) (:background "lawn green"))
     (((class color) (background dark)) (:background "green" :foreground "black")))
   "*Face used by double click highlight.")
 
@@ -1002,6 +1002,16 @@ by using nxml's indentation rules."
    nil
    '((my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend))) 'add-to-end))
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook-if0)
+
+(setq ff-always-try-to-create nil)
+(setq cc-search-directories '("." "/usr/include" "/usr/local/include/*"
+                              "./include" "./inc"
+                              ".." "../include" "../inc" "../*"
+                              "../../include" "../../inc"
+                              "./src" ".." "../src" "../*"))
+(add-hook 'c-mode-common-hook
+          (lambda()
+            (local-set-key (kbd "C-c o") 'ff-find-other-file)))
 
 (add-to-list 'auto-mode-alist '("\\.[ch]\\'" . c++-mode))
 (add-hook 'c-mode-hook (lambda () (c-set-style "stroustrup")))
