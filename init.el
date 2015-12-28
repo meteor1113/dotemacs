@@ -37,6 +37,7 @@
 (require 'init-highlight)
 (require 'init-leim)
 (require 'init-org)
+(require 'init-server)
 (require 'init-tabbar)
 (require 'init-toolbar)
 (require 'init-vc)
@@ -51,7 +52,6 @@
 (require 'init-xml)
 
 ;; progmodes
-(require 'init-prog-mode)
 (require 'init-autoconf)
 (require 'init-cc)
 (require 'init-csharp)

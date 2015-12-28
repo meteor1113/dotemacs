@@ -95,6 +95,7 @@
      (defadvice highlight-symbol-mode (after disable activate)
        "Disable highlight-symbol-mode-post-command."
        (remove-hook 'post-command-hook 'highlight-symbol-mode-post-command t))
+
      ;; (custom-set-faces
      ;;  '(highlight-symbol-face
      ;;    ((((class color) (background dark)) (:background "magenta"))
@@ -102,6 +103,7 @@
      (set-face-background 'highlight-symbol-face
                           (if window-system "gray83" "magenta"))
      ;; (if (eq frame-background-mode 'dark) "magenta" "gray83"))
+
      (if (daemonp)
          (add-hook 'after-make-frame-functions
                    (lambda (frame)
@@ -109,6 +111,7 @@
                        (set-face-background 'highlight-symbol-face
                                             (if window-system "gray83" "magenta")
                                             frame)))))
+
      ;; (defun highlight-symbol-temp-highlight () ; Hack for emacs-21
      ;;   "Highlight the current symbol until a command is executed."
      ;;   (when highlight-symbol-mode
@@ -124,23 +127,14 @@
      ;;                 (hi-lock-set-pattern `(,symbol (0 (quote ,color) t))))
      ;;             (hi-lock-set-pattern symbol 'highlight-symbol-face)))))))
 
-     (defadvice highlight-symbol-next (after pulse-advice activate)
-       "After highlight-symbol-next, pulse the line the cursor lands on."
-       (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
-                  (interactive-p))
-         (pulse-momentary-highlight-one-line (point))))
-
-     (defadvice highlight-symbol-prev (after pulse-advice activate)
-       "After highlight-symbol-prev, pulse the line the cursor lands on."
-       (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
-                  (interactive-p))
-         (pulse-momentary-highlight-one-line (point))))
-
-     (defadvice highlight-symbol-next-or-prev (after pulse-advice activate)
-       "After highlight-symbol-next-or-prev, pulse the line the cursor lands on."
-       (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
-                  (interactive-p))
-         (pulse-momentary-highlight-one-line (point))))))
+     (eval-after-load "pulse"
+	   '(progn
+          (defadvice highlight-symbol-next (after pulse-advice activate)
+            (pulse-line-hook-function))
+          (defadvice highlight-symbol-prev (after pulse-advice activate)
+            (pulse-line-hook-function))
+          (defadvice highlight-symbol-next-or-prev (after pulse-advice activate)
+            (pulse-line-hook-function))))))
 
 ;; highlight-tail
 ;; (autoload 'highlight-tail-mode "highlight-tail" nil t)
@@ -151,6 +145,13 @@
 ;;           (lambda ()
 ;;             (when (require 'highlight-parentheses nil 'noerror)
 ;;               (highlight-parentheses-mode t))))
+
+;; hl-todo
+(setq hl-todo-activate-in-modes
+      '(prog-mode text-mode))
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (global-hl-todo-mode 1))))
 
 ;; diff-hl
 ;; (autoload 'diff-hl-mode "diff-hl" nil t)

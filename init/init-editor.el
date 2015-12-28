@@ -122,14 +122,6 @@
 ;; (setq hl-line-face 'underline)          ; for highlight-symbol
 ;; (global-hl-line-mode 1)                 ; (if window-system 1 -1)
 ;; (global-highlight-changes-mode t)       ; use cedet instead
-(dolist (mode '(c-mode c++-mode objc-mode java-mode jde-mode
-                       perl-mode cperl-mode php-mode python-mode ruby-mode
-                       lisp-mode emacs-lisp-mode xml-mode nxml-mode html-mode
-                       lisp-interaction-mode sh-mode sgml-mode))
-  (font-lock-add-keywords
-   mode
-   '(("\\<\\(FIXME\\|TODO\\|Todo\\)\\>" 1 font-lock-warning-face prepend)
-     ("\\<\\(FIXME\\|TODO\\|Todo\\):" 1 font-lock-warning-face prepend))))
 ;; (setq-default show-trailing-whitespace t) ; use whitespace-mode instead
 (setq whitespace-style '(face trailing lines-tail newline empty tab-mark))
 (when window-system
@@ -145,8 +137,6 @@
 ;; (ffap-bindings)                         ; Use ido to call ffap
 (autoload 'dired-jump "dired-x" nil t)
 (setq kmacro-call-mouse-event nil)
-(global-set-key [S-mouse-3] 'ffap-at-mouse)
-(global-set-key [C-S-mouse-3] 'ffap-menu)
 
 (defvar user-include-dirs
   '("." "./include" "./inc" "./common" "./public"
@@ -205,17 +195,6 @@
                          "/boot/grub2/grub.cfg")))
 (add-to-list 'filesets-data (list "temp" (list :files)))
 
-;; server
-(when (and window-system (not (daemonp)))
-  (require 'server)
-  (when (and (>= emacs-major-version 23)
-             (equal window-system 'w32))
-    (unless (file-exists-p server-auth-dir)
-      (make-directory server-auth-dir))
-    (defun server-ensure-safe-dir (dir) "Noop" t))
-  (unless (server-running-p)
-    (server-start)))
-
 ;; misc
 (setq inhibit-startup-message t)        ; for no desktop
 (setq inhibit-default-init t)           ; for frame-title-format
@@ -238,6 +217,19 @@
 (add-hook 'after-init-hook
           (lambda ()
             (message "emacs-init-time: %s" (emacs-init-time))))
+
+(when (executable-find "chmod")
+  (add-hook 'after-save-hook
+            '(lambda ()
+               (and (save-excursion
+                      (save-restriction
+                        (widen)
+                        (goto-char (point-min))
+                        (save-match-data
+                          (looking-at "^#!"))))
+                    (not (file-executable-p buffer-file-name))
+                    (shell-command (format "chmod +x '%s'" buffer-file-name))
+                    (kill-buffer "*Shell Command Output*")))))
 
 ;; unicad
 (require 'unicad nil 'noerror)
@@ -270,6 +262,24 @@
 ;; fill-column-indicator
 ;; (autoload 'fci-mode "fill-column-indicator" nil t)
 
+;; ggtags
+(when (executable-find "global")
+  (add-hook 'c-mode-common-hook
+            '(lambda ()
+               (ggtags-mode 1))))
+
+;; smart-compile
+;; (autoload 'smart-compile "smart-compile" nil t)
+(global-set-key [C-f7] 'smart-compile)
+
+;; xcscope
+(add-hook 'after-init-hook
+          '(lambda ()
+             (when (executable-find "cscope")
+               (when (require 'xcscope nil 'noerror)
+                 (define-key cscope-list-entry-keymap [mouse-1]
+                   'cscope-mouse-select-entry-other-window)))))
+
 ;; mark-multiple
 ;; (require 'inline-string-rectangle)
 ;; (global-set-key (kbd "C-x r t") 'inline-string-rectangle)
@@ -290,7 +300,8 @@
 ;; (autoload 'projectile-mode "projectile" nil t)
 ;; (autoload 'projectile-global-mode "projectile" nil t)
 (add-hook 'after-init-hook
-          '(lambda () (ignore-errors (projectile-global-mode 1))))
+          '(lambda ()
+             (ignore-errors (projectile-global-mode 1))))
 
 ;; undo-tree
 ;; (autoload 'undo-tree-mode "undo-tree" nil t)

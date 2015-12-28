@@ -72,42 +72,6 @@
   (moccur-word-all-buffers
    "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>"))
 
-(defun mark-current-line ()
-  "Put point at beginning of this line, mark at end."
-  (interactive)
-  (move-beginning-of-line 1)
-  (set-mark (point))
-  (move-end-of-line 1))
-
-(defun mark-current-line-mouse (ev)
-  "Mark current line with a mouse click. EV is the mouse event."
-  (interactive "e")
-  (mouse-set-point ev)
-  (mark-current-line))
-
-(defadvice find-tag (before tags-file-name-advice activate)
-  "Find TAGS file in ./ or ../ or ../../ dirs"
-  (let ((list (mapcar 'expand-file-name '("./TAGS" "../TAGS" "../../TAGS"))))
-    (while list
-      (if (file-exists-p (car list))
-          (progn
-            (setq tags-file-name (car list))
-            (setq list nil))
-        (setq list (cdr list))))))
-
-(defun find-dotemacs-file ()
-  "Open .emacs file"
-  (interactive)
-  (let* ((paths '("~/.emacs" "~/.emacs.el" "~/.emacs.d/init.el" "~/_emacs"))
-         (dotemacs-path))
-    (dolist (path paths)
-      (and (not dotemacs-path)
-           (file-exists-p path)
-           (setq dotemacs-path path)))
-    (find-file (or dotemacs-path
-                   (locate-file "site-start.el" load-path)
-                   "~/.emacs"))))
-
 (defun format-region ()
   "Format region, if no region actived, format current buffer.
 Like eclipse's Ctrl+Alt+F."
@@ -131,50 +95,18 @@ Like eclipse's Ctrl+Alt+F."
         (untabify start (point-max))
         (indent-region start (point-max) nil)))))
 
-(defun switch-to-other-buffer ()
-  "Switch to (other-buffer)."
+(defun find-dotemacs-file ()
+  "Open .emacs file"
   (interactive)
-  (switch-to-buffer (other-buffer)))
-
-(defadvice switch-to-other-buffer (after pulse-advice activate)
-  "After switch-to-other-buffer, pulse the line the cursor lands on."
-  (when (and (boundp 'pulse-command-advice-flag) pulse-command-advice-flag
-             (interactive-p))
-    (pulse-momentary-highlight-one-line (point))))
-
-;; (defun goto-match-paren (arg)
-;;   "Go to the matching parenthesis if on parenthesis, otherwise insert %.
-;; vi style of % jumping to matching brace."
-;;   (interactive "p")
-;;   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-;;         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-;;         (t (self-insert-command (or arg 1)))))
-
-(defun goto-match-paren (arg)
-  "Go to the matching  if on (){}[], similar to vi style of % "
-  (interactive "p")
-  ;; first, check for "outside of bracket" positions expected by forward-sexp, etc.
-  (cond ((looking-at "[\[\(\{]") (forward-sexp))
-        ((looking-back "[\]\)\}]" 1) (backward-sexp))
-        ;; now, try to succeed from inside of a bracket
-        ((looking-at "[\]\)\}]") (forward-char) (backward-sexp))
-        ((looking-back "[\[\(\{]" 1) (backward-char) (forward-sexp))
-        (t nil)))
-
-(unless (fboundp 'toggle-frame-fullscreen)
-  (defun toggle-frame-fullscreen (&optional f)
-    (interactive)
-    (if (memq (frame-parameter nil 'fullscreen) '(fullscreen fullboth))
-        (modify-frame-parameters
-         nil
-         `((maximized
-            . ,(unless (eq (frame-parameter nil 'maximized) 'maximized)
-                 'maximized))))
-      (modify-frame-parameters
-       nil
-       `((fullscreen
-          . ,(unless (eq (frame-parameter nil 'fullscreen) 'maximized)
-               'maximized)))))))
+  (let* ((paths '("~/.emacs" "~/.emacs.el" "~/.emacs.d/init.el" "~/_emacs"))
+         (dotemacs-path))
+    (dolist (path paths)
+      (and (not dotemacs-path)
+           (file-exists-p path)
+           (setq dotemacs-path path)))
+    (find-file (or dotemacs-path
+                   (locate-file "site-start.el" load-path)
+                   "~/.emacs"))))
 
 ;; global key bindings
 (global-set-key (kbd "C-a") 'mark-whole-buffer)
@@ -202,7 +134,10 @@ Like eclipse's Ctrl+Alt+F."
 ;; (global-set-key (kbd "M-N") 'next-buffer)
 (global-set-key [C-prior] 'previous-buffer)
 (global-set-key [C-next] 'next-buffer)
-(global-set-key [(control tab)] 'switch-to-other-buffer)
+(global-set-key [(control tab)]
+                '(lambda ()
+                   (interactive)
+                   (call-interactively (switch-to-buffer (other-buffer)))))
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
 (define-key global-map "\C-x\C-j" 'dired-jump)
@@ -228,7 +163,9 @@ Like eclipse's Ctrl+Alt+F."
 ;;    (moccur-word-all-buffers
 ;;     "\\<\\([Tt][Oo][Dd][Oo]\\|[Ff][Ii][Xx][Mm][Ee]\\)\\>")))
 (global-set-key (kbd "ESC <C-f6>") (key-binding [C-M-f6]))
-(global-set-key [f7] '(lambda () (interactive) (compile compile-command)))
+(global-set-key [f7]
+                '(lambda ()
+                   (interactive) (compile compile-command)))
 (unless (key-binding [f11])
   (global-set-key [f11] 'toggle-frame-fullscreen))
 ;; (global-set-key [header-line double-mouse-1] 'kill-this-buffer)
@@ -248,10 +185,29 @@ Like eclipse's Ctrl+Alt+F."
 (global-set-key [left-fringe mouse-2] nil)
 (global-set-key [left-margin mouse-2] nil)
 (global-set-key [mouse-3] menu-bar-edit-menu)
-(global-set-key (kbd "<left-margin> <mouse-2>") 'mark-current-line-mouse)
+(global-set-key (kbd "<left-margin> <mouse-2>")
+                '(lambda (ev)
+                   "Mark current line with a mouse click."
+                   (interactive "e")
+                   (mouse-set-point ev)
+                   (move-beginning-of-line 1)
+                   (set-mark (point))
+                   (move-end-of-line 1)))
 (global-set-key (kbd "C-S-t") 'undo-kill-buffer)
 (global-set-key (kbd "C-c C-v") 'view-mode)
-(global-set-key [(control %)] 'goto-match-paren)
+(global-set-key [(control %)]
+                '(lambda (arg)
+                   "Go to the matching  if on (){}[], similar to vi style of % "
+                   (interactive "p")
+                   ;; first, check for "outside of bracket" positions expected by forward-sexp, etc.
+                   (cond ((looking-at "[\[\(\{]") (forward-sexp))
+                         ((looking-back "[\]\)\}]" 1) (backward-sexp))
+                         ;; now, try to succeed from inside of a bracket
+                         ((looking-at "[\]\)\}]") (forward-char) (backward-sexp))
+                         ((looking-back "[\[\(\{]" 1) (backward-char) (forward-sexp))
+                         (t nil))))
+(global-set-key [S-mouse-3] 'ffap-at-mouse)
+(global-set-key [C-S-mouse-3] 'ffap-menu)
 
 (when (eq system-type 'aix)
   (global-set-key (kbd "C-d") 'backward-delete-char-untabify)

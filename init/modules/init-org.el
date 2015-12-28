@@ -31,7 +31,7 @@
        'org-force-cycle-archived)
      (define-key org-mode-map (kbd "<C-S-tab>") 'org-force-cycle-archived)))
 
-(eval-after-load "yasnippet"
+(eval-after-load "org"
   '(add-hook 'org-mode-hook
              (let ((original-command (lookup-key org-mode-map [tab])))
                `(lambda ()
