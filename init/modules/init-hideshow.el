@@ -37,4 +37,7 @@
 
 ;; (global-set-key (kbd "C-?") 'hs-minor-mode)
 
+;; hideshowvis
+;; (autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions" t)
+
 (provide 'init-hideshow)

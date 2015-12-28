@@ -76,6 +76,9 @@
     (nyan-stop-animation)))
 ;; (ignore-errors (and window-system (nyan-mode t)))
 
+;; rainbow-mode
+;; (autoload 'rainbow-mode "rainbow-mode" nil t)
+
 ;; window-numbering
 (add-hook 'after-init-hook
           '(lambda () (ignore-errors (window-numbering-mode 1))))

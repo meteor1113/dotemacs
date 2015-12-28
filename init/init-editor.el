@@ -272,13 +272,6 @@
 ;;   ;; (toggle-cursor-type-when-idle 1)
 ;;   (change-cursor-mode 1))
 
-;; diff-hl
-;; (autoload 'diff-hl-mode "diff-hl" nil t)
-;; (autoload 'global-diff-hl-mode "diff-hl" nil t)
-;; (autoload 'diff-hl-dired-mode "diff-hl-dired" nil t)
-;; (add-hook 'dired-mode-hook '(lambda () (ignore-errors (diff-hl-dired-mode 1))))
-(add-hook 'after-init-hook '(lambda () (ignore-errors (global-diff-hl-mode 1))))
-
 ;; drag-stuff
 ;; (autoload 'drag-stuff-global-mode "drag-stuff" "Toggle Drag-Stuff mode." t)
 ;; (when (and (ignore-errors (require 'drag-stuff nil 'noerror))
@@ -287,9 +280,6 @@
 
 ;; fill-column-indicator
 ;; (autoload 'fci-mode "fill-column-indicator" nil t)
-
-;; hideshowvis
-;; (autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions" t)
 
 ;; mark-multiple
 ;; (require 'inline-string-rectangle)
@@ -312,9 +302,6 @@
 ;; (autoload 'projectile-global-mode "projectile" nil t)
 (add-hook 'after-init-hook
           '(lambda () (ignore-errors (projectile-global-mode 1))))
-
-;; rainbow-mode
-;; (autoload 'rainbow-mode "rainbow-mode" nil t)
 
 ;; undo-tree
 ;; (autoload 'undo-tree-mode "undo-tree" nil t)

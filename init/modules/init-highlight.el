@@ -95,6 +95,15 @@
 ;;             (when (require 'highlight-parentheses nil 'noerror)
 ;;               (highlight-parentheses-mode t))))
 
+;; diff-hl
+;; (autoload 'diff-hl-mode "diff-hl" nil t)
+;; (autoload 'global-diff-hl-mode "diff-hl" nil t)
+;; (autoload 'diff-hl-dired-mode "diff-hl-dired" nil t)
+;; (add-hook 'dired-mode-hook '(lambda () (ignore-errors (diff-hl-dired-mode 1))))
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (global-diff-hl-mode 1))))
+
 ;; volatile-highlights
 (autoload 'volatile-highlights-mode "volatile-highlights" nil t)
 (add-hook 'after-init-hook
