@@ -291,9 +291,6 @@
 ;; hideshowvis
 ;; (autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions" t)
 
-;; htmlize
-;; (autoload 'htmlize-buffer "htmlize" nil t)
-
 ;; mark-multiple
 ;; (require 'inline-string-rectangle)
 ;; (global-set-key (kbd "C-x r t") 'inline-string-rectangle)
