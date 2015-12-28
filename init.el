@@ -45,7 +45,6 @@
 ;; textmodes
 (require 'init-artist)
 (require 'init-csv)
-(require 'init-hexl)
 (require 'init-markdown)
 (require 'init-text)
 (require 'init-xml)
