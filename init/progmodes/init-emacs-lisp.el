@@ -15,6 +15,7 @@
              (setq indent-tabs-mode nil)
              (ignore-errors (whitespace-mode t))
              (linum-mode 1)
+             ;; (or (ignore-errors (hideshowvis-minor-mode t)) (hs-minor-mode t))
              (hs-minor-mode t)
              (ignore-errors (imenu-add-menubar-index))
              (turn-on-eldoc-mode)))

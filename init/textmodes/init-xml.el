@@ -53,6 +53,42 @@ by using nxml's indentation rules."
           (whitespace-cleanup))
         (indent-region start (point-max) nil)))))
 
+(defun xml-file-p (file)
+  (let ((file-extension (file-name-extension file)))
+    (and file-extension
+         (string= file (file-name-sans-versions file))
+         (find file-extension
+               '("xml")
+               :test 'string=))))
+
+(defun format-xml-file (file)
+  "Format a xml file."
+  (interactive "F")
+  (if (xml-file-p file)
+      (let ((buffer (find-file-noselect file))) ;; open buffer
+        (save-excursion
+          (set-buffer buffer)
+          (format-xml)
+          (save-buffer)
+          (kill-buffer)
+          (message "Formated file:%s" file)))
+    (message "%s isn't a xml file" file)))
+
+(defun format-xml-directory (dirname)
+  "Format all xml file in a directory."
+  (interactive "D")
+  ;; (message "directory:%s" dirname)
+  (let ((files (directory-files dirname t))
+        (make-backup-files nil))
+    (dolist (x files)
+      (if (not (string= "." (substring (file-name-nondirectory x) 0 1)))
+          (if (file-directory-p x)
+              (format-xml-directory x)
+            (if (and (file-regular-p x)
+                     (not (file-symlink-p x))
+                     (xml-file-p x))
+                (format-xml-file x)))))))
+
 (eval-after-load "nxml-mode"
   `(progn
      (define-key nxml-mode-map [M-f8] 'format-xml)

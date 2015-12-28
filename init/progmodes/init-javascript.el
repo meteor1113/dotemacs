@@ -15,6 +15,7 @@
 (setq js2-strict-missing-semi-warning nil)
 (add-hook 'js2-mode-hook
           '(lambda ()
+             ;; (or (ignore-errors (hideshowvis-minor-mode t)) (hs-minor-mode t))
              (hs-minor-mode t)
              (linum-mode 1)))
 (eval-after-load 'js2-mode

@@ -76,7 +76,9 @@
 (setq ac-use-comphist nil)
 (setq ac-disable-faces nil)
 ;; (global-set-key (kbd "M-n") 'auto-complete)
-(add-hook 'after-init-hook '(lambda () (ignore-errors (ac-config-default))))
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (ac-config-default))))
 (eval-after-load "auto-complete"
   '(progn
      (define-key ac-completing-map [return] 'ac-complete)

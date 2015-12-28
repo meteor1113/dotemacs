@@ -9,6 +9,63 @@
 ;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
+;; double click highlight
+(defface dotemacs-hl-double-click
+  '((default (:inherit region))
+    (((class color) (background light)) (:background "lawn green"))
+    (((class color) (background dark)) (:background "green" :foreground "black")))
+  "*Face used by double click highlight.")
+
+(defun highlight-text (txt prop face)
+  (let ((start (point-min))
+        (end (point-max)))
+    (remove-overlays start end prop t)
+    (unless (or (not txt)
+                (string= txt "")
+                (string-match "^[\t\n\s]*$" txt)
+                (string-match "\n" txt))
+      (save-excursion
+        (goto-char start)
+        (while (re-search-forward txt end t)
+          (let ((overlay (make-overlay (match-beginning 0) (match-end 0))))
+            (overlay-put overlay 'face face)
+            (overlay-put overlay prop t))
+          (goto-char (match-end 0)))))))
+
+(defun highlight-text-at-point ()
+  (interactive)
+  (highlight-text nil 'hl-at-point 'show-paren-match)
+  (let* ((target-symbol (symbol-at-point))
+         (txt (symbol-name target-symbol))
+         (regexp (concat "\\_<" (regexp-quote txt) "\\_>")))
+    (when target-symbol
+      (highlight-text regexp 'hl-at-point 'show-paren-match))))
+
+(defadvice mouse-start-end (after hl-double-click (start end mode) activate)
+  (cond ((= mode 1)
+         (highlight-text nil 'hl-double-click 'dotemacs-hl-double-click)
+         (let* ((txt (buffer-substring-no-properties (nth 0 ad-return-value)
+                                                     (nth 1 ad-return-value)))
+                (regexp (concat "\\_<" (regexp-quote txt) "\\_>")))
+           (highlight-text regexp 'hl-double-click 'dotemacs-hl-double-click)))
+        ((= mode 2)
+         (highlight-text "" 'hl-double-click 'dotemacs-hl-double-click))))
+
+;; (defvar hl-double-click-regexp "")
+;; (defadvice mouse-start-end (after hl-double-click (start end mode) activate)
+;;   (cond ((= mode 1)
+;;          (unhighlight-regexp hl-double-click-regexp)
+;;          (let ((txt (buffer-substring-no-properties (nth 0 ad-return-value)
+;;                                                     (nth 1 ad-return-value))))
+;;            (unless (or (string= txt "")
+;;                        (string-match "^[\t\n\s]*$" txt)
+;;                        (string-match "\n" txt))
+;;              (setq hl-double-click-regexp
+;;                    (concat "\\_<" (regexp-quote txt) "\\_>"))
+;;              (highlight-regexp hl-double-click-regexp 'dotemacs-hl-double-click))))
+;;         ((= mode 2)
+;;          (unhighlight-regexp hl-double-click-regexp))))
+
 ;; highlight-symbol
 (setq highlight-symbol-idle-delay 0.5)
 (mapc (lambda (hook)

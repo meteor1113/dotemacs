@@ -37,7 +37,16 @@
 
 ;; (global-set-key (kbd "C-?") 'hs-minor-mode)
 
-;; hideshowvis
+;; hideshowvis (so slow)
 ;; (autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions" t)
+
+(defadvice display-code-line-counts (after overlay-key-map (ov) activate)
+  (overlay-put ov 'keymap hs--overlay-keymap)
+  (overlay-put ov 'pointer 'hand))
+
+;; (add-hook 'after-init-hook
+;;           '(lambda ()
+;;              (ignore-errors (hideshowvis-symbols))))
+
 
 (provide 'init-hideshow)

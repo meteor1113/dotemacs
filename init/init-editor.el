@@ -263,9 +263,9 @@
 
 ;; drag-stuff
 ;; (autoload 'drag-stuff-global-mode "drag-stuff" "Toggle Drag-Stuff mode." t)
-;; (when (and (ignore-errors (require 'drag-stuff nil 'noerror))
-;;            (fboundp 'drag-stuff-global-mode))
-;;   (drag-stuff-global-mode t))
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (drag-stuff-global-mode t))))
 
 ;; fill-column-indicator
 ;; (autoload 'fci-mode "fill-column-indicator" nil t)

@@ -15,6 +15,7 @@
              (setq indent-tabs-mode nil)
              (ignore-errors (whitespace-mode t))
              (linum-mode 1)
+             ;; (or (ignore-errors (hideshowvis-minor-mode t)) (hs-minor-mode t))
              (hs-minor-mode t)
              (ignore-errors (imenu-add-menubar-index))))
 
@@ -50,6 +51,46 @@
               '((dotemacs-c-mode-font-lock-if0
                  (0 font-lock-comment-face prepend)))
               'add-to-end)))
+
+(defun cxx-file-p (file)
+  (let ((file-extension (file-name-extension file)))
+    (and file-extension
+         (string= file (file-name-sans-versions file))
+         (find file-extension
+               '("h" "hpp" "hxx" "c" "cpp" "cxx")
+               :test 'string=))))
+
+(defun format-cxx-file (file)
+  "Format a c/c++ file."
+  (interactive "F")
+  (if (cxx-file-p file)
+      (let ((buffer (find-file-noselect file))) ;; open buffer
+        (save-excursion
+          (set-buffer buffer)
+          ;; (mark-whole-buffer)
+          (when (fboundp 'whitespace-cleanup)
+            (whitespace-cleanup))
+          (untabify (point-min) (point-max))
+          (indent-region (point-min) (point-max))
+          (save-buffer)
+          (kill-buffer)
+          (message "Formated file:%s" file)))
+    (message "%s isn't a c++ file" file)))
+
+(defun format-cxx-directory (dirname)
+  "Format all c/c++ file in a directory."
+  (interactive "D")
+  ;; (message "directory:%s" dirname)
+  (let ((files (directory-files dirname t))
+        (make-backup-files nil))
+    (dolist (x files)
+      (if (not (string= "." (substring (file-name-nondirectory x) 0 1)))
+          (if (file-directory-p x)
+              (format-cxx-directory x)
+            (if (and (file-regular-p x)
+                     (not (file-symlink-p x))
+                     (cxx-file-p x))
+                (format-cxx-file x)))))))
 
 ;; c-mode
 (add-hook 'c-mode-hook

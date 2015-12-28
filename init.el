@@ -18,7 +18,6 @@
 (require 'init-package)
 (require 'init-custom)
 (require 'init-editor)
-(require 'init-func)
 (require 'init-keybinding)
 (require 'init-ui)
 
