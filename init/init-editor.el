@@ -239,14 +239,8 @@
           (lambda ()
             (message "emacs-init-time: %s" (emacs-init-time))))
 
-;; recent-jump
-(when (require 'recent-jump nil 'noerror)
-  (global-set-key (kbd "<M-S-left>") 'recent-jump-jump-backward)
-  (global-set-key (kbd "<M-S-right>") 'recent-jump-jump-forward))
-
 ;; unicad
 (require 'unicad nil 'noerror)
-
 
 ;; ace-jump-mode
 ;; (autoload 'ace-jump-mode "ace-jump-mode" nil t)
@@ -264,7 +258,8 @@
 
 ;; browse-kill-ring
 (add-hook 'after-init-hook
-          '(lambda () (ignore-errors (browse-kill-ring-default-keybindings))))
+          '(lambda ()
+             (ignore-errors (browse-kill-ring-default-keybindings))))
 
 ;; drag-stuff
 ;; (autoload 'drag-stuff-global-mode "drag-stuff" "Toggle Drag-Stuff mode." t)

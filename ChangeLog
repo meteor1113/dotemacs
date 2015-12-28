@@ -2,6 +2,7 @@
 
 	* init/init-editor.el: Remove htmlize.
 	Remove cursor-chg.
+	Remove recent-jump.
 
 	* init.el: Split dotemacs.
 	Refactor.
