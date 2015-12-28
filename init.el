@@ -6,7 +6,7 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2015-04-28
+;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
 (add-to-list 'load-path
@@ -19,9 +19,8 @@
 (require 'init-custom)
 (require 'init-editor)
 (require 'init-func)
-(require 'init-global-keybindings)
+(require 'init-keybinding)
 (require 'init-ui)
-(require 'init-ui-toolbar)
 
 ;; modules
 (require 'init-auto-complete)
@@ -36,9 +35,11 @@
 (require 'init-flycheck)
 (require 'init-flymake)
 (require 'init-hideshow)
+(require 'init-highlight)
 (require 'init-leim)
 (require 'init-org)
 (require 'init-tabbar)
+(require 'init-toolbar)
 (require 'init-vc)
 (require 'init-yasnippet)
 
@@ -53,19 +54,18 @@
 ;; progmodes
 (require 'init-prog-mode)
 (require 'init-autoconf)
-;; (require 'init-c)
+(require 'init-cc)
 (require 'init-csharp)
-;; (require 'init-emacs-lisp)
+(require 'init-emacs-lisp)
 (require 'init-go)
 (require 'init-java)
 (require 'init-javascript)
 (require 'init-makefile)
-;; (require 'init-perl)
+(require 'init-perl)
 (require 'init-php)
-;; (require 'init-python)
+(require 'init-python)
 (require 'init-rust)
-;; (require 'init-sh)
-(require 'init-shell)
-;; (require 'init-sql)
+(require 'init-sh)
+(require 'init-sql)
 
 (provide 'init)

@@ -1,4 +1,4 @@
-;;; -*- mode: emacs-lisp; mode: goto-address; coding: utf-8; -*-
+;;; -*- mode: emacs-lisp; coding: utf-8; -*-
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,10 +6,11 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2009-08-08
+;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
-(defvar semantic-dependency-include-paths
+;; cedet
+(defvar dotemacs-semantic-dependency-include-paths
   '("." "./include" "./inc" "./common" "./public"
     ".." "../include" "../inc" "../common" "../public"
     "../.." "../../include" "../../inc" "../../common" "../../public"
@@ -24,7 +25,7 @@
     )
   "User include dirs for c/c++ mode")
 
-(defvar c-preprocessor-symbol-files
+(defvar dotemacs-c-preprocessor-symbol-files
   '("C:/MinGW/include/c++/3.4.5/mingw32/bits/c++config.h"
     "C:/Program Files/Microsoft Visual Studio/VC98/Include/xstddef"
     ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include/yvals.h"
@@ -40,7 +41,7 @@
   (let ((default-directory dir))
     (ignore-errors (normal-top-level-add-subdirs-to-load-path))))
 
-;; buildin cedet
+;; buildin
 (when (and (fboundp 'semantic-mode)
            (not (locate-library "semantic-ctxt")))
   (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
@@ -52,7 +53,7 @@
   (require 'semantic/bovine/el nil 'noerror)
   (require 'semantic/analyze/refs))
 
-;; offical cedet
+;; standalone
 (when (and (or (not (boundp 'semantic-mode))
                (and (boundp 'semantic-mode) (null semantic-mode)))
            (locate-library "semantic-ctxt")
@@ -80,18 +81,18 @@
     (setq ede-locate-setup-options '(ede-locate-global ede-locate-base)))
 
   (when (and (eq system-type 'windows-nt)
-			 (executable-find "gcc"))
-	(if (and (boundp 'semantic-mode) semantic-mode)
-		(require 'semantic/bovine/c nil 'noerror)
-	  (require 'semantic-c nil 'noerror))
-	(ignore-errors (semantic-gcc-setup)))
+             (executable-find "gcc"))
+    (if (and (boundp 'semantic-mode) semantic-mode)
+        (require 'semantic/bovine/c nil 'noerror)
+      (require 'semantic-c nil 'noerror))
+    (ignore-errors (semantic-gcc-setup)))
 
   (mapc (lambda (dir)
           (semantic-add-system-include dir 'c++-mode)
           (semantic-add-system-include dir 'c-mode))
-        semantic-dependency-include-paths)
+        dotemacs-semantic-dependency-include-paths)
 
-  (dolist (file c-preprocessor-symbol-files)
+  (dolist (file dotemacs-c-preprocessor-symbol-files)
     (when (file-exists-p file)
       (setq semantic-lex-c-preprocessor-symbol-file
             (append semantic-lex-c-preprocessor-symbol-file (list file)))))
@@ -155,7 +156,7 @@
 ;;                           ido-switch-buffer
 ;;                           beginning-of-buffer)
 ;;                          (pulse-line-hook-function))
- 
+
   (when (and (boundp 'semantic-mode) semantic-mode)
     (unless (executable-find "python")
       (remove-hook 'python-mode-hook 'wisent-python-default-setup)

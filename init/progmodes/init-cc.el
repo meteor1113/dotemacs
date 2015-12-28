@@ -1,4 +1,4 @@
-;;; -*- mode: emacs-lisp; mode: goto-address; coding: utf-8; -*-
+;;; -*- mode: emacs-lisp; coding: utf-8; -*-
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,11 +6,19 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2009-08-08
+;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
-(add-hook 'c-mode-common-hook 'prog-common-function)
-(defun my-c-mode-font-lock-if0 (limit)
+;; cc-mode
+(add-hook 'c-mode-common-hook
+          '(lambda ()
+             (setq indent-tabs-mode nil)
+             (ignore-errors (whitespace-mode t))
+             (linum-mode 1)
+             (hs-minor-mode t)
+             (ignore-errors (imenu-add-menubar-index))))
+
+(defun dotemacs-c-mode-font-lock-if0 (limit)
   (save-restriction
     (widen)
     (save-excursion
@@ -34,12 +42,40 @@
         (when (and start (> depth 0))
           (c-put-font-lock-face start (point) 'font-lock-comment-face)))))
   nil)
-(defun my-c-mode-common-hook-if0 ()
-  (font-lock-add-keywords
-   nil
-   '((my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend))) 'add-to-end))
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook-if0)
 
+(add-hook 'c-mode-common-hook
+          '(lambda ()
+             (font-lock-add-keywords
+              nil
+              '((dotemacs-c-mode-font-lock-if0
+                 (0 font-lock-comment-face prepend)))
+              'add-to-end)))
+
+;; c-mode
+(add-hook 'c-mode-hook
+          '(lambda ()
+             (c-set-style "stroustrup")))
+
+;; c++-mode
+(add-to-list 'auto-mode-alist '("\\.[ch]\\'" . c++-mode))
+(add-hook 'c++-mode-hook
+          '(lambda ()
+             (c-set-style "stroustrup")
+             ;; (c-toggle-auto-hungry-state 1)
+             (c-set-offset 'innamespace 0)))
+
+;; objc-mode
+(add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
+(when (boundp 'magic-mode-alist)
+  ;; (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*#import" . objc-mode))
+  (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@implementation" . objc-mode))
+  (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@interface" . objc-mode))
+  (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@protocol" . objc-mode)))
+(add-hook 'objc-mode-hook
+          '(lambda ()
+             (c-set-style "stroustrup")))
+
+;; find-file
 (setq ff-always-try-to-create nil)
 (setq cc-search-directories '("." "/usr/include" "/usr/local/include/*"
                               "./include" "./inc"
@@ -47,36 +83,18 @@
                               "../../include" "../../inc"
                               "./src" ".." "../src" "../*"))
 (add-hook 'c-mode-common-hook
-          (lambda()
-            (local-set-key (kbd "C-c o") 'ff-find-other-file)))
-
-
-(add-to-list 'auto-mode-alist '("\\.[ch]\\'" . c++-mode))
-(add-hook 'c-mode-hook (lambda () (c-set-style "stroustrup")))
-
-(add-hook 'c++-mode-hook
-          (lambda ()
-            (c-set-style "stroustrup")
-            ;; (c-toggle-auto-hungry-state 1)
-            (c-set-offset 'innamespace 0)))
-
-(when (boundp 'magic-mode-alist)
-  (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@implementation" . objc-mode))
-  (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@interface" . objc-mode))
-  (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*@protocol" . objc-mode)))
-;; (add-to-list 'magic-mode-alist '("\\(.\\|\n\\)*#import" . objc-mode))
-(add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
-(add-hook 'objc-mode-hook (lambda () (c-set-style "stroustrup")))
+          '(lambda()
+             (local-set-key (kbd "C-c o") 'ff-find-other-file)))
 
 ;; ac-clang
-(defvar my-ac-clang-cflags '("-I.." "-I../include" "-I../inc"
-                             "-I../common" "-I../public"
-                             "-I../.." "-I../../include" "-I../../inc"
-                             "-I../../common" "-I../../public"))
+(defvar dotemacs-ac-clang-cflags '("-I.." "-I../include" "-I../inc"
+                                   "-I../common" "-I../public"
+                                   "-I../.." "-I../../include" "-I../../inc"
+                                   "-I../../common" "-I../../public"))
 (when (fboundp 'semantic-gcc-get-include-paths)
   (let ((dirs (semantic-gcc-get-include-paths "c++")))
     (dolist (dir dirs)
-      (add-to-list 'my-ac-clang-cflags (concat "-I" dir)))))
+      (add-to-list 'dotemacs-ac-clang-cflags (concat "-I" dir)))))
 (setq w32-pipe-read-delay 0)
 (add-hook 'c-mode-common-hook
           '(lambda ()
@@ -87,12 +105,11 @@
                                           ac-clang-server-type) "")))
                       (ac-clang-initialize))
                  (progn
-                   (setq ac-clang-cflags my-ac-clang-cflags)
+                   (setq ac-clang-cflags dotemacs-ac-clang-cflags)
                    (ac-clang-activate-after-modify)
                    (local-set-key (kbd "M-n") 'ac-complete-clang))
                ;; (setq ac-sources (append '(ac-source-semantic) ac-sources))
                (local-set-key (kbd "M-n") 'ac-complete-semantic))))
-
 
 ;; gdb
 (require 'gdb-ui nil 'noerror)
@@ -169,7 +186,10 @@
 ;;                                           (eq status 'signal))
 ;;                                   (gud-tooltip-mode -1))))))))
 ;; (add-hook 'gdb-mode-hook 'gdb-tooltip-hook)
-(add-hook 'gdb-mode-hook (lambda () (gud-tooltip-mode 1)))
+
+(add-hook 'gdb-mode-hook
+          '(lambda ()
+             (gud-tooltip-mode 1)))
 (defadvice gud-kill-buffer-hook (after gud-tooltip-mode activate)
   "After gdb killed, disable gud-tooltip-mode."
   (gud-tooltip-mode -1))
@@ -180,11 +200,10 @@
 (define-key c-mode-base-map [f5] 'gdb)
 (eval-after-load "gud"
   '(progn
-     (define-key gud-minor-mode-map [f5] (lambda (&optional kill)
-                                           (interactive "P")
-                                           (if kill
-                                               (gud-kill)
-                                             (gud-go))))
+     (define-key gud-minor-mode-map [f5]
+       '(lambda (&optional kill)
+          (interactive "P")
+          (if kill (gud-kill) (gud-go))))
      (define-key gud-minor-mode-map [S-f5] 'gud-kill)
      (define-key gud-minor-mode-map [f17] 'gud-kill) ; S-f5
      (define-key gud-minor-mode-map [f8] 'gud-print)
@@ -198,4 +217,4 @@
      (define-key gud-minor-mode-map [f11] 'gud-step)
      (define-key gud-minor-mode-map [C-f11] 'gud-finish)))
 
-(provide 'init-c)
+(provide 'init-cc)

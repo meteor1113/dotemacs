@@ -1,4 +1,4 @@
-;;; -*- mode: emacs-lisp; mode: goto-address; coding: utf-8; -*-
+;;; -*- mode: emacs-lisp; coding: utf-8; -*-
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,7 +6,7 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2009-08-08
+;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
 ;; tabbar
@@ -65,6 +65,7 @@
      (setq tabbar-scroll-right-button
            (cons (cons " >" tabbar-scroll-right-button-enabled-image)
                  (cons " =" nil)))
+
      (defadvice tabbar-popup-menu (after add-menu-item activate)
        "Add customize menu item to tabbar popup menu."
        (setq ad-return-value
@@ -98,6 +99,7 @@
                        "--"
                        ["Undo Close Tab" undo-kill-buffer
                         :active (fboundp 'undo-kill-buffer)]))))
+
      (defadvice tabbar-line-tab (around window-or-terminal activate)
        "Fix tabbar-ruler in window-system and terminal"
        (if window-system
@@ -119,6 +121,7 @@
                                   'tabbar-unselected)
                           'pointer 'hand)
                          tabbar-separator-value)))))
+
      ;; (unless (eq system-type 'windows-nt)
      (set-face-attribute 'tabbar-default nil
                          :family (face-attribute 'default :family))

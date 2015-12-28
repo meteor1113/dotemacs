@@ -6,7 +6,7 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2015-04-28
+;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
 (defvar dotemacs-root-dir (file-name-directory

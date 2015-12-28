@@ -1,4 +1,4 @@
-;;; -*- mode: emacs-lisp; mode: goto-address; coding: utf-8; -*-
+;;; -*- mode: emacs-lisp; coding: utf-8; -*-
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,11 +6,19 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2009-08-08
+;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
-(add-hook 'python-mode-hook 'prog-common-function)
+;; python-mode
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (setq indent-tabs-mode nil)
+             (ignore-errors (whitespace-mode t))
+             (linum-mode 1)
+             (hs-minor-mode t)
+             (ignore-errors (imenu-add-menubar-index))))
 
+;; auto-complete
 (eval-after-load "auto-complete-config"
   '(progn
      (setq ac-source-ropemacs              ; Redefine ac-source-ropemacs
@@ -23,14 +31,17 @@
                                       (rope-completions))))))
              (prefix . c-dot)
              (requires . 0)))
+
      (defun ac-complete-ropemacs ()
        (interactive)
        (auto-complete '(ac-source-ropemacs)))
+
      (defun ac-ropemacs-setup ()
        (when (locate-library "pymacs")
          (ac-ropemacs-require)
          ;; (setq ac-sources (append (list 'ac-source-ropemacs) ac-sources))
          (local-set-key (kbd "M-n") 'ac-complete-ropemacs)))
+
      (ac-ropemacs-initialize)))
 
 (provide 'init-python)

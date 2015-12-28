@@ -1,4 +1,4 @@
-;;; -*- mode: emacs-lisp; mode: goto-address; coding: utf-8; -*-
+;;; -*- mode: emacs-lisp; coding: utf-8; -*-
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,11 +6,10 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2009-08-08
+;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
-
-;; autoinsert
+;; auto-insert
 (auto-insert-mode 1)
 ;; (setq auto-insert t)
 ;; (setq auto-insert-query nil)
@@ -25,6 +24,7 @@
   (setq auto-insert-directory
         ;; (file-name-as-directory
         (expand-file-name "etc/templates" root-dir)))
+
 (setq auto-insert-expansion-alist
       '(("(>>>DIR<<<)" . (file-name-directory buffer-file-name))
         ("(>>>FILE<<<)" . (file-name-nondirectory buffer-file-name))

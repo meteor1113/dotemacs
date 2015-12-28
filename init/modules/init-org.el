@@ -1,4 +1,4 @@
-;;; -*- mode: emacs-lisp; mode: goto-address; coding: utf-8; -*-
+;;; -*- mode: emacs-lisp; coding: utf-8; -*-
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,7 +6,7 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2009-08-08
+;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
 ;; org
@@ -16,13 +16,13 @@
 (setq org-src-fontify-natively t)
 
 (add-hook 'org-mode-hook
-          (lambda ()
-            (setq comment-start nil)
-            (setq indent-tabs-mode nil)
-            ;; (when (fboundp 'whitespace-mode)
-            ;;   (whitespace-mode 1))
-            ;; (auto-fill-mode t)
-            (imenu-add-menubar-index)))
+          '(lambda ()
+             (setq comment-start nil)
+             (setq indent-tabs-mode nil)
+             ;; (when (fboundp 'whitespace-mode)
+             ;;   (whitespace-mode 1))
+             ;; (auto-fill-mode t)
+             (imenu-add-menubar-index)))
 
 (eval-after-load "org"
   `(progn
@@ -30,5 +30,13 @@
      (define-key org-mode-map (kbd "<C-S-iso-lefttab>")
        'org-force-cycle-archived)
      (define-key org-mode-map (kbd "<C-S-tab>") 'org-force-cycle-archived)))
+
+(eval-after-load "yasnippet"
+  '(add-hook 'org-mode-hook
+             (let ((original-command (lookup-key org-mode-map [tab])))
+               `(lambda ()
+                  (setq yas-fallback-behavior
+                        '(apply ,original-command))
+                  (local-set-key [tab] 'yas-expand)))))
 
 (provide 'init-org)

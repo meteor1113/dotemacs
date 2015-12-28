@@ -1,6 +1,7 @@
 2015-12-28  Liu Xin  <meteor1113@qq.com>
 
 	* init.el: Split dotemacs.
+	Refactor.
 
 2015-12-26  Liu Xin  <meteor1113@qq.com>
 
