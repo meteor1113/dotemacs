@@ -266,12 +266,6 @@
 (add-hook 'after-init-hook
           '(lambda () (ignore-errors (browse-kill-ring-default-keybindings))))
 
-;; cursor-chg
-(autoload 'change-cursor-mode "cursor-chg" nil t)
-;; (when (require 'cursor-chg nil 'noerror)
-;;   ;; (toggle-cursor-type-when-idle 1)
-;;   (change-cursor-mode 1))
-
 ;; drag-stuff
 ;; (autoload 'drag-stuff-global-mode "drag-stuff" "Toggle Drag-Stuff mode." t)
 ;; (when (and (ignore-errors (require 'drag-stuff nil 'noerror))
