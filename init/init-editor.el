@@ -152,14 +152,17 @@
     ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include"
     )
   "User include dirs for c/c++ mode")
+
 (eval-after-load "ffap"
   '(setq ffap-c-path (append ffap-c-path user-include-dirs)))
+
 (eval-after-load "filecache"
   '(progn (file-cache-add-directory-list load-path)
           (file-cache-add-directory-list user-include-dirs)
           (file-cache-add-directory "/usr/include")
           (file-cache-add-directory-recursively "/usr/include/c++")
           (file-cache-add-directory-recursively "/usr/local/include")))
+
 (filesets-init)
 (add-to-list 'filesets-data
              (list "~/"
