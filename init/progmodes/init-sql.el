@@ -13,12 +13,7 @@
 (add-to-list 'auto-mode-alist '("\\.[pP][rR][cC]\\'" . sql-mode))
 (add-hook 'sql-mode-hook
           '(lambda ()
-             (setq indent-tabs-mode nil)
-             (ignore-errors (whitespace-mode t))
-             (linum-mode 1)
-             ;; (or (ignore-errors (hideshowvis-minor-mode t)) (hs-minor-mode t))
-             (hs-minor-mode t)
-             (ignore-errors (imenu-add-menubar-index))))
+             (ignore-errors (whitespace-mode t))))
 
 ;; plsql
 (autoload 'plsql-mode "plsql" nil t)

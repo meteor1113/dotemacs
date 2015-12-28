@@ -12,12 +12,7 @@
 ;; sh-mode
 (add-hook 'sh-mode-hook
           '(lambda ()
-             (setq indent-tabs-mode nil)
-             (ignore-errors (whitespace-mode t))
-             (linum-mode 1)
-             ;; (or (ignore-errors (hideshowvis-minor-mode t)) (hs-minor-mode t))
-             (hs-minor-mode t)
-             (ignore-errors (imenu-add-menubar-index))))
+             (ignore-errors (whitespace-mode t))))
 
 ;; shell-mode
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)

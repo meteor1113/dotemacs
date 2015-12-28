@@ -12,12 +12,7 @@
 ;; cc-mode
 (add-hook 'c-mode-common-hook
           '(lambda ()
-             (setq indent-tabs-mode nil)
-             (ignore-errors (whitespace-mode t))
-             (linum-mode 1)
-             ;; (or (ignore-errors (hideshowvis-minor-mode t)) (hs-minor-mode t))
-             (hs-minor-mode t)
-             (ignore-errors (imenu-add-menubar-index))))
+             (ignore-errors (whitespace-mode t))))
 
 (defun dotemacs-c-mode-font-lock-if0 (limit)
   (save-restriction
@@ -118,14 +113,26 @@
 
 ;; find-file
 (setq ff-always-try-to-create nil)
-(setq cc-search-directories '("." "/usr/include" "/usr/local/include/*"
-                              "./include" "./inc"
-                              ".." "../include" "../inc" "../*"
-                              "../../include" "../../inc"
-                              "./src" ".." "../src" "../*"))
+(setq cc-search-directories '("/usr/include" "/usr/local/include/*"
+                              "." "./include" "./inc"
+                              "./common" "./public" "./src"
+                              ".." "../include" "../inc"
+                              "../common" "../public" "../src"
+                              "../.." "../../include" "../../inc"
+                              "../../common" "../../public" "../../src"))
 (add-hook 'c-mode-common-hook
           '(lambda()
              (local-set-key (kbd "C-c o") 'ff-find-other-file)))
+
+;; ffap
+(eval-after-load "ffap"
+  '(setq ffap-c-path (append ffap-c-path cc-search-directories)))
+
+;; filecache
+(eval-after-load "filecache"
+  '(progn (file-cache-add-directory-list cc-search-directories)
+          (file-cache-add-directory-recursively "/usr/include/c++")
+          (file-cache-add-directory-recursively "/usr/local/include")))
 
 ;; ac-clang
 (defvar dotemacs-ac-clang-cflags '("-I.." "-I../include" "-I../inc"

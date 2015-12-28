@@ -14,12 +14,11 @@
                                (file-name-directory
                                 (or load-file-name buffer-file-name))))
 
+(require 'init-custom)
 (require 'init-path)
 (require 'init-package)
-(require 'init-custom)
 (require 'init-editor)
 (require 'init-keybinding)
-(require 'init-ui)
 
 ;; modules
 (require 'init-auto-complete)
@@ -52,14 +51,13 @@
 (require 'init-xml)
 
 ;; progmodes
-(require 'init-autoconf)
+(require 'init-prog)
 (require 'init-cc)
 (require 'init-csharp)
 (require 'init-emacs-lisp)
 (require 'init-go)
 (require 'init-java)
 (require 'init-javascript)
-(require 'init-makefile)
 (require 'init-perl)
 (require 'init-php)
 (require 'init-python)

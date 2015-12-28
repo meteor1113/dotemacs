@@ -12,12 +12,7 @@
 ;; python-mode
 (add-hook 'python-mode-hook
           '(lambda ()
-             (setq indent-tabs-mode nil)
-             (ignore-errors (whitespace-mode t))
-             (linum-mode 1)
-             ;; (or (ignore-errors (hideshowvis-minor-mode t)) (hs-minor-mode t))
-             (hs-minor-mode t)
-             (ignore-errors (imenu-add-menubar-index))))
+             (ignore-errors (whitespace-mode t))))
 
 ;; auto-complete
 (eval-after-load "auto-complete-config"

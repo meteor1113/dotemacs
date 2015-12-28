@@ -16,7 +16,6 @@
 (add-hook 'csharp-mode-hook
           '(lambda ()
              (c-set-style "c#")
-             (setq imenu-generic-expression cc-imenu-java-generic-expression)
-             (imenu-add-menubar-index)))
+             (setq imenu-generic-expression cc-imenu-java-generic-expression)))
 
 (provide 'init-csharp)

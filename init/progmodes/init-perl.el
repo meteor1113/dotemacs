@@ -12,12 +12,7 @@
 ;; perl-mode
 (add-hook 'perl-mode-hook
           '(lambda ()
-             (setq indent-tabs-mode nil)
-             (ignore-errors (whitespace-mode t))
-             (linum-mode 1)
-             ;; (or (ignore-errors (hideshowvis-minor-mode t)) (hs-minor-mode t))
-             (hs-minor-mode t)
-             (ignore-errors (imenu-add-menubar-index))))
+             (ignore-errors (whitespace-mode t))))
 
 ;; cperl-mode
 (add-to-list 'auto-mode-alist

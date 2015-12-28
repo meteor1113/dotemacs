@@ -10,7 +10,7 @@
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
 ;; double click highlight
-(defface dotemacs-hl-double-click
+(defface hl-double-click
   '((default (:inherit region))
     (((class color) (background light)) (:background "lawn green"))
     (((class color) (background dark)) (:background "green" :foreground "black")))
@@ -32,24 +32,15 @@
             (overlay-put overlay prop t))
           (goto-char (match-end 0)))))))
 
-(defun highlight-text-at-point ()
-  (interactive)
-  (highlight-text nil 'hl-at-point 'show-paren-match)
-  (let* ((target-symbol (symbol-at-point))
-         (txt (symbol-name target-symbol))
-         (regexp (concat "\\_<" (regexp-quote txt) "\\_>")))
-    (when target-symbol
-      (highlight-text regexp 'hl-at-point 'show-paren-match))))
-
 (defadvice mouse-start-end (after hl-double-click (start end mode) activate)
   (cond ((= mode 1)
-         (highlight-text nil 'hl-double-click 'dotemacs-hl-double-click)
+         (highlight-text nil 'hl-double-click 'hl-double-click)
          (let* ((txt (buffer-substring-no-properties (nth 0 ad-return-value)
                                                      (nth 1 ad-return-value)))
                 (regexp (concat "\\_<" (regexp-quote txt) "\\_>")))
-           (highlight-text regexp 'hl-double-click 'dotemacs-hl-double-click)))
+           (highlight-text regexp 'hl-double-click 'hl-double-click)))
         ((= mode 2)
-         (highlight-text "" 'hl-double-click 'dotemacs-hl-double-click))))
+         (highlight-text "" 'hl-double-click 'hl-double-click))))
 
 ;; (defvar hl-double-click-regexp "")
 ;; (defadvice mouse-start-end (after hl-double-click (start end mode) activate)
@@ -62,19 +53,26 @@
 ;;                        (string-match "\n" txt))
 ;;              (setq hl-double-click-regexp
 ;;                    (concat "\\_<" (regexp-quote txt) "\\_>"))
-;;              (highlight-regexp hl-double-click-regexp 'dotemacs-hl-double-click))))
+;;              (highlight-regexp hl-double-click-regexp 'hl-double-click))))
 ;;         ((= mode 2)
 ;;          (unhighlight-regexp hl-double-click-regexp))))
 
+(defun highlight-text-at-point ()
+  (interactive)
+  (highlight-text nil 'hl-at-point 'show-paren-match)
+  (let* ((target-symbol (symbol-at-point))
+         (txt (symbol-name target-symbol))
+         (regexp (concat "\\_<" (regexp-quote txt) "\\_>")))
+    (when target-symbol
+      (highlight-text regexp 'hl-at-point 'show-paren-match))))
+
+(global-set-key [(meta f1)] 'highlight-text-at-point)
+
 ;; highlight-symbol
 (setq highlight-symbol-idle-delay 0.5)
-(mapc (lambda (hook)
-        (add-hook hook (lambda () (ignore-errors (highlight-symbol-mode 1)))))
-      '(c-mode-common-hook
-        fortran-mode-hook f90-mode-hook ada-mode-hook
-        python-mode-hook ruby-mode-hook perl-mode-hook cperl-mode-hook
-        emacs-lisp-mode-hook sh-mode-hook js-mode-hook js2-mode-hook
-        nxml-mode-hook sgml-mode-hook sql-mode-hook))
+(add-hook 'prog-mode-hook
+          '(lambda ()
+             (ignore-errors (highlight-symbol-mode 1))))
 
 (defun highlight-symbol-next-or-prev (&optional prev)
        (interactive "P")
