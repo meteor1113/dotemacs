@@ -10,29 +10,6 @@
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
 ;; cedet
-(defvar dotemacs-semantic-dependency-include-paths
-  '("." "./include" "./inc" "./common" "./public"
-    ".." "../include" "../inc" "../common" "../public"
-    "../.." "../../include" "../../inc" "../../common" "../../public"
-    "C:/MinGW/include"
-    "C:/MinGW/include/c++/3.4.5"
-    "C:/MinGW/include/c++/3.4.5/mingw32"
-    "C:/MinGW/include/c++/3.4.5/backward"
-    "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
-    "C:/Program Files/Microsoft Visual Studio/VC98/Include"
-    "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"
-    ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include"
-    )
-  "User include dirs for c/c++ mode")
-
-(defvar dotemacs-c-preprocessor-symbol-files
-  '("C:/MinGW/include/c++/3.4.5/mingw32/bits/c++config.h"
-    "C:/Program Files/Microsoft Visual Studio/VC98/Include/xstddef"
-    ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include/yvals.h"
-    ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include/crtdefs.h"
-    )
-  "Preprocessor symbol files for cedet")
-
 (dolist (dir (mapcar 'expand-file-name '("~/.emacs.d/cedet-1.0pre6"
                                          "~/.emacs.d/cedet-1.0pre7"
                                          "~/.emacs.d/cedet-1.0"
@@ -87,15 +64,36 @@
       (require 'semantic-c nil 'noerror))
     (ignore-errors (semantic-gcc-setup)))
 
-  (mapc (lambda (dir)
-          (semantic-add-system-include dir 'c++-mode)
-          (semantic-add-system-include dir 'c-mode))
-        dotemacs-semantic-dependency-include-paths)
+  ;; (defvar semantic-dependency-include-paths
+  ;;   '("." "./include" "./inc" "./common" "./public"
+  ;;     ".." "../include" "../inc" "../common" "../public"
+  ;;     "../.." "../../include" "../../inc" "../../common" "../../public"
+  ;;     "C:/MinGW/include"
+  ;;     "C:/MinGW/include/c++/3.4.5"
+  ;;     "C:/MinGW/include/c++/3.4.5/mingw32"
+  ;;     "C:/MinGW/include/c++/3.4.5/backward"
+  ;;     "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
+  ;;     "C:/Program Files/Microsoft Visual Studio/VC98/Include"
+  ;;     "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"
+  ;;     ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include"
+  ;;     )
+  ;;   "User include dirs for c/c++ mode")
+  ;; (mapc (lambda (dir)
+  ;;         (semantic-add-system-include dir 'c++-mode)
+  ;;         (semantic-add-system-include dir 'c-mode))
+  ;;       semantic-dependency-include-paths)
 
-  (dolist (file dotemacs-c-preprocessor-symbol-files)
-    (when (file-exists-p file)
-      (setq semantic-lex-c-preprocessor-symbol-file
-            (append semantic-lex-c-preprocessor-symbol-file (list file)))))
+  ;; (defvar c-preprocessor-symbol-files
+  ;;   '("C:/MinGW/include/c++/3.4.5/mingw32/bits/c++config.h"
+  ;;     "C:/Program Files/Microsoft Visual Studio/VC98/Include/xstddef"
+  ;;     ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include/yvals.h"
+  ;;     ;; "C:/Program Files/Microsoft Visual Studio 10.0/VC/include/crtdefs.h"
+  ;;     )
+  ;;   "Preprocessor symbol files for cedet")
+  ;; (dolist (file c-preprocessor-symbol-files)
+  ;;   (when (file-exists-p file)
+  ;;     (setq semantic-lex-c-preprocessor-symbol-file
+  ;;           (append semantic-lex-c-preprocessor-symbol-file (list file)))))
 
   (defun semantic-ia-fast-jump-back ()
     (interactive)
