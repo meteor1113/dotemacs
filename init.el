@@ -35,19 +35,11 @@
 (require 'init-hideshow)
 (require 'init-highlight)
 (require 'init-leim)
-(require 'init-org)
 (require 'init-server)
 (require 'init-tabbar)
 (require 'init-toolbar)
 (require 'init-vc)
 (require 'init-yasnippet)
-
-;; textmodes
-(require 'init-artist)
-(require 'init-csv)
-(require 'init-markdown)
-(require 'init-text)
-(require 'init-xml)
 
 ;; progmodes
 (require 'init-prog)
@@ -63,5 +55,11 @@
 (require 'init-rust)
 (require 'init-sh)
 (require 'init-sql)
+
+;; textmodes
+(require 'init-artist)
+(require 'init-org)
+(require 'init-text)
+(require 'init-xml)
 
 (provide 'init)
