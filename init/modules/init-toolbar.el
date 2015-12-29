@@ -9,13 +9,15 @@
 ;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
+(setq tool-bar-button-margin 0)
+;; (setq auto-resize-tool-bars nil)
+
 ;; Remove the some buttons in the tool bar.
-(defvar need-delete-toolbar-buttons '(print-buffer write-file customize help))
 (when (boundp 'tool-bar-map)
   (let ((need-delete-btns))
     (dolist (button tool-bar-map)
       (when (and (consp button)
-                 (memq (car button) need-delete-toolbar-buttons))
+                 (memq (car button) '(print-buffer write-file customize help)))
         (add-to-list 'need-delete-btns button)))
     (dolist (button need-delete-btns)
       (delq button tool-bar-map))))
@@ -32,8 +34,56 @@
       (add-to-list 'image-load-path images-dir)
     (add-to-list 'load-path images-dir)))
 
-(setq tool-bar-button-margin 0)
-;; (setq auto-resize-tool-bars nil)
+(defgroup toolbarshow nil
+  "Custom toolbar"
+  :group 'environment)
+
+(defcustom toolbarshow-edit t
+  "If show edit toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+
+(defcustom toolbarshow-search nil
+  "If show search toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+
+(defcustom toolbarshow-bookmark nil
+  "If show bookmark toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+
+(defcustom toolbarshow-view t
+  "If show view toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+
+(defcustom toolbarshow-program t
+  "If show program toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+
+(defcustom toolbarshow-flymake nil
+  "If show flymake toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+
+(defcustom toolbarshow-remember t
+  "If show remember toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+
+(defcustom toolbarshow-emms nil
+  "If show emms toolbar."
+  :type 'boolean
+  :group 'toolbarshow)
+
+(defun toolbarshow-toggle (group)
+  "Turn toolbar on/off for grouop."
+  (set group (if (symbol-value group) nil t))
+  (force-window-update)
+  (customize-mark-to-save group)
+  (custom-save-all))
 
 (defun key4cmd (cmd &optional optioncmd)
   "Get keys for command."
@@ -44,108 +94,6 @@
         (concat "(M-x " (symbol-name cmd) ")")
       (concat "(" key ")"))))
 
-(defgroup toolbarshow nil
-  "Custom toolbar"
-  :group 'environment)
-
-;; (defvar toolbarshow-edit t
-;;   "If show edit toolbar.")
-(defcustom toolbarshow-edit t
-  "If show edit toolbar."
-  :type 'boolean
-  :group 'toolbarshow)
-(defun toolbarshow-toggle-edit ()
-  "Turn edit toolbar on/off."
-  (interactive)
-  (setq toolbarshow-edit (if toolbarshow-edit nil t))
-  (force-window-update)
-  (customize-mark-to-save 'toolbarshow-edit)
-  (custom-save-all))
-
-(defcustom toolbarshow-search nil
-  "If show search toolbar."
-  :type 'boolean
-  :group 'toolbarshow)
-(defun toolbarshow-toggle-search ()
-  "Turn search toolbar on/off."
-  (interactive)
-  (setq toolbarshow-search (if toolbarshow-search nil t))
-  (force-window-update)
-  (customize-mark-to-save 'toolbarshow-search)
-  (custom-save-all))
-
-(defcustom toolbarshow-bookmark nil
-  "If show bookmark toolbar."
-  :type 'boolean
-  :group 'toolbarshow)
-(defun toolbarshow-toggle-bookmark ()
-  "Turn bookmark toolbar on/off."
-  (interactive)
-  (setq toolbarshow-bookmark (if toolbarshow-bookmark nil t))
-  (force-window-update)
-  (customize-mark-to-save 'toolbarshow-bookmark)
-  (custom-save-all))
-
-(defcustom toolbarshow-view t
-  "If show view toolbar."
-  :type 'boolean
-  :group 'toolbarshow)
-(defun toolbarshow-toggle-view ()
-  "Turn view toolbar on/off."
-  (interactive)
-  (setq toolbarshow-view (if toolbarshow-view nil t))
-  (force-window-update)
-  (customize-mark-to-save 'toolbarshow-view)
-  (custom-save-all))
-
-(defcustom toolbarshow-program t
-  "If show program toolbar."
-  :type 'boolean
-  :group 'toolbarshow)
-(defun toolbarshow-toggle-program ()
-  "Turn program toolbar on/off."
-  (interactive)
-  (setq toolbarshow-program (if toolbarshow-program nil t))
-  (force-window-update)
-  (customize-mark-to-save 'toolbarshow-program)
-  (custom-save-all))
-
-(defcustom toolbarshow-flymake nil
-  "If show flymake toolbar."
-  :type 'boolean
-  :group 'toolbarshow)
-(defun toolbarshow-toggle-flymake ()
-  "Turn flymake toolbar on/off."
-  (interactive)
-  (setq toolbarshow-flymake (if toolbarshow-flymake nil t))
-  (force-window-update)
-  (customize-mark-to-save 'toolbarshow-flymake)
-  (custom-save-all))
-
-(defcustom toolbarshow-remember t
-  "If show remember toolbar."
-  :type 'boolean
-  :group 'toolbarshow)
-(defun toolbarshow-toggle-remember ()
-  "Turn remember toolbar on/off."
-  (interactive)
-  (setq toolbarshow-remember (if toolbarshow-remember nil t))
-  (force-window-update)
-  (customize-mark-to-save 'toolbarshow-remember)
-  (custom-save-all))
-
-(defcustom toolbarshow-emms nil
-  "If show emms toolbar."
-  :type 'boolean
-  :group 'toolbarshow)
-(defun toolbarshow-toggle-emms ()
-  "Turn emms toolbar on/off."
-  (interactive)
-  (setq toolbarshow-emms (if toolbarshow-emms nil t))
-  (force-window-update)
-  (customize-mark-to-save 'toolbarshow-emms)
-  (custom-save-all))
-
 ;; toggle toolbar menu
 (defvar toggle-toolbar-menu (make-sparse-keymap "Toolbar"))
 
@@ -154,27 +102,9 @@
   '(menu-item "ascii-display" ascii-display
               :enable (fboundp 'ascii-display)
               :button (:toggle . ascii-display)))
-(define-key misc-sub-menu [cn-weather]
-  '(menu-item "cn-weather" cn-weather
-              :enable (fboundp 'cn-weather)))
 (define-key misc-sub-menu [proced]
   '(menu-item "proced" proced
               :enable (fboundp 'proced)))
-(define-key misc-sub-menu [winsav-restore-configuration]
-  '(menu-item "winsav-restore-configuration"
-              (lambda ()
-                (interactive)
-                (winsav-restore-configuration))
-              :enable (fboundp 'winsav-restore-configuration)))
-(define-key misc-sub-menu [winsav-save-configuration]
-  '(menu-item "winsav-save-configuration"
-              (lambda ()
-                (interactive)
-                (winsav-save-configuration))
-              :enable (fboundp 'winsav-save-configuration)))
-;; (define-key misc-sub-menu [sqlplus]
-;;   '(menu-item "sqlplus" sqlplus
-;;               :enable (fboundp 'sqlplus)))
 (define-key misc-sub-menu [ielm]
   '(menu-item "ielm" ielm
               :enable (fboundp 'ielm)))
@@ -205,10 +135,6 @@
   '(menu-item "Seek forward" emms-seek-forward
               :enable (and (fboundp 'emms-seek-forward)
                            emms-player-playing-p)))
-;; (define-key emms-sub-menu [emms-pause]
-;;   '(menu-item "Pause/Resume" emms-pause
-;;               :enable (and (fboundp 'emms-pause)
-;;                            emms-player-playing-p)))
 (define-key emms-sub-menu [emms-pause]
   '(menu-item (if (and (boundp 'emms-player-paused-p)
                        emms-player-paused-p)
@@ -217,15 +143,6 @@
               emms-pause
               :enable (and (fboundp 'emms-pause)
                            emms-player-playing-p)))
-;; (define-key emms-sub-menu [emms-start]
-;;   '(menu-item "Start/Stop"
-;;               (lambda ()
-;;                 (interactive)
-;;                 (if emms-player-playing-p
-;;                     (emms-stop)
-;;                   (emms-start)))
-;;               :enable (and (fboundp 'emms-start)
-;;                            (fboundp 'emms-stop))))
 (define-key emms-sub-menu [emms-stop]
   '(menu-item "Stop" emms-stop
               :enable (fboundp 'emms-stop)
@@ -331,10 +248,6 @@
   (list 'menu-item "Revert with encoding" revert-encoding-sub-menu))
 
 (defvar minormode-sub-menu (make-sparse-keymap "Minor mode"))
-(define-key minormode-sub-menu [word-count-mode]
-  '(menu-item "word-count-mode" word-count-mode
-              :enable (fboundp 'word-count-mode)
-              :button (:toggle . word-count-mode)))
 (define-key minormode-sub-menu [whitespace-mode]
   '(menu-item "whitespace-mode" whitespace-mode
               :enable (fboundp 'whitespace-mode)
@@ -343,16 +256,6 @@
   '(menu-item "volatile-highlights-mode" volatile-highlights-mode
               :enable (fboundp 'volatile-highlights-mode)
               :button (:toggle . volatile-highlights-mode)))
-;; (define-key minormode-sub-menu [viper-mode]
-;;   '(menu-item "viper-mode"
-;;               (lambda ()
-;;                 (interactive)
-;;                 (if (featurep 'vimpulse)
-;;                     (toggle-viper-mode)
-;;                   (unless (require 'vimpulse nil 'noerror)
-;;                     (toggle-viper-mode))))
-;;               :enable (fboundp 'toggle-viper-mode)
-;;               :button (:toggle . viper-mode)))
 (define-key minormode-sub-menu [viper-mode]
   '(menu-item "viper-mode" toggle-viper-mode
               :enable (fboundp 'toggle-viper-mode)
@@ -425,6 +328,10 @@
   '(menu-item "highlight-parentheses-mode" highlight-parentheses-mode
               :enable (fboundp 'highlight-parentheses-mode)
               :button (:toggle . highlight-parentheses-mode)))
+(define-key minormode-sub-menu [hideshowvis-minor-mode]
+  '(menu-item "hideshowvis-minor-mode" hideshowvis-minor-mode
+              :enable (fboundp 'hideshowvis-minor-mode)
+              :button (:toggle . hideshowvis-minor-mode)))
 (define-key minormode-sub-menu [goto-address-mode]
   '(menu-item "goto-address-mode" goto-address-mode
               :enable (fboundp 'goto-address-mode)
@@ -447,10 +354,6 @@
   '(menu-item "electric-pair-mode" electric-pair-mode
               :enable (fboundp 'electric-pair-mode)
               :button (:toggle . electric-pair-mode)))
-(define-key minormode-sub-menu [display-cn-weather-mode]
-  '(menu-item "display-cn-weather-mode" display-cn-weather-mode
-              :enable (fboundp 'display-cn-weather-mode)
-              :button (:toggle . display-cn-weather-mode)))
 (define-key minormode-sub-menu [drag-stuff-global-mode]
   '(menu-item "drag-stuff-mode (global)" drag-stuff-global-mode
               :enable (fboundp 'drag-stuff-global-mode)
@@ -459,10 +362,6 @@
   '(menu-item "diff-hl-mode (global)" global-diff-hl-mode
               :enable (fboundp 'global-diff-hl-mode)
               :button (:toggle . global-diff-hl-mode)))
-(define-key minormode-sub-menu [change-cursor-mode]
-  '(menu-item "change-cursor-mode" change-cursor-mode
-              :enable (fboundp 'change-cursor-mode)
-              :button (:toggle . change-cursor-mode)))
 (define-key minormode-sub-menu [global-auto-complete-mode]
   '(menu-item "auto-complete-mode (global)" global-auto-complete-mode
               :enable (fboundp 'global-auto-complete-mode)
@@ -491,27 +390,6 @@
   '(menu-item "SQL" sql-mode
               :visible (fboundp 'sql-mode)
               :button (:toggle . (eq major-mode 'sql-mode))))
-;; (defvar sql-sub-mode-menu (make-sparse-keymap "SQL"))
-;; (define-key sql-sub-mode-menu [sql-highlight-sybase-keywords]
-;;   '(menu-item "Sybase"
-;;               (lambda ()
-;;                 (interactive)
-;;                 (unless (eq major-mode 'sql-mode)
-;;                   (sql-mode))
-;;                 (sql-highlight-sybase-keywords))
-;;               :button (:toggle . (and (eq major-mode 'sql-mode)
-;;                                       (eq sql-product 'sybase)))))
-;; (define-key sql-sub-mode-menu [sql-highlight-sqlite-keywords]
-;;   '(menu-item "SQLite"
-;;               (lambda ()
-;;                 (interactive)
-;;                 (unless (eq major-mode 'sql-mode)
-;;                   (sql-mode))
-;;                 (sql-highlight-sqlite-keywords))
-;;               :button (:toggle . (and (eq major-mode 'sql-mode)
-;;                                       (eq sql-product 'sqlite)))))
-;; (define-key language-sub-menu [sql]
-;;   (list 'menu-item "SQL" sql-sub-mode-menu))
 (define-key language-sub-menu [sh-mode]
   '(menu-item "Shell" sh-mode
               :visible (fboundp 'sh-mode)
@@ -709,35 +587,51 @@
   '(menu-item "--"))
 
 (define-key toggle-toolbar-menu [toolbarshow-toggle-emms]
-  '(menu-item "Emms toolbar" toolbarshow-toggle-emms
+  '(menu-item "Emms toolbar" (lambda ()
+                               (interactive)
+                               (toolbarshow-toggle 'toolbarshow-emms))
               :help "Turn emms toolbar on/off"
               :button (:toggle . toolbarshow-emms)))
 (define-key toggle-toolbar-menu [toolbarshow-toggle-remember]
-  '(menu-item "Remember toolbar" toolbarshow-toggle-remember
+  '(menu-item "Remember toolbar" (lambda ()
+                               (interactive)
+                               (toolbarshow-toggle 'toolbarshow-remember))
               :help "Turn remember toolbar on/off"
               :button (:toggle . toolbarshow-remember)))
 (define-key toggle-toolbar-menu [toolbarshow-toggle-flymake]
-  '(menu-item "Flymake toolbar" toolbarshow-toggle-flymake
+  '(menu-item "Flymake toolbar" (lambda ()
+                                  (interactive)
+                                  (toolbarshow-toggle 'toolbarshow-flymake))
               :help "Turn flymake toolbar on/off"
               :button (:toggle . toolbarshow-flymake)))
 (define-key toggle-toolbar-menu [toolbarshow-toggle-program]
-  '(menu-item "Program toolbar" toolbarshow-toggle-program
+  '(menu-item "Program toolbar" (lambda ()
+                                  (interactive)
+                                  (toolbarshow-toggle 'toolbarshow-program))
               :help "Turn program toolbar on/off"
               :button (:toggle . toolbarshow-program)))
 (define-key toggle-toolbar-menu [toolbarshow-toggle-view]
-  '(menu-item "View toolbar" toolbarshow-toggle-view
+  '(menu-item "View toolbar" (lambda ()
+                                  (interactive)
+                                  (toolbarshow-toggle 'toolbarshow-view))
               :help "Turn view toolbar on/off"
               :button (:toggle . toolbarshow-view)))
 (define-key toggle-toolbar-menu [toolbarshow-toggle-bookmark]
-  '(menu-item "Bookmark toolbar" toolbarshow-toggle-bookmark
+  '(menu-item "Bookmark toolbar" (lambda ()
+                                  (interactive)
+                                  (toolbarshow-toggle 'toolbarshow-bookmark))
               :help "Turn bookmark toolbar on/off"
               :button (:toggle . toolbarshow-bookmark)))
 (define-key toggle-toolbar-menu [toolbarshow-toggle-search]
-  '(menu-item "Search toolbar" toolbarshow-toggle-search
+  '(menu-item "Search toolbar" (lambda ()
+                                  (interactive)
+                                  (toolbarshow-toggle 'toolbarshow-search))
               :help "Turn search toolbar on/off"
               :button (:toggle . toolbarshow-search)))
 (define-key toggle-toolbar-menu [toolbarshow-toggle-edit]
-  '(menu-item "Edit toolbar" toolbarshow-toggle-edit
+  '(menu-item "Edit toolbar" (lambda ()
+                                  (interactive)
+                                  (toolbarshow-toggle 'toolbarshow-edit))
               :help "Turn edit toolbar on/off"
               :button (:toggle . toolbarshow-edit)))
 
@@ -920,26 +814,11 @@
                    :help '(concat "Jump to the tag at point (Semantic)"
                                   (key4cmd 'semantic-ia-fast-jump-or-back
                                            'semantic-ia-fast-jump)))
-;; (tool-bar-add-item "semantic-impl-toggle" 'semantic-analyze-proto-impl-toggle
-;;                    'semantic-analyze-proto-impl-toggle
-;;                    :visible 'toolbarshow-program
-;;                    :enable (fboundp 'semantic-analyze-proto-impl-toggle)
-;;                    :help '(concat "Toggle impl and prototype (Semantic)"
-;;                                  (key4cmd 'semantic-analyze-proto-impl-toggle)))
-(tool-bar-add-item "sourcepair"
-                   (lambda ()
-                     (interactive)
-                     (if (fboundp 'sourcepair-load)
-                         (sourcepair-load)
-                       (eassist-switch-h-cpp)))
-                   'sourcepair
+(tool-bar-add-item "ff-find-other-file" 'ff-find-other-file 'ff-find-other-file
                    :visible 'toolbarshow-program
-                   :enable '(and (memq major-mode '(c++-mode c-mode objc-mode))
-                                 (or (fboundp 'sourcepair-load)
-                                     (fboundp 'eassist-switch-h-cpp)))
+                   :enable (fboundp 'ff-find-other-file)
                    :help '(concat "Switch header and body file"
-                                  (key4cmd 'sourcepair-load
-                                           'eassist-switch-h-cpp)))
+                                  (key4cmd 'ff-find-other-file)))
 (tool-bar-add-item "compile" 'compile 'compile
                    :visible 'toolbarshow-program
                    :help '(concat "Compile..."

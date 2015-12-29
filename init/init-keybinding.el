@@ -99,7 +99,6 @@
 ;; (global-set-key [header-line double-mouse-1]
 ;;                 '(lambda () (interactive) (switch-to-buffer "new")))
 (global-set-key [header-line mouse-3] 'kill-this-buffer)
-;; (global-set-key [header-line double-mouse-1] 'kill-this-buffer)
 
 (global-set-key [left-fringe mouse-2] nil)
 (global-set-key [left-margin mouse-2] nil)
@@ -124,18 +123,6 @@
 (autoload 'grep-tag-default "grep")
 (autoload 'grep-apply-setting "grep")
 
-(defvar grep-dir-format
-  (cond ((eq system-type 'aix)
-         "grep -inrH '%s' . | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")
-        ;; ((eq system-type 'gnu/linux)
-        ;;  "grep -inrHI '%s' . | grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")
-        ;; ((eq system-type 'windows-nt)
-        ;;  "grep --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.hg \
-        ;;   --exclude-dir=.bzr --exclude-dir=CVS -inrHI \"%s\" .")
-        (t
-         "grep --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.hg \
---exclude-dir=.bzr --exclude-dir=CVS -inrHI '%s' .")))
-
 (defun grep-current-dir (&optional prompt wd)
   "Run `grep' to find current word in current directory."
   (interactive "P")
@@ -145,6 +132,13 @@
                         (buffer-substring-no-properties (region-beginning)
                                                         (region-end)))
                    (grep-tag-default)))
+         (grep-dir-format
+          (cond ((eq system-type 'aix)
+                 "grep -inrH '%s' . \
+| grep -vE \"\.svn/|\.git/|\.hg/|\.bzr/|CVS/\"")
+                (t
+                 "grep --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.hg \
+--exclude-dir=.bzr --exclude-dir=CVS -inrHI '%s' .")))
          (cmd (format grep-dir-format word)))
     (grep-apply-setting 'grep-use-null-device nil)
     (if (or prompt (= (length word) 0))
