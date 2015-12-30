@@ -196,8 +196,7 @@ Like eclipse's Ctrl+Alt+F."
         (push-mark (point))
         (push-mark (point-max) nil t)
         (goto-char start)
-        (when (fboundp 'whitespace-cleanup)
-          (whitespace-cleanup))
+        (ignore-errors (whitespace-cleanup))
         (untabify start (point-max))
         (indent-region start (point-max) nil)))))
 

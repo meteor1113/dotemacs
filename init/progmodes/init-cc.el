@@ -135,14 +135,14 @@
           (file-cache-add-directory-recursively "/usr/local/include")))
 
 ;; ac-clang
-(defvar ac-clang-cflags '("-I.." "-I../include" "-I../inc"
+(defvar clang-cflags '("-I.." "-I../include" "-I../inc"
                                    "-I../common" "-I../public"
                                    "-I../.." "-I../../include" "-I../../inc"
                                    "-I../../common" "-I../../public"))
 (when (fboundp 'semantic-gcc-get-include-paths)
   (let ((dirs (semantic-gcc-get-include-paths "c++")))
     (dolist (dir dirs)
-      (add-to-list 'ac-clang-cflags (concat "-I" dir)))))
+      (add-to-list 'clang-cflags (concat "-I" dir)))))
 (setq w32-pipe-read-delay 0)
 (add-hook 'c-mode-common-hook
           '(lambda ()
@@ -153,7 +153,7 @@
                                           ac-clang-server-type) "")))
                       (ac-clang-initialize))
                  (progn
-                   (setq ac-clang-cflags ac-clang-cflags)
+                   (setq ac-clang-cflags clang-cflags)
                    (ac-clang-activate-after-modify)
                    (local-set-key (kbd "M-n") 'ac-complete-clang))
                ;; (setq ac-sources (append '(ac-source-semantic) ac-sources))
