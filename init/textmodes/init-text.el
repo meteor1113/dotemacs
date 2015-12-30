@@ -10,12 +10,13 @@
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
 ;; text-mode
-(let ((text-imenu-generic-expression
-       `((nil ,"^ \\{0,4\\}\\([一二三四五六七八九十]+[、. )]\\)+ *[^,。，]+?$" 0)
-         (nil ,"^ \\{0,4\\}\\([0-9]+[、. )]\\)+ *[^,。，]+?$" 0))))
-  (add-hook 'text-mode-hook
-            '(lambda ()
-               (setq imenu-generic-expression text-imenu-generic-expression)
-               (imenu-add-menubar-index))))
+(setq text-imenu-generic-expression
+      `((nil ,"^ \\{0,4\\}\\([一二三四五六七八九十]+[、. )]\\)+ *[^,。，]+?$" 0)
+        (nil ,"^ \\{0,4\\}\\([0-9]+[、. )]\\)+ *[^,。，]+?$" 0)))
+
+(add-hook 'text-mode-hook
+          '(lambda ()
+             (setq imenu-generic-expression text-imenu-generic-expression)
+             (imenu-add-menubar-index)))
 
 (provide 'init-text)
