@@ -37,6 +37,7 @@
           '(lambda ()
              (if (executable-find "sqlplus")
                  (require 'sqlplus nil t))))
+
 (eval-after-load "sqlplus"
   '(progn
      (define-key plsql-mode-map [C-down-mouse-1] nil)
@@ -48,6 +49,7 @@
      (define-key sqlplus-mode-map [down-mouse-2]
        'sqlplus-mouse-select-identifier)
      (define-key sqlplus-mode-map [mouse-2] 'sqlplus-file-get-source-mouse)))
+
 (add-hook 'sqlplus-mode-hook
           (lambda ()
             ;; (setq minor-mode-overriding-map-alist

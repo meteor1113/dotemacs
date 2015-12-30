@@ -248,6 +248,7 @@
 (add-hook 'gdb-mode-hook
           '(lambda ()
              (gud-tooltip-mode 1)))
+
 (defadvice gud-kill-buffer-hook (after gud-tooltip-mode activate)
   "After gdb killed, disable gud-tooltip-mode."
   (gud-tooltip-mode -1))
@@ -256,6 +257,7 @@
 (setq gdb-use-separate-io-buffer t)
 ;; (gud-tooltip-mode t)
 (define-key c-mode-base-map [f5] 'gdb)
+
 (eval-after-load "gud"
   '(progn
      (define-key gud-minor-mode-map [f5]

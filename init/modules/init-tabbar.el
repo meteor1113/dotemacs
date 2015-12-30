@@ -14,6 +14,7 @@
           '(lambda ()
              (unless (locate-library "tabbar-ruler")
                (ignore-errors (tabbar-mode 1))) 'append))
+
 (eval-after-load "tabbar"
   '(progn
      ;; backup tabbar.el's button image
@@ -21,6 +22,7 @@
            tabbar-home-button-disabled-image-orig tabbar-home-button-disabled-image
            tabbar-scroll-left-button-enabled-image-orig tabbar-scroll-left-button-enabled-image
            tabbar-scroll-right-button-enabled-image-orig tabbar-scroll-right-button-enabled-image)
+
      (defadvice tabbar-buffer-tab-label (after modified-flag activate)
        (setq ad-return-value
              (if (and (or (not (featurep 'tabbar-ruler))
@@ -29,13 +31,17 @@
                  ;; (buffer-file-name (tabbar-tab-value tab))
                  (concat ad-return-value "*")
                ad-return-value)))
+
      (defun update-tabbar-modified-state ()
        (tabbar-set-template tabbar-current-tabset nil)
        (tabbar-display-update))
+
      (defadvice undo (after update-tabbar-tab-label activate)
        (update-tabbar-modified-state))
+
      (defadvice set-buffer-file-coding-system (after update-tabbar-tab-label activate)
        (update-tabbar-modified-state))
+
      (define-key tabbar-mode-map [C-prior] 'tabbar-backward)
      (define-key tabbar-mode-map [C-next] 'tabbar-forward)
      (add-hook 'first-change-hook 'update-tabbar-modified-state)
@@ -45,9 +51,11 @@
 (setq tabbar-ruler-invert-deselected nil)
 (setq tabbar-ruler-movement-timer-delay 10000)
 (add-hook 'after-init-hook '(lambda () (require 'tabbar-ruler nil 'noerror)) t)
+
 (eval-after-load "tabbar-ruler"
   '(progn
      (tabbar-ruler-remove-caches)
+
      ;; restore tabbar.el's button image
      (setq tabbar-home-button-enabled-image tabbar-home-button-enabled-image-orig
            tabbar-home-button-disabled-image tabbar-home-button-disabled-image-orig
