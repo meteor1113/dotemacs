@@ -391,14 +391,14 @@
 (tool-bar-add-item "separator" nil 'separator-search-toolbar
                    :visible 'toolbarshow-search
                    :enable nil)
-(tool-bar-add-item "recent-backward" 'recent-jump-jump-backward 'recent-jump-jump-backward
-                   :visible 'toolbarshow-search
-                   :enable '(fboundp 'recent-jump-jump-backward)
-                   :help '(concat "Backward" (key4cmd 'recent-jump-jump-backward)))
-(tool-bar-add-item "recent-forward" 'recent-jump-jump-forward 'recent-jump-jump-forward
-                   :visible 'toolbarshow-search
-                   :enable '(fboundp 'recent-jump-jump-forward)
-                   :help '(concat "Forward" (key4cmd 'recent-jump-jump-forward)))
+;; (tool-bar-add-item "recent-backward" 'recent-jump-jump-backward 'recent-jump-jump-backward
+;;                    :visible 'toolbarshow-search
+;;                    :enable '(fboundp 'recent-jump-jump-backward)
+;;                    :help '(concat "Backward" (key4cmd 'recent-jump-jump-backward)))
+;; (tool-bar-add-item "recent-forward" 'recent-jump-jump-forward 'recent-jump-jump-forward
+;;                    :visible 'toolbarshow-search
+;;                    :enable '(fboundp 'recent-jump-jump-forward)
+;;                    :help '(concat "Forward" (key4cmd 'recent-jump-jump-forward)))
 (tool-bar-add-item "find" 'isearch-forward 'find
                    :visible 'toolbarshow-search
                    :help '(concat "Find..." (key4cmd 'isearch-forward)))
