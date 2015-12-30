@@ -32,6 +32,7 @@
 (require 'init-emms)
 (require 'init-flycheck)
 (require 'init-flymake)
+(require 'init-helm)
 (require 'init-hideshow)
 (require 'init-highlight)
 (require 'init-leim)
