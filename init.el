@@ -16,9 +16,9 @@
 
 (require 'init-custom)
 (require 'init-path)
-(require 'init-package)
 (require 'init-editor)
 (require 'init-keybinding)
+(require 'init-package)
 
 ;; modules
 (require 'init-auto-complete)
