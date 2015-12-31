@@ -1,4 +1,5 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; -*-
+
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,8 +7,11 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
+
+;;; Commentary:
+
+;;; Code:
 
 ;; dired
 (setq dired-dwim-target t)
@@ -42,3 +46,5 @@
        (diredp-toggle-find-file-reuse-dir 1))))
 
 (provide 'init-dired)
+
+;;; init-dired.el ends here

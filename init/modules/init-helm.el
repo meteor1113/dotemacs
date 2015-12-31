@@ -1,4 +1,5 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; -*-
+
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,8 +7,11 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
+
+;;; Commentary:
+
+;;; Code:
 
 ;; helm
 (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
@@ -30,3 +34,5 @@
                )))
 
 (provide 'init-helm)
+
+;;; init-helm.el ends here

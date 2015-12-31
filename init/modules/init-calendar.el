@@ -1,4 +1,5 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; -*-
+
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,8 +7,11 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
+
+;;; Commentary:
+
+;;; Code:
 
 ;; calendar
 (setq holiday-local-holidays '((holiday-fixed 2 14 "情人节")
@@ -61,3 +65,5 @@
 ;;      (cfw:install-org-schedules)))
 
 (provide 'init-calendar)
+
+;;; init-calendar.el ends here

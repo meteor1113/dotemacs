@@ -1,4 +1,5 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; -*-
+
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,8 +7,11 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
+
+;;; Commentary:
+
+;;; Code:
 
 ;; change-log-mode
 (add-hook 'change-log-mode-hook 'turn-on-auto-fill)
@@ -21,3 +25,5 @@
 ;; (autoload 'magit-status "magit" nil t)
 
 (provide 'init-vc)
+
+;;; init-vc.el ends here

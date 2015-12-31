@@ -1,4 +1,5 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; -*-
+
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,8 +7,11 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
+
+;;; Commentary:
+
+;;; Code:
 
 ;; artist-mode
 (defadvice artist-coord-win-to-buf (before tabbar-mode activate compile)
@@ -16,3 +20,5 @@
     (setq coord (cons (car coord) (1- (cdr coord))))))
 
 (provide 'init-artist)
+
+;;; init-artist.el ends here

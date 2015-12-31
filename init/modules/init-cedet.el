@@ -1,4 +1,5 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; -*-
+
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,8 +7,11 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
+
+;;; Commentary:
+
+;;; Code:
 
 ;; cedet
 (dolist (dir (mapcar 'expand-file-name '("~/.emacs.d/cedet-1.0pre6"
@@ -189,3 +193,5 @@ the mru bookmark stack."
     (add-hook 'next-error-hook 'pulse-line-hook-function)))
 
 (provide 'init-cedet)
+
+;;; init-cedet.el ends here

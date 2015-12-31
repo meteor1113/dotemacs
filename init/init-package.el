@@ -1,4 +1,5 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; -*-
+
 ;; Copyright (C) 2008- Liu Xin
 ;;
 ;; This code has been released into the Public Domain.
@@ -6,8 +7,11 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
+
+;;; Commentary:
+
+;;; Code:
 
 (let ((root-dir (if (boundp 'dotemacs-root-dir)
                     dotemacs-root-dir
@@ -113,3 +117,5 @@
                     (other-window 1))))
 
 (provide 'init-package)
+
+;;; init-package.el ends here
