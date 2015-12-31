@@ -1,5 +1,7 @@
 2015-12-31  Liu Xin  <meteor1113@qq.com>
 
+	* init/modules/init-flymake.el: Remove flymake.
+
 	* init/modules/init-flycheck.el: Add flycheck.
 
 2015-12-30  Liu Xin  <meteor1113@qq.com>
