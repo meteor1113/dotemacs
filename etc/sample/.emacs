@@ -4,11 +4,6 @@
 (add-to-list 'load-path "d:/project/common/dotemacs")
 (add-to-list 'load-path "e:/project/common/dotemacs")
 (load "init" 'noerror)
-;; (load "init-basic" 'noerror)
-;; (load "init-lisp" 'noerror)
-;; (load "init-elpa" 'noerror)
-;; (load "init-toolbar" 'noerror)
-;; (load "init-custom" t)
 
 (add-to-list 'load-path "d:/common/note")
 (add-to-list 'load-path "e:/common/note")
