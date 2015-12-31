@@ -67,6 +67,7 @@
                                                  svn-log-view-mode
                                                  svn-log-edit-mode
                                                  erc-mode
+                                                 flycheck-error-list-mode
                                                  gud-mode)))))
 
 (provide 'init-ecb)

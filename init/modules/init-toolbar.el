@@ -65,8 +65,8 @@
   :type 'boolean
   :group 'toolbarshow)
 
-(defcustom toolbarshow-flymake nil
-  "If show flymake toolbar."
+(defcustom toolbarshow-flycheck nil
+  "If show flycheck toolbar."
   :type 'boolean
   :group 'toolbarshow)
 
@@ -219,16 +219,10 @@
       :style toggle :selected drag-stuff-global-mode]
      ["electric-pair-mode" electric-pair-mode :active (fboundp 'electric-pair-mode)
       :style toggle :selected electric-pair-mode]
-     ["flymake-mode" flymake-mode :active (fboundp 'flymake-mode)
-      :style toggle :selected flymake-mode]
-     ["flymake-find-file-hook"
-      (lambda ()
-        (interactive)
-        (if (memq 'flymake-find-file-hook find-file-hook)
-            (remove-hook 'find-file-hook 'flymake-find-file-hook)
-          (add-hook 'find-file-hook 'flymake-find-file-hook)))
-      :active (fboundp 'flymake-find-file-hook)
-      :style toggle :selected (memq 'flymake-find-file-hook find-file-hook)]
+     ["flycheck-mode" flycheck-mode :active (fboundp 'flycheck-mode)
+      :style toggle :selected flycheck-mode]
+     ["flycheck-mode (global)" global-flycheck-mode :active (fboundp 'global-flycheck-mode)
+      :style toggle :selected global-flycheck-mode]
      ["goto-address-mode" goto-address-mode :active (fboundp 'goto-address-mode)
       :style toggle :selected goto-address-mode]
      ["hideshowvis-minor-mode" hideshowvis-minor-mode :active (fboundp 'hideshowvis-minor-mode)
@@ -247,7 +241,7 @@
       :style toggle :selected linum-mode]
      ["linum-mode (global)" global-linum-mode :active (fboundp 'global-linum-mode)
       :style toggle :selected global-linum-mode]
-     ["nyan-mode (global)" nyan-mode :active (fboundp 'nyan-mode)
+     ["nyan-mode" nyan-mode :active (fboundp 'nyan-mode)
       :style toggle :selected nyan-mode]
      ["outline-minor-mode" outline-minor-mode :active (fboundp 'outline-minor-mode)
       :style toggle :selected outline-minor-mode]
@@ -316,9 +310,9 @@
      ["Program Toolbar"
       (lambda () (interactive) (toolbarshow-toggle 'toolbarshow-program))
       :style toggle :selected toolbarshow-program]
-     ["Flymake Toolbar"
-      (lambda () (interactive) (toolbarshow-toggle 'toolbarshow-flymake))
-      :style toggle :selected toolbarshow-flymake]
+     ["Flycheck Toolbar"
+      (lambda () (interactive) (toolbarshow-toggle 'toolbarshow-flycheck))
+      :style toggle :selected toolbarshow-flycheck]
      ["Remember Toolbar"
       (lambda () (interactive) (toolbarshow-toggle 'toolbarshow-remember))
       :style toggle :selected toolbarshow-remember]
@@ -500,30 +494,34 @@
                    :visible 'toolbarshow-program
                    :help '(concat "Debugger (GDB)..." (key4cmd 'gdb)))
 
-;; flymake toolbar
-(tool-bar-add-item "separator" nil 'separator-flymake-toolbar
-                   :visible 'toolbarshow-flymake
+;; flycheck toolbar
+(tool-bar-add-item "separator" nil 'separator-flycheck-toolbar
+                   :visible 'toolbarshow-flycheck
                    :enable nil)
-(tool-bar-add-item "flymake-mode" 'flymake-mode 'flymake-mode
-                   :visible 'toolbarshow-flymake
-                   :button '(:toggle . flymake-mode)
-                   :help '(concat "Flymake Mode" (key4cmd 'flymake-mode)))
-(tool-bar-add-item "flymake-check" 'flymake-start-syntax-check 'flymake-check
-                   :visible 'toolbarshow-flymake
-                   :enable 'flymake-mode
-                   :help '(concat "Flymake - Start Check" (key4cmd 'flymake-start-syntax-check)))
-(tool-bar-add-item "flymake-prev" 'flymake-goto-prev-error 'flymake-prev
-                   :visible 'toolbarshow-flymake
-                   :enable 'flymake-mode
-                   :help '(concat "Flymake - Prev Error" (key4cmd 'flymake-goto-prev-error)))
-(tool-bar-add-item "flymake-next" 'flymake-goto-next-error 'flymake-next
-                   :visible 'toolbarshow-flymake
-                   :enable 'flymake-mode
-                   :help '(concat "Flymake - Next Error" (key4cmd 'flymake-goto-next-error)))
-(tool-bar-add-item "flymake-err-menu" 'flymake-display-err-menu-for-current-line 'flymake-err-menu
-                   :visible 'toolbarshow-flymake
-                   :enable 'flymake-mode
-                   :help '(concat "Flymake - Error Menu" (key4cmd 'flymake-display-err-menu-for-current-line)))
+(tool-bar-add-item "flycheck-mode" 'flycheck-mode 'flycheck-mode
+                   :visible 'toolbarshow-flycheck
+                   :button '(:toggle . flycheck-mode)
+                   :help '(concat "Flycheck Mode" (key4cmd 'flycheck-mode)))
+(tool-bar-add-item "flycheck-buffer" 'flycheck-buffer 'flycheck-buffer
+                   :visible 'toolbarshow-flycheck
+                   :enable 'flycheck-mode
+                   :help '(concat "Flycheck - Check" (key4cmd 'flycheck-buffer)))
+(tool-bar-add-item "flycheck-clear" 'flycheck-clear 'flycheck-clear
+                   :visible 'toolbarshow-flycheck
+                   :enable 'flycheck-mode
+                   :help '(concat "Flycheck - Clear" (key4cmd 'flycheck-clear)))
+(tool-bar-add-item "flycheck-previous-error" 'flycheck-previous-error 'flycheck-previous-error
+                   :visible 'toolbarshow-flycheck
+                   :enable 'flycheck-mode
+                   :help '(concat "Flycheck - Prev Error" (key4cmd 'flycheck-previous-error)))
+(tool-bar-add-item "flycheck-next-error" 'flycheck-next-error 'flycheck-next-error
+                   :visible 'toolbarshow-flycheck
+                   :enable 'flycheck-mode
+                   :help '(concat "Flycheck - Next Error" (key4cmd 'flycheck-next-error)))
+(tool-bar-add-item "flycheck-list-errors" 'flycheck-list-errors 'flycheck-list-errors
+                   :visible 'toolbarshow-flycheck
+                   :enable 'flycheck-mode
+                   :help '(concat "Flycheck - List Errors" (key4cmd 'flycheck-list-errors)))
 
 ;; remember toolbar
 (tool-bar-add-item "separator" nil 'separator-remember-toolbar
