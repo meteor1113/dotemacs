@@ -9,4 +9,14 @@
 ;; @date 2015-12-26
 ;; @URL http://git.oschina.net/meteor1113/dotemacs
 
+;; flycheck
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (global-flycheck-mode t))))
+
+;; flycheck-rust
+(add-hook 'flycheck-mode-hook
+          #'(lambda ()
+              (ignore-errors (flycheck-rust-setup))))
+
 (provide 'init-flycheck)
