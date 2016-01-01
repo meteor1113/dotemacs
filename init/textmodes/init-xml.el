@@ -70,8 +70,7 @@ by using nxml's indentation rules."
   (interactive "F")
   (if (xml-file-p file)
       (let ((buffer (find-file-noselect file))) ;; open buffer
-        (save-excursion
-          (set-buffer buffer)
+        (with-current-buffer buffer
           (format-xml)
           (save-buffer)
           (kill-buffer)

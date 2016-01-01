@@ -64,8 +64,7 @@
   (interactive "F")
   (if (cxx-file-p file)
       (let ((buffer (find-file-noselect file))) ;; open buffer
-        (save-excursion
-          (set-buffer buffer)
+        (with-current-buffer buffer
           ;; (mark-whole-buffer)
           (when (fboundp 'whitespace-cleanup)
             (whitespace-cleanup))
