@@ -19,7 +19,7 @@
 
 (register-input-method
  "chinese-wbim" "euc-cn" 'chinese-wbim-use-package
- "wubi" "chinese-wbim" "wb.txt")
+ "Wubi" "chinese-wbim" "wb.txt")
 (setq default-input-method 'chinese-wbim)
 
 (eval-after-load "chinese-wbim"
