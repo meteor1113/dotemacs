@@ -509,23 +509,23 @@
 (tool-bar-add-item "flycheck-buffer" 'flycheck-buffer 'flycheck-buffer
                    :visible 'toolbarshow-flycheck
                    :enable 'flycheck-mode
-                   :help '(concat "Flycheck - Check" (key4cmd 'flycheck-buffer)))
-(tool-bar-add-item "flycheck-clear" 'flycheck-clear 'flycheck-clear
+                   :help '(concat "Flycheck Buffer" (key4cmd 'flycheck-buffer)))
+(tool-bar-add-item "bm-clear" 'flycheck-clear 'flycheck-clear
                    :visible 'toolbarshow-flycheck
                    :enable 'flycheck-mode
-                   :help '(concat "Flycheck - Clear" (key4cmd 'flycheck-clear)))
+                   :help '(concat "Flycheck Clear" (key4cmd 'flycheck-clear)))
 (tool-bar-add-item "flycheck-previous-error" 'flycheck-previous-error 'flycheck-previous-error
                    :visible 'toolbarshow-flycheck
                    :enable 'flycheck-mode
-                   :help '(concat "Flycheck - Prev Error" (key4cmd 'flycheck-previous-error)))
+                   :help '(concat "Flycheck Previous Error" (key4cmd 'flycheck-previous-error)))
 (tool-bar-add-item "flycheck-next-error" 'flycheck-next-error 'flycheck-next-error
                    :visible 'toolbarshow-flycheck
                    :enable 'flycheck-mode
-                   :help '(concat "Flycheck - Next Error" (key4cmd 'flycheck-next-error)))
+                   :help '(concat "Flycheck Next Error" (key4cmd 'flycheck-next-error)))
 (tool-bar-add-item "flycheck-list-errors" 'flycheck-list-errors 'flycheck-list-errors
                    :visible 'toolbarshow-flycheck
                    :enable 'flycheck-mode
-                   :help '(concat "Flycheck - List Errors" (key4cmd 'flycheck-list-errors)))
+                   :help '(concat "Flycheck List Errors" (key4cmd 'flycheck-list-errors)))
 
 ;; remember toolbar
 (tool-bar-add-item "separator" nil 'separator-remember-toolbar
