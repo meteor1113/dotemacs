@@ -51,6 +51,7 @@
 (require 'init-csharp)
 (require 'init-emacs-lisp)
 (require 'init-go)
+(require 'init-haskell)
 (require 'init-java)
 (require 'init-javascript)
 (require 'init-perl)

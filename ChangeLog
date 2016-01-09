@@ -1,5 +1,7 @@
 2016-01-09  Liu Xin  <meteor1113@qq.com>
 
+	* init/progmodes/init-haskell.el: Add init-haskell.
+
 	* init/modules/init-toolbar.el: Remove flycheck-clear.xpm
 
 2015-12-31  Liu Xin  <meteor1113@qq.com>
