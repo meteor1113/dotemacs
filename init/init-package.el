@@ -21,6 +21,8 @@
                      (or load-file-name buffer-file-name)))))))
   (setq package-user-dir (expand-file-name "elpa" root-dir)))
 
+(setq package--init-file-ensured t)     ; Prevent package--ensure-init-file
+
 (when (require 'package nil 'noerror)
   ;; (add-to-list 'package-archives
   ;;              '("marmalade" . "https://marmalade-repo.org/packages/"))
