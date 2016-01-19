@@ -1,9 +1,10 @@
 ;;; async.el --- Asynchronous processing in Emacs
 
-;; Copyright (C) 2012~2014 John Wiegley
+;; Copyright (C) 2012-2016 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <jwiegley@gmail.com>
 ;; Created: 18 Jun 2012
+;; Version: 1.6
 
 ;; Keywords: async
 ;; X-URL: https://github.com/jwiegley/emacs-async
@@ -42,6 +43,7 @@
 (defvar async-callback-value nil)
 (defvar async-callback-value-set nil)
 (defvar async-current-process nil)
+(defvar async--procvar nil)
 
 (defun async-inject-variables
   (include-regexp &optional predicate exclude-regexp)
@@ -119,7 +121,9 @@ as follows:
 
 (defun async--receive-sexp (&optional stream)
   (let ((sexp (decode-coding-string (base64-decode-string
-                                     (read stream)) 'utf-8-unix)))
+                                     (read stream)) 'utf-8-unix))
+	;; Parent expects UTF-8 encoded text.
+	(coding-system-for-write 'utf-8-unix))
     (if async-debug
         (message "Received sexp {{{%s}}}" (pp-to-string sexp)))
     (setq sexp (read sexp))
@@ -128,7 +132,10 @@ as follows:
     (eval sexp)))
 
 (defun async--insert-sexp (sexp)
-  (let (print-level print-length)
+  (let (print-level
+	print-length
+	(print-escape-nonascii t)
+	(print-circle t))
     (prin1 sexp (current-buffer))
     ;; Just in case the string we're sending might contain EOF
     (encode-coding-region (point-min) (point-max) 'utf-8-unix)
@@ -145,18 +152,21 @@ as follows:
 
 (defun async-batch-invoke ()
   "Called from the child Emacs process' command-line."
-  (setq async-in-child-emacs t
-        debug-on-error async-debug)
-  (if debug-on-error
-      (prin1 (funcall
-              (async--receive-sexp (unless async-send-over-pipe
-                                     command-line-args-left))))
-    (condition-case err
-        (prin1 (funcall
-                (async--receive-sexp (unless async-send-over-pipe
-                                       command-line-args-left))))
-      (error
-       (prin1 (list 'async-signal err))))))
+  ;; Make sure 'message' and 'prin1' encode stuff in UTF-8, as parent
+  ;; process expects.
+  (let ((coding-system-for-write 'utf-8-unix))
+    (setq async-in-child-emacs t
+	  debug-on-error async-debug)
+    (if debug-on-error
+	(prin1 (funcall
+		(async--receive-sexp (unless async-send-over-pipe
+				       command-line-args-left))))
+      (condition-case err
+	  (prin1 (funcall
+		  (async--receive-sexp (unless async-send-over-pipe
+					 command-line-args-left))))
+	(error
+	 (prin1 (list 'async-signal err)))))))
 
 (defun async-ready (future)
   "Query a FUTURE to see if the ready is ready -- i.e., if no blocking
@@ -214,7 +224,7 @@ working directory."
       proc)))
 
 ;;;###autoload
-(defmacro async-start (start-func &optional finish-func)
+(defun async-start (start-func &optional finish-func)
   "Execute START-FUNC (often a lambda) in a subordinate Emacs process.
 When done, the return value is passed to FINISH-FUNC.  Example:
 
@@ -261,28 +271,28 @@ returned except that it yields no value (since the value is
 passed to FINISH-FUNC).  Call `async-get' on such a future always
 returns nil.  It can still be useful, however, as an argument to
 `async-ready' or `async-wait'."
-  (require 'find-func)
-  (let ((procvar (make-symbol "proc")))
-    `(let* ((sexp ,start-func)
-            (,procvar
-             (async-start-process
-              "emacs" (file-truename
-                       (expand-file-name invocation-name
-                                         invocation-directory))
-              ,finish-func
-              "-Q" "-l"
-              ;; Using `locate-library' ensure we use the right file
-              ;; when the .elc have been deleted.
-              ,(locate-library "async")
-              "-batch" "-f" "async-batch-invoke"
-              (if async-send-over-pipe
-                  "<none>"
-                (with-temp-buffer
-                  (async--insert-sexp (list 'quote sexp))
-                  (buffer-string))))))
-       (if async-send-over-pipe
-           (async--transmit-sexp ,procvar (list 'quote sexp)))
-       ,procvar)))
+  (let ((sexp start-func)
+	;; Subordinate Emacs will send text encoded in UTF-8.
+	(coding-system-for-read 'utf-8-unix))
+    (setq async--procvar
+          (async-start-process
+           "emacs" (file-truename
+                    (expand-file-name invocation-name
+                                      invocation-directory))
+           finish-func
+           "-Q" "-l"
+           ;; Using `locate-library' ensure we use the right file
+           ;; when the .elc have been deleted.
+           (locate-library "async")
+           "-batch" "-f" "async-batch-invoke"
+           (if async-send-over-pipe
+               "<none>"
+               (with-temp-buffer
+                 (async--insert-sexp (list 'quote sexp))
+                 (buffer-string)))))
+    (if async-send-over-pipe
+        (async--transmit-sexp async--procvar (list 'quote sexp)))
+    async--procvar))
 
 (defmacro async-sandbox(func)
   "Evaluate FUNC in a separate Emacs process, synchronously."
