@@ -1,3 +1,7 @@
+2016-01-19  Liu Xin  <meteor1113@qq.com>
+
+	* init/textmodes/init-org.el ("org"): Fix for yasnippet.
+
 2016-01-09  Liu Xin  <meteor1113@qq.com>
 
 	* init/progmodes/init-haskell.el: Add init-haskell.

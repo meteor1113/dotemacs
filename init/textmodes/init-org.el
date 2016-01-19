@@ -36,12 +36,13 @@
      (define-key org-mode-map (kbd "<C-S-tab>") 'org-force-cycle-archived)))
 
 (eval-after-load "org"
-  '(add-hook 'org-mode-hook
-             (let ((original-command (lookup-key org-mode-map [tab])))
-               `(lambda ()
-                  (setq yas-fallback-behavior
-                        '(apply ,original-command))
-                  (local-set-key [tab] 'yas-expand)))))
+  '(eval-after-load "yasnippet"
+     '(add-hook 'org-mode-hook
+                (let ((original-command (lookup-key org-mode-map [tab])))
+                  `(lambda ()
+                     (setq yas-fallback-behavior
+                           '(apply ,original-command))
+                     (local-set-key [tab] 'yas-expand))))))
 
 (provide 'init-org)
 
