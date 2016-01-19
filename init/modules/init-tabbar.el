@@ -22,10 +22,10 @@
 (eval-after-load "tabbar"
   '(progn
      ;; backup tabbar.el's button image
-     (setq tabbar-home-button-enabled-image-orig tabbar-home-button-enabled-image
-           tabbar-home-button-disabled-image-orig tabbar-home-button-disabled-image
-           tabbar-scroll-left-button-enabled-image-orig tabbar-scroll-left-button-enabled-image
-           tabbar-scroll-right-button-enabled-image-orig tabbar-scroll-right-button-enabled-image)
+     ;; (setq tabbar-home-button-enabled-image-orig tabbar-home-button-enabled-image
+     ;;       tabbar-home-button-disabled-image-orig tabbar-home-button-disabled-image
+     ;;       tabbar-scroll-left-button-enabled-image-orig tabbar-scroll-left-button-enabled-image
+     ;;       tabbar-scroll-right-button-enabled-image-orig tabbar-scroll-right-button-enabled-image)
 
      (defadvice tabbar-buffer-tab-label (after modified-flag activate)
        (setq ad-return-value
@@ -54,29 +54,31 @@
 ;; tabbar-ruler
 (setq tabbar-ruler-invert-deselected nil)
 (setq tabbar-ruler-movement-timer-delay 10000)
-(add-hook 'after-init-hook '(lambda () (require 'tabbar-ruler nil 'noerror)) t)
+(add-hook 'after-init-hook
+          '(lambda ()
+             (require 'tabbar-ruler nil 'noerror)) t)
 
 (eval-after-load "tabbar-ruler"
   '(progn
      (tabbar-ruler-remove-caches)
 
      ;; restore tabbar.el's button image
-     (setq tabbar-home-button-enabled-image tabbar-home-button-enabled-image-orig
-           tabbar-home-button-disabled-image tabbar-home-button-disabled-image-orig
-           tabbar-scroll-left-button-enabled-image tabbar-scroll-left-button-enabled-image-orig
-           tabbar-scroll-right-button-enabled-image tabbar-scroll-right-button-enabled-image-orig)
-     (setq tabbar-home-button
-           (cons (cons "[o]" tabbar-home-button-enabled-image)
-                 (cons "[x]" tabbar-home-button-disabled-image)))
-     (setq tabbar-buffer-home-button
-           (cons (cons "[+]" tabbar-home-button-enabled-image)
-                 (cons "[-]" tabbar-home-button-disabled-image)))
-     (setq tabbar-scroll-left-button
-           (cons (cons " <" tabbar-scroll-left-button-enabled-image)
-                 (cons " =" nil)))
-     (setq tabbar-scroll-right-button
-           (cons (cons " >" tabbar-scroll-right-button-enabled-image)
-                 (cons " =" nil)))
+     ;; (setq tabbar-home-button-enabled-image tabbar-home-button-enabled-image-orig
+     ;;       tabbar-home-button-disabled-image tabbar-home-button-disabled-image-orig
+     ;;       tabbar-scroll-left-button-enabled-image tabbar-scroll-left-button-enabled-image-orig
+     ;;       tabbar-scroll-right-button-enabled-image tabbar-scroll-right-button-enabled-image-orig)
+     ;; (setq tabbar-home-button
+     ;;       (cons (cons "[o]" tabbar-home-button-enabled-image)
+     ;;             (cons "[x]" tabbar-home-button-disabled-image)))
+     ;; (setq tabbar-buffer-home-button
+     ;;       (cons (cons "[+]" tabbar-home-button-enabled-image)
+     ;;             (cons "[-]" tabbar-home-button-disabled-image)))
+     ;; (setq tabbar-scroll-left-button
+     ;;       (cons (cons " <" tabbar-scroll-left-button-enabled-image)
+     ;;             (cons " =" nil)))
+     ;; (setq tabbar-scroll-right-button
+     ;;       (cons (cons " >" tabbar-scroll-right-button-enabled-image)
+     ;;             (cons " =" nil)))
 
      (defadvice tabbar-popup-menu (after add-menu-item activate)
        "Add customize menu item to tabbar popup menu."
@@ -99,21 +101,12 @@
                         :active (and buffer-file-name
                                      (eq system-type 'windows-nt)
                                      (require 'w32-browser nil 'noerror))]
-                       ;; ["Open Dired" (dired
-                       ;;                (let ((file (buffer-file-name
-                       ;;                             (tabbar-tab-value
-                       ;;                              tabbar-last-tab))))
-                       ;;                  (if file
-                       ;;                      (file-name-directory file)
-                       ;;                    default-directory)))
-                       ;;  :active (buffer-file-name
-                       ;;           (tabbar-tab-value tabbar-last-tab))]
                        "--"
                        ["Undo Close Tab" undo-kill-buffer
                         :active (fboundp 'undo-kill-buffer)]))))
 
      (defadvice tabbar-line-tab (around window-or-terminal activate)
-       "Fix tabbar-ruler in window-system and terminal"
+       "Fix tabbar-ruler in terminal"
        (if window-system
            ad-do-it
          (setq ad-return-value
@@ -134,19 +127,19 @@
                           'pointer 'hand)
                          tabbar-separator-value)))))
 
-     ;; (unless (eq system-type 'windows-nt)
-     (set-face-attribute 'tabbar-default nil
-                         :family (face-attribute 'default :family))
-     (add-hook 'after-make-frame-functions
-               (lambda (frame)
-                 (with-selected-frame frame
-                   (set-face-attribute 'tabbar-default frame
-                                       :family (face-attribute 'default
-                                                               :family)))));; )
+     ;; ;; (unless (eq system-type 'windows-nt)
+     ;; (set-face-attribute 'tabbar-default nil
+     ;;                     :family (face-attribute 'default :family))
+     ;; (add-hook 'after-make-frame-functions
+     ;;           (lambda (frame)
+     ;;             (with-selected-frame frame
+     ;;               (set-face-attribute 'tabbar-default frame
+     ;;                                   :family (face-attribute 'default
+     ;;                                                           :family)))));; )
+     ;; (setq tabbar-ruler-excluded-buffers '())
      (set-face-attribute 'tabbar-selected nil
                          :foreground "blue")
-     (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
-     (setq tabbar-ruler-excluded-buffers '())))
+     (tabbar-ruler-group-buffer-groups)))
 
 (provide 'init-tabbar)
 
