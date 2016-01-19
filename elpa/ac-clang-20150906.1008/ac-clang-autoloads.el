@@ -1,10 +1,10 @@
 ;;; ac-clang-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil nil ("ac-clang-pkg.el" "ac-clang.el") (22139
-;;;;;;  38024 603989 400000))
+;;;### (autoloads nil nil ("ac-clang-pkg.el" "ac-clang.el") (22173
+;;;;;;  63394 0 0))
 
 ;;;***
 
