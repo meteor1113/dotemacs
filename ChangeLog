@@ -1,5 +1,7 @@
 2016-01-19  Liu Xin  <meteor1113@qq.com>
 
+	* init/modules/init-highlight.el (after-init-hook): Setting for volatile-highlights.
+
 	* init/modules/init-tabbar.el: Update tabbar setting for tabbar-ruler-20160115.923
 
 	* init/textmodes/init-org.el ("org"): Fix for yasnippet.

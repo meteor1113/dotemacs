@@ -168,7 +168,8 @@
 (autoload 'volatile-highlights-mode "volatile-highlights" nil t)
 (add-hook 'after-init-hook
           '(lambda ()
-             (ignore-errors (volatile-highlights-mode t))))
+             (when (require 'volatile-highlights nil 'noerror)
+               (volatile-highlights-mode t))))
 
 (provide 'init-highlight)
 
