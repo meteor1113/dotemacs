@@ -1,5 +1,7 @@
 2016-01-19  Liu Xin  <meteor1113@qq.com>
 
+	* init/modules/init-cedet.el (featurep): Fix called-interactively-p.
+
 	* init.el: Add 'noerror for require.
 
 	* init/modules/init-highlight.el (after-init-hook): Setting for volatile-highlights.
