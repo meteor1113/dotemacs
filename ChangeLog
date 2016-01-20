@@ -1,5 +1,7 @@
 2016-01-20  Liu Xin  <meteor1113@qq.com>
 
+	* init/init-editor.el: Keep desktop-load-locked-desktop to 'ask.
+
 	* init.el: Don't server-start automatic.
 
 2016-01-19  Liu Xin  <meteor1113@qq.com>

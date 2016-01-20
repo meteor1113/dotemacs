@@ -171,8 +171,8 @@
 ;; (setq kept-new-versions 5)
 ;; (setq version-control t)
 
-(setq desktop-load-locked-desktop nil
-      desktop-not-loaded-hook (quote (desktop-save-mode-off)))
+;; (setq desktop-load-locked-desktop nil)  ; 'ask
+(setq desktop-not-loaded-hook (quote (desktop-save-mode-off)))
 (and (fboundp 'desktop-save-mode)
      (not (daemonp))
      (desktop-save-mode (if window-system 1 -1)))
