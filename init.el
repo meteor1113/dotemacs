@@ -39,7 +39,7 @@
 (require 'init-hideshow nil 'noerror)
 (require 'init-highlight nil 'noerror)
 (require 'init-leim nil 'noerror)
-(require 'init-server nil 'noerror)
+;; (require 'init-server nil 'noerror)
 (require 'init-tabbar nil 'noerror)
 (require 'init-toolbar nil 'noerror)
 (require 'init-vc nil 'noerror)
