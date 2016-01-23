@@ -42,6 +42,20 @@
 (eval-after-load "ace-jump-mode"
   '(set-face-background 'ace-jump-face-foreground "yellow"))
 
+;; anzu
+(custom-set-variables
+ '(anzu-mode-lighter "")
+ '(anzu-search-threshold 1000)
+ '(anzu-replace-threshold 50)
+ '(anzu-replace-to-string-separator " => "))
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (global-anzu-mode +1))))
+(eval-after-load "anzu"
+  '(progn
+     (global-set-key (kbd "M-%") 'anzu-query-replace)
+     (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)))
+
 ;; ascii
 
 ;; color-theme

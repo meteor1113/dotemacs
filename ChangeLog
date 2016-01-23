@@ -1,3 +1,7 @@
+2016-01-23  Liu Xin  <meteor1113@qq.com>
+
+	* init/init-package.el: Add package anzu.
+
 2016-01-20  Liu Xin  <meteor1113@qq.com>
 
 	* init/init-editor.el: Keep desktop-load-locked-desktop to 'ask.
