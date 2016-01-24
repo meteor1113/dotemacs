@@ -42,6 +42,11 @@
 (eval-after-load "ace-jump-mode"
   '(set-face-background 'ace-jump-face-foreground "yellow"))
 
+;; aggressive-indent
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (global-aggressive-indent-mode 1))))
+
 ;; anzu
 (custom-set-variables
  '(anzu-mode-lighter "")

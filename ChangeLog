@@ -2,6 +2,7 @@
 
 	* init/init-package.el: Add package minimap.
 	(after-init-hook): Add package symon.
+	(after-init-hook): Add package aggressive-indent.
 
 	* init/progmodes/init-gdb.el: Split init-cc to init-cc and init-gdb.
 
