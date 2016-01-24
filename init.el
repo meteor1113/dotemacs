@@ -50,6 +50,7 @@
 (require 'init-cc nil 'noerror)
 (require 'init-csharp nil 'noerror)
 (require 'init-emacs-lisp nil 'noerror)
+(require 'init-gdb nil 'noerror)
 (require 'init-go nil 'noerror)
 (require 'init-haskell nil 'noerror)
 (require 'init-java nil 'noerror)
