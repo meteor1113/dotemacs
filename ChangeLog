@@ -1,5 +1,7 @@
 2016-01-24  Liu Xin  <meteor1113@qq.com>
 
+	* init/init-package.el: Add package minimap.
+
 	* init/progmodes/init-gdb.el: Split init-cc to init-cc and init-gdb.
 
 	* init/init-package.el (after-init-hook): Add pacage smex.
