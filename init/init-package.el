@@ -122,6 +122,11 @@
                ;; This is your old M-x.
                (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))))
 
+;; symon
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (symon-mode 1))))
+
 ;; undo-tree
 ;; (autoload 'undo-tree-mode "undo-tree" nil t)
 ;; (autoload 'global-undo-tree-mode "undo-tree" nil t)

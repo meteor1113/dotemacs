@@ -1,6 +1,7 @@
 2016-01-24  Liu Xin  <meteor1113@qq.com>
 
 	* init/init-package.el: Add package minimap.
+	(after-init-hook): Add package symon.
 
 	* init/progmodes/init-gdb.el: Split init-cc to init-cc and init-gdb.
 
