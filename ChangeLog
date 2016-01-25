@@ -1,3 +1,7 @@
+2016-01-25  Liu Xin  <meteor1113@qq.com>
+
+	* init/modules/init-toolbar.el: Update toolbar menu.
+
 2016-01-24  Liu Xin  <meteor1113@qq.com>
 
 	* init/init-package.el: Add package minimap.

@@ -213,8 +213,14 @@
       :style radio :selected (eq major-mode 'nxml-mode)])
 
     ("Minor Mode"
+     ["aggressive-indent-mode" aggressive-indent-mode :active (fboundp 'aggressive-indent-mode)
+      :style toggle :selected aggressive-indent-mode]
+     ["aggressive-indent-mode (global)" global-aggressive-indent-mode :active (fboundp 'global-aggressive-indent-mode)
+      :style toggle :selected global-aggressive-indent-mode]
      ["artist-mode" artist-mode :active (fboundp 'artist-mode)
       :style toggle :selected artist-mode]
+     ["anzu-mode (global)" global-anzu-mode :active (fboundp 'global-anzu-mode)
+      :style toggle :selected global-anzu-mode]
      ["auto-complete-mode (global)" global-auto-complete-mode :active (fboundp 'global-auto-complete-mode)
       :style toggle :selected global-auto-complete-mode]
      ["diff-hl-mode (global)" global-diff-hl-mode :active (fboundp 'global-diff-hl-mode)
@@ -245,6 +251,8 @@
       :style toggle :selected linum-mode]
      ["linum-mode (global)" global-linum-mode :active (fboundp 'global-linum-mode)
       :style toggle :selected global-linum-mode]
+     ["minimap-mode" minimap-mode :active (fboundp 'minimap-mode)
+      :style toggle :selected minimap-mode]
      ["nyan-mode" nyan-mode :active (fboundp 'nyan-mode)
       :style toggle :selected nyan-mode]
      ["outline-minor-mode" outline-minor-mode :active (fboundp 'outline-minor-mode)
@@ -257,6 +265,8 @@
       :style toggle :selected rainbow-mode]
      ["ruler-mode" ruler-mode :active (fboundp 'ruler-mode)
       :style toggle :selected ruler-mode]
+     ["symon-mode" symon-mode :active (fboundp 'symon-mode)
+      :style toggle :selected symon-mode]
      ["tabbar-mode" tabbar-mode :active (fboundp 'tabbar-mode)
       :style toggle :selected tabbar-mode]
      ["undo-tree-mode" undo-tree-mode :active (fboundp 'undo-tree-mode)
