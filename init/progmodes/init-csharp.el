@@ -20,7 +20,7 @@
 (add-hook 'csharp-mode-hook
           '(lambda ()
              ;; (setq imenu-generic-expression cc-imenu-java-generic-expression)
-             (c-set-style "c#")))
+             (c-set-style "C#"))) ; c-set-style maybe fail when start csharp-mode
 
 (provide 'init-csharp)
 
