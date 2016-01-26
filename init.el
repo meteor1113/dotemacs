@@ -34,6 +34,7 @@
 (require 'init-dired nil 'noerror)
 (require 'init-ecb nil 'noerror)
 (require 'init-emms nil 'noerror)
+(require 'init-fci nil 'noerror)
 (require 'init-flycheck nil 'noerror)
 (require 'init-helm nil 'noerror)
 (require 'init-hideshow nil 'noerror)

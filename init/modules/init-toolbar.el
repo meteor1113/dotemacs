@@ -231,6 +231,8 @@
       :style toggle :selected electric-pair-mode]
      ["fci-mode" fci-mode :active (fboundp 'fci-mode)
       :style toggle :selected fci-mode]
+     ["fci-mode (global)" global-fci-mode :active (fboundp 'global-fci-mode)
+      :style toggle :selected global-fci-mode]
      ["flycheck-mode" flycheck-mode :active (fboundp 'flycheck-mode)
       :style toggle :selected flycheck-mode]
      ["flycheck-mode (global)" global-flycheck-mode :active (fboundp 'global-flycheck-mode)

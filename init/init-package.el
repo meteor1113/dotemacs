@@ -71,12 +71,6 @@
           '(lambda ()
              (ignore-errors (drag-stuff-global-mode t))))
 
-;; fill-column-indicator
-;; (autoload 'fci-mode "fill-column-indicator" nil t)
-(setq fci-rule-column 80)
-(setq fci-rule-use-dashes t)
-(setq fci-dash-pattern 0.25)
-
 ;; mark-multiple
 ;; (require 'inline-string-rectangle)
 ;; (global-set-key (kbd "C-x r t") 'inline-string-rectangle)
