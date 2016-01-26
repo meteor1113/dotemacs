@@ -1,5 +1,7 @@
 2016-01-26  Liu Xin  <meteor1113@qq.com>
 
+	* init/progmodes/init-haskell.el: Add package ghc and company-ghc.
+
 	* init/modules/init-fci.el: Config fill-column-indicator.
 
 	* init/progmodes/init-prog.el: Only enable fci-mode in window-system.
