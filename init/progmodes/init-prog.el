@@ -18,7 +18,7 @@
           '(lambda ()
              (setq indent-tabs-mode nil)
              (ignore-errors (whitespace-mode t))
-             (ignore-errors (fci-mode 1))
+             (when window-system (ignore-errors (fci-mode 1)))
              (linum-mode 1)
              ;; (or (ignore-errors (hideshowvis-minor-mode t)) (hs-minor-mode t))
              (hs-minor-mode t)
