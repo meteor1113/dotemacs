@@ -14,9 +14,9 @@
 ;;; Code:
 
 ;; flycheck
-(add-hook 'after-init-hook
-          '(lambda ()
-             (ignore-errors (global-flycheck-mode t))))
+;; (add-hook 'after-init-hook
+;;           '(lambda ()
+;;              (ignore-errors (global-flycheck-mode t))))
 
 (eval-after-load "flycheck"
   '(progn
