@@ -148,6 +148,8 @@
        :style radio :selected (eq major-mode 'f90-mode)])
      ["Go" go-mode :active (fboundp 'go-mode)
       :style radio :selected (eq major-mode 'go-mode)]
+     ["Haskell" haskell-mode :active (fboundp 'haskell-mode)
+      :style radio :selected (eq major-mode 'haskell-mode)]
      ["Hex" hexl-mode :active (fboundp 'hexl-mode)
       :style radio :selected (eq major-mode 'hexl-mode)]
      ["HTML" html-mode :active (fboundp 'html-mode)
