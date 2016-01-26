@@ -14,9 +14,9 @@
 ;;; Code:
 
 ;; cc-mode
-(add-hook 'c-mode-common-hook
-          '(lambda ()
-             (ignore-errors (whitespace-mode t))))
+;; (add-hook 'c-mode-common-hook
+;;           '(lambda ()
+;;              (ignore-errors (whitespace-mode t))))
 
 (defun c-mode-font-lock-if0 (limit)
   (save-restriction

@@ -14,9 +14,9 @@
 ;;; Code:
 
 ;; python-mode
-(add-hook 'python-mode-hook
-          '(lambda ()
-             (ignore-errors (whitespace-mode t))))
+;; (add-hook 'python-mode-hook
+;;           '(lambda ()
+;;              (ignore-errors (whitespace-mode t))))
 
 ;; auto-complete
 (eval-after-load "auto-complete-config"

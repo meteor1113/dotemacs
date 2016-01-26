@@ -14,9 +14,9 @@
 ;;; Code:
 
 ;; sh-mode
-(add-hook 'sh-mode-hook
-          '(lambda ()
-             (ignore-errors (whitespace-mode t))))
+;; (add-hook 'sh-mode-hook
+;;           '(lambda ()
+;;              (ignore-errors (whitespace-mode t))))
 
 ;; shell-mode
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)

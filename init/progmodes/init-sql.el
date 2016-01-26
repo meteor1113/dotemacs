@@ -15,9 +15,9 @@
 
 ;; sql-mode
 (add-to-list 'auto-mode-alist '("\\.[pP][rR][cC]\\'" . sql-mode))
-(add-hook 'sql-mode-hook
-          '(lambda ()
-             (ignore-errors (whitespace-mode t))))
+;; (add-hook 'sql-mode-hook
+;;           '(lambda ()
+;;              (ignore-errors (whitespace-mode t))))
 
 ;; plsql
 (autoload 'plsql-mode "plsql" nil t)

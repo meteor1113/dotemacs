@@ -73,6 +73,9 @@
 
 ;; fill-column-indicator
 ;; (autoload 'fci-mode "fill-column-indicator" nil t)
+(setq fci-rule-column 80)
+(setq fci-rule-use-dashes t)
+(setq fci-dash-pattern 0.25)
 
 ;; mark-multiple
 ;; (require 'inline-string-rectangle)
@@ -128,9 +131,9 @@
                (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))))
 
 ;; symon
-(add-hook 'after-init-hook
-          '(lambda ()
-             (ignore-errors (symon-mode 1))))
+;; (add-hook 'after-init-hook
+;;           '(lambda ()
+;;              (ignore-errors (symon-mode 1))))
 
 ;; undo-tree
 ;; (autoload 'undo-tree-mode "undo-tree" nil t)

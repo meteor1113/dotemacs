@@ -1,4 +1,10 @@
+2016-01-26  Liu Xin  <meteor1113@qq.com>
+
+	* init/init-package.el (fci-dash-pattern): Config fci-mode and whitespace.
+
 2016-01-25  Liu Xin  <meteor1113@qq.com>
+
+	* init/init-package.el: Disable symon-mode default.
 
 	* init/modules/init-toolbar.el: Update toolbar menu.
 

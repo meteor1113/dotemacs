@@ -16,7 +16,7 @@
 ;; emacs-lisp-mode
 (add-hook 'emacs-lisp-mode-hook
           '(lambda ()
-             (ignore-errors (whitespace-mode t))
+             ;; (ignore-errors (whitespace-mode t))
              (turn-on-eldoc-mode)))
 
 ;; hl-defined

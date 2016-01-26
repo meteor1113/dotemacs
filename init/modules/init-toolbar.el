@@ -229,6 +229,8 @@
       :style toggle :selected drag-stuff-global-mode]
      ["electric-pair-mode" electric-pair-mode :active (fboundp 'electric-pair-mode)
       :style toggle :selected electric-pair-mode]
+     ["fci-mode" fci-mode :active (fboundp 'fci-mode)
+      :style toggle :selected fci-mode]
      ["flycheck-mode" flycheck-mode :active (fboundp 'flycheck-mode)
       :style toggle :selected flycheck-mode]
      ["flycheck-mode (global)" global-flycheck-mode :active (fboundp 'global-flycheck-mode)

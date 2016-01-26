@@ -14,9 +14,9 @@
 ;;; Code:
 
 ;; perl-mode
-(add-hook 'perl-mode-hook
-          '(lambda ()
-             (ignore-errors (whitespace-mode t))))
+;; (add-hook 'perl-mode-hook
+;;           '(lambda ()
+;;              (ignore-errors (whitespace-mode t))))
 
 ;; cperl-mode
 (add-to-list 'auto-mode-alist
@@ -26,12 +26,6 @@
 (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
 (add-hook 'cperl-mode-hook
           '(lambda ()
-             (setq indent-tabs-mode nil)
-             (ignore-errors (whitespace-mode t))
-             (linum-mode 1)
-             ;; (or (ignore-errors (hideshowvis-minor-mode t)) (hs-minor-mode t))
-             (hs-minor-mode t)
-             (ignore-errors (imenu-add-menubar-index))
              (cperl-set-style "PerlStyle")
              (setq cperl-continued-brace-offset -4)
              (abbrev-mode t)))

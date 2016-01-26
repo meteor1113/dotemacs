@@ -19,8 +19,8 @@
 ;;       (append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
 (add-hook 'csharp-mode-hook
           '(lambda ()
-             (c-set-style "c#")
-             (setq imenu-generic-expression cc-imenu-java-generic-expression)))
+             ;; (setq imenu-generic-expression cc-imenu-java-generic-expression)
+             (c-set-style "c#")))
 
 (provide 'init-csharp)
 
