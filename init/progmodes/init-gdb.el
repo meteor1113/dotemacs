@@ -100,7 +100,9 @@
 (setq gdb-many-windows t)
 (setq gdb-use-separate-io-buffer t)
 ;; (gud-tooltip-mode t)
-(define-key c-mode-base-map [f5] 'gdb)
+(eval-after-load "cc-mode"
+  '(progn
+     (define-key c-mode-base-map [f5] 'gdb)))
 
 (eval-after-load "gud"
   '(progn

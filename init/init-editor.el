@@ -145,14 +145,14 @@
      "Hack whitespace, it's very slow in c++-mode."))
 
 (which-function-mode t)
-(global-cwarn-mode 1)
+;; (global-cwarn-mode 1)
 (global-auto-revert-mode t)
 (setq compilation-auto-jump-to-first-error t)
 (setq compilation-scroll-output t)
 
 (setq generic-define-mswindows-modes t)
 (setq generic-define-unix-modes t)
-(require 'generic-x nil 'noerror)
+;; (require 'generic-x nil 'noerror)
 
 (auto-image-file-mode t)
 (ignore-errors (winner-mode 1))

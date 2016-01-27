@@ -14,9 +14,9 @@
 ;;; Code:
 
 ;; cc-mode
-;; (add-hook 'c-mode-common-hook
-;;           '(lambda ()
-;;              (ignore-errors (whitespace-mode t))))
+(add-hook 'c-mode-common-hook
+          '(lambda ()
+             (ignore-errors (turn-on-cwarn-mode-if-enabled))))
 
 (defun c-mode-font-lock-if0 (limit)
   (save-restriction

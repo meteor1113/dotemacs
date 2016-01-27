@@ -1,3 +1,8 @@
+2016-01-27  Liu Xin  <meteor1113@qq.com>
+
+	* init/init-editor.el: Disable global-cwarn-mode.
+	Don't load generic-x at start up.
+
 2016-01-26  Liu Xin  <meteor1113@qq.com>
 
 	* init/modules/init-toolbar.el: Update major mode menu for haskell.
