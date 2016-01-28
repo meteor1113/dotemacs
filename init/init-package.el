@@ -23,12 +23,13 @@
 
 (setq package--init-file-ensured t)     ; Prevent package--ensure-init-file
 
-(when (require 'package nil 'noerror)
-  ;; (add-to-list 'package-archives
-  ;;              '("marmalade" . "https://marmalade-repo.org/packages/"))
-  (add-to-list 'package-archives
-               '("melpa-stable" . "http://stable.melpa.org/packages/"))
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/")))
+(eval-after-load "package"
+  '(progn
+     ;; (add-to-list 'package-archives
+     ;;              '("marmalade" . "https://marmalade-repo.org/packages/"))
+     (add-to-list 'package-archives
+                  '("melpa-stable" . "http://stable.melpa.org/packages/"))
+     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))))
 
 (defun compile-all-packages ()
   "Byte-compile all installed packages."
@@ -53,9 +54,10 @@
  '(anzu-search-threshold 1000)
  '(anzu-replace-threshold 50)
  '(anzu-replace-to-string-separator " => "))
-(add-hook 'after-init-hook
-          '(lambda ()
-             (ignore-errors (global-anzu-mode +1))))
+;; (add-hook 'after-init-hook
+;;           '(lambda ()
+;;              (ignore-errors (global-anzu-mode +1))))
+(run-with-idle-timer 3 nil #'global-anzu-mode +1)
 (eval-after-load "anzu"
   '(progn
      (global-set-key (kbd "M-%") 'anzu-query-replace)
@@ -67,9 +69,10 @@
 
 ;; drag-stuff
 ;; (autoload 'drag-stuff-global-mode "drag-stuff" "Toggle Drag-Stuff mode." t)
-(add-hook 'after-init-hook
-          '(lambda ()
-             (ignore-errors (drag-stuff-global-mode t))))
+;; (add-hook 'after-init-hook
+;;           '(lambda ()
+;;              (ignore-errors (drag-stuff-global-mode t))))
+(run-with-idle-timer 3 nil #'drag-stuff-global-mode t)
 
 ;; mark-multiple
 ;; (require 'inline-string-rectangle)
@@ -105,9 +108,10 @@
 ;; projectile
 ;; (autoload 'projectile-mode "projectile" nil t)
 ;; (autoload 'projectile-global-mode "projectile" nil t)
-(add-hook 'after-init-hook
-          '(lambda ()
-             (ignore-errors (projectile-global-mode 1))))
+;; (add-hook 'after-init-hook
+;;           '(lambda ()
+;;              (ignore-errors (projectile-global-mode 1))))
+(run-with-idle-timer 3 nil #'projectile-global-mode 1)
 
 ;; rainbow-mode
 ;; (autoload 'rainbow-mode "rainbow-mode" nil t)

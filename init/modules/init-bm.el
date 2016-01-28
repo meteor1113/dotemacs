@@ -21,7 +21,9 @@
       (if (and window-system (> emacs-major-version 21))
           'bm-highlight-only-fringe
         'bm-highlight-only-line))
-(add-hook 'after-init-hook '(lambda () (require 'bm nil 'noerror)))
+(add-hook 'after-init-hook
+          '(lambda ()
+             (require 'bm nil 'noerror)))
 
 (global-set-key (kbd "<C-f2>") 'bm-toggle)
 (global-set-key [M-f2] 'bm-toggle)

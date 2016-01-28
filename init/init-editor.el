@@ -85,11 +85,12 @@
 ;; (mouse-avoidance-mode 'animate)
 ;; (setq mouse-autoselect-window t)
 
-(xterm-mouse-mode 1)               ; (if window-system -1 1)
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (with-selected-frame frame
-              (xterm-mouse-mode 1))))
+(unless window-system
+  (xterm-mouse-mode 1)               ; (if window-system -1 1)
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (with-selected-frame frame
+                (xterm-mouse-mode 1)))))
 
 ;; (setq-default cursor-type 'bar)
 ;; (blink-cursor-mode -1)
@@ -100,17 +101,17 @@
 (if (fboundp 'cua-mode)
     (progn
       (setq cua-rectangle-mark-key [C-M-return])
-      (cua-mode t)
+      (run-with-idle-timer 1 nil #'cua-mode t)
       (setq cua-keep-region-after-copy t))
   (when (fboundp 'pc-selection-mode)
     (setq pc-select-selection-keys-only t)
     (pc-selection-mode)))
 
-(icomplete-mode t)
+(run-with-idle-timer 2 nil #'icomplete-mode t)
 
 (setq ido-use-filename-at-point 'guess
       ido-use-url-at-point t)
-(ignore-errors (ido-mode t))
+(run-with-idle-timer 2 nil #'ido-mode t)
 ;; (ido-everywhere t)                    ; For GUI
 
 ;; (setq ffap-require-prefix t
@@ -144,9 +145,9 @@
   `(defun whitespace-post-command-hook ()
      "Hack whitespace, it's very slow in c++-mode."))
 
-(which-function-mode t)
+(run-with-idle-timer 2 nil #'which-function-mode t)
 ;; (global-cwarn-mode 1)
-(global-auto-revert-mode t)
+(run-with-idle-timer 3 nil #'global-auto-revert-mode t)
 (setq compilation-auto-jump-to-first-error t)
 (setq compilation-scroll-output t)
 
@@ -154,11 +155,11 @@
 (setq generic-define-unix-modes t)
 ;; (require 'generic-x nil 'noerror)
 
-(auto-image-file-mode t)
-(ignore-errors (winner-mode 1))
+(run-with-idle-timer 3 nil #'auto-image-file-mode t)
+(run-with-idle-timer 2 nil #'winner-mode 1)
 
-(require 'saveplace)
 (setq-default save-place t)
+(require 'saveplace)
 (ignore-errors (savehist-mode t))
 (setq bookmark-save-flag 1)
 (setq time-stamp-format "%:y-%02m-%02d %02H:%02M:%02S %U")
@@ -184,18 +185,22 @@
 (setq recentf-menu-open-all-flag t
       recentf-max-saved-items 100
       recentf-max-menu-items 30)
-(recentf-mode t)
+(run-with-idle-timer 2 nil #'recentf-mode t)
 (defadvice recentf-track-closed-file (after push-beginning activate)
   "Move current buffer to the beginning of the recent list after killed."
   (recentf-track-opened-file))
 
-(filesets-init)
-(add-to-list 'filesets-data
-             (list "~/" (list :files
-                              "~/.emacs" "~/.profile"
-                              "~/.bash_profile" "~/.bashrc")))
-(add-to-list 'filesets-data
-             '("~/.emacs.d/" (:tree "~/.emacs.d/" "^.+\\.*$")))
+(setq filesets-data
+      '(("temp"
+         (:files))
+        ("linux"
+         (:files "/etc/hosts" "/etc/fstab" "/etc/passwd" "/etc/group" "/boot/grub2/grub.cfg"))
+        ("windows"
+         (:files "C:/WINDOWS/system32/drivers/etc/hosts"))
+        ("~/.emacs.d/"
+         (:tree "~/.emacs.d/" "^.+\\.*$"))
+        ("~/"
+         (:files "~/.emacs" "~/.profile" "~/.bash_profile" "~/.bashrc"))))
 (add-to-list 'filesets-data
              (list "dotemacs/"
                    (list :tree
@@ -206,14 +211,7 @@
                              (file-name-directory
                               (or load-file-name buffer-file-name)))))
                          "^.+\\.*$")))
-(add-to-list 'filesets-data
-             (list "windows"
-                   (list :files "C:/WINDOWS/system32/drivers/etc/hosts")))
-(add-to-list 'filesets-data
-             (list "linux" (list :files
-                                 "/etc/hosts" "/etc/fstab" "/etc/passwd"
-                                 "/etc/group" "/boot/grub2/grub.cfg")))
-(add-to-list 'filesets-data (list "temp" (list :files)))
+(run-with-idle-timer 3 nil #'filesets-init)
 
 (setq inhibit-startup-message t)        ; for no desktop
 (setq inhibit-default-init t)           ; for frame-title-format

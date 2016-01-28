@@ -1,3 +1,7 @@
+2016-01-28  Liu Xin  <meteor1113@qq.com>
+
+	* init.el: Speed up.
+
 2016-01-27  Liu Xin  <meteor1113@qq.com>
 
 	* init/init-editor.el: Disable global-cwarn-mode.

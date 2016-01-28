@@ -14,8 +14,8 @@
 ;;; Code:
 
 ;; gdb
-(require 'gdb-ui nil 'noerror)
-(require 'gdb-mi nil 'noerror)
+;; (require 'gdb-ui nil 'noerror)
+;; (require 'gdb-mi nil 'noerror)
 
 (defun gud-break-or-remove (&optional force-remove)
   "Set/clear breakpoin."

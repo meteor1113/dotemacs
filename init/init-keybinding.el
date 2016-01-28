@@ -15,7 +15,8 @@
 
 (global-set-key (kbd "C-a") 'mark-whole-buffer)
 (global-set-key (kbd "M-SPC") 'set-mark-command)
-(define-key cua-global-keymap (kbd "M-SPC") 'cua-set-mark)
+(eval-after-load "cua-base"
+  '(define-key cua-global-keymap (kbd "M-SPC") 'cua-set-mark))
 (global-set-key (kbd "<find>") 'move-beginning-of-line) ; putty
 (global-set-key (kbd "<select>") 'move-end-of-line) ; putty
 
