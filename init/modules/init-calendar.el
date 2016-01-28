@@ -38,10 +38,11 @@
 (setq appt-display-duration (* 365 24 60 60))
 
 (unless (daemonp)
-  (add-hook 'after-init-hook
-            (lambda ()
-              (appt-activate 1)
-              (delete-other-windows))))
+  ;; (add-hook 'after-init-hook
+  ;;           (lambda ()
+  ;;             (appt-activate 1)
+  ;;             (delete-other-windows)))
+  (run-with-idle-timer 2 nil #'appt-activate 1))
 ;; (diary 0)
 
 ;; cal-china-x

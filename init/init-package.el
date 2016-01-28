@@ -120,13 +120,13 @@
 (global-set-key [C-f7] 'smart-compile)
 
 ;; smex
-(add-hook 'after-init-hook
-          '(lambda ()
-             (when (ignore-errors (smex-initialize))
-               (global-set-key (kbd "M-x") 'smex)
-               (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-               ;; This is your old M-x.
-               (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))))
+(run-with-idle-timer 2 nil
+                     #'(lambda ()
+                         (when (ignore-errors (smex-initialize))
+                           (global-set-key (kbd "M-x") 'smex)
+                           (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+                           ;; This is your old M-x.
+                           (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))))
 
 ;; symon
 ;; (add-hook 'after-init-hook
@@ -141,9 +141,10 @@
 ;; (autoload 'vlf "vlf" "View a Large File in Emacs." t)
 
 ;; window-numbering
-(add-hook 'after-init-hook
-          '(lambda ()
-             (ignore-errors (window-numbering-mode 1))))
+;; (add-hook 'after-init-hook
+;;           '(lambda ()
+;;              (ignore-errors (window-numbering-mode 1))))
+(run-with-idle-timer 3 nil #'window-numbering-mode 1)
 
 ;; win-switch
 ;; (autoload 'win-switch-dispatch "win-switch" nil t)
