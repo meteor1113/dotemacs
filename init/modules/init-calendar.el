@@ -33,17 +33,15 @@
 ;; (add-hook 'diary-hook 'appt-make-list)
 ;; (setq appt-display-format 'window)
 ;; (setq appt-display-mode-line t)
-;; (setq appt-display-diary nil)
+(setq appt-display-diary nil)
 (setq appt-message-warning-time 0)
 (setq appt-display-duration (* 365 24 60 60))
 
 (unless (daemonp)
   ;; (add-hook 'after-init-hook
   ;;           (lambda ()
-  ;;             (appt-activate 1)
-  ;;             (delete-other-windows)))
+  ;;             (appt-activate 1))))
   (run-with-idle-timer 2 nil #'appt-activate 1))
-;; (diary 0)
 
 ;; cal-china-x
 (eval-after-load "calendar"

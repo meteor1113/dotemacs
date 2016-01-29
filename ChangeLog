@@ -1,3 +1,7 @@
+2016-01-29  Liu Xin  <meteor1113@qq.com>
+
+	* init/modules/init-calendar.el: Update appt setting for diary.
+
 2016-01-28  Liu Xin  <meteor1113@qq.com>
 
 	* init.el: Speed up.
