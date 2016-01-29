@@ -241,6 +241,8 @@
       :style toggle :selected global-flycheck-mode]
      ["goto-address-mode" goto-address-mode :active (fboundp 'goto-address-mode)
       :style toggle :selected goto-address-mode]
+     ["helm-mode" helm-mode :active (fboundp 'helm-mode)
+      :style toggle :selected helm-mode]
      ["hideshowvis-minor-mode" hideshowvis-minor-mode :active (fboundp 'hideshowvis-minor-mode)
       :style toggle :selected hideshowvis-minor-mode]
      ["highlight-parentheses-mode" highlight-parentheses-mode :active (fboundp 'highlight-parentheses-mode)
