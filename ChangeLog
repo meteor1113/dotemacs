@@ -1,3 +1,7 @@
+2016-02-06  Liu Xin  <meteor1113@qq.com>
+
+	* init/modules/init-cedet.el ("pulse"): Speed up pulse.
+
 2016-01-29  Liu Xin  <meteor1113@qq.com>
 
 	* init/modules/init-toolbar.el: Add minor mode for helm-mode.

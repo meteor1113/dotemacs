@@ -84,49 +84,53 @@ the mru bookmark stack."
 
 ;; pulse
 (setq pulse-command-advice-flag t)    ; (if window-system 1 nil)
-(when (require 'pulse nil 'noerror)
-  (add-hook 'next-error-hook 'pulse-line-hook-function)
+(run-with-idle-timer 2 nil
+                     #'(lambda ()
+                         (require 'pulse nil 'noerror)))
+(eval-after-load "pulse"
+  '(progn
+     (add-hook 'next-error-hook 'pulse-line-hook-function)
 
-  (defadvice switch-to-buffer (after pulse-advice activate)
-    (pulse-line-hook-function))
+     (defadvice switch-to-buffer (after pulse-advice activate)
+       (pulse-line-hook-function))
 
-  (defadvice previous-buffer (after pulse-advice activate)
-    (pulse-line-hook-function))
+     (defadvice previous-buffer (after pulse-advice activate)
+       (pulse-line-hook-function))
 
-  (defadvice next-buffer (after pulse-advice activate)
-    (pulse-line-hook-function))
+     (defadvice next-buffer (after pulse-advice activate)
+       (pulse-line-hook-function))
 
-  (defadvice ido-switch-buffer (after pulse-advice activate)
-    (pulse-line-hook-function))
+     (defadvice ido-switch-buffer (after pulse-advice activate)
+       (pulse-line-hook-function))
 
-  (defadvice beginning-of-buffer (after pulse-advice activate)
-    (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
+     (defadvice beginning-of-buffer (after pulse-advice activate)
+       (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
 
-  (defadvice goto-line (after pulse-advice activate)
-    (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
+     (defadvice goto-line (after pulse-advice activate)
+       (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
 
-  (defadvice find-tag (after pulse-advice activate)
-    (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
+     (defadvice find-tag (after pulse-advice activate)
+       (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
 
-  (defadvice tags-search (after pulse-advice activate)
-    (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
+     (defadvice tags-search (after pulse-advice activate)
+       (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
 
-  (defadvice tags-loop-continue (after pulse-advice activate)
-    (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
+     (defadvice tags-loop-continue (after pulse-advice activate)
+       (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
 
-  (defadvice pop-tag-mark (after pulse-advice activate)
-    (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
+     (defadvice pop-tag-mark (after pulse-advice activate)
+       (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
 
-  (defadvice imenu-default-goto-function (after pulse-advice activate)
-    (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
+     (defadvice imenu-default-goto-function (after pulse-advice activate)
+       (when (called-interactively-p 'interactive) (pulse-line-hook-function)))
 
-  (defadvice exchange-point-and-mark (after pulse-advice activate)
-    (when (and (called-interactively-p 'interactive) (> (abs (- (point) (mark))) 400))
-      (pulse-line-hook-function)))
+     (defadvice exchange-point-and-mark (after pulse-advice activate)
+       (when (and (called-interactively-p 'interactive) (> (abs (- (point) (mark))) 400))
+         (pulse-line-hook-function)))
 
-  (defadvice cua-exchange-point-and-mark (after pulse-advice activate)
-    (when (and (called-interactively-p 'interactive) (> (abs (- (point) (mark))) 400))
-      (pulse-line-hook-function))))
+     (defadvice cua-exchange-point-and-mark (after pulse-advice activate)
+       (when (and (called-interactively-p 'interactive) (> (abs (- (point) (mark))) 400))
+         (pulse-line-hook-function)))))
 
 (provide 'init-cedet)
 
