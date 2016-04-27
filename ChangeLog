@@ -1,3 +1,7 @@
+2016-04-27  Liu Xin  <meteor1113@qq.com>
+
+	* init/init-editor.el (frame-title-format): Modify frame-title-format.
+
 2016-02-06  Liu Xin  <meteor1113@qq.com>
 
 	* init/modules/init-cedet.el ("pulse"): Speed up pulse.

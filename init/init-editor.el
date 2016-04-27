@@ -45,7 +45,7 @@
         (:eval (or buffer-file-name (buffer-name)))
         " [" (:eval (format "%s" buffer-file-coding-system)) "]"
         (:eval (if (buffer-modified-p) " * " " - "))
-        invocation-name " " emacs-version "@" system-name))
+        "GNU Emacs " emacs-version " (" system-configuration ") @" system-name))
 
 (when window-system (set-background-color "honeydew")) ; #f0fff0
 (add-hook 'after-make-frame-functions
