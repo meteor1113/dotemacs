@@ -1,14 +1,14 @@
 ;;; tabbar-ruler-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
+(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil "tabbar-ruler" "tabbar-ruler.el" (22173 62471
+;;;### (autoloads nil "tabbar-ruler" "tabbar-ruler.el" (22426 48529
 ;;;;;;  0 0))
 ;;; Generated autoloads from tabbar-ruler.el
 
 (autoload 'tabbar-install-faces "tabbar-ruler" "\
-Installs faces for a frame.
+Install faces for a FRAME.
 
 \(fn &optional FRAME)" t nil)
 
@@ -35,7 +35,7 @@ Start the movement for the tabbar
 
 ;;;***
 
-;;;### (autoloads nil nil ("tabbar-ruler-pkg.el") (22173 62471 0
+;;;### (autoloads nil nil ("tabbar-ruler-pkg.el") (22426 48529 731000
 ;;;;;;  0))
 
 ;;;***
