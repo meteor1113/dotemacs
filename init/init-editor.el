@@ -101,17 +101,17 @@
 (if (fboundp 'cua-mode)
     (progn
       (setq cua-rectangle-mark-key [C-M-return])
-      (run-with-idle-timer 1 nil #'cua-mode t)
+      (cua-mode t)
       (setq cua-keep-region-after-copy t))
   (when (fboundp 'pc-selection-mode)
     (setq pc-select-selection-keys-only t)
     (pc-selection-mode)))
 
-(run-with-idle-timer 2 nil #'icomplete-mode t)
+(icomplete-mode t)
 
 (setq ido-use-filename-at-point 'guess
       ido-use-url-at-point t)
-(run-with-idle-timer 2 nil #'ido-mode t)
+(ido-mode t)
 ;; (ido-everywhere t)                    ; For GUI
 
 ;; (setq ffap-require-prefix t
@@ -145,9 +145,9 @@
   `(defun whitespace-post-command-hook ()
      "Hack whitespace, it's very slow in c++-mode."))
 
-(run-with-idle-timer 2 nil #'which-function-mode t)
+(which-function-mode t)
 ;; (global-cwarn-mode 1)
-(run-with-idle-timer 3 nil #'global-auto-revert-mode t)
+(global-auto-revert-mode t)
 (setq compilation-auto-jump-to-first-error t)
 (setq compilation-scroll-output t)
 
@@ -155,8 +155,8 @@
 (setq generic-define-unix-modes t)
 ;; (require 'generic-x nil 'noerror)
 
-(run-with-idle-timer 3 nil #'auto-image-file-mode t)
-(run-with-idle-timer 2 nil #'winner-mode 1)
+(auto-image-file-mode t)
+(winner-mode 1)
 
 (setq-default save-place t)
 (require 'saveplace)
@@ -185,7 +185,7 @@
 (setq recentf-menu-open-all-flag t
       recentf-max-saved-items 100
       recentf-max-menu-items 30)
-(run-with-idle-timer 2 nil #'recentf-mode t)
+(recentf-mode t)
 (defadvice recentf-track-closed-file (after push-beginning activate)
   "Move current buffer to the beginning of the recent list after killed."
   (recentf-track-opened-file))
@@ -211,7 +211,7 @@
                              (file-name-directory
                               (or load-file-name buffer-file-name)))))
                          "^.+\\.*$")))
-(run-with-idle-timer 3 nil #'filesets-init)
+(filesets-init)
 
 (setq inhibit-startup-message t)        ; for no desktop
 (setq inhibit-default-init t)           ; for frame-title-format

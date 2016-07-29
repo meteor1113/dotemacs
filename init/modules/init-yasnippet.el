@@ -15,10 +15,10 @@
 
 ;; yasnippet
 (setq yas-wrap-around-region t)
-;; (add-hook 'after-init-hook
-;;           '(lambda ()
-;;              (ignore-errors (yas-global-mode 1))))
-(run-with-idle-timer 2 nil #'yas-global-mode 1)
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (yas-global-mode 1))))
+;; (run-with-idle-timer 2 nil #'yas-global-mode 1)
 
 (eval-after-load "yasnippet"
   '(let ((root-dir (if (boundp 'dotemacs-root-dir)

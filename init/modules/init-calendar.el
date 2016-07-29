@@ -38,10 +38,10 @@
 (setq appt-display-duration (* 365 24 60 60))
 
 (unless (daemonp)
-  ;; (add-hook 'after-init-hook
-  ;;           (lambda ()
-  ;;             (appt-activate 1))))
-  (run-with-idle-timer 2 nil #'appt-activate 1))
+  (add-hook 'after-init-hook
+            (lambda ()
+              (appt-activate 1))))
+  ;; (run-with-idle-timer 2 nil #'appt-activate 1))
 
 ;; cal-china-x
 (eval-after-load "calendar"

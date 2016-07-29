@@ -151,28 +151,28 @@
 ;; hl-todo
 (setq hl-todo-activate-in-modes
       '(prog-mode text-mode))
-;; (add-hook 'after-init-hook
-;;           '(lambda ()
-;;              (ignore-errors (global-hl-todo-mode 1))))
-(run-with-idle-timer 3 nil #'global-hl-todo-mode 1)
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (global-hl-todo-mode 1))))
+;; (run-with-idle-timer 3 nil #'global-hl-todo-mode 1)
 
 ;; diff-hl
 ;; (autoload 'diff-hl-mode "diff-hl" nil t)
 ;; (autoload 'global-diff-hl-mode "diff-hl" nil t)
 ;; (autoload 'diff-hl-dired-mode "diff-hl-dired" nil t)
 ;; (add-hook 'dired-mode-hook '(lambda () (ignore-errors (diff-hl-dired-mode 1))))
-;; (add-hook 'after-init-hook
-;;           '(lambda ()
-;;              (ignore-errors (global-diff-hl-mode 1))))
-(run-with-idle-timer 3 nil #'global-diff-hl-mode 1)
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (global-diff-hl-mode 1))))
+;; (run-with-idle-timer 3 nil #'global-diff-hl-mode 1)
 
 ;; volatile-highlights
 (autoload 'volatile-highlights-mode "volatile-highlights" nil t)
-;; (add-hook 'after-init-hook
-;;           '(lambda ()
-;;              (when (require 'volatile-highlights nil 'noerror)
-;;                (volatile-highlights-mode t))))
-(run-with-idle-timer 3 nil #'volatile-highlights-mode t)
+(add-hook 'after-init-hook
+          '(lambda ()
+             (when (require 'volatile-highlights nil 'noerror)
+               (volatile-highlights-mode t))))
+;; (run-with-idle-timer 3 nil #'volatile-highlights-mode t)
 
 (provide 'init-highlight)
 

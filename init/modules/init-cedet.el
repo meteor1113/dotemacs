@@ -22,7 +22,10 @@
                                   ;; global-semantic-highlight-edits-mode
                                   global-semantic-show-unmatched-syntax-mode
                                   global-semantic-show-parser-state-mode))
-(run-with-idle-timer 10 nil #'semantic-mode t)
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (semantic-mode t))))
+;; (run-with-idle-timer 10 nil #'semantic-mode t)
 
 (eval-after-load "semantic"
   '(progn
@@ -84,9 +87,12 @@ the mru bookmark stack."
 
 ;; pulse
 (setq pulse-command-advice-flag t)    ; (if window-system 1 nil)
-(run-with-idle-timer 2 nil
-                     #'(lambda ()
-                         (require 'pulse nil 'noerror)))
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (require 'pulse nil 'noerror))))
+;; (run-with-idle-timer 2 nil
+;;                      #'(lambda ()
+;;                          (require 'pulse nil 'noerror)))
 (eval-after-load "pulse"
   '(progn
      (add-hook 'next-error-hook 'pulse-line-hook-function)
