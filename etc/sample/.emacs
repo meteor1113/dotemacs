@@ -3,7 +3,7 @@
 (add-to-list 'load-path "e:/common/dotemacs")
 (add-to-list 'load-path "d:/project/common/dotemacs")
 (add-to-list 'load-path "e:/project/common/dotemacs")
-(load "init" 'noerror)
+(load "init-emacs" 'noerror)
 
 (add-to-list 'load-path "d:/common/note")
 (add-to-list 'load-path "e:/common/note")

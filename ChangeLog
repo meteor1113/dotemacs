@@ -1,5 +1,7 @@
 2016-07-29  Liu Xin  <meteor1113@qq.com>
 
+	* init-emacs.el: Rename init.el to init-emacs.el
+
 	* init/init-package.el: Use after-init-hook instead of run-with-idle-timer.
 
 2016-04-27  Liu Xin  <meteor1113@qq.com>

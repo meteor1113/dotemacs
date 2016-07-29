@@ -69,6 +69,6 @@
 (require 'init-text nil 'noerror)
 (require 'init-xml nil 'noerror)
 
-(provide 'init)
+(provide 'init-emacs)
 
-;;; init.el ends here
+;;; init-emacs.el ends here
