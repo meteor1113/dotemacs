@@ -34,10 +34,10 @@
 ;;           '(lambda ()
 ;;              (when (require 'helm-config nil 'noerror)
 ;;                (helm-mode 1))))
-(run-with-idle-timer 3 nil
-                     #'(lambda ()
-                         (when (require 'helm-config nil 'noerror)
-                           (helm-mode 1))))
+;; (run-with-idle-timer 3 nil
+;;                      #'(lambda ()
+;;                          (when (require 'helm-config nil 'noerror)
+;;                            (helm-mode 1))))
 
 (provide 'init-helm)
 
