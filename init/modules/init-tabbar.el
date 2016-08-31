@@ -16,8 +16,9 @@
 ;; tabbar
 (add-hook 'after-init-hook
           '(lambda ()
-             (unless (locate-library "tabbar-ruler")
-               (ignore-errors (tabbar-mode 1))) 'append))
+             (when (or (daemonp) (not (locate-library "tabbar-ruler")))
+               (ignore-errors (tabbar-mode 1))))
+          'append)
 
 (eval-after-load "tabbar"
   '(progn
@@ -56,7 +57,9 @@
 (setq tabbar-ruler-movement-timer-delay 10000)
 (add-hook 'after-init-hook
           '(lambda ()
-             (require 'tabbar-ruler nil 'noerror)) t)
+             (when (not (daemonp))
+               (require 'tabbar-ruler nil 'noerror)))
+          t)
 
 (eval-after-load "tabbar-ruler"
   '(progn
