@@ -18,9 +18,9 @@
 (add-hook 'after-init-hook
           '(lambda ()
              (when (and (require 'chinese-fonts-setup nil 'noerror)
-                        (file-exists-p cfs-profiles-directory)
                         cfs--current-profile
-                        cfs--profiles-steps)
+                        cfs--profiles-steps
+                        (file-exists-p (cfs--get-profile cfs--current-profile)))
                (chinese-fonts-setup-enable))))
 
 (provide 'init-font)

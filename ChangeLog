@@ -1,6 +1,7 @@
 2016-09-19  Liu Xin  <meteor1113@qq.com>
 
 	* init/modules/init-font.el: Add init-font.el
+	Improve init-font.el
 
 2016-08-31  Liu Xin  <meteor1113@qq.com>
 

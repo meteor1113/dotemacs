@@ -4,7 +4,7 @@
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
 ;;;### (autoloads nil nil ("cfs-ui.el" "chinese-fonts-setup-pkg.el"
-;;;;;;  "chinese-fonts-setup.el") (22470 36718 0 0))
+;;;;;;  "chinese-fonts-setup.el") (22495 62838 0 0))
 
 ;;;***
 
