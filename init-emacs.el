@@ -36,6 +36,7 @@
 (require 'init-emms nil 'noerror)
 (require 'init-fci nil 'noerror)
 (require 'init-flycheck nil 'noerror)
+(require 'init-font nil 'noerror)
 (require 'init-helm nil 'noerror)
 (require 'init-hideshow nil 'noerror)
 (require 'init-highlight nil 'noerror)
