@@ -74,6 +74,11 @@
              (ignore-errors (drag-stuff-global-mode t))))
 ;; (run-with-idle-timer 3 nil #'drag-stuff-global-mode t)
 
+;; editorconfig
+(add-hook 'after-init-hook
+          '(lambda ()
+             (ignore-errors (editorconfig-mode 1))))
+
 ;; mark-multiple
 ;; (require 'inline-string-rectangle)
 ;; (global-set-key (kbd "C-x r t") 'inline-string-rectangle)

@@ -1,3 +1,7 @@
+2017-01-23  Liu Xin  <meteor1113@qq.com>
+
+	* init/init-package.el: Add package editorconfig.
+
 2016-09-19  Liu Xin  <meteor1113@qq.com>
 
 	* init/modules/init-font.el: Add init-font.el
