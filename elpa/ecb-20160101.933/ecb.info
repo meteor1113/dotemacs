@@ -1,0 +1,229 @@
+This is ecb.info, produced by makeinfo version 5.2 from ecb.texi.
+
+INFO-DIR-SECTION GNU Emacs Lisp
+START-INFO-DIR-ENTRY
+* ECB: (ecb).           Emacs Code Browser
+END-INFO-DIR-ENTRY
+
+
+Indirect:
+ecb.info-1: 183
+ecb.info-2: 305629
+ecb.info-3: 617163
+
+Tag Table:
+(Indirect)
+Node: Top183
+Node: Install and first steps13597
+Node: Installation14105
+Node: Requirements14603
+Node: ECB as XEmacs-package16845
+Node: Standard ECB-Installation17813
+Ref: Standard ECB-Installation-Footnote-122663
+Ref: Standard ECB-Installation-Footnote-222781
+Ref: Standard ECB-Installation-Footnote-322906
+Node: Makefile customization23065
+Node: Setting up Emacs23983
+Node: General hints24573
+Ref: General hints-Footnote-126182
+Ref: General hints-Footnote-226309
+Node: Setting up CEDET/semantic26413
+Ref: Checking your hooks28640
+Ref: Setting up CEDET/semantic-Footnote-130025
+Ref: Setting up CEDET/semantic-Footnote-230087
+Node: Non-semantic files30239
+Node: First steps31340
+Ref: First steps-Footnote-132801
+Node: Overview33033
+Ref: Overview-Footnote-136212
+Node: Manual usage36308
+Node: ECB-windows39327
+Node: Basic ECB-windows40145
+Node: Tree-buffer basics41264
+Ref: Tree-buffer basics-Footnote-145214
+Node: Tree-buffer styles45301
+Node: Style basics45978
+Node: Ascii-based styles48006
+Ref: Ascii-based styles-Footnote-149734
+Node: Tree-buffers with images49855
+Node: Images for Methods-buffer53133
+Node: ECB Directories-window53753
+Node: ECB Sources-window57003
+Node: ECB Methods-window59840
+Node: ECB History-window62825
+Node: Add-on ECB-windows69682
+Node: Semantic analyser70136
+Ref: Semantic analyser-Footnote-175871
+Ref: Semantic analyser-Footnote-275957
+Node: Symboldefinition76070
+Node: Activation and Deactivation76297
+Node: Standard activation77186
+Ref: Activation hook-sequence77776
+Ref: Deactivation hook-sequence78104
+Ref: Standard activation-Footnote-178318
+Node: Automatic activation78404
+Node: Usage of ECB79160
+Node: Using the mouse80336
+Ref: Using the mouse-Footnote-185805
+Node: Using the keyboard85854
+Ref: Using the keyboard-Footnote-186990
+Node: Navigation/Selection87044
+Node: Incremental search89326
+Node: Personal tree-keybindings91578
+Ref: Personal tree-keybindings-Footnote-193736
+Node: Using popup-menus93842
+Node: The edit-area94806
+Node: Temp- and compile-buffers106752
+Ref: Problems with the compile window111507
+Ref: Using special-display with ECB112456
+Ref: Temp- and compile-buffers-Footnote-1113513
+Node: The other window113621
+Ref: The other window-Footnote-1121651
+Ref: The other window-Footnote-2121802
+Node: The Methods window121873
+Ref: Definition of semantic- and non-semantic-sources122432
+Node: Visiting tags123690
+Node: Expanding125139
+Node: Customizing the display132194
+Ref: Customizing the display-Footnote-1135445
+Node: Updating Methods-window135799
+Node: Updating for ind. buffers141646
+Node: Jumping to external tags144658
+Node: Filtering the tree-buffers150819
+Node: Filtering Directories151511
+Node: Filtering Sources152469
+Node: Filtering History153642
+Node: Filtering Methods154928
+Node: The ECB-layout159975
+Node: Changing the ECB-layout160768
+Ref: Changing the ECB-layout-Footnote-1195996
+Node: Redrawing the ECB-layout196092
+Node: Changing window sizes197096
+Node: Fixing window sizes198705
+Ref: Fixing window sizes-Footnote-1200182
+Node: Creating a new ECB-layout200295
+Ref: Creating a new ECB-layout-Footnote-1205729
+Node: Hiding the ECB windows205906
+Node: Maximizing the ECB windows208206
+Ref: Maximizing the ECB windows-Footnote-1212385
+Node: Back/forward navigation212457
+Ref: Back/forward navigation-Footnote-1213612
+Node: ECB-window synchronizing213673
+Node: General synchronization aspects214930
+Node: Synchronization of basic ECB-windows218876
+Node: Add-on synchronization220471
+Node: Stealthy background tasks222134
+Node: Interactive ECB commands225442
+Node: Customizing257779
+Node: General aspects258416
+Node: setq or customize259002
+Node: Site-wide customizing260774
+Ref: Site-wide customizing-Footnote-1266950
+Ref: Site-wide customizing-Footnote-2267078
+Node: Most important options267149
+Node: Customizable options269987
+Node: ecb-general271944
+Node: ecb-tree-buffer285214
+Node: ecb-directories305629
+Node: ecb-sources325375
+Node: ecb-methods333549
+Node: ecb-history365753
+Node: ecb-analyse373370
+Node: ecb-symboldef383213
+Node: ecb-layout388261
+Node: ecb-compilation413727
+Node: ecb-create-layout423280
+Node: ecb-face-options423832
+Node: ecb-faces429659
+Node: ecb-help436799
+Node: ecb-eshell438866
+Node: ecb-speedbar441081
+Node: ecb-non-semantic444064
+Node: ecb-winman448790
+Node: ecb-mode-line449585
+Node: ecb-version-control454685
+Node: Submitting problem report461491
+Node: Upgrading463838
+Node: Downloading new versions464592
+Node: Auto. option-upgrading466738
+Node: User interface467054
+Node: Background information468110
+Node: Common use-cases471657
+Node: Changing faces473118
+Ref: Changing faces-Footnote-1475978
+Node: Small screens476157
+Node: Big screens477619
+Node: Simulating speedbar478466
+Node: Integrating speedbar479478
+Ref: Integrating speedbar-Footnote-1482998
+Ref: Integrating speedbar-Footnote-2483201
+Node: Large directories483362
+Node: Remote directories485752
+Ref: Remote directories-Footnote-1488923
+Ref: Remote directories-Footnote-2489068
+Ref: Remote directories-Footnote-3489205
+Ref: Remote directories-Footnote-4489309
+Node: Version-control support489726
+Ref: Version-control support-Footnote-1491942
+Node: Identifying backends492057
+Ref: Identifying backends-Footnote-1494420
+Node: Checking the state494600
+Ref: Checking the state-Footnote-1499871
+Ref: Checking the state-Footnote-2500059
+Node: Remote repositories500148
+Node: Refreshing the VC-state502493
+Node: Adding new backends505189
+Ref: Adding new backends-Footnote-1508575
+Node: Known VC-problems508696
+Node: Using eshell508982
+Ref: Using eshell-Footnote-1511502
+Node: Grepping directories511655
+Node: Working with JDEE512844
+Ref: Working with JDEE-Footnote-1514588
+Node: Compile-window on demand514778
+Node: Non-semantic sources517025
+Ref: Non-semantic sources-Footnote-1523015
+Node: Hide-show523102
+Node: Window-managers and ECB524783
+Ref: Window-managers and ECB-Footnote-1529625
+Node: Virtual folders in History529684
+Ref: Virtual folders in History-Footnote-1532184
+Ref: Virtual folders in History-Footnote-2532346
+Node: Elisp programming532394
+Node: List of variables533034
+Node: List of hooks533415
+Node: tree-buffer534582
+Node: Introduction535957
+Ref: Introduction-Footnote-1540753
+Node: A new tree-buffer540845
+Node: A new tree-node566449
+Node: Updating a tree-buffer571255
+Node: Tree-buffer keybindings573242
+Node: The tree-buffer-API577110
+Ref: The tree-buffer-API-Footnote-1579511
+Ref: The tree-buffer-API-Footnote-2579632
+Node: Do not with tree-buffer579713
+Node: Tree-buffer How to580724
+Node: Adviced functions582178
+Node: The layout-engine584708
+Node: Programming a new layout586006
+Node: Programming special windows594438
+Ref: Programming special windows-Footnote-1616794
+Ref: Programming special windows-Footnote-2616849
+Node: Possible layout-outlines617163
+Ref: Possible layout-outlines-Footnote-1625396
+Node: The layout-engine API625576
+Ref: The layout-engine API-Footnote-1627708
+Node: Conflicts and bugs627804
+Node: Conflicts628313
+Ref: Conflicts-Footnote-1641323
+Node: Bugs641385
+Node: FAQ642215
+Ref: FAQ-Footnote-1662105
+Ref: FAQ-Footnote-2662139
+Ref: FAQ-Footnote-3662186
+Node: Command Index662250
+Node: Option Index673399
+Node: Concept Index690579
+
+End Tag Table
