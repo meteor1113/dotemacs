@@ -382,237 +382,238 @@
                      (popup-menu toggle-toolbar-menu))
                    'toggle-toolbar-menu)
 
-;; edit toolbar
-(tool-bar-add-item "separator" nil 'separator-edit-toolbar
-                   :visible 'toolbarshow-edit
-                   :enable nil)
-(tool-bar-add-item "upcase" 'upcase-region 'upcase-region
-                   :visible 'toolbarshow-edit
-                   :enable '(region-active-p)
-                   :help '(concat "Upcase Region" (key4cmd 'upcase-region)))
-(tool-bar-add-item "downcase" 'downcase-region 'downcase-region
-                   :visible 'toolbarshow-edit
-                   :enable '(region-active-p)
-                   :help '(concat "Downcase Region" (key4cmd 'downcase-region)))
-(tool-bar-add-item "comment" 'comment-dwim 'comment-dwim
-                   :visible 'toolbarshow-edit
-                   ;; :enable '(region-active-p)
-                   :help '(concat "Comment Dwim" (key4cmd 'comment-dwim)))
-(tool-bar-add-item "format-region" 'format-region 'format-region
-                   :visible 'toolbarshow-edit
-                   :enable '(fboundp 'format-region)
-                   :help '(concat "Format Fegion" (key4cmd 'format-region)))
+(unless (eq system-type 'darwin)
+  ;; edit toolbar
+  (tool-bar-add-item "separator" nil 'separator-edit-toolbar
+                     :visible 'toolbarshow-edit
+                     :enable nil)
+  (tool-bar-add-item "upcase" 'upcase-region 'upcase-region
+                     :visible 'toolbarshow-edit
+                     :enable '(region-active-p)
+                     :help '(concat "Upcase Region" (key4cmd 'upcase-region)))
+  (tool-bar-add-item "downcase" 'downcase-region 'downcase-region
+                     :visible 'toolbarshow-edit
+                     :enable '(region-active-p)
+                     :help '(concat "Downcase Region" (key4cmd 'downcase-region)))
+  (tool-bar-add-item "comment" 'comment-dwim 'comment-dwim
+                     :visible 'toolbarshow-edit
+                     ;; :enable '(region-active-p)
+                     :help '(concat "Comment Dwim" (key4cmd 'comment-dwim)))
+  (tool-bar-add-item "format-region" 'format-region 'format-region
+                     :visible 'toolbarshow-edit
+                     :enable '(fboundp 'format-region)
+                     :help '(concat "Format Fegion" (key4cmd 'format-region)))
 
-;; search toolbar
-(tool-bar-add-item "separator" nil 'separator-search-toolbar
-                   :visible 'toolbarshow-search
-                   :enable nil)
-;; (tool-bar-add-item "recent-backward" 'recent-jump-jump-backward 'recent-jump-jump-backward
-;;                    :visible 'toolbarshow-search
-;;                    :enable '(fboundp 'recent-jump-jump-backward)
-;;                    :help '(concat "Backward" (key4cmd 'recent-jump-jump-backward)))
-;; (tool-bar-add-item "recent-forward" 'recent-jump-jump-forward 'recent-jump-jump-forward
-;;                    :visible 'toolbarshow-search
-;;                    :enable '(fboundp 'recent-jump-jump-forward)
-;;                    :help '(concat "Forward" (key4cmd 'recent-jump-jump-forward)))
-(tool-bar-add-item "find" 'isearch-forward 'find
-                   :visible 'toolbarshow-search
-                   :help '(concat "Find..." (key4cmd 'isearch-forward)))
-(tool-bar-add-item "find-next" 'isearch-repeat-forward 'find-next
-                   :visible 'toolbarshow-search
-                   :help '(concat "Find next" (key4cmd 'isearch-repeat-forward)))
-(tool-bar-add-item "replace" 'query-replace 'query-replace
-                   :visible 'toolbarshow-search
-                   :help '(concat "Replace..." (key4cmd 'query-replace)))
-(tool-bar-add-item "grep-current-dir" 'grep-current-dir 'grep-current-dir
-                   :visible 'toolbarshow-search
-                   :enable '(fboundp 'grep-current-dir)
-                   :help '(concat "Grep Current Directory" (key4cmd 'grep-current-dir)))
-(tool-bar-add-item "moccur-all-buffers" 'moccur-all-buffers 'moccur-all-buffers
-                   :visible 'toolbarshow-search
-                   :enable '(fboundp 'moccur-all-buffers)
-                   :help '(concat "Moccur All Buffers" (key4cmd 'moccur-all-buffers)))
-(tool-bar-add-item "todo-grep" 'grep-todo-current-dir 'todo-grep
-                   :visible 'toolbarshow-search
-                   :enable '(fboundp 'grep-todo-current-dir)
-                   :help '(concat "Grep 'TODO' Current Directory" (key4cmd 'grep-todo-current-dir)))
-(tool-bar-add-item "todo-moccur" 'moccur-todo-all-buffers 'todo-moccur
-                   :visible 'toolbarshow-search
-                   :enable '(fboundp 'moccur-todo-all-buffers)
-                   :help '(concat "Moccur 'TODO' All Buffers" (key4cmd 'moccur-todo-all-buffers)))
+  ;; search toolbar
+  (tool-bar-add-item "separator" nil 'separator-search-toolbar
+                     :visible 'toolbarshow-search
+                     :enable nil)
+  ;; (tool-bar-add-item "recent-backward" 'recent-jump-jump-backward 'recent-jump-jump-backward
+  ;;                    :visible 'toolbarshow-search
+  ;;                    :enable '(fboundp 'recent-jump-jump-backward)
+  ;;                    :help '(concat "Backward" (key4cmd 'recent-jump-jump-backward)))
+  ;; (tool-bar-add-item "recent-forward" 'recent-jump-jump-forward 'recent-jump-jump-forward
+  ;;                    :visible 'toolbarshow-search
+  ;;                    :enable '(fboundp 'recent-jump-jump-forward)
+  ;;                    :help '(concat "Forward" (key4cmd 'recent-jump-jump-forward)))
+  (tool-bar-add-item "find" 'isearch-forward 'find
+                     :visible 'toolbarshow-search
+                     :help '(concat "Find..." (key4cmd 'isearch-forward)))
+  (tool-bar-add-item "find-next" 'isearch-repeat-forward 'find-next
+                     :visible 'toolbarshow-search
+                     :help '(concat "Find next" (key4cmd 'isearch-repeat-forward)))
+  (tool-bar-add-item "replace" 'query-replace 'query-replace
+                     :visible 'toolbarshow-search
+                     :help '(concat "Replace..." (key4cmd 'query-replace)))
+  (tool-bar-add-item "grep-current-dir" 'grep-current-dir 'grep-current-dir
+                     :visible 'toolbarshow-search
+                     :enable '(fboundp 'grep-current-dir)
+                     :help '(concat "Grep Current Directory" (key4cmd 'grep-current-dir)))
+  (tool-bar-add-item "moccur-all-buffers" 'moccur-all-buffers 'moccur-all-buffers
+                     :visible 'toolbarshow-search
+                     :enable '(fboundp 'moccur-all-buffers)
+                     :help '(concat "Moccur All Buffers" (key4cmd 'moccur-all-buffers)))
+  (tool-bar-add-item "todo-grep" 'grep-todo-current-dir 'todo-grep
+                     :visible 'toolbarshow-search
+                     :enable '(fboundp 'grep-todo-current-dir)
+                     :help '(concat "Grep 'TODO' Current Directory" (key4cmd 'grep-todo-current-dir)))
+  (tool-bar-add-item "todo-moccur" 'moccur-todo-all-buffers 'todo-moccur
+                     :visible 'toolbarshow-search
+                     :enable '(fboundp 'moccur-todo-all-buffers)
+                     :help '(concat "Moccur 'TODO' All Buffers" (key4cmd 'moccur-todo-all-buffers)))
 
-;; bookmark toolbar
-(tool-bar-add-item "separator" nil 'separator-bookmark-toolbar
-                   :visible 'toolbarshow-bookmark
-                   :enable nil)
-(tool-bar-add-item "bm-toggle" 'bm-toggle 'bm-toggle
-                   :visible 'toolbarshow-bookmark
-                   :enable '(fboundp 'bm-toggle)
-                   :help '(concat "Toggle Bookmark" (key4cmd 'bm-toggle)))
-(tool-bar-add-item "bm-next" 'bm-next 'bm-next
-                   :visible 'toolbarshow-bookmark
-                   :enable '(fboundp 'bm-next)
-                   :help '(concat "Nnext Bookmark" (key4cmd 'bm-next)))
-(tool-bar-add-item "bm-previous" 'bm-previous 'bm-previous
-                   :visible 'toolbarshow-bookmark
-                   :enable '(fboundp 'bm-previous)
-                   :help '(concat "Previous Bookmark" (key4cmd 'bm-previous)))
-(tool-bar-add-item "bm-clear"' bm-remove-all-current-buffer 'bm-remove-all-current-buffer
-                   :visible 'toolbarshow-bookmark
-                   :enable '(fboundp 'bm-remove-all-current-buffer)
-                   :help '(concat "Clear All Bookmarks" (key4cmd 'bm-remove-all-current-buffer)))
+  ;; bookmark toolbar
+  (tool-bar-add-item "separator" nil 'separator-bookmark-toolbar
+                     :visible 'toolbarshow-bookmark
+                     :enable nil)
+  (tool-bar-add-item "bm-toggle" 'bm-toggle 'bm-toggle
+                     :visible 'toolbarshow-bookmark
+                     :enable '(fboundp 'bm-toggle)
+                     :help '(concat "Toggle Bookmark" (key4cmd 'bm-toggle)))
+  (tool-bar-add-item "bm-next" 'bm-next 'bm-next
+                     :visible 'toolbarshow-bookmark
+                     :enable '(fboundp 'bm-next)
+                     :help '(concat "Nnext Bookmark" (key4cmd 'bm-next)))
+  (tool-bar-add-item "bm-previous" 'bm-previous 'bm-previous
+                     :visible 'toolbarshow-bookmark
+                     :enable '(fboundp 'bm-previous)
+                     :help '(concat "Previous Bookmark" (key4cmd 'bm-previous)))
+  (tool-bar-add-item "bm-clear"' bm-remove-all-current-buffer 'bm-remove-all-current-buffer
+                     :visible 'toolbarshow-bookmark
+                     :enable '(fboundp 'bm-remove-all-current-buffer)
+                     :help '(concat "Clear All Bookmarks" (key4cmd 'bm-remove-all-current-buffer)))
 
-;; view toolbar
-(tool-bar-add-item "separator" nil 'separator-view-toolbar
-                   :visible 'toolbarshow-view
-                   :enable nil)
-(tool-bar-add-item "line-wrap" 'toggle-truncate-lines 'line-wrap
-                   :visible 'toolbarshow-view
-                   :enable '(not (truncated-partial-width-window-p))
-                   :button '(:radio . (and (null truncate-lines) (not word-wrap)))
-                   :help '(concat "Wrap" (key4cmd 'toggle-truncate-lines)))
-(tool-bar-add-item "linum" 'linum-mode 'linum-mode
-                   :visible 'toolbarshow-view
-                   :enable '(fboundp 'linum-mode)
-                   :button '(:toggle . linum-mode)
-                   :help '(concat "Linum" (key4cmd 'linum-mode)))
-(tool-bar-add-item "whitespace" 'whitespace-mode 'whitespace-mode
-                   :visible 'toolbarshow-view
-                   :enable '(fboundp 'whitespace-mode)
-                   :button '(:toggle . whitespace-mode)
-                   :help '(concat "Whitespace" (key4cmd 'whitespace-mode)))
-(tool-bar-add-item "folding" 'hs-toggle-hiding 'folding
-                   :visible 'toolbarshow-view
-                   :enable '(and hs-minor-mode (fboundp 'hs-toggle-hiding))
-                   ;; :button '(:toggle . (hs-already-hidden-p))
-                   :help '(concat "Toggle Hiding" (key4cmd 'hs-toggle-hiding)))
-(tool-bar-add-item "ecb" 'ecb-minor-mode 'ecb-minor-mode
-                   :visible 'toolbarshow-view
-                   :enable '(fboundp 'ecb-minor-mode)
-                   :button '(:toggle . ecb-minor-mode)
-                   :help '(concat "ECB" (key4cmd 'ecb-minor-mode)))
+  ;; view toolbar
+  (tool-bar-add-item "separator" nil 'separator-view-toolbar
+                     :visible 'toolbarshow-view
+                     :enable nil)
+  (tool-bar-add-item "line-wrap" 'toggle-truncate-lines 'line-wrap
+                     :visible 'toolbarshow-view
+                     :enable '(not (truncated-partial-width-window-p))
+                     :button '(:radio . (and (null truncate-lines) (not word-wrap)))
+                     :help '(concat "Wrap" (key4cmd 'toggle-truncate-lines)))
+  (tool-bar-add-item "linum" 'linum-mode 'linum-mode
+                     :visible 'toolbarshow-view
+                     :enable '(fboundp 'linum-mode)
+                     :button '(:toggle . linum-mode)
+                     :help '(concat "Linum" (key4cmd 'linum-mode)))
+  (tool-bar-add-item "whitespace" 'whitespace-mode 'whitespace-mode
+                     :visible 'toolbarshow-view
+                     :enable '(fboundp 'whitespace-mode)
+                     :button '(:toggle . whitespace-mode)
+                     :help '(concat "Whitespace" (key4cmd 'whitespace-mode)))
+  (tool-bar-add-item "folding" 'hs-toggle-hiding 'folding
+                     :visible 'toolbarshow-view
+                     :enable '(and hs-minor-mode (fboundp 'hs-toggle-hiding))
+                     ;; :button '(:toggle . (hs-already-hidden-p))
+                     :help '(concat "Toggle Hiding" (key4cmd 'hs-toggle-hiding)))
+  (tool-bar-add-item "ecb" 'ecb-minor-mode 'ecb-minor-mode
+                     :visible 'toolbarshow-view
+                     :enable '(fboundp 'ecb-minor-mode)
+                     :button '(:toggle . ecb-minor-mode)
+                     :help '(concat "ECB" (key4cmd 'ecb-minor-mode)))
 
-;; program toolbar
-(tool-bar-add-item "separator" nil 'separator-program-toolbar
-                   :visible 'toolbarshow-program
-                   :enable nil)
-(tool-bar-add-item "semantic-jump-back" 'semantic-ia-fast-jump-back 'semantic-ia-fast-jump-back
-                   :visible 'toolbarshow-program
-                   :enable (fboundp 'semantic-ia-fast-jump-back)
-                   :help '(concat "Backward(Semantic)" (key4cmd 'semantic-ia-fast-jump-back)))
-(tool-bar-add-item "semantic-jump" 'semantic-ia-fast-jump 'semantic-ia-fast-jump
-                   :visible 'toolbarshow-program
-                   :enable (fboundp 'semantic-ia-fast-jump)
-                   :help '(concat "Forward(Semantic)"
-                                  (key4cmd 'semantic-ia-fast-jump-or-back 'semantic-ia-fast-jump)))
-(tool-bar-add-item "ff-find-other-file" 'ff-find-other-file 'ff-find-other-file
-                   :visible 'toolbarshow-program
-                   :enable (fboundp 'ff-find-other-file)
-                   :help '(concat "Find other file" (key4cmd 'ff-find-other-file)))
-(tool-bar-add-item "compile" 'compile 'compile
-                   :visible 'toolbarshow-program
-                   :help '(concat "Compile..." (key4cmd 'compile)))
-(tool-bar-add-item "debug" 'gdb 'gdb
-                   :visible 'toolbarshow-program
-                   :help '(concat "Debugger (GDB)..." (key4cmd 'gdb)))
+  ;; program toolbar
+  (tool-bar-add-item "separator" nil 'separator-program-toolbar
+                     :visible 'toolbarshow-program
+                     :enable nil)
+  (tool-bar-add-item "semantic-jump-back" 'semantic-ia-fast-jump-back 'semantic-ia-fast-jump-back
+                     :visible 'toolbarshow-program
+                     :enable (fboundp 'semantic-ia-fast-jump-back)
+                     :help '(concat "Backward(Semantic)" (key4cmd 'semantic-ia-fast-jump-back)))
+  (tool-bar-add-item "semantic-jump" 'semantic-ia-fast-jump 'semantic-ia-fast-jump
+                     :visible 'toolbarshow-program
+                     :enable (fboundp 'semantic-ia-fast-jump)
+                     :help '(concat "Forward(Semantic)"
+                                    (key4cmd 'semantic-ia-fast-jump-or-back 'semantic-ia-fast-jump)))
+  (tool-bar-add-item "ff-find-other-file" 'ff-find-other-file 'ff-find-other-file
+                     :visible 'toolbarshow-program
+                     :enable (fboundp 'ff-find-other-file)
+                     :help '(concat "Find other file" (key4cmd 'ff-find-other-file)))
+  (tool-bar-add-item "compile" 'compile 'compile
+                     :visible 'toolbarshow-program
+                     :help '(concat "Compile..." (key4cmd 'compile)))
+  (tool-bar-add-item "debug" 'gdb 'gdb
+                     :visible 'toolbarshow-program
+                     :help '(concat "Debugger (GDB)..." (key4cmd 'gdb)))
 
-;; flycheck toolbar
-(tool-bar-add-item "separator" nil 'separator-flycheck-toolbar
-                   :visible 'toolbarshow-flycheck
-                   :enable nil)
-(tool-bar-add-item "flycheck-mode" 'flycheck-mode 'flycheck-mode
-                   :visible 'toolbarshow-flycheck
-                   :button '(:toggle . flycheck-mode)
-                   :help '(concat "Flycheck Mode" (key4cmd 'flycheck-mode)))
-(tool-bar-add-item "flycheck-buffer" 'flycheck-buffer 'flycheck-buffer
-                   :visible 'toolbarshow-flycheck
-                   :enable 'flycheck-mode
-                   :help '(concat "Flycheck Buffer" (key4cmd 'flycheck-buffer)))
-(tool-bar-add-item "bm-clear" 'flycheck-clear 'flycheck-clear
-                   :visible 'toolbarshow-flycheck
-                   :enable 'flycheck-mode
-                   :help '(concat "Flycheck Clear" (key4cmd 'flycheck-clear)))
-(tool-bar-add-item "flycheck-previous-error" 'flycheck-previous-error 'flycheck-previous-error
-                   :visible 'toolbarshow-flycheck
-                   :enable 'flycheck-mode
-                   :help '(concat "Flycheck Previous Error" (key4cmd 'flycheck-previous-error)))
-(tool-bar-add-item "flycheck-next-error" 'flycheck-next-error 'flycheck-next-error
-                   :visible 'toolbarshow-flycheck
-                   :enable 'flycheck-mode
-                   :help '(concat "Flycheck Next Error" (key4cmd 'flycheck-next-error)))
-(tool-bar-add-item "flycheck-list-errors" 'flycheck-list-errors 'flycheck-list-errors
-                   :visible 'toolbarshow-flycheck
-                   :enable 'flycheck-mode
-                   :help '(concat "Flycheck List Errors" (key4cmd 'flycheck-list-errors)))
+  ;; flycheck toolbar
+  (tool-bar-add-item "separator" nil 'separator-flycheck-toolbar
+                     :visible 'toolbarshow-flycheck
+                     :enable nil)
+  (tool-bar-add-item "flycheck-mode" 'flycheck-mode 'flycheck-mode
+                     :visible 'toolbarshow-flycheck
+                     :button '(:toggle . flycheck-mode)
+                     :help '(concat "Flycheck Mode" (key4cmd 'flycheck-mode)))
+  (tool-bar-add-item "flycheck-buffer" 'flycheck-buffer 'flycheck-buffer
+                     :visible 'toolbarshow-flycheck
+                     :enable 'flycheck-mode
+                     :help '(concat "Flycheck Buffer" (key4cmd 'flycheck-buffer)))
+  (tool-bar-add-item "bm-clear" 'flycheck-clear 'flycheck-clear
+                     :visible 'toolbarshow-flycheck
+                     :enable 'flycheck-mode
+                     :help '(concat "Flycheck Clear" (key4cmd 'flycheck-clear)))
+  (tool-bar-add-item "flycheck-previous-error" 'flycheck-previous-error 'flycheck-previous-error
+                     :visible 'toolbarshow-flycheck
+                     :enable 'flycheck-mode
+                     :help '(concat "Flycheck Previous Error" (key4cmd 'flycheck-previous-error)))
+  (tool-bar-add-item "flycheck-next-error" 'flycheck-next-error 'flycheck-next-error
+                     :visible 'toolbarshow-flycheck
+                     :enable 'flycheck-mode
+                     :help '(concat "Flycheck Next Error" (key4cmd 'flycheck-next-error)))
+  (tool-bar-add-item "flycheck-list-errors" 'flycheck-list-errors 'flycheck-list-errors
+                     :visible 'toolbarshow-flycheck
+                     :enable 'flycheck-mode
+                     :help '(concat "Flycheck List Errors" (key4cmd 'flycheck-list-errors)))
 
-;; remember toolbar
-(tool-bar-add-item "separator" nil 'separator-remember-toolbar
-                   :visible 'toolbarshow-remember
-                   :enable nil)
-(tool-bar-add-item "remember" 'remember 'remember
-                   :visible '(and toolbarshow-remember (not (eq major-mode 'remember-mode)))
-                   :help '(concat "Remember" (key4cmd 'remember)))
-(tool-bar-add-item "remember-open"
-                   (lambda ()
-                     (interactive)
-                     (require 'remember nil 'noerror)
-                     (find-file remember-data-file))
-                   'remember-open
-                   :visible '(and toolbarshow-remember (not (eq major-mode 'remember-mode)))
-                   :help "Open Remember Data File")
-(tool-bar-add-item "remember-finalize" 'remember-finalize 'remember-finalize
-                   :visible '(and toolbarshow-remember (eq major-mode 'remember-mode))
-                   :help '(concat "Remember Finalize" (key4cmd 'remember-finalize)))
-(tool-bar-add-item "remember-destroy" 'remember-destroy 'remember-destroy
-                   :visible '(and toolbarshow-remember (eq major-mode 'remember-mode))
-                   :help '(concat "Remember Destroy" (key4cmd 'remember-destroy)))
+  ;; remember toolbar
+  (tool-bar-add-item "separator" nil 'separator-remember-toolbar
+                     :visible 'toolbarshow-remember
+                     :enable nil)
+  (tool-bar-add-item "remember" 'remember 'remember
+                     :visible '(and toolbarshow-remember (not (eq major-mode 'remember-mode)))
+                     :help '(concat "Remember" (key4cmd 'remember)))
+  (tool-bar-add-item "remember-open"
+                     (lambda ()
+                       (interactive)
+                       (require 'remember nil 'noerror)
+                       (find-file remember-data-file))
+                     'remember-open
+                     :visible '(and toolbarshow-remember (not (eq major-mode 'remember-mode)))
+                     :help "Open Remember Data File")
+  (tool-bar-add-item "remember-finalize" 'remember-finalize 'remember-finalize
+                     :visible '(and toolbarshow-remember (eq major-mode 'remember-mode))
+                     :help '(concat "Remember Finalize" (key4cmd 'remember-finalize)))
+  (tool-bar-add-item "remember-destroy" 'remember-destroy 'remember-destroy
+                     :visible '(and toolbarshow-remember (eq major-mode 'remember-mode))
+                     :help '(concat "Remember Destroy" (key4cmd 'remember-destroy)))
 
-;; emms toolbar
-(tool-bar-add-item "separator" nil 'separator-emms-toolbar
-                   :visible 'toolbarshow-emms
-                   :enable nil)
-(tool-bar-add-item "emms"
-                   (lambda ()
-                     (interactive)
-                     (if (fboundp 'emms-dir-tree) (emms-dir-tree) (emms)))
-                   'emms
-                   :visible 'toolbarshow-emms
-                   :help '(concat "Emms" (key4cmd 'emms-dir-tree 'emms)))
-(tool-bar-add-item "emms-previous" 'emms-previous 'emms-previous
-                   :visible 'toolbarshow-emms
-                   :enable '(fboundp 'emms-previous)
-                   :help '(concat "Previous Track" (key4cmd 'emms-previous)))
-(tool-bar-add-item "emms-seek-backward" 'emms-seek-backward 'emms-seek-backward
-                   :visible 'toolbarshow-emms
-                   :enable '(and (fboundp 'emms-seek-backward) emms-player-playing-p)
-                   :help '(concat "Seek Backward" (key4cmd 'emms-seek-backward)))
-(tool-bar-add-item "emms-start" 'emms-start 'emms-start
-                   :visible '(and toolbarshow-emms
-                                  (or (not (boundp 'emms-player-playing-p))
-                                      (not emms-player-playing-p)))
-                   :enable '(fboundp 'emms-start)
-                   :help '(concat "Start" (key4cmd 'emms-start)))
-(tool-bar-add-item "emms-stop" 'emms-stop 'emms-stop
-                   :visible '(and toolbarshow-emms emms-player-playing-p)
-                   :enable '(fboundp 'emms-stop)
-                   :help '(concat "Stop" (key4cmd 'emms-stop)))
-(tool-bar-add-item "emms-pause" 'emms-pause 'emms-pause
-                   :visible 'toolbarshow-emms
-                   :enable '(and (fboundp 'emms-pause) emms-player-playing-p)
-                   :button '(:toggle . emms-player-paused-p)
-                   :help '(concat (if (and (boundp 'emms-player-paused-p)
-                                           emms-player-paused-p)
-                                      "Resume"
-                                    "Pause")
-                                  (key4cmd 'emms-pause)))
-(tool-bar-add-item "emms-seek-forward" 'emms-seek-forward 'emms-seek-forward
-                   :visible 'toolbarshow-emms
-                   :enable '(and (fboundp 'emms-seek-forward) emms-player-playing-p)
-                   :help '(concat "Seek Forward" (key4cmd 'emms-seek-forward)))
-(tool-bar-add-item "emms-next" 'emms-next 'emms-next
-                   :visible 'toolbarshow-emms
-                   :enable '(fboundp 'emms-next)
-                   :help '(concat "Next Track" (key4cmd 'emms-next)))
+  ;; emms toolbar
+  (tool-bar-add-item "separator" nil 'separator-emms-toolbar
+                     :visible 'toolbarshow-emms
+                     :enable nil)
+  (tool-bar-add-item "emms"
+                     (lambda ()
+                       (interactive)
+                       (if (fboundp 'emms-dir-tree) (emms-dir-tree) (emms)))
+                     'emms
+                     :visible 'toolbarshow-emms
+                     :help '(concat "Emms" (key4cmd 'emms-dir-tree 'emms)))
+  (tool-bar-add-item "emms-previous" 'emms-previous 'emms-previous
+                     :visible 'toolbarshow-emms
+                     :enable '(fboundp 'emms-previous)
+                     :help '(concat "Previous Track" (key4cmd 'emms-previous)))
+  (tool-bar-add-item "emms-seek-backward" 'emms-seek-backward 'emms-seek-backward
+                     :visible 'toolbarshow-emms
+                     :enable '(and (fboundp 'emms-seek-backward) emms-player-playing-p)
+                     :help '(concat "Seek Backward" (key4cmd 'emms-seek-backward)))
+  (tool-bar-add-item "emms-start" 'emms-start 'emms-start
+                     :visible '(and toolbarshow-emms
+                                    (or (not (boundp 'emms-player-playing-p))
+                                        (not emms-player-playing-p)))
+                     :enable '(fboundp 'emms-start)
+                     :help '(concat "Start" (key4cmd 'emms-start)))
+  (tool-bar-add-item "emms-stop" 'emms-stop 'emms-stop
+                     :visible '(and toolbarshow-emms emms-player-playing-p)
+                     :enable '(fboundp 'emms-stop)
+                     :help '(concat "Stop" (key4cmd 'emms-stop)))
+  (tool-bar-add-item "emms-pause" 'emms-pause 'emms-pause
+                     :visible 'toolbarshow-emms
+                     :enable '(and (fboundp 'emms-pause) emms-player-playing-p)
+                     :button '(:toggle . emms-player-paused-p)
+                     :help '(concat (if (and (boundp 'emms-player-paused-p)
+                                             emms-player-paused-p)
+                                        "Resume"
+                                      "Pause")
+                                    (key4cmd 'emms-pause)))
+  (tool-bar-add-item "emms-seek-forward" 'emms-seek-forward 'emms-seek-forward
+                     :visible 'toolbarshow-emms
+                     :enable '(and (fboundp 'emms-seek-forward) emms-player-playing-p)
+                     :help '(concat "Seek Forward" (key4cmd 'emms-seek-forward)))
+  (tool-bar-add-item "emms-next" 'emms-next 'emms-next
+                     :visible 'toolbarshow-emms
+                     :enable '(fboundp 'emms-next)
+                     :help '(concat "Next Track" (key4cmd 'emms-next))))
 
 (provide 'init-toolbar)
 

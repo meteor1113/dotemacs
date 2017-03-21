@@ -1,3 +1,7 @@
+2017-03-21  Liu Xin  <meteor1113@qq.com>
+
+	* init/modules/init-toolbar.el (eq): Disable toolbar for osx.
+
 2017-01-23  Liu Xin  <meteor1113@qq.com>
 
 	* init/init-package.el: Add package editorconfig.
