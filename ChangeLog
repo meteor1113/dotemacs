@@ -2,6 +2,7 @@
 
 	* init/init-keybinding.el (eq): Bind command-<left> and
 	command-<right> to home and end in os x.
+	(eq): Key binding for os x.
 
 2017-04-07  Liu Xin  <meteor1113@qq.com>
 
