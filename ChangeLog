@@ -1,3 +1,8 @@
+2017-04-15  Liu Xin  <meteor1113@qq.com>
+
+	* init/init-keybinding.el (eq): Bind command-<left> and
+	command-<right> to home and end in os x.
+
 2017-04-07  Liu Xin  <meteor1113@qq.com>
 
 	* init/init-editor.el (after-init-hook): Disable zone for performance.

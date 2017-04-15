@@ -116,6 +116,10 @@
                    (set-mark (point))
                    (move-end-of-line 1)))
 
+(when (eq system-type 'darwin)
+  (global-set-key (kbd "<s-left>") 'move-beginning-of-line)
+  (global-set-key (kbd "<s-right>") 'move-end-of-line))
+
 (when (eq system-type 'aix)
   (global-set-key (kbd "C-d") 'backward-delete-char-untabify)
   (eval-after-load "cc-mode"
