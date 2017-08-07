@@ -1,3 +1,7 @@
+2017-08-07  Liu Xin  <meteor1113@qq.com>
+
+	* init/modules/init-toolbar.el: Fix toolbar for osx's crash.
+
 2017-04-15  Liu Xin  <meteor1113@qq.com>
 
 	* init/init-keybinding.el (eq): Bind command-<left> and
