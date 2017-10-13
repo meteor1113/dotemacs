@@ -1,3 +1,7 @@
+2017-10-13  Liu Xin  <meteor1113@qq.com>
+
+	* init/modules/init-font.el: Upgrade chinese-fonts-setup to cnfonts.
+
 2017-08-07  Liu Xin  <meteor1113@qq.com>
 
 	* init/modules/init-toolbar.el: Fix toolbar for osx's crash.

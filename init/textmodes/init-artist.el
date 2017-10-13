@@ -7,7 +7,7 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @URL http://git.oschina.net/meteor1113/dotemacs
+;; @URL https://github.com/meteor1113/dotemacs
 
 ;;; Commentary:
 

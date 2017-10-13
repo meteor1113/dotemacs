@@ -7,21 +7,18 @@
 ;;
 ;; @file
 ;; @author Liu Xin <meteor1113@qq.com>
-;; @URL http://git.oschina.net/meteor1113/dotemacs
+;; @URL https://github.com/meteor1113/dotemacs
 
 ;;; Commentary:
 
 ;;; Code:
 
-;; chinese-fonts-setup
-(setq cfs-verbose nil)
+;; cnfonts
 (add-hook 'after-init-hook
           '(lambda ()
-             (when (and (require 'chinese-fonts-setup nil 'noerror)
-                        cfs--current-profile
-                        cfs--profiles-steps
-                        (file-exists-p (cfs--get-profile cfs--current-profile)))
-               (chinese-fonts-setup-enable))))
+             (when (and (require 'cnfonts nil 'noerror)
+                        (file-readable-p (cnfonts--return-config-file-path)))
+               (cnfonts-enable))))
 
 (provide 'init-font)
 
