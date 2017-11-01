@@ -1,3 +1,7 @@
+2017-11-01  Liu Xin  <meteor1113@qq.com>
+
+	* init/modules/init-ecb.el : Change ecb-compile-window-height to 0.125
+
 2017-10-13  Liu Xin  <meteor1113@qq.com>
 
 	* init/modules/init-font.el: Upgrade chinese-fonts-setup to cnfonts.

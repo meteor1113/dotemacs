@@ -23,7 +23,7 @@
                                    "left-analyse"
                                    "left-symboldef")
       ecb-windows-width 0.25
-      ecb-compile-window-height 0.1
+      ecb-compile-window-height 0.125
       ecb-compile-window-width 'edit-window
       ecb-compile-window-temporally-enlarge 'after-selection
       ;; ecb-enlarged-compilation-window-max-height 0.8
