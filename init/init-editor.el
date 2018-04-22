@@ -136,10 +136,12 @@
 ;; (global-hl-line-mode 1)                 ; (if window-system 1 -1)
 ;; (global-highlight-changes-mode t)       ; use cedet instead
 
-(setq whitespace-line-column 120)
-(setq whitespace-style '(face trailing newline empty lines-tail))
+;; (setq whitespace-line-column 120)
+(setq whitespace-style '(face trailing newline empty))
 (when window-system
-  (setq whitespace-style (append whitespace-style '(tabs tab-mark newline-mark))))
+  (setq whitespace-style
+        (append whitespace-style
+                '(tabs space-before-tab space-after-tab indentation space-mark tab-mark newline-mark))))
 ;; (global-whitespace-mode t)
 (eval-after-load "whitespace"
   `(defun whitespace-post-command-hook ()

@@ -17,6 +17,10 @@
 (add-hook 'prog-mode-hook
           '(lambda ()
              (setq indent-tabs-mode nil)
+             (set (make-local-variable 'whitespace-line-column) 120)
+             (add-to-list (make-local-variable 'whitespace-style) 'lines-tail 'append)
+             ;; (set (make-local-variable 'whitespace-style) (append whitespace-style '(lines-tail)))
+             (setq whitespace-style (remq 'space-mark whitespace-style))
              (ignore-errors (whitespace-mode t))
              ;; (when window-system (ignore-errors (fci-mode 1)))
              (linum-mode 1)
