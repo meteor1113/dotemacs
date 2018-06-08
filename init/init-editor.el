@@ -63,6 +63,8 @@
 ;; (setq linum-eager nil)
 ;; (when (fboundp 'global-linum-mode)
 ;;   (global-linum-mode 1))
+(when (fboundp 'global-display-line-numbers-mode)
+  (global-display-line-numbers-mode 1))
 
 (set-language-environment "UTF-8")
 ;; (setq system-time-locale "C")

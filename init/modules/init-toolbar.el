@@ -227,6 +227,10 @@
       :style toggle :selected global-auto-complete-mode]
      ["diff-hl-mode (global)" global-diff-hl-mode :active (fboundp 'global-diff-hl-mode)
       :style toggle :selected global-diff-hl-mode]
+     ["display-line-numbers-mode" display-line-numbers-mode :active (fboundp 'display-line-numbers-mode)
+      :style toggle :selected display-line-numbers-mode]
+     ["display-line-numbers-mode (global)" global-display-line-numbers-mode :active (fboundp 'global-display-line-numbers-mode)
+      :style toggle :selected global-display-line-numbers-mode]
      ["drag-stuff-mode (global)" drag-stuff-global-mode :active (fboundp 'drag-stuff-global-mode)
       :style toggle :selected drag-stuff-global-mode]
      ["electric-pair-mode" electric-pair-mode :active (fboundp 'electric-pair-mode)
@@ -471,11 +475,17 @@
                    :enable '(not (truncated-partial-width-window-p))
                    :button '(:radio . (and (null truncate-lines) (not word-wrap)))
                    :help (concat "Wrap" (key4cmd 'toggle-truncate-lines)))
-(tool-bar-add-item "linum" 'linum-mode 'linum-mode
-                   :visible 'toolbarshow-view
-                   :enable '(fboundp 'linum-mode)
-                   :button '(:toggle . linum-mode)
-                   :help (concat "Linum" (key4cmd 'linum-mode)))
+(if (fboundp 'display-line-numbers-mode)
+    (tool-bar-add-item "linum" 'display-line-numbers-mode 'display-line-numbers-mode
+                       :visible 'toolbarshow-view
+                       :enable '(fboundp 'display-line-numbers-mode)
+                       :button '(:toggle . display-line-numbers-mode)
+                       :help (concat "Display line numbers" (key4cmd 'display-line-numbers-mode)))
+  (tool-bar-add-item "linum" 'linum-mode 'linum-mode
+                     :visible 'toolbarshow-view
+                     :enable '(fboundp 'linum-mode)
+                     :button '(:toggle . linum-mode)
+                     :help (concat "Linum" (key4cmd 'linum-mode))))
 (tool-bar-add-item "whitespace" 'whitespace-mode 'whitespace-mode
                    :visible 'toolbarshow-view
                    :enable '(fboundp 'whitespace-mode)

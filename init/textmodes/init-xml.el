@@ -21,7 +21,9 @@
 
 (add-hook 'nxml-mode-hook
             '(lambda ()
-               (linum-mode 1)
+               (if (fboundp 'display-line-numbers-mode)
+                   (display-line-numbers-mode 1)
+                 (linum-mode 1))
                (require 'sgml-mode)
                (set-syntax-table sgml-mode-syntax-table)))
 
