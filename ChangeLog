@@ -2,6 +2,7 @@
 
 	* init/init-editor.el (global-tab-line-mode): use tab-line-mode to
 	instead of tabbar-mode.
+	(t): use (save-place-mode) instead of (setq save-place t)
 
 2018-06-08  Liu Xin  <meteor1113@qq.com>
 

@@ -163,8 +163,7 @@
 (auto-image-file-mode t)
 (winner-mode 1)
 
-(setq-default save-place t)
-(require 'saveplace)
+(save-place-mode t)
 (ignore-errors (savehist-mode t))
 (setq bookmark-save-flag 1)
 (setq time-stamp-format "%:y-%02m-%02d %02H:%02M:%02S %U")
