@@ -31,6 +31,8 @@
                   '("melpa-stable" . "http://stable.melpa.org/packages/"))
      (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))))
 
+(package-initialize)
+
 (defun compile-all-packages ()
   "Byte-compile all installed packages."
   (interactive)

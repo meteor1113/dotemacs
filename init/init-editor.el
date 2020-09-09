@@ -26,6 +26,7 @@
 ;; (add-hook 'text-mode-hook (lambda () (setq require-final-newline nil)))
 
 (ignore-errors (tool-bar-mode t))
+(ignore-errors (global-tab-line-mode t))
 (column-number-mode t)
 (size-indication-mode 1)
 ;; (setq display-time-24hr-format t)

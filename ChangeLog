@@ -1,3 +1,8 @@
+2020-09-09  Liu Xin  <meteor1113@qq.com>
+
+	* init/init-editor.el (global-tab-line-mode): use tab-line-mode to
+	instead of tabbar-mode.
+
 2018-06-08  Liu Xin  <meteor1113@qq.com>
 
 	* init/init-editor.el (fboundp): Use display-line-numbers-mode in emacs26.
