@@ -23,13 +23,16 @@
 
 (setq package--init-file-ensured t)     ; Prevent package--ensure-init-file
 
-(eval-after-load "package"
-  '(progn
-     ;; (add-to-list 'package-archives
-     ;;              '("marmalade" . "https://marmalade-repo.org/packages/"))
-     (add-to-list 'package-archives
-                  '("melpa-stable" . "http://stable.melpa.org/packages/"))
-     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))))
+;; (eval-after-load "package"
+;;   '(progn
+;;      ;; (add-to-list 'package-archives
+;;      ;;              '("marmalade" . "https://marmalade-repo.org/packages/"))
+;;      (add-to-list 'package-archives
+;;                   '("melpa-stable" . "http://stable.melpa.org/packages/"))
+;;      (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))))
+(setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                         ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 (package-initialize)
 
