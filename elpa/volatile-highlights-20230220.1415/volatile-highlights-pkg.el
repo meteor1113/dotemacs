@@ -1,0 +1,2 @@
+;;; Generated package description from volatile-highlights.el  -*- no-byte-compile: t -*-
+(define-package "volatile-highlights" "20230220.1415" "Minor mode for visual feedback on some operations." 'nil :commit "513c8b73cd3bc06cb9936a100468c227f649851c" :authors '(("K-talo Miyazaki <Keitaro dot Miyazaki at gmail dot com>")) :maintainer '("K-talo Miyazaki <Keitaro dot Miyazaki at gmail dot com>") :keywords '("emulations" "convenience" "wp") :url "http://www.emacswiki.org/emacs/download/volatile-highlights.el")
