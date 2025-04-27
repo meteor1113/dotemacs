@@ -26,6 +26,7 @@
 ;; (add-hook 'text-mode-hook (lambda () (setq require-final-newline nil)))
 
 (ignore-errors (tool-bar-mode t))
+(setq tool-bar-style 'image)
 (ignore-errors (global-tab-line-mode t))
 (column-number-mode t)
 (size-indication-mode 1)
