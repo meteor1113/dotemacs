@@ -243,8 +243,8 @@
           (lambda ()
             (message "emacs-init-time: %s" (emacs-init-time))))
 
-;; unicad
-(require 'unicad nil 'noerror)
+;; ;; unicad
+;; (require 'unicad nil 'noerror)
 
 (provide 'init-editor)
 
