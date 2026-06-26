@@ -496,6 +496,11 @@
                    :enable '(and hs-minor-mode (fboundp 'hs-toggle-hiding))
                    ;; :button '(:toggle . (hs-already-hidden-p))
                    :help (concat "Toggle Hiding" (key4cmd 'hs-toggle-hiding)))
+(tool-bar-add-item "tree-widget/folder/open" 'treemacs 'treemacs
+                   :visible 'toolbarshow-view
+                   :enable '(fboundp 'treemacs)
+                   ;; :button '(:toggle . treemacs)
+                   :help (concat "Treemacs" (key4cmd 'treemacs)))
 (tool-bar-add-item "ecb" 'ecb-minor-mode 'ecb-minor-mode
                    :visible '(and toolbarshow-view semantic-mode)
                    :enable '(fboundp 'ecb-minor-mode)
