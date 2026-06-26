@@ -64,7 +64,7 @@
   :type 'boolean
   :group 'toolbarshow)
 
-(defcustom toolbarshow-program t
+(defcustom toolbarshow-program nil
   "If show program toolbar."
   :type 'boolean
   :group 'toolbarshow)
@@ -74,7 +74,7 @@
   :type 'boolean
   :group 'toolbarshow)
 
-(defcustom toolbarshow-remember t
+(defcustom toolbarshow-remember nil
   "If show remember toolbar."
   :type 'boolean
   :group 'toolbarshow)
@@ -497,7 +497,7 @@
                    ;; :button '(:toggle . (hs-already-hidden-p))
                    :help (concat "Toggle Hiding" (key4cmd 'hs-toggle-hiding)))
 (tool-bar-add-item "ecb" 'ecb-minor-mode 'ecb-minor-mode
-                   :visible 'toolbarshow-view
+                   :visible '(and toolbarshow-view semantic-mode)
                    :enable '(fboundp 'ecb-minor-mode)
                    :button '(:toggle . ecb-minor-mode)
                    :help (concat "ECB" (key4cmd 'ecb-minor-mode)))
