@@ -13,26 +13,28 @@
 
 ;;; Code:
 
-(let ((root-dir (if (boundp 'dotemacs-root-dir)
-                    dotemacs-root-dir
-                  (file-name-directory
-                   (directory-file-name
-                    (file-name-directory
-                     (or load-file-name buffer-file-name)))))))
-  (setq package-user-dir (expand-file-name "elpa" root-dir)))
+;; (let ((root-dir (if (boundp 'dotemacs-root-dir)
+;;                     dotemacs-root-dir
+;;                   (file-name-directory
+;;                    (directory-file-name
+;;                     (file-name-directory
+;;                      (or load-file-name buffer-file-name)))))))
+;;   (setq package-user-dir (expand-file-name "elpa" root-dir)))
 
 (setq package--init-file-ensured t)     ; Prevent package--ensure-init-file
+;; (setq use-package-always-defer t)
 
-;; (eval-after-load "package"
-;;   '(progn
-;;      ;; (add-to-list 'package-archives
-;;      ;;              '("marmalade" . "https://marmalade-repo.org/packages/"))
-;;      (add-to-list 'package-archives
-;;                   '("melpa-stable" . "http://stable.melpa.org/packages/"))
-;;      (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))))
-(setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-                         ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
+(eval-after-load "package"
+  '(progn
+     ;; (add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))
+     ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+     (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))))
+;; (setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+;;                          ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+;;                          ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 (package-initialize)
 
@@ -42,11 +44,28 @@
   (dolist (elt package-alist)
     (package--compile (car (cdr elt)))))
 
+;; auto-package-update
+(use-package auto-package-update
+  :ensure t
+  :custom
+  (auto-package-update-interval 7)
+  ;; (auto-package-update-prompt-before-update t)
+  ;; (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe))
+
 ;; ace-jump-mode
-;; (autoload 'ace-jump-mode "ace-jump-mode" nil t)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-(eval-after-load "ace-jump-mode"
-  '(set-face-background 'ace-jump-face-foreground "yellow"))
+(use-package ace-jump-mode
+  ;; :ensure t
+  :defer t
+  :commands (ace-jump-mode)
+  :bind ("C-c SPC" . ace-jump-mode)
+  :config (set-face-background 'ace-jump-face-foreground "yellow"))
+
+;; ;; (autoload 'ace-jump-mode "ace-jump-mode" nil t)
+;; (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+;; (eval-after-load "ace-jump-mode"
+;;   '(set-face-background 'ace-jump-face-foreground "yellow"))
 
 ;; aggressive-indent
 ;; (add-hook 'after-init-hook
@@ -143,6 +162,10 @@
 ;; (add-hook 'after-init-hook
 ;;           '(lambda ()
 ;;              (ignore-errors (symon-mode 1))))
+
+;; treemacs
+(use-package treemacs
+  :commands (treemacs))
 
 ;; undo-tree
 ;; (autoload 'undo-tree-mode "undo-tree" nil t)
