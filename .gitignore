@@ -8,12 +8,15 @@
 !init.el
 !init-loader.el
 
-# Whitelist the bin directory and all its contents recursively
+# Whitelist the bin/etc/lisp directory and all its contents recursively
 !bin/
 bin/*
 !bin/**
 
-# Whitelist the lisp directory and all its contents recursively
+!etc/
+etc/*
+!etc/**
+
 !lisp/
 lisp/*
 !lisp/**

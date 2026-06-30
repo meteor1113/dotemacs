@@ -85,6 +85,6 @@
 (setq custom-file (locate-user-emacs-file "emacs-custom.el"))
 (load custom-file 'noerror)
 
-(provide 'init-emacs)
+(provide 'init-loader)
 
-;;; init-emacs.el ends here
+;;; init-loader.el ends here

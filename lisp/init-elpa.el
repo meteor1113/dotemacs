@@ -183,4 +183,4 @@
 
 (provide 'init-elpa)
 
-;;; init-package.el ends here
+;;; init-elpa.el ends here
