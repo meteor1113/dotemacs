@@ -1,13 +1,19 @@
-# git-ls-files --others --exclude-from=.git/info/exclude
-# Lines that start with '#' are comments.
-# For a project mostly in C, the following would be a good set of
-# exclude patterns (uncomment them if you want to use them):
-# *.[oa]
-# *~
-*.svn*
-*~
-*.elc
-Thumbs.db
-elpa/*.txt
-elpa/archives
-elpa/gnupg
+# Ignore all files and directories in the root
+*
+
+# Whitelist specific files in the root
+!.gitignore
+!README.md
+!early-init.el
+!init.el
+!init-loader.el
+
+# Whitelist the bin directory and all its contents recursively
+!bin/
+bin/*
+!bin/**
+
+# Whitelist the lisp directory and all its contents recursively
+!lisp/
+lisp/*
+!lisp/**

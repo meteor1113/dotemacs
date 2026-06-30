@@ -181,6 +181,6 @@
                       (win-switch-dispatch)
                     (other-window 1))))
 
-(provide 'init-package)
+(provide 'init-elpa)
 
 ;;; init-package.el ends here
