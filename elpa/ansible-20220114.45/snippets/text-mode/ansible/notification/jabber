@@ -1,6 +1,0 @@
-# name : Send a message to jabber user or chat room
-# key : jabber
-# condition: ansible
-# --
-- name: ${1:Send a message to jabber user or chat room}
-  jabber: user=$2 password=$3 to=$4 msg=$5 $0

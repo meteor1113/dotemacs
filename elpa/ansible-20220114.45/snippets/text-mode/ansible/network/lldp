@@ -1,6 +1,0 @@
-# name : get details reported by lldp
-# key : lldp
-# condition: ansible
-# --
-- name: ${1:get details reported by lldp}
-  lldp: $0

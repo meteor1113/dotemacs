@@ -1,6 +1,0 @@
-# name : Manages packages with the I(yum) package manager
-# key : yum
-# condition: ansible
-# --
-- name: ${1:Manages packages with the I(yum) package manager}
-  yum: name=$2 $0

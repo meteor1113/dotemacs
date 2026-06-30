@@ -1,6 +1,0 @@
-# name : Dependency Manager for PHP
-# key : composer
-# condition: ansible
-# --
-- name: ${1:Dependency Manager for PHP}
-  composer: working_dir=$2 $0

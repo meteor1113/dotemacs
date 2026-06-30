@@ -1,6 +1,0 @@
-# name : Send code deploy and annotation events to stackdriver
-# key : stackdriver
-# condition: ansible
-# --
-- name: ${1:Send code deploy and annotation events to stackdriver}
-  stackdriver: key=$2 $0

@@ -1,6 +1,0 @@
-# name : Manage node.js packages with npm
-# key : npm
-# condition: ansible
-# --
-- name: ${1:Manage node.js packages with npm}
-  npm: $0

@@ -1,6 +1,0 @@
-# name : Manage services.
-# key : service
-# condition: ansible
-# --
-- name: ${1:Manage services.}
-  service: name=$2 $0

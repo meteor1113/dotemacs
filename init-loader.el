@@ -35,7 +35,7 @@
 ;; (require 'init-path nil 'noerror)
 (require 'init-editor nil 'noerror)
 (require 'init-keybinding nil 'noerror)
-(require 'init-package nil 'noerror)
+(require 'init-elpa nil 'noerror)
 
 (require 'init-auto-complete nil 'noerror)
 (require 'init-auto-insert nil 'noerror)
