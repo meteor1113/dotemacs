@@ -206,16 +206,13 @@
          (:tree "~/.emacs.d/" "^.+\\.*$"))
         ("~/"
          (:files "~/.emacs" "~/.profile" "~/.bash_profile" "~/.bashrc"))))
-(add-to-list 'filesets-data
-             (list "dotemacs/"
-                   (list :tree
-                         (if (boundp 'dotemacs-root-dir)
-                             dotemacs-root-dir
-                           (file-name-directory
-                            (directory-file-name
-                             (file-name-directory
-                              (or load-file-name buffer-file-name)))))
-                         "^.+\\.*$")))
+(add-to-list
+ 'filesets-data
+ (list "dotemacs/"
+       (list :tree
+             (file-name-directory (directory-file-name
+                                   (file-name-directory (or load-file-name buffer-file-name))))
+             "^.+\\.*$")))
 (filesets-init)
 
 (setq inhibit-startup-message t)        ; for no desktop

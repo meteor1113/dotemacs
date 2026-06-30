@@ -21,16 +21,9 @@
 ;; (run-with-idle-timer 2 nil #'yas-global-mode 1)
 
 (eval-after-load "yasnippet"
-  '(let ((root-dir (if (boundp 'dotemacs-root-dir)
-                       dotemacs-root-dir
-                     (file-name-directory
-                      (directory-file-name
-                       (file-name-directory
-                        (directory-file-name
-                         (file-name-directory
-                          (or load-file-name buffer-file-name)))))))))
-     (add-to-list 'yas-snippet-dirs
-                  (expand-file-name "etc/snippets" root-dir))))
+  '(let ((root-dir (file-name-directory (directory-file-name
+                                         (file-name-directory (or load-file-name buffer-file-name))))))
+     (add-to-list 'yas-snippet-dirs (expand-file-name "etc/snippets" root-dir))))
 
 (provide 'init-yasnippet)
 

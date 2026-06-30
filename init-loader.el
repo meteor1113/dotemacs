@@ -13,18 +13,30 @@
 
 ;;; Code:
 
-(add-to-list 'load-path
-             (expand-file-name "init"
-                               (file-name-directory
-                                (or load-file-name buffer-file-name))))
+(let ((root-dir (file-name-directory (or load-file-name buffer-file-name))))
+  ;; load-path
+  (let ((lisp-dirs (list (expand-file-name "lisp" root-dir)
+                         (expand-file-name "site-lisp" root-dir))))
+    (mapc (lambda (dir)
+            (add-to-list 'load-path dir)
+            (let ((default-directory dir))
+              (ignore-errors (normal-top-level-add-subdirs-to-load-path))))
+          (mapcar 'expand-file-name lisp-dirs)))
 
-(require 'init-custom nil 'noerror)
-(require 'init-path nil 'noerror)
+  ;; exec-path
+  (let ((path-eparator (if (eq system-type 'windows-nt) ";" ":"))
+        (bin-dirs (list (expand-file-name "bin" root-dir))))
+    (dolist (dir (mapcar 'expand-file-name bin-dirs))
+      (setenv "PATH" (concat dir path-eparator (getenv "PATH")))
+      (add-to-list 'exec-path dir 'append)))
+  )
+
+;; (require 'init-custom nil 'noerror)
+;; (require 'init-path nil 'noerror)
 (require 'init-editor nil 'noerror)
 (require 'init-keybinding nil 'noerror)
 (require 'init-package nil 'noerror)
 
-;; modules
 (require 'init-auto-complete nil 'noerror)
 (require 'init-auto-insert nil 'noerror)
 (require 'init-bm nil 'noerror)
@@ -69,6 +81,9 @@
 (require 'init-org nil 'noerror)
 (require 'init-text nil 'noerror)
 (require 'init-xml nil 'noerror)
+
+(setq custom-file (locate-user-emacs-file "emacs-custom.el"))
+(load custom-file 'noerror)
 
 (provide 'init-emacs)
 

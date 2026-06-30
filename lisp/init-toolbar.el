@@ -15,26 +15,22 @@
 
 (require 'easymenu)
 
-(setq tool-bar-button-margin 0)
+;; (setq tool-bar-button-margin 0)
 ;; (setq auto-resize-tool-bars nil)
 
-;; Remove the some buttons in the tool bar.
-(when (boundp 'tool-bar-map)
-  (let ((need-delete-btns))
-    (dolist (button tool-bar-map)
-      (when (and (consp button)
-                 (memq (car button) '(print-buffer write-file customize help)))
-        (add-to-list 'need-delete-btns button)))
-    (dolist (button need-delete-btns)
-      (delq button tool-bar-map))))
+;; ;; Remove the some buttons in the tool bar.
+;; (when (boundp 'tool-bar-map)
+;;   (let ((need-delete-btns))
+;;     (dolist (button tool-bar-map)
+;;       (when (and (consp button)
+;;                  (memq (car button) '(print-buffer write-file customize help)))
+;;         (add-to-list 'need-delete-btns button)))
+;;     (dolist (button need-delete-btns)
+;;       (delq button tool-bar-map))))
 
 ;; image-load-path
-(let* ((root-dir (if (boundp 'dotemacs-root-dir)
-                     dotemacs-root-dir
-                   (file-name-directory
-                    (directory-file-name
-                     (file-name-directory
-                      (or load-file-name buffer-file-name))))))
+(let* ((root-dir (file-name-directory (directory-file-name
+                                       (file-name-directory (or load-file-name buffer-file-name)))))
        (images-dir (expand-file-name "etc/images" root-dir)))
   (if (boundp 'image-load-path)         ; emacs-21 isn't have image-load-path
       (add-to-list 'image-load-path images-dir)

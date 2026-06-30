@@ -17,17 +17,9 @@
 (auto-insert-mode 1)
 ;; (setq auto-insert t)
 ;; (setq auto-insert-query nil)
-(let ((root-dir (if (boundp 'dotemacs-root-dir)
-                    dotemacs-root-dir
-                  (file-name-directory
-                   (directory-file-name
-                    (file-name-directory
-                     (directory-file-name
-                      (file-name-directory
-                       (or load-file-name buffer-file-name)))))))))
-  (setq auto-insert-directory
-        ;; (file-name-as-directory
-        (expand-file-name "etc/templates" root-dir)))
+(let ((root-dir (file-name-directory (directory-file-name
+                                      (file-name-directory (or load-file-name buffer-file-name))))))
+  (setq auto-insert-directory (expand-file-name "etc/templates" root-dir)))
 
 (setq auto-insert-expansion-alist
       '(("(>>>DIR<<<)" . (file-name-directory buffer-file-name))
