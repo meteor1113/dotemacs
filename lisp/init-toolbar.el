@@ -374,7 +374,7 @@
      ["format-xml-directory" format-xml-directory (fboundp 'format-xml-directory)]
      ["ielm" ielm (fboundp 'ielm)]
      ["proced" proced (fboundp 'proced)]
-     ["ascii-display" ascii-display (fboundp 'ascii-display)])))
+     ["ascii-table" ascii-table (fboundp 'ascii-table)])))
 
 (tool-bar-add-item "pop-menu"
                    (lambda ()

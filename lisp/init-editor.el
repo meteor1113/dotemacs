@@ -50,7 +50,7 @@
         (:eval (or buffer-file-name (buffer-name)))
         " [" (:eval (format "%s" buffer-file-coding-system)) "]"
         (:eval (if (buffer-modified-p) " * " " - "))
-        "GNU Emacs " emacs-version " (" system-configuration ") @" system-name))
+        "GNU Emacs at " system-name))
 
 (when window-system (set-background-color "honeydew")) ; #f0fff0
 (add-hook 'after-make-frame-functions
@@ -73,7 +73,7 @@
 
 (set-language-environment "UTF-8")
 ;; (setq system-time-locale "C")
-(setq erc-server-coding-system '(utf-8 . utf-8))
+;; (setq erc-server-coding-system '(utf-8 . utf-8))
 
 (when (eq system-type 'windows-nt)
   (let ((code (or file-name-coding-system default-file-name-coding-system)))
@@ -199,9 +199,7 @@
   (recentf-track-opened-file))
 
 (setq filesets-data
-      '(("temp"
-         (:files))
-        ("linux"
+      '(("linux"
          (:files "/etc/hosts" "/etc/fstab" "/etc/passwd" "/etc/group" "/boot/grub2/grub.cfg"))
         ("windows"
          (:files "C:/WINDOWS/system32/drivers/etc/hosts"))
@@ -211,7 +209,7 @@
          (:files "~/.emacs" "~/.profile" "~/.bash_profile" "~/.bashrc"))))
 (add-to-list
  'filesets-data
- (list "dotemacs/"
+ (list "emacs.d/"
        (list :tree
              (file-name-directory (directory-file-name
                                    (file-name-directory (or load-file-name buffer-file-name))))

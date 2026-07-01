@@ -64,36 +64,36 @@
 ;;              (ignore-errors (global-aggressive-indent-mode 1))))
 
 ;; anzu
-(custom-set-variables
- '(anzu-mode-lighter "")
- '(anzu-search-threshold 1000)
- '(anzu-replace-threshold 50)
- '(anzu-replace-to-string-separator " => "))
-(add-hook 'after-init-hook
-          '(lambda ()
-             (ignore-errors (global-anzu-mode +1))))
-;; (run-with-idle-timer 3 nil #'global-anzu-mode +1)
-(eval-after-load "anzu"
-  '(progn
-     (global-set-key (kbd "M-%") 'anzu-query-replace)
-     (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)))
+(use-package anzu
+  :demand t
+  :bind
+  ("M-%" . anzu-query-replace)
+  ("C-M-%" . anzu-query-replace-regexp)
+  :custom
+  (anzu-mode-lighter "")
+  (anzu-search-threshold 1000)
+  (anzu-replace-threshold 50)
+  (anzu-replace-to-string-separator " => ")
+  :config
+  (global-anzu-mode +1))
 
-;; ascii
+;; ascii-table
+(use-package ascii-table
+  :commands (ascii-table))
 
-;; color-theme
-
-;; drag-stuff
-;; (autoload 'drag-stuff-global-mode "drag-stuff" "Toggle Drag-Stuff mode." t)
-(add-hook 'after-init-hook
-          '(lambda ()
-             (ignore-errors (drag-stuff-global-mode t))))
-;; (run-with-idle-timer 3 nil #'drag-stuff-global-mode t)
+;; ;; drag-stuff
+;; ;; (autoload 'drag-stuff-global-mode "drag-stuff" "Toggle Drag-Stuff mode." t)
+;; (add-hook 'after-init-hook
+;;           '(lambda ()
+;;              (ignore-errors (drag-stuff-global-mode t))))
+;; ;; (run-with-idle-timer 3 nil #'drag-stuff-global-mode t)
 
 ;; editorconfig
-(add-hook 'after-init-hook
-          '(lambda ()
-             (ignore-errors (editorconfig-mode 1))))
+(use-package editorconfig
+  :demand t
+  :config (editorconfig-mode 1))
 
+;; TODO: multiple-cursors
 ;; mark-multiple
 ;; (require 'inline-string-rectangle)
 ;; (global-set-key (kbd "C-x r t") 'inline-string-rectangle)
@@ -107,8 +107,8 @@
 (global-set-key (kbd "C-M-m") 'mark-more-like-this)
 (global-set-key (kbd "C-*") 'mark-all-like-this)
 
-;; minimap
-(setq minimap-window-location 'right)
+;; ;; minimap
+;; (setq minimap-window-location 'right)
 
 ;; multi-term
 ;; (autoload 'multi-term "multi-term" nil t)
@@ -125,6 +125,7 @@
     (nyan-stop-animation)))
 ;; (ignore-errors (and window-system (nyan-mode t)))
 
+;; TODO: build-in project
 ;; projectile
 ;; (autoload 'projectile-mode "projectile" nil t)
 ;; (autoload 'projectile-global-mode "projectile" nil t)
@@ -137,8 +138,10 @@
 ;; (autoload 'rainbow-mode "rainbow-mode" nil t)
 
 ;; smart-compile
-(global-set-key [C-f7] 'smart-compile)
+(use-package smart-compile
+  :bind ([C-f7] . smart-compile))
 
+;; TODO: vertico + orderless
 ;; smex
 (add-hook 'after-init-hook
           ;; (run-with-idle-timer 2 nil
@@ -165,12 +168,14 @@
 ;; vlf
 ;; (autoload 'vlf "vlf" "View a Large File in Emacs." t)
 
+;; TODO: winum / ace-window
 ;; window-numbering
 (add-hook 'after-init-hook
           '(lambda ()
              (ignore-errors (window-numbering-mode 1))))
 ;; (run-with-idle-timer 3 nil #'window-numbering-mode 1)
 
+;; TODO: windmove / ace-window
 ;; win-switch
 ;; (autoload 'win-switch-dispatch "win-switch" nil t)
 ;; (global-set-key "\C-xo" 'win-switch-dispatch)
