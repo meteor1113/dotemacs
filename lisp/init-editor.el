@@ -27,6 +27,7 @@
 
 (ignore-errors (tool-bar-mode t))
 (setq tool-bar-style 'image)
+(setq tab-line-close-tab-function 'kill-buffer)
 (ignore-errors (global-tab-line-mode t))
 (column-number-mode t)
 (size-indication-mode 1)
@@ -236,13 +237,6 @@
 ;; (setq zone-programs (append zone-programs nil))
 ;; (setq zone-programs (remq 'zone-pgm-stress zone-programs))
 ;; (setq zone-programs (remq 'zone-pgm-stress-destress zone-programs))
-
-(add-hook 'after-init-hook
-          (lambda ()
-            (message "emacs-init-time: %s" (emacs-init-time))))
-
-;; ;; unicad
-;; (require 'unicad nil 'noerror)
 
 (provide 'init-editor)
 

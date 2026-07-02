@@ -37,11 +37,11 @@
 (require 'init-keybinding nil 'noerror)
 (require 'init-elpa nil 'noerror)
 
-(require 'init-auto-complete nil 'noerror)
-(require 'init-auto-insert nil 'noerror)
+;; (require 'init-auto-complete nil 'noerror) ; TODO: corfu + lsp
+;; (require 'init-auto-insert nil 'noerror)
 (require 'init-bm nil 'noerror)
 (require 'init-calendar nil 'noerror)
-;; (require 'init-cedet nil 'noerror)
+(require 'init-cedet nil 'noerror)
 (require 'init-company nil 'noerror)
 (require 'init-dired nil 'noerror)
 (require 'init-ecb nil 'noerror)
@@ -84,6 +84,10 @@
 
 (setq custom-file (locate-user-emacs-file "emacs-custom.el"))
 (load custom-file 'noerror)
+
+(add-hook 'after-init-hook
+          (lambda ()
+            (message "emacs-init-time: %s" (emacs-init-time))))
 
 (provide 'init-loader)
 

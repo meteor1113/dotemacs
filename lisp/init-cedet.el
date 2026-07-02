@@ -22,9 +22,9 @@
                                   ;; global-semantic-highlight-edits-mode
                                   global-semantic-show-unmatched-syntax-mode
                                   global-semantic-show-parser-state-mode))
-(add-hook 'after-init-hook
-          '(lambda ()
-             (ignore-errors (semantic-mode t))))
+;; (add-hook 'after-init-hook
+;;           '(lambda ()
+;;              (ignore-errors (semantic-mode t))))
 ;; (run-with-idle-timer 10 nil #'semantic-mode t)
 
 (eval-after-load "semantic"

@@ -1,3 +1,10 @@
+;;; -*- mode: emacs-lisp; coding: utf-8; -*-
+
+;;; Commentary:
+
+;;; Code:
+
+(require 'cl-lib)
 (let ((config-dir
        (or (cl-find-if (lambda (dir) (file-exists-p (expand-file-name "init-loader.el" dir)))
                        '("~/Projects/emacs.d"
